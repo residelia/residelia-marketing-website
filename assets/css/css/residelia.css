@@ -1,0 +1,145 @@
+/* ==========================================================================
+  37. COLOR SCHEME - BLUE
+========================================================================== */
+.scheme-residelia .go-to-top {
+  background-color: #1680fb;
+}
+.scheme-residelia .tab-list .tab-link.current {
+  background-color: #1680fb;
+  border: 2px solid #1680fb;
+  color: #fff;
+}
+.scheme-residelia .bg--theme {
+  background-color: #1680fb;
+}
+.scheme-residelia .shape--blue-400:after {
+  background-color: #1680fb;
+}
+.scheme-residelia .btn--theme {
+  color: #fff !important;
+  border-color: #1680fb !important;
+  background-color: #1680fb !important;
+}
+.scheme-residelia .hover--theme:hover {
+  color: #fff !important;
+  border-color: #185abd !important;
+  background-color: #185abd !important;
+}
+.scheme-residelia .white-scroll .scroll .hover--theme:hover {
+  color: #fff !important;
+  border-color: #185abd !important;
+  background-color: #185abd !important;
+}
+.scheme-residelia .black-scroll .scroll .hover--theme:hover {
+  color: #fff !important;
+  border-color: #185abd !important;
+  background-color: #185abd !important;
+}
+.scheme-residelia .theme--dark .white-scroll .scroll .hover--theme:hover {
+  color: #fff !important;
+  border-color: #185abd !important;
+  background-color: #185abd !important;
+}
+.scheme-residelia .theme--dark .white-scroll .hover--theme:hover {
+  color: #fff !important;
+  border-color: #185abd !important;
+  background-color: #185abd !important;
+}
+.scheme-residelia .color--theme {
+  color: #1680fb !important;
+}
+.scheme-residelia .color--theme h1 {
+  color: #1680fb !important;
+}
+.scheme-residelia .color--theme h2 {
+  color: #1680fb !important;
+}
+.scheme-residelia .color--theme h3 {
+  color: #1680fb !important;
+}
+.scheme-residelia .color--theme h4 {
+  color: #1680fb !important;
+}
+.scheme-residelia .color--theme h5 {
+  color: #1680fb !important;
+}
+.scheme-residelia .color--theme h6 {
+  color: #1680fb !important;
+}
+.scheme-residelia .color--theme p {
+  color: #1680fb !important;
+}
+.scheme-residelia .color--theme a {
+  color: #1680fb !important;
+}
+.scheme-residelia .color--theme li {
+  color: #1680fb !important;
+}
+.scheme-residelia .color--theme i {
+  color: #1680fb !important;
+}
+.scheme-residelia .color--theme span {
+  color: #1680fb !important;
+}
+.scheme-residelia .color--white .color--theme {
+  color: #1680fb !important;
+}
+.scheme-residelia .loading--theme .loader {
+  border-color: transparent #1680fb;
+}
+.scheme-residelia .loading--theme .loader::after {
+  border-color: transparent rgba(247, 71, 128, 0.15);
+}
+.scheme-residelia .nav-theme .sm-info {
+  background-color: #1680fb;
+}
+.scheme-residelia .wsmenu > .wsmenu-list.nav-theme > li > ul.sub-menu > li > a:hover {
+  color: #1680fb !important;
+}
+.scheme-residelia .wsmenu > .wsmenu-list.nav-theme > li > .wsmegamenu.w-75 ul.link-list > li > a:hover {
+  color: #1680fb !important;
+}
+.scheme-residelia .wsmenu > .wsmenu-list.nav-theme > li > .wsmegamenu.halfmenu ul.link-list > li > a:hover {
+  color: #1680fb !important;
+}
+.scheme-residelia .hero-section .quick-form .form-control:focus {
+  border-color: #1680fb;
+}
+.scheme-residelia .cbox-2:hover .cbox-2-ico.bg--theme {
+  color: #1680fb;
+  border-color: #1680fb;
+}
+.scheme-residelia .tabs-1.tabs--theme {
+  color: #1680fb;
+  border-color: #1680fb;
+}
+.scheme-residelia .tabs-1.tabs--theme li.current:hover {
+  color: #1680fb;
+  border-color: #1680fb;
+}
+.scheme-residelia .faqs-section .tabs--theme .tabs-1 li.current {
+  background-color: #1680fb;
+  border-color: #1680fb !important;
+}
+.scheme-residelia .faqs-section .tabs--theme .tabs-1 li.current:hover {
+  background-color: #1680fb;
+  border-color: #1680fb !important;
+}
+.scheme-residelia .switch-wrap input:checked + .switcher.switcher--theme {
+  background-color: #1680fb;
+  border-color: #1680fb;
+}
+.scheme-residelia .shape-ico.color--theme path {
+  fill: #feecf2;
+  fill: #feecf2;
+  fill: #feecf2;
+}
+.scheme-residelia .newsletter-section .form-control:focus {
+  background-color: #fff;
+  border-color: #353f4f;
+}
+.scheme-residelia .theme-pagination .page-item.active .page-link {
+  color: #fff !important;
+  background-color: #1680fb;
+  border: 2px solid #1680fb;
+}/*# sourceMappingURL=blue.css.map */

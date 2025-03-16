@@ -1,0 +1,535 @@
+/* ==========================================================================
+  37. COLOR SCHEME - RESIDELIA
+========================================================================== */
+.scheme-residelia {
+	// primary palette
+	$primary-color: #1778FB;
+	$primary-color-50: #E4F3FF;
+	$primary-color-100: #48AAF1;
+	$primary-color-200: #1778FB;
+	$primary-color-300: #1055B3;
+	$primary-color-400: #003986;
+	// secondary palette
+	$secondary-color: #FF8039;
+	$secondary-color-50: #FFE5D6;
+	$secondary-color-100: #FFAA7A;
+	$secondary-color-200: #FF8039;
+	$secondary-color-300: #EB6921;
+	$secondary-color-400: #D44C00;
+	// SURFACE palette
+	$surface-color: #FFFFFF;
+	$surface-color-50: #FFFFFF;
+	$surface-color-100: #F7F9FD;
+	$surface-color-200: #EEF2F7;
+	$surface-color-300: #D7DDE7;
+	$surface-color-400: #B4B9C4;
+	$surface-color-500: #B4B9C4;
+	$surface-color-600: #6C7A86;
+	$surface-color-700: #4F575E;
+	$surface-color-800: #4F575E;
+	$surface-color-900: #20252A;
+
+	.go-to-top {
+		background-color: $primary-color;
+	}
+
+	.tab-list {
+		.tab-link.current {
+			background-color: $primary-color;
+        	border: 2px solid $primary-color;
+			color: #fff;
+		}
+	}
+
+	.bg--theme {
+		background-color: $primary-color;
+	}
+	.shape--blue-400 {
+		&:after {
+			background-color: $primary-color;
+		}
+	}
+	.btn--theme {
+		color: #fff !important;
+		border-color: $primary-color-200 !important;
+		background-color: $primary-color-200 !important;
+
+		&:hover {
+			color: #fff !important;
+			border-color: $secondary-color-300 !important;
+			background-color: $secondary-color-300 !important;
+		}
+	}
+	.btn--theme-secondary {
+		color: $primary-color-200 !important;
+		border-color: $primary-color-200 !important;
+		background-color: $surface-color-50 !important;
+
+		&:hover {
+			color: #fff !important;
+			border-color: $secondary-color-300 !important;
+			background-color: $secondary-color-300 !important;
+		}
+	}
+	.btn--theme-tertiary {
+		color: $primary-color-200 !important;
+		border-color: transparent !important;
+		background-color: transparent !important;
+
+		&:hover {
+			color: $primary-color-300 !important;
+		}
+	}
+	.btn--theme-quaternary {
+		color: $secondary-color-200 !important;
+		border-color: $secondary-color-200 !important;
+		background-color: transparent !important;
+
+		&:hover {
+			background-color: $secondary-color-100 !important;
+			color: $surface-color !important;
+		}
+		&:active {
+			background-color: $secondary-color-200 !important;;
+			color: $surface-color !important;
+		}
+	}
+	.hover--theme {
+		&:hover {
+			color: #fff !important;
+			border-color: $primary-color-300 !important;
+			background-color: $primary-color-300 !important;
+		}
+	}
+	.white-scroll {
+		.scroll {
+			.hover--theme {
+				&:hover {
+					color: #fff !important;
+					border-color: $primary-color-300 !important;
+					background-color: $primary-color-300 !important;
+				}
+			}
+		}
+	}
+	.black-scroll {
+		.scroll {
+			.hover--theme {
+				&:hover {
+					color: #fff !important;
+					border-color: $primary-color-300 !important;
+					background-color: $primary-color-300 !important;
+				}
+			}
+		}
+	}
+	.theme--dark {
+		.white-scroll {
+			.scroll {
+				.hover--theme {
+					&:hover {
+						color: #fff !important;
+						border-color: $primary-color-300 !important;
+						background-color: $primary-color-300 !important;
+					}
+				}
+			}
+			.hover--theme {
+				&:hover {
+					color: #fff !important;
+					border-color: $primary-color-300 !important;
+					background-color: $primary-color-300 !important;
+				}
+			}
+		}
+	}
+	.color--theme {
+		color: $primary-color !important;
+		h1 {
+			color: $primary-color !important;
+		}
+		h2 {
+			color: $primary-color !important;
+		}
+		h3 {
+			color: $primary-color !important;
+		}
+		h4 {
+			color: $primary-color !important;
+		}
+		h5 {
+			color: $primary-color !important;
+		}
+		h6 {
+			color: $primary-color !important;
+		}
+		p {
+			color: $primary-color !important;
+		}
+		a {
+			color: $primary-color !important;
+		}
+		li {
+			color: $primary-color !important;
+		}
+		i {
+			color: $primary-color !important;
+		}
+		span {
+			color: $primary-color !important;
+		}
+	}
+	.color--white {
+		.color--theme {
+			color: $primary-color !important;
+		}
+	}
+	.loading--theme {
+		.loader {
+			border-color: transparent $primary-color;
+			&::after {
+				border-color: transparent rgba(247, 71, 128, .15);
+			}
+		}
+	}
+	.nav-theme {
+		.sm-info {
+			background-color: $primary-color;
+		}
+	}
+	.wsmenu {
+		>.wsmenu-list.nav-theme {
+			>li {
+				>ul.sub-menu {
+					>li {
+						>a {
+							&:hover {
+								color: $primary-color !important;
+								background-color: $surface-color-100 !important;
+							}
+						}
+					}
+				}
+				>.wsmegamenu.w-75 {
+					ul.link-list {
+						>li {
+							>a {
+								&:hover {
+									color: $primary-color !important;
+									background-color: $surface-color-100 !important;
+								}
+							}
+						}
+					}
+				}
+				>.wsmegamenu.halfmenu {
+					ul.link-list {
+						>li {
+							>a {
+								&:hover {
+									color: $primary-color !important;
+									background-color: $surface-color-100 !important;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	.hero-section {
+		.quick-form {
+			.form-control {
+				&:focus {
+					border-color: $primary-color;
+				}
+			}
+		}
+	}
+	.cbox-2 {
+		&:hover {
+			.cbox-2-ico.bg--theme {
+				color: $primary-color;
+				border-color: $primary-color;
+			}
+		}
+	}
+	.tabs-1.tabs--theme {
+		color: $primary-color;
+		border-color: $primary-color;
+		li.current {
+			&:hover {
+				color: $primary-color;
+				border-color: $primary-color;
+			}
+		}
+	}
+	.faqs-section {
+		.tabs--theme {
+			.tabs-1 {
+				li.current {
+					background-color: $primary-color;
+					border-color: $primary-color !important;
+					&:hover {
+						background-color: $primary-color;
+						border-color: $primary-color !important;
+					}
+				}
+			}
+		}
+	}
+	.switch-wrap {
+		input {
+			&:checked {
+				+ {
+					.switcher.switcher--theme {
+						background-color: $primary-color;
+						border-color: $primary-color;
+					}
+				}
+			}
+		}
+	}
+	.shape-ico.color--theme {
+		path {
+			fill: #FFE5D6;
+			fill: #FFE5D6;
+			fill: #FFE5D6;
+		}
+	}
+	.shape-ico.color--theme-secondary {
+		path {
+			fill: $secondary-color-50;
+			fill: $secondary-color-50;
+			fill: $secondary-color-50;
+		}
+	}
+	.shape-ico.color--theme-primary {
+		path {
+			fill: $primary-color-50;
+			fill: $primary-color-50;
+			fill: $primary-color-50;
+		}
+	}
+	.newsletter-section {
+		.form-control {
+			&:focus {
+				background-color: #fff;
+				border-color: #353f4f;
+			}
+		}
+	}
+	.theme-pagination {
+		.page-item.active {
+			.page-link {
+				color: #fff !important;
+				background-color: $primary-color;
+				border: 2px solid $primary-color;
+			}
+		}
+	}
+
+	/*------------------------------------------*/
+	/*  TEXT COLORS
+	/*------------------------------------------*/
+	.color--white,
+	.color--white h1,
+	.color--white h2,
+	.color--white h3,
+	.color--white h4,
+	.color--white h5,
+	.color--white h6,
+	.color--white p,
+	.color--white a,
+	.color--white li,
+	.color--white i,
+	.color--white span {
+		color: #fff !important;
+	}
+
+	.color--theme-primary .color--primary,
+	.color--theme-primary .color--primary h1,
+	.color--theme-primary .color--primary h2,
+	.color--theme-primary .color--primary h3,
+	.color--theme-primary .color--primary h4,
+	.color--theme-primary .color--primary h5,
+	.color--theme-primary .color--primary h6,
+	.color--theme-primary .color--primary p,
+	.color--theme-primary .color--primary a,
+	.color--theme-primary .color--primary li,
+	.color--theme-primary .color--primary i,
+	.color--theme-primary .color--primary span {
+		color: $primary-color  !important;
+	}
+	.color--theme .color--primary,
+	.color--theme .color--primary h1,
+	.color--theme .color--primary h2,
+	.color--theme .color--primary h3,
+	.color--theme .color--primary h4,
+	.color--theme .color--primary h5,
+	.color--theme .color--primary h6,
+	.color--theme .color--primary p,
+	.color--theme .color--primary a,
+	.color--theme .color--primary li,
+	.color--theme .color--primary i,
+	.color--theme .color--primary span {
+		color: $primary-color  !important;
+	}
+	.color--theme .color--primary-50,
+	.color--theme .color--primary-50 h1,
+	.color--theme .color--primary-50 h2,
+	.color--theme .color--primary-50 h3,
+	.color--theme .color--primary-50 h4,
+	.color--theme .color--primary-50 h5,
+	.color--theme .color--primary-50 h6,
+	.color--theme .color--primary-50 p,
+	.color--theme .color--primary-50 a,
+	.color--theme .color--primary-50 li,
+	.color--theme .color--primary-50 i,
+	.color--theme .color--primary-50 span {
+		color: $primary-color-50  !important;
+	}
+	.color--theme .color--primary-100,
+	.color--theme .color--primary-100 h1,
+	.color--theme .color--primary-100 h2,
+	.color--theme .color--primary-100 h3,
+	.color--theme .color--primary-100 h4,
+	.color--theme .color--primary-100 h5,
+	.color--theme .color--primary-100 h6,
+	.color--theme .color--primary-100 p,
+	.color--theme .color--primary-100 a,
+	.color--theme .color--primary-100 li,
+	.color--theme .color--primary-100 i,
+	.color--theme .color--primary-100 span {
+		color: $primary-color-100  !important;
+	}
+	.color--theme .color--primary-200,
+	.color--theme .color--primary-200 h1,
+	.color--theme .color--primary-200 h2,
+	.color--theme .color--primary-200 h3,
+	.color--theme .color--primary-200 h4,
+	.color--theme .color--primary-200 h5,
+	.color--theme .color--primary-200 h6,
+	.color--theme .color--primary-200 p,
+	.color--theme .color--primary-200 a,
+	.color--theme .color--primary-200 li,
+	.color--theme .color--primary-200 i,
+	.color--theme .color--primary-200 span {
+		color: $primary-color-200  !important;
+	}
+	.color--theme .color--primary-300,
+	.color--theme .color--primary-300 h1,
+	.color--theme .color--primary-300 h2,
+	.color--theme .color--primary-300 h3,
+	.color--theme .color--primary-300 h4,
+	.color--theme .color--primary-300 h5,
+	.color--theme .color--primary-300 h6,
+	.color--theme .color--primary-300 p,
+	.color--theme .color--primary-300 a,
+	.color--theme .color--primary-300 li,
+	.color--theme .color--primary-300 i,
+	.color--theme .color--primary-300 span {
+		color: $primary-color-300  !important;
+	}
+	.color--theme .color--primary-400,
+	.color--theme .color--primary-400 h1,
+	.color--theme .color--primary-400 h2,
+	.color--theme .color--primary-400 h3,
+	.color--theme .color--primary-400 h4,
+	.color--theme .color--primary-400 h5,
+	.color--theme .color--primary-400 h6,
+	.color--theme .color--primary-400 p,
+	.color--theme .color--primary-400 a,
+	.color--theme .color--primary-400 li,
+	.color--theme .color--primary-400 i,
+	.color--theme .color--primary-400 span {
+		color: $primary-color-400  !important;
+	}
+
+	.color--theme .color--secondary,
+	.color--theme .color--secondary h1,
+	.color--theme .color--secondary h2,
+	.color--theme .color--secondary h3,
+	.color--theme .color--secondary h4,
+	.color--theme .color--secondary h5,
+	.color--theme .color--secondary h6,
+	.color--theme .color--secondary p,
+	.color--theme .color--secondary a,
+	.color--theme .color--secondary li,
+	.color--theme .color--secondary i,
+	.color--theme .color--secondary span {
+		color: $secondary-color  !important;
+	}
+	.color--theme .color--secondary-50,
+	.color--theme .color--secondary-50 h1,
+	.color--theme .color--secondary-50 h2,
+	.color--theme .color--secondary-50 h3,
+	.color--theme .color--secondary-50 h4,
+	.color--theme .color--secondary-50 h5,
+	.color--theme .color--secondary-50 h6,
+	.color--theme .color--secondary-50 p,
+	.color--theme .color--secondary-50 a,
+	.color--theme .color--secondary-50 li,
+	.color--theme .color--secondary-50 i,
+	.color--theme .color--secondary-50 span {
+		color: $secondary-color-50  !important;
+	}
+	.color--theme .color--secondary-100,
+	.color--theme .color--secondary-100 h1,
+	.color--theme .color--secondary-100 h2,
+	.color--theme .color--secondary-100 h3,
+	.color--theme .color--secondary-100 h4,
+	.color--theme .color--secondary-100 h5,
+	.color--theme .color--secondary-100 h6,
+	.color--theme .color--secondary-100 p,
+	.color--theme .color--secondary-100 a,
+	.color--theme .color--secondary-100 li,
+	.color--theme .color--secondary-100 i,
+	.color--theme .color--secondary-100 span {
+		color: $secondary-color-100  !important;
+	}
+	.color--theme .color--secondary-200,
+	.color--theme .color--secondary-200 h1,
+	.color--theme .color--secondary-200 h2,
+	.color--theme .color--secondary-200 h3,
+	.color--theme .color--secondary-200 h4,
+	.color--theme .color--secondary-200 h5,
+	.color--theme .color--secondary-200 h6,
+	.color--theme .color--secondary-200 p,
+	.color--theme .color--secondary-200 a,
+	.color--theme .color--secondary-200 li,
+	.color--theme .color--secondary-200 i,
+	.color--theme .color--secondary-200 span {
+		color: $secondary-color-200  !important;
+	}
+	.color--theme .color--secondary-300,
+	.color--theme .color--secondary-300 h1,
+	.color--theme .color--secondary-300 h2,
+	.color--theme .color--secondary-300 h3,
+	.color--theme .color--secondary-300 h4,
+	.color--theme .color--secondary-300 h5,
+	.color--theme .color--secondary-300 h6,
+	.color--theme .color--secondary-300 p,
+	.color--theme .color--secondary-300 a,
+	.color--theme .color--secondary-300 li,
+	.color--theme .color--secondary-300 i,
+	.color--theme .color--secondary-300 span {
+		color: $secondary-color-300  !important;
+	}
+	.color--theme .color--secondary-400,
+	.color--theme .color--secondary-400 h1,
+	.color--theme .color--secondary-400 h2,
+	.color--theme .color--secondary-400 h3,
+	.color--theme .color--secondary-400 h4,
+	.color--theme .color--secondary-400 h5,
+	.color--theme .color--secondary-400 h6,
+	.color--theme .color--secondary-400 p,
+	.color--theme .color--secondary-400 a,
+	.color--theme .color--secondary-400 li,
+	.color--theme .color--secondary-400 i,
+	.color--theme .color--secondary-400 span {
+		color: $secondary-color-400  !important;
+	}
+}
+
+

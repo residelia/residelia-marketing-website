@@ -1,0 +1,114 @@
+<template>
+  <div>
+    <br>
+    <v-alert
+      v-if="value.calloutType === 'tip'"
+      icon="mdi-pill"
+      :title="value.title"
+      border="top"
+      color="'light-blue-accent-4"
+      type="info"
+      variant="tonal"
+      rounded
+    >
+      <SanityContent :blocks="value.content" :serializers="serializers" />
+    </v-alert>
+    <v-alert
+      v-else-if="value.calloutType === 'info'"
+      icon="mdi-information-outline"
+      :title="value.title"
+      border="top"
+      color="'light-blue-accent-4"
+      type="info"
+      variant="tonal"
+      rounded
+    >
+      <SanityContent :blocks="value.content" :serializers="serializers" />
+    </v-alert>
+    <v-alert
+      v-else-if="value.calloutType === 'warning'"
+      icon="mdi-alert-outline"
+      :title="value.title"
+      border="top"
+      color="'light-blue-accent-4"
+      type="info"
+      variant="tonal"
+      rounded
+    >
+      <SanityContent :blocks="value.content" :serializers="serializers" />
+    </v-alert>
+    <v-alert
+      v-else-if="value.calloutType === 'error'"
+      icon="mdi-alert-octagon-outline"
+      :title="value.title"
+      border="top"
+      color="'light-blue-accent-4"
+      type="info"
+      variant="tonal"
+      rounded
+    >
+      <SanityContent :blocks="value.content" :serializers="serializers" />
+    </v-alert>
+    <v-alert
+      v-else-if="value.calloutType === 'normal'"
+      :title="value.title"
+      border="top"
+      color="'light-blue-accent-4"
+      variant="tonal"
+      rounded
+    >
+      <SanityContent :blocks="value.content" :serializers="serializers" />
+    </v-alert>
+    <v-alert
+      v-else-if="value.calloutType === 'message'"
+      icon="mdi-message-text-outline"
+      :title="value.title"
+      border="top"
+      color="'light-blue-accent-4"
+      type="info"
+      variant="tonal"
+      rounded
+    >
+      <SanityContent :blocks="value.content" :serializers="serializers" />
+    </v-alert>
+    <v-alert
+      v-else-if="value.calloutType === 'euro'"
+      icon="mdi-currency-eur"
+      :title="value.title"
+      border="top"
+      color="'light-blue-accent-4"
+      type="info"
+      variant="tonal"
+      rounded
+    >
+      <SanityContent :blocks="value.content" :serializers="serializers" />
+    </v-alert>
+    <v-alert
+      v-else="value.calloutType === 'tip'"
+      icon="mdi-pill"
+      :title="value.title"
+      border="top"
+      color="'light-blue-accent-4"
+      type="info"
+      variant="tonal"
+      rounded
+    >
+      <SanityContent :blocks="value.content" :serializers="serializers" />
+    </v-alert>
+    <br>
+  </div>
+</template>
+
+<script setup lang="ts">
+defineProps<{
+  value: object;
+}>();
+
+const serializers = {
+    marks: {
+        'strike-through': 's',
+        'keyboard': 'kbd',
+        'highlight': 'mark'
+    }
+}
+</script>
