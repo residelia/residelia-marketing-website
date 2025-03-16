@@ -1,8 +1,10 @@
 <template>
   <li :key="binder">
     <!-- <NuxtLink to="#" :key="key" class="h-link"> -->
-    <NuxtLink :to="slug ? localePath(slug.find(l => l._key === locale).value.current) : '#'" :key="binder" class="h-link">
-        <div class="col">
+    <NuxtLink :to="slug ? localePath(routeObject) : '#'"
+      class="h-link"
+    >        
+      <div class="col">
         <div class="fbox-11 fb-1 align-items-start">
           <!-- Icon -->
           <div v-if="icon != null" class="fbox-ico-wrap">
@@ -40,17 +42,34 @@
 </template>
 
 <script lang="ts" setup>
+import { computed } from 'vue';
+
 const { locale } = useI18n()
-// const localePath = useLocalePath()
+const localePath = useLocalePath()
 const props = defineProps<{
-  slug?: Array,
-  binder?: string,
-  title: Array,
-  description: Array,
+  name?: String
+  slug?: Array
+  binder?: String
+  title: Array
+  description: Array
   icon?: String,
   soon?: boolean
   next?: boolean
 }>();
+
+const routeObject = computed(() => {
+  switch (props.name) {
+    case 'solutions-segment':
+      return { name: 'solutions-segment', params: { segment: props.slug.find(l => l._key === locale.value).value.current } }
+    case 'product':
+      return { name: 'product', params: { product: props.slug.find(l => l._key === locale.value).value.current } }
+    case 'terms-item':
+      return { name: 'terms-item', params: { item: props.slug.find(l => l._key === locale.value).value.current } }
+    default:
+      // Si no es una ruta dinámica, puedes devolver la cadena literal o un objeto vacío
+      return props.slug.find(l => l._key === locale.value).value.current
+  }
+})
 </script>
 
 <style></style>

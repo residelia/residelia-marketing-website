@@ -29,15 +29,16 @@ const textColor = ["legal", "broker","explorer","valuation","management","mainte
 const data = await useSanityData({
   query: pageQuery,
   params: {
-      slug: route.path.startsWith(`/${locale.value}`) ? route.path.slice(`/${locale.value}`.length) || '/' : route.path,
+      // slug: route.path.startsWith(`/${locale.value}`) ? route.path.slice(`/${locale.value}`.length) || '/' : route.path,
+      slug: route.params.product,
       language: locale._value
   }
 })
-// const setI18nParams = useSetI18nParams()
-// setI18nParams({
-//     en: { slug: data.value[0].slug.find(t => t._key === 'en').value.current.slice('/'.length) },
-//     es: { slug: data.value[0].slug.find(t => t._key === 'es').value.current.slice('/'.length) }
-// })
+const setI18nParams = useSetI18nParams()
+setI18nParams({
+  en: { product: data.value[0].slug.find(t => t._key === 'en').value.current },
+  es: { product: data.value[0].slug.find(t => t._key === 'es').value.current }
+})
 
 // console.log(
 //     "%cStop!",

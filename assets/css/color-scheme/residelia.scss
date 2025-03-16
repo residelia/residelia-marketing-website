@@ -76,6 +76,14 @@
 		border-color: transparent !important;
 		background-color: transparent !important;
 
+		&.light {
+			color: $surface-color-800 !important;
+		}
+
+		&.dark {
+			color: $surface-color-50!important;
+		}
+
 		&:hover {
 			color: $primary-color-300 !important;
 		}

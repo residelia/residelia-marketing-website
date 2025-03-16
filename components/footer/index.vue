@@ -23,7 +23,7 @@
           </div>
         </div>
 
-        <!-- FOOTER LINKS -->
+        <!-- PRODUCT LINKS -->
         <div class="col-sm-4 col-lg-2">
           <div class="footer-links fl-2">
             <!-- Title -->
@@ -31,39 +31,46 @@
             <!-- Links -->
             <ul class="foo-links clearfix">
               <li v-for="menu in mainStore.footer.menuesGroup[0].menu">
-                <p><NuxtLink v-if="!menu.next" :to="localePath(menu.link.slug?.find(l => l._key === locale).value.current)">{{ menu.title?.find(l => l._key === locale).value }}</NuxtLink></p></li>
+                <!-- <p><NuxtLink v-if="!menu.next" :to="localePath(menu.link.slug?.find(l => l._key === locale).value.current)">{{ menu.title?.find(l => l._key === locale).value }}</NuxtLink></p></li> -->
+                <p><NuxtLink v-if="!menu.next" :to="localePath({ name: 'product', params: { product: menu.link.slug.find(l => l._key === locale).value.current } })">{{ menu.title?.find(l => l._key === locale).value }}</NuxtLink></p></li>
             </ul>
           </div>
         </div>
-        <!-- END FOOTER LINKS -->
+        <!-- END PRODUCT LINKS -->
 
-        <!-- FOOTER LINKS -->
+        <!-- SOLUTIONS LINKS -->
         <div class="col-sm-4 col-lg-3">
           <div class="footer-links fl-2">
             <!-- Title -->
             <h6 class="s-17 w-700">{{ mainStore.footer.menuesGroup[1].title.find(l => l._key === locale).value}}</h6>
             <!-- Links -->
             <ul class="foo-links clearfix">
-              <li v-for="menu in mainStore.footer.menuesGroup[1].menu"><p><NuxtLink :to="localePath(menu.link.slug?.find(l => l._key === locale).value.current)">{{ menu.title?.find(l => l._key === locale).value }}</NuxtLink></p></li>
+              <!-- <li v-for="menu in mainStore.footer.menuesGroup[1].menu"><p><NuxtLink :to="localePath(menu.link.slug?.find(l => l._key === locale).value.current)">{{ menu.title?.find(l => l._key === locale).value }}</NuxtLink></p></li> -->
+              <li v-for="menu in mainStore.footer.menuesGroup[1].menu"><p><NuxtLink :to="localePath({ name: 'solutions-segment', params: { segment: menu.link.slug.find(l => l._key === locale).value.current } })">{{ menu.title?.find(l => l._key === locale).value }}</NuxtLink></p></li>
             </ul>
           </div>
         </div>
-        <!-- END FOOTER LINKS -->
+        <!-- END SOLUTIONS LINKS -->
 
-        <!-- FOOTER LINKS -->
+        <!-- COMPANY LINKS -->
         <div class="col-sm-4 col-lg-3 col-xl-2">
           <div class="footer-links fl-1">
             <!-- Title -->
             <h6 class="s-17 w-700">{{ mainStore.footer.menuesGroup[2].title.find(l => l._key === locale).value}}</h6>
             <!-- Links -->
             <ul class="foo-links clearfix">
-              <li v-for="menu in mainStore.footer.menuesGroup[2].menu"><p><NuxtLink :to="localePath(menu.link.slug?.find(l => l._key === locale).value.current)">{{ menu.title?.find(l => l._key === locale).value }}</NuxtLink></p></li>
+              <li v-for="menu in mainStore.footer.menuesGroup[2].menu">
+                <p>
+                  <NuxtLink v-if="menu.pageType === 'legal'" :to="localePath({ name: 'terms-item', params: { item: menu.link.slug.find(l => l._key === locale).value.current } })">{{ menu.title?.find(l => l._key === locale).value }}</NuxtLink>
+                  <NuxtLink v-else :to="localePath(menu.link.slug?.find(l => l._key === locale).value.current)">{{ menu.title?.find(l => l._key === locale).value }}</NuxtLink>
+                </p>
+              </li>
             </ul>
           </div>
         </div>
-        <!-- END FOOTER LINKS -->
+        <!-- END COMPANY LINKS -->
 
-        <!-- FOOTER LINKS -->
+        <!-- RESOURCES LINKS -->
         <div v-if="mainStore.footer.menuesGroup[3]" class="col-sm-4 col-lg-2 col-xl-2">
           <div class="footer-links fl-3">
             <!-- Title -->
@@ -74,7 +81,7 @@
             </ul>
           </div>
         </div>
-        <!-- END FOOTER LINKS -->
+        <!-- END RESOURCES LINKS -->
       </div>
       <!-- END FOOTER CONTENT -->
       <hr />

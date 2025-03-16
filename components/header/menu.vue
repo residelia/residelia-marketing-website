@@ -23,10 +23,10 @@
                                 <div class="row">
                                 <!-- MEGAMENU LINKS -->
                                 <ul class="col-md-12 col-lg-6 link-list">
-                                    <HeaderComplexMenuItem v-for="item in mainStore.menu.products?.menu?.slice(0,(mainStore.menu.products.menu.length/2))" :slug="item.link?.slug" :icon="item.libIcon" icon-color="black" :title="item.title" :description="item.description" :binder="item._id" :soon="item.soon" :next="item.next"/>
+                                    <HeaderComplexMenuItem v-for="item in mainStore.menu.products?.menu?.slice(0,(mainStore.menu.products.menu.length/2))" name="product" :slug="item.link?.slug" :icon="item.libIcon" icon-color="black" :title="item.title" :description="item.description" :binder="item._id" :soon="item.soon" :next="item.next"/>
                                 </ul>
                                 <ul class="col-md-12 col-lg-6 link-list">
-                                    <HeaderComplexMenuItem v-for="item in mainStore.menu.products?.menu?.slice((mainStore.menu.products.menu.length/2),mainStore.menu.products.menu.length)" :slug="item.link?.slug" :icon="item.libIcon" icon-color="black" :title="item.title" :description="item.description" :binder="item._id" :soon="item.soon" :next="item.next"/>
+                                    <HeaderComplexMenuItem v-for="item in mainStore.menu.products?.menu?.slice((mainStore.menu.products.menu.length/2),mainStore.menu.products.menu.length)" name="product" :slug="item.link?.slug" :icon="item.libIcon" icon-color="black" :title="item.title" :description="item.description" :binder="item._id" :soon="item.soon" :next="item.next"/>
                                 </ul>
                                 </div>
                                 <hr v-if="!$vuetify.display.xs" class="divider" />
@@ -50,11 +50,11 @@
                             <div class="row">
                             <!-- MEGAMENU LINKS -->
                             <ul class="col-md-12 col-lg-6 link-list">
-                                <HeaderComplexMenuItem v-for="item in  mainStore.menu.solutions.menu?.slice(0,(mainStore.menu.solutions.menu.length/2))" :slug="item.link?.slug" :icon="item.libIcon" icon-color="black" :title="item.title" :description="item.description" :binder="item._id" :soon="item.soon" :next="item.next"/>
+                                <HeaderComplexMenuItem v-for="item in  mainStore.menu.solutions.menu?.slice(0,(mainStore.menu.solutions.menu.length/2))" name="solutions-segment" :slug="item.link?.slug" :icon="item.libIcon" icon-color="black" :title="item.title" :description="item.description" :binder="item._id" :soon="item.soon" :next="item.next"/>
                             </ul>
                             <ul class="col-md-12 col-lg-6 link-list">
-                                <HeaderComplexMenuItem v-for="item in mainStore.menu.solutions.menu?.slice((mainStore.menu.solutions.menu.length/2),mainStore.menu.solutions.menu.length)" :slug="item.link?.slug" :icon="item.libIcon" icon-color="black" :title="item.title" :description="item.description" :binder="item._id" :soon="item.soon" :next="item.next"/>
-                            </ul>
+                                <HeaderComplexMenuItem v-for="item in mainStore.menu.solutions.menu?.slice((mainStore.menu.solutions.menu.length/2),mainStore.menu.solutions.menu.length)" name="solutions-segment" :slug="item.link?.slug" :icon="item.libIcon" icon-color="black" :title="item.title" :description="item.description" :binder="item._id" :soon="item.soon" :next="item.next"/>
+                             </ul>
                             </div>
                             <hr v-if="false" class="divider" />
 
@@ -101,7 +101,7 @@
                         <NuxtLink
                         id="header-demo-button"
                         :to="localePath(mainStore.menu.demoAction.slug.find(l => l._key === locale).value.current+mainStore.menu.demoAction.queryString)"
-                        class="btn w-100 r-04 btn--theme-tertiary last-link"
+                        class="btn w-100 r-04 btn--theme-tertiary last-link color--white"
                         >{{ mainStore.menu.demoAction.linkText.find(l => l._key === locale).value }}</NuxtLink
                         >
                     </li>
@@ -132,7 +132,7 @@
 
 
 <script setup>
-import { reactive } from 'vue';
+import { ref, reactive } from 'vue';
 import { useMainStore } from '../../stores/mainStore'
 
 const state = reactive({isOpen: [false, false, false]});

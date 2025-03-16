@@ -27,8 +27,9 @@ const runtimeConfig = useRuntimeConfig();
 const data = await useSanityData({
     query: pageQuery,
     params: {
-        slug: route.path.startsWith(`/${locale.value}`) ? route.path.slice(`/${locale.value}`.length) || '/' : route.path,
-        language: locale.value
+      // slug: route.path.startsWith(`/${locale.value}`) ? route.path.slice(`/${locale.value}`.length) || '/' : route.path,
+      slug: route.params.segment,
+      language: locale.value
     }
 })
 
@@ -54,8 +55,8 @@ defineI18nRoute({
 
 const setI18nParams = useSetI18nParams()
 setI18nParams({
-    en: { segment: data.value[0].slug.find(t => t._key === 'en').value.current.slice('/solutions/'.length) },
-    es: { segment: data.value[0].slug.find(t => t._key === 'es').value.current.slice('/soluciones/'.length) }
+  en: { segment: data.value[0].slug.find(t => t._key === 'en').value.current },
+  es: { segment: data.value[0].slug.find(t => t._key === 'es').value.current }
 })
 
 useHead({

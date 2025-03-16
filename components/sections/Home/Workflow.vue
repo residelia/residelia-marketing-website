@@ -45,7 +45,7 @@
                   <!-- Call to Action -->
                   <div v-for="action in step.cta" class="txt-block-tra-link mt-25">
                     <NuxtLink
-                      :to="localePath(`${action.link.slug.find(t => t._key === locale).value.current}${action.queryString ? action.queryString : ''}`)"
+                      :to="localePath({ name: 'product', params: { product: (action.link.slug.find(t => t._key === locale).value.current + (action.queryString ? action.queryString : '')) } })"
                       class="tra-link ico-20 color--theme"
                       @click="handleClick(action.button.id,`workflow-cta-step-${index+1}`)"
                       >{{ action.button.linkText.filter(l => l._key === locale.slice(0,2))[0]?.value }} <span class="flaticon-next"></span></NuxtLink>
@@ -76,7 +76,7 @@
                   <!-- Call to Action -->
                   <div v-for="action in step.cta" class="txt-block-tra-link mt-25">
                     <NuxtLink
-                      :to="localePath(`${action.link.slug.find(t => t._key === locale).value.current}${action.queryString ? action.queryString : ''}`)"
+                      :to="localePath({ name: 'product', params: { product: (action.link.slug.find(t => t._key === locale).value.current + (action.queryString ? action.queryString : '')) } })"
                       class="tra-link ico-20 color--theme"
                       @click="handleClick(action.button.id,`workflow-cta-step-${index+1}`)"
                       >{{ action.button.linkText.filter(l => l._key === locale.slice(0,2))[0]?.value }} <span class="flaticon-next"></span></NuxtLink>

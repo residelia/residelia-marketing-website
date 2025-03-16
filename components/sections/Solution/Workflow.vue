@@ -10,7 +10,7 @@
                     <!-- Title -->
                     <h2 class="s-36 w-700">{{ workflow.heading.find(t => t._key === locale).value }}</h2>
                     <!-- Text -->
-                    <p v-if="workflow.subHeading" class="s-18 pt-2 color--grey">{{ workflow.subHeading.find(t => t._key === locale).value }}</p>
+                    <p v-if="workflow.subHeading" class="s-20 color--grey">{{ workflow.subHeading.find(t => t._key === locale).value }}</p>
                 </div>
             </div>
         </div>

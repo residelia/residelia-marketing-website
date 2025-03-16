@@ -91,6 +91,7 @@ export const footQuery = groq`
 				title,
 				soon,
 				next,
+				"pageType":link.internalLink->pageType,
 				link{
 					linkType,
 					newWindow,
