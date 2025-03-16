@@ -31,6 +31,7 @@ export default defineI18nConfig(() => ({
             contactus: 'Solicita una demo personalizada y comprueba cómo RESIDELIA alinea tus objetivos',
             pricePeriodDescription: 'Facturado Anualmente | Facturado Mensualmente',
             comparePlans: 'Compara nuestros planes',
+            legalTerms: 'nuestros términos de uso',
             onboardingWizard: {
                 buttons: {
                     next: "Siguiente",
@@ -155,6 +156,7 @@ export default defineI18nConfig(() => ({
             contactus: 'Get a custom demo and see how RESIDELIA aligns with your goals.',
             pricePeriodDescription: 'Billed yearly | Billed monthly',
             comparePlans: 'Compare plans',
+            legalTerms: 'our use terms',
             onboardingWizard: {
                 buttons: {
                     next: "Next",

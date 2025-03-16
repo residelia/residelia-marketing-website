@@ -109,6 +109,14 @@ export default defineNuxtConfig({
     },
   ], "@pinia/nuxt", "dayjs-nuxt", "@nuxtjs/i18n" /*"@portabletext/vue"*/],
 
+  sitemap: {
+    hostname: process.env.BASE_URL,
+    name: "RESIDELIA - La plataforma",
+    lastmod: new Date("YYYY-MM-DD"),
+    path: "/sitemap.xml",
+    i18n: true,
+  },
+
   sanity: {
     projectId: process.env.SANITY_PROJECTID,
     dataset: process.env.SANITY_DATASET,

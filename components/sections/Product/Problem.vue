@@ -1,5 +1,5 @@
 <template>
-    <section v-if="problem" id="lnk-1" class="pt-100 ct-02 content-section division">
+    <section v-if="problem" id="lnk-1" class="py-100 ct-02 content-section division">
         <div class="container">
             <!-- SECTION TITLE -->
             <div class="row justify-content-center">

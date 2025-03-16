@@ -11,7 +11,7 @@
                         <!-- Title -->
                         <h2 class="s-36 w-700" v-html="balanceString(enterprise.heading.find(t => t._key === locale).value,5)"></h2>
                         <!-- Text -->
-                        <p v-html="balanceString(enterprise.subHeading.find(t => t._key === locale).value,5)"></p>
+                        <p >{{ enterprise.subHeading.find(t => t._key === locale).value }}</p>
                     </div>
                 </div>
                 <!-- END TEXT BLOCK -->

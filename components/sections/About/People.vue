@@ -6,9 +6,9 @@
                 <div class="col-md-10 col-lg-9">
                     <div class="section-title mb-80">
                         <!-- Title -->
-                        <h2 class="s-50 w-700">{{ people.heading.find(t => t._key === locale).value }}</h2>
+                        <h2 class="s-36 w-700">{{ people.heading.find(t => t._key === locale).value }}</h2>
                         <!-- Text -->
-                        <p class="s-21 color--grey">{{ people.subHeading?.find(t => t._key === locale).value }}</p>
+                        <p class="s-18 color--grey">{{ people.subHeading?.find(t => t._key === locale).value }}</p>
                     </div>
                 </div>
             </div>
@@ -22,7 +22,7 @@
                             <!-- Team Member Photo -->
                             <div class="team-member-photo r-14">
                                 <div class="hover-overlay">
-                                    <img class="img-fluid" :src="member.pic.url" :alt="member.image.alt" />
+                                    <img class="img-fluid" :src="member.pic.url+'?sat=-100'" :alt="member.image.alt" />
                                     <div class="item-overlay"></div>
                                 </div>
                             </div>

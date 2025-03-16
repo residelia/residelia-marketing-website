@@ -10,9 +10,9 @@
                         <!-- Section ID -->
                         <span class="section-id">{{ suite?.upperHeading?.find(t => t._key === locale).value}}</span>
                         <!-- Title -->
-                        <h2 class="s-50 w-700">{{ suite.heading.find(t => t._key === locale).value}}</h2>
+                        <h2 class="s-36 w-700">{{ suite.heading.find(t => t._key === locale).value}}</h2>
                         <!-- Text -->
-                        <p class="s-21 color--grey">{{ suite.subHeading.find(t => t._key === locale).value }}</p>
+                        <p class="s-18 pt-2 color--grey">{{ suite.subHeading.find(t => t._key === locale).value }}</p>
                     </div>
                 </div>
             </div>
