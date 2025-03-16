@@ -1,5 +1,4 @@
 <template>
-  {{step}}
     <v-row class="mt-5">
       <v-col cols="12" md="6" offset-md="3">
         <v-stepper v-model="currentStep" flat alt-labels  :mobile="$vuetify.display.xs">

@@ -1,6 +1,5 @@
 <template>
   <div v-if="formData" class="form-holder">
-  {{  prefillData }}
     <v-form name="signupform" class="row sign-up-form" @submit.prevent="onSubmit">
       <!-- Contact Form Input -->
       <div class="s-14 w-500">{{ formData.inputs.find(x => x.name === 'email').label.find(t => t._key === locale).value }}</div>
@@ -106,9 +105,7 @@ const props = defineProps<{
 // })
 
 console.log(props.formData)
-console.log(props.prefillData)
 console.log(locale)
-console.log(runtimeConfig.public.signUpWebhook);
 
 const { executeRecaptcha } = useGoogleRecaptcha();
 const suspectData = reactive({

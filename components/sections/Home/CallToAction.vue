@@ -15,8 +15,8 @@
                                 <!-- Buttons -->
                                 <div class="btns-group">
                                     <NuxtLink
-                                        :to="localePath(message.link.slug.find(t => t._key === locale).value.current+message.button.queryString )" class="btn r-04 btn--theme-secondary hover--theme" data-bs-toggle="modal" data-bs-target="#modal-3"
-                                        @click="handleClick(message.button.id,'home-cta-button')"
+                                    :to="localePath(message.link.slug.find(t => t._key === locale).value.current+(message.button.queryString ? message.button.queryString : ''))" class="btn r-04 btn--theme-secondary hover--theme" data-bs-toggle="modal" data-bs-target="#modal-3"
+                                    @click="handleClick(message.button.id,'home-cta-button')"
                                     >{{ message.button.linkText.find(t => t._key === locale).value }}</NuxtLink>
                                 </div>
                                 <!-- Button Text -->
