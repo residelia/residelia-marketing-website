@@ -105,8 +105,8 @@ const props = defineProps<{
 //     params: { formType: 'contact' },
 // })
 
-console.log(props.formData)
-console.log(locale)
+// console.log(props.formData)
+// console.log(locale)
 
 const { executeRecaptcha } = useGoogleRecaptcha();
 const suspectData = reactive({
@@ -118,7 +118,7 @@ const suspectData = reactive({
   acceptRGPD: true,
   acceptMarketing: true,
 });
-  console.log(suspectData)
+  // console.log(suspectData)
 
 const formResult = reactive({
   sent: false,

@@ -34,13 +34,13 @@ setI18nParams({
     es: { job: data.value[0].slug.find(t => t._key === 'es').value.current.slice('/unete-a-residelia/'.length) }
 })
 
-console.log(
-    "%cStop!",
-    "color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold"
-);
-console.log(route)
-console.log(locale)
-console.log(data.value[0])
+// console.log(
+//     "%cStop!",
+//     "color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold"
+// );
+// console.log(route)
+// console.log(locale)
+// console.log(data.value[0])
 
 useHead({
     title: `${data.value[0].title.find(l => l._key === locale._value).value}`,

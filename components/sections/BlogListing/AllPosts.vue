@@ -56,8 +56,8 @@ import { useBlogStore } from '../../../stores/blogStore';
 const blogStore = useBlogStore()
 const numPages = Math.ceil(blogStore.posts.length / blogStore.limit)
 
-console.log("posts length => "+blogStore.posts.length)
-console.log("posts numPages => "+numPages)
+// console.log("posts length => "+blogStore.posts.length)
+// console.log("posts numPages => "+numPages)
 
 blogStore.updatePosts()
 

@@ -39,13 +39,13 @@ const data = await useSanityData({
 //     es: { slug: data.value[0].slug.find(t => t._key === 'es').value.current.slice('/'.length) }
 // })
 
-console.log(
-    "%cStop!",
-    "color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold"
-);
-console.log(route)
-console.log(locale.value)
-console.log(data)
+// console.log(
+//     "%cStop!",
+//     "color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold"
+// );
+// console.log(route)
+// console.log(locale.value)
+// console.log(data)
 
 definePageMeta({
   layout: 'default'

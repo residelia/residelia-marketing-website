@@ -32,14 +32,14 @@ const data = await useSanityData({
     }
 })
 
-console.log(
-    "%cStop!",
-    "color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold"
-);
-console.log(runtimeConfig.public.baseUrl)
-console.log(route)
-console.log(locale)
-console.log(data)
+// console.log(
+//     "%cStop!",
+//     "color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold"
+// );
+// console.log(runtimeConfig.public.baseUrl)
+// console.log(route)
+// console.log(locale)
+// console.log(data)
 
 // setting header and hero colors
 const headerColor = data.value[0].headerColor === 'dark' ? 'navbar-light' : 'navbar-dark'

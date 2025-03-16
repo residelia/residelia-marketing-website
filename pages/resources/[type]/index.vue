@@ -38,22 +38,22 @@ const data = await useSanityData({
     language: locale.value
   }
 })
-console.log(route.path)
-console.log(data)
-console.log(data)
+// console.log(route.path)
+// console.log(data)
+// console.log(data)
 const setI18nParams = useSetI18nParams()
 setI18nParams({
   en: { type: data.value[0].slug.find(t => t._key === 'en').value.current.slice('/resources/'.length) },
   es: { type: data.value[0].slug.find(t => t._key === 'es').value.current.slice('/recursos/'.length) }
 })
 
-console.log(
-  "%cStop!",
-  "color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold"
-);
-console.log(route)
-console.log(locale)
-console.log(data)
+// console.log(
+//   "%cStop!",
+//   "color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold"
+// );
+// console.log(route)
+// console.log(locale)
+// console.log(data)
 
 useHead({
   title: `${data.value[0].title.find(l => l._key === locale._value).value}`,

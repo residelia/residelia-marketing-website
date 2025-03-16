@@ -325,7 +325,7 @@ const form = reactive({
   otherUsage: "",
   otherReferrals: ""
 });
-console.log(form)
+// console.log(form)
 const signUpResult = reactive({
   success: true,
   error: false,
@@ -357,7 +357,7 @@ const signupCompleted = useCookie('signup_completed', {
   path: '/',
 })
 
-console.log("internationalization======>",t('onboardingWizard.step1.companyName.required'))
+// console.log("internationalization======>",t('onboardingWizard.step1.companyName.required'))
 const rules = computed(() => {
   return {
     company: {
@@ -460,7 +460,7 @@ const submit = async () => {
 
   try {
     loading.value = true; // Activa el loader
-    console.log("gathered form=======>", form, storedData)
+    // console.log("gathered form=======>", form, storedData)
 
     if (!v$.value.$error) {
       const { token } = await executeRecaptcha(RecaptchaAction.login);
@@ -477,8 +477,8 @@ const submit = async () => {
         },
       });
 
-      console.log("printing res ===========>");
-      console.log(res);
+      // console.log("printing res ===========>");
+      // console.log(res);
 
       signUpResult.success = res.success;
       // signUpResult.success = false;
@@ -518,7 +518,7 @@ onMounted(() => {
 
   const storedData = JSON.parse(localStorage.getItem("signupData"));
   if (!storedData) {
-    console.log("redirigiendo a error porque no hay storedData y queremos ir al wizard")
+    // console.log("redirigiendo a error porque no hay storedData y queremos ir al wizard")
     router.push(localePath("/registro"));
   }
 });

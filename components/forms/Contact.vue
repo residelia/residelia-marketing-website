@@ -228,9 +228,9 @@ const props = defineProps<{
 //     params: { formType: 'contact' },
 // })
 
-console.log(props.formData)
-console.log(locale)
-console.log(runtimeConfig.public.formWebhook);
+// console.log(props.formData)
+// console.log(locale)
+// console.log(runtimeConfig.public.formWebhook);
 
 const { executeRecaptcha } = useGoogleRecaptcha();
 const suspectData = reactive({

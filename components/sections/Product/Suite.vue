@@ -7,9 +7,9 @@
                 <div class="col-md-10 col-lg-9">
                     <div class="section-title mb-70">
                         <!-- Section ID -->
-                        <span class="section-id">{{ suite.upperHeading.find(t => t._key === locale).value}}</span>
+                        <span class="section-id">{{ suite.upperHeading.find(t => t._key === locale)?.value}}</span>
                         <!-- Title -->
-                        <h2 class="s-36 w-700">{{ suite.heading.find(t => t._key === locale).value}}</h2>
+                        <h2 class="s-36 w-700" v-html="balanceString(suite.heading.find(t => t._key === locale).value,5)"></h2>
                         <!-- Text -->
                         <p class="s-18 mt-3 color--grey">{{ suite.subHeading.find(t => t._key === locale).value }}</p>
                     </div>

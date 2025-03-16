@@ -37,7 +37,7 @@ const props = defineProps<{
   posts: Array,
 }>();
 
-console.log(props.posts)
+// console.log(props.posts)
 </script>
 
 <style></style>

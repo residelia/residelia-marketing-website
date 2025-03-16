@@ -19,7 +19,7 @@
                 <div class="col-md-7">
                     <div class="fbox-12-wrapper wow fadeInLeft">
                         <div class="row">
-                            <div v-for="(benefit,index) in enterprise.benefits" class="col">
+                            <div v-for="(benefit,index) in enterprise.benefits" class="col-6">
                                 <!-- FEATURE BOX -->
                                 <div :id="`fb-12-${index+1}`" class="fbox-12 bg--white-100 block-shadow r-12 mb-30" :class="{'mb-3': index % 2 === 0}">
                                     <!-- Icon -->

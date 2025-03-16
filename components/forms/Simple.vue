@@ -57,9 +57,9 @@ const formData = await useSanityData({
     params: { formType: props.form },
 })
 
-console.log(formData)
-console.log(locale)
-console.log(formData.value[0].error.find(t => t._key === locale.value).value)
+// console.log(formData)
+// console.log(locale)
+// console.log(formData.value[0].error.find(t => t._key === locale.value).value)
 
 const suspectData = reactive({
   email: "",

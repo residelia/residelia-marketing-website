@@ -33,13 +33,13 @@ const headerColor = data.value[0].headerColor === 'dark' ? 'navbar-light' : 'nav
 const textColor = data.value[0].headerColor === 'dark' ? 'color--white' : 'color--dark'
 const prefillData = ref({})
 
-console.log(
-        "%cStop!",
-        "color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold"
-      );
-console.log(route)
-console.log(locale)
-console.log(data)
+// console.log(
+//         "%cStop!",
+//         "color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold"
+//       );
+// console.log(route)
+// console.log(locale)
+// console.log(data)
 
 // setting header and hero colors
 

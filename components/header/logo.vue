@@ -37,7 +37,7 @@ const { locale } = useI18n()
 function toggleMobileMenu() {
   // toggle body class "dark-mode"
   // mainStore.toggleMobileMenu();
-  console.log("watching mobile menu toggling.............")
+  // console.log("watching mobile menu toggling.............")
   document.body.classList.toggle("wsactive");
 }
 

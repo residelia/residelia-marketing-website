@@ -13,7 +13,7 @@ import { singlePostQuery, keepReadingQuery } from "../../queries/contentQueries"
 
 export default defineComponent({
   async setup() {
-    console.log("entering in blog post......")
+    // console.log("entering in blog post......")
     const blogStore = useBlogStore()
     const route = useRoute()
 
