@@ -28,12 +28,12 @@
           <!-- Text -->
           <div class="fbox-txt">
             <div class="d-flex flex-row justify-content-start align-items-center">
-              <h6 class="s-14 w-600">{{ title.find(l => l._key === locale).value }}</h6>
+              <h6 class="s-14 w-600">{{ getLocalizedString(title) }}</h6>
               <!-- <span v-if="soon" class="soon-info">{{ $t('soon') }}</span> -->
               <v-chip v-if="soon" class="ml-2" color="primary" size="x-small" label>{{ $t('soon') }}</v-chip>
               <v-chip v-if="next" class="ml-2" color="primary" size="x-small" label>{{ $t('next') }}</v-chip>
             </div>
-            <p class="s-13 w-400 color--grey">{{ description.find(l => l._key === locale).value }}</p>
+            <p class="s-13 w-400 color--grey">{{ getLocalizedString(description) }}</p>
           </div>
         </div>
       </div>
@@ -56,6 +56,8 @@ const props = defineProps<{
   soon?: boolean
   next?: boolean
 }>();
+
+const { getLocalizedString } = useLocalizedString()
 
 const routeObject = computed(() => {
   switch (props.name) {

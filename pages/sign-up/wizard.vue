@@ -311,7 +311,6 @@ const steps = [
   { value: 4, text: t('onboardingWizard.stepper.step4')},
 ];
 const loading = ref(false)
-const sent = ref(localStorage.getItem("finishSignupWizard") ? true : false)
 const { executeRecaptcha } = useGoogleRecaptcha();
 
 // Datos del formulario
@@ -362,11 +361,11 @@ const rules = computed(() => {
   return {
     company: {
       required: helpers.withMessage(
-        t('onboardingWizard.step1.companyName.required'),
+        t('onboardingWizard.step1.company.required'),
         required
       ),
       minLength: helpers.withMessage(
-        t('onboardingWizard.step1.companyName.length'),
+        t('onboardingWizard.step1.company.length'),
         minLength(3)
       ),
       $autoDirty: true,
@@ -490,7 +489,8 @@ const submit = async () => {
         trackEvent("Sign Up Completed", form)
         // storing wizard finish and navigating to end
         // localStorage.setItem('finishedSignupWizard', true)
-        signupCompleted.value = 'true'
+        signupCompleted.value = JSON.stringify(storedData)
+        localStorage.removeItem('signupData')
         sent.value = true;
         loading.value = false;
         // router.push(localePath('/registro/completado'))

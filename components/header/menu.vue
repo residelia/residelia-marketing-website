@@ -101,7 +101,7 @@
                         <NuxtLink
                         id="header-demo-button"
                         :to="localePath(mainStore.menu.demoAction.slug.find(l => l._key === locale).value.current+mainStore.menu.demoAction.queryString)"
-                        class="btn w-100 r-04 btn--theme-tertiary last-link color--white"
+                        class="btn w-100 r-04 btn--theme-tertiary last-link"
                         >{{ mainStore.menu.demoAction.linkText.find(l => l._key === locale).value }}</NuxtLink
                         >
                     </li>

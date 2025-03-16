@@ -66,8 +66,10 @@ onMounted(() => {
   const storedData = JSON.parse(localStorage.getItem("signupData"));
   // const finishedWizard = localStorage.getItem("finishedSignupWizard") ? true : false;
   const signupCompleted = useCookie('signup_completed')
+  const suspectData =signupCompleted.value
+
   const query = route.query;
-  if (signupCompleted.value === 'true') {
+  if (suspectData) {
     // enviamos a la app
     navigateTo('https://app.residelia.com', { external: true })
   }

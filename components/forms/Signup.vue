@@ -49,7 +49,7 @@
       <div v-if="formData.inputs.find(x => x.name === 'adviceRGPD')" class="col-sm-12" :class="`col-md-${formData.inputs.find(x => x.name === 'adviceRGPD').cols}`">
         <div class="contact-form-notice mb-3">
           <span class="s-12 w-500" v-html="formData.inputs.find(x => x.name === 'adviceRGPD').description.find(t => t._key === locale).value"></span>
-          <span><NuxtLink class="s-12 color--blue-500" :to="localePath('/terminos/terminos-de-uso')">{{ $t('legalTerms') }}</NuxtLink></span>
+          <span><NuxtLink class="s-12 color--blue-500" :to="localePath({ name: 'terms-item', params: {item: formData.inputs.find(x => x.name === 'adviceRGPD').link.find(t => t._key === locale).value.current} })">{{ $t('legalTerms') }}</NuxtLink></span>
         </div>
       </div>
       <!-- Contact Form Button -->
