@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /registro/wizard
+Disallow: /en/sign-up/wizard
