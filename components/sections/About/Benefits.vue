@@ -8,7 +8,7 @@
                         <!-- Title -->
                         <h2 class="s-36 w-700">{{ benefits.heading.find(t => t._key === locale).value }}</h2>
                         <!-- Text -->
-                        <p class="s-18 color--grey">{{ benefits.subHeading.find(t => t._key === locale).value }}</p>
+                        <p class="s-18 color--grey mt-3">{{ benefits.subHeading.find(t => t._key === locale).value }}</p>
                     </div>
                 </div>
             </div>
@@ -16,8 +16,8 @@
             <div class="fbox-wrapper">
                 <div class="row row-cols-1 row-cols-md-2 rows-3">
                     <!-- FEATURE BOX -->
-                    <div v-for="benefit in benefits.benefits" class="col">
-                        <div class="fbox-11 fb-1 wow fadeInUp">
+                    <div v-for="benefit in benefits.benefits" class="col my-4">
+                        <div class="fb-1 wow fadeInUp" :class="{'fbox-10': $vuetify.display.xs, 'fbox-11': !$vuetify.display.xs}">
                             <!-- Icon -->
                             <div class="fbox-ico-wrap">
                                 <div class="fbox-ico ico-50">
