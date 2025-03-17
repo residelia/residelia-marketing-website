@@ -3,7 +3,7 @@
         <SectionsAboutHero :hero="data[0].hero" />
         <SectionsAboutMission :mission="data[0].mission" />
         <SectionsAboutStats :statistics="data[0].stats" />
-        <SectionsAboutSection4 />
+        <!-- <SectionsAboutSection4 /> -->
         <SectionsAboutBenefits :benefits="data[0].benefits"/>
         <SectionsAboutPeople :people="data[0].people"/>
         <SectionsAboutSimpleFramed :whyUs="data[0].whyUs" />
