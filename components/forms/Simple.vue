@@ -19,7 +19,7 @@
           />
         </div>
         <div class="col-12 mt-md-0 mt-2 text-left" :class="{'col-md-4': location === 'hero' || location === 'callToAction'}">
-            <button @click="onSubmit" type="submit" class="btn hover--theme" :class="{'btn--theme': textColor !== 'white', 'btn--theme-secondary': textColor === 'white' }" :disabled="formResult.submitting" >{{ formData[0].action.find(t => t._key === locale).value }}</button>
+            <button @click="doSubmit" type="submit" class="btn hover--theme" :class="{'btn--theme': textColor !== 'white', 'btn--theme-secondary': textColor === 'white' }" :disabled="formResult.submitting" >{{ formData[0].action.find(t => t._key === locale).value }}</button>
         </div>
 
           <!-- <input v-if="formData[0].inputs[0].type === 'text'" :type="formData[0].inputs[0].subtype" autocomplete="off" class="form-control" :placeholder="formData[0].inputs[0].placeholder.find(t => t._key === locale).value" required id="s-email" />
