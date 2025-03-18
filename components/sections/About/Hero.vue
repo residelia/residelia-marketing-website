@@ -22,11 +22,11 @@
                     <div class="text-end">
                         <!-- IMAGE-1 -->
                         <div class="about-2-img a-2-1 r-12">
-                            <img class="img-fluid" src="/assets/images/about-image-4.jpg" alt="about-image" />
+                            <img class="img-fluid" src="/assets/images/about-image-5.jpg" alt="about-image" />
                         </div>
                         <!-- IMAGE-2 -->
                         <div class="about-2-img a-2-2 r-12">
-                            <img class="img-fluid" src="/assets/images/about-image-1.jpg" alt="about-image" />
+                            <img class="img-fluid" src="/assets/images/about-image-6.jpg" alt="about-image" />
                         </div>
                     </div>
                 </div>
