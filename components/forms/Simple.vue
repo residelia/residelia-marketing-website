@@ -145,8 +145,8 @@ async function doSubmit() {
         }
     });
 
-    console.log("printing res ===========>")
-    console.log(res)
+    // console.log("printing res ===========>")
+    // console.log(res)
 
     formResult.success = res.success;
     if (res.success) {
