@@ -39,7 +39,7 @@
                 <div class="row row-cols-1 row-cols-md-4">
                     <!-- PRICING PLAN -->
                     <div v-for="(plan,index) in plans.pricingPlans" class="col">
-                        <div :id="`pt-1-${index+1}`" class="p-table pricing-1-table bg--white-100 block-shadow r-12 wow fadeInUp">
+                        <div :id="`pt-1-${index+1}`" class="p-table pricing-1-table bg--white-100 block-shadow r-12">
                             <!-- TABLE HEADER -->
                             <div class="pricing-table-header">
                                 <!-- Title -->

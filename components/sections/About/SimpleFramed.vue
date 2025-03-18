@@ -6,7 +6,7 @@
                     <div class="row d-flex align-items-center">
                         <!-- TEXT BLOCK -->
                         <div class="col-md-6 order-last order-md-2">
-                            <div class="txt-block left-column wow fadeInRight">
+                            <div class="txt-block left-column">
                                 <!-- Section ID -->
                                 <span class="section-id">{{ whyUs?.upperHeading?.find(t => t._key === locale).value }}</span>
                                 <!-- Title -->
@@ -18,7 +18,7 @@
                         <!-- END TEXT BLOCK -->
                         <!-- IMAGE BLOCK -->
                         <div class="col-md-6 order-first order-md-2">
-                            <div class="img-block right-column wow fadeInLeft">
+                            <div class="img-block right-column">
                                 <img class="img-fluid" :src="whyUs.pic.url" :alt="whyUs.image.alt" />
                             </div>
                         </div>

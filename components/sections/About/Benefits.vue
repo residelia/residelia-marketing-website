@@ -17,7 +17,7 @@
                 <div class="row row-cols-1 row-cols-md-2 rows-3">
                     <!-- FEATURE BOX -->
                     <div v-for="benefit in benefits.benefits" class="col my-4">
-                        <div class="fb-1 wow fadeInUp" :class="{'fbox-10': $vuetify.display.xs, 'fbox-11': !$vuetify.display.xs}">
+                        <div class="fb-1" :class="{'fbox-10': $vuetify.display.xs, 'fbox-11': !$vuetify.display.xs}">
                             <!-- Icon -->
                             <div class="fbox-ico-wrap">
                                 <div class="fbox-ico ico-50">
