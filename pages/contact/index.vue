@@ -2,7 +2,7 @@
     <div>
         <SectionsContactsHero :hero="data[0].hero"/>
         <!-- CONTACT FORM -->
-        <FormsContact :reason="route?.query?.reason" :formData="formData[0]"/>
+        <FormsContact :reason="route?.query?.reason" :formData="data[0].form.formu"/>
         <hr class="divider" />
         <!-- END CONTACT FORM -->
         <BlogNewsletter />
@@ -27,10 +27,10 @@ const route = useRoute();
 const { locale } = useI18n()
 const mainStore = useMainStore()
 
-const formData = await useSanityData({
-    query: formBlockQuery,
-    params: { formType: 'contact' },
-});
+// const formData = await useSanityData({
+//     query: formBlockQuery,
+//     params: { formType: 'contact' },
+// });
 const data = await useSanityData({
     query: pageQuery,
     params: {
