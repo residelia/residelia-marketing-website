@@ -16,7 +16,7 @@
                 <!-- IMAGE BLOCK -->
                 <div class="row">
                     <div class="col">
-                        <div class="img-block video-preview wow fadeInUp">
+                        <div class="img-block video-preview">
                             <!-- Play Icon -->
                             <!-- <ElementsVideoModal :link="'https://www.youtube.com/embed/GcMiYI1gWD4'">
                                 <template v-slot:button>

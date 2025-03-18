@@ -20,7 +20,7 @@
                 <div class="row row-cols-1 row-cols-md-3">
                     <!-- FEATURE BOX -->
                     <div v-for="product,index in suite.suite" class="col">
-                        <div class="fbox-2 wow fadeInUp" :class="`fb-${index+1}`">
+                        <div class="fbox-2" :class="`fb-${index+1}`">
                             <!-- Image -->
                             <div class="fbox-img gr--whitesmoke h-175">
                                 <img class="img-fluid" :src="product.pic.url" :alt="product.image.alt" />
@@ -42,7 +42,7 @@
                 <div class="row d-flex align-items-center">
                     <!-- FEATURE BOX -->
                     <div v-for="product,index in suite.suite" class="col-md-6">
-                        <div class="fbox-5 r-16 wow fadeInUp d-flex flex-column" :class="{'gr--primary-50': index % 2 === 0, 'gr--primary-50-reverse': index % 2 !== 0}">
+                        <div class="fbox-5 r-16 d-flex flex-column" :class="{'gr--primary-50': index % 2 === 0, 'gr--primary-50-reverse': index % 2 !== 0}">
                             <!-- Text -->
                             <div class="fbox-txt">
                                 <h5 class="s-22 w-700" v-html="balanceString(product.heading.find(t => t._key === locale).value,5)"></h5>

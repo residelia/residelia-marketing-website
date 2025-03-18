@@ -5,7 +5,7 @@
             <div class="row d-flex align-items-center">
                 <!-- TEXT BLOCK -->
                 <div class="col-md-5 px-0">
-                    <div class="txt-block left-column wow fadeInRight">
+                    <div class="txt-block left-column">
                         <!-- Section ID -->
                         <span class="section-id">{{ enterprise.upperHeading.find(t => t._key === locale).value }}</span>
                         <!-- Title -->
@@ -17,7 +17,7 @@
                 <!-- END TEXT BLOCK -->
                 <!-- FEATURES-12 WRAPPER -->
                 <div class="col-md-7">
-                    <div class="fbox-12-wrapper wow fadeInLeft">
+                    <div class="fbox-12-wrapper">
                         <div class="row">
                             <div v-for="(benefit,index) in enterprise.benefits" class="col-6">
                                 <!-- FEATURE BOX -->

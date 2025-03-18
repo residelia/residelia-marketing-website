@@ -6,7 +6,7 @@
                 <div class="row d-flex align-items-start">
                     <!-- PAIN BOX -->
                     <div class="col-md-6">
-                        <div class="fbox-5 r-16 wow fadeInUp d-flex flex-column">
+                        <div class="fbox-5 r-16 d-flex flex-column">
                             <!-- Text -->
                             <div class="fbox-txt">
                                 <h3 class="s-26 w-700" >{{ painAndSolution.pain.heading.find(t => t._key === locale).value }}</h3>
@@ -21,7 +21,7 @@
                     <!-- END PAIN BOX -->
                     <!-- SOLUTION BOX -->
                     <div class="col-md-6">
-                        <div class="fbox-5 r-16 wow fadeInUp d-flex flex-column">
+                        <div class="fbox-5 r-16 d-flex flex-column">
                             <!-- Text -->
                             <div class="fbox-txt">
                                 <h3 class="s-26 w-700" v-html="balanceString(painAndSolution.solution.heading.find(t => t._key === locale).value,5)"></h3>
