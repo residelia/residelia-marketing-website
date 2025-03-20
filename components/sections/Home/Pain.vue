@@ -14,7 +14,7 @@
                             </div>
                             <!-- Image -->
                             <div class="fbox-5-img mt-90">
-                                <img class="img-fluid" width="400" :src="painAndSolution.pain.pic.url" :alt="painAndSolution.pain.image.alt" />
+                                <img class="img-fluid" width="400" :src="painAndSolution.pain.pic.url+'?fm=webp'" :alt="painAndSolution.pain.image.alt" />
                             </div>
                         </div>
                     </div>
@@ -29,7 +29,7 @@
                             </div>
                             <!-- Image -->
                             <div class="fbox-5-img mt-5">
-                                <img class="img-fluid" width="450px" :src="painAndSolution.solution.pic.url" :alt="painAndSolution.solution.image.alt" />
+                                <img class="img-fluid" width="450px" :src="painAndSolution.solution.pic.url+'?fm=webp'" :alt="painAndSolution.solution.image.alt" />
                             </div>
                         </div>
                     </div>

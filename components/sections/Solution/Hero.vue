@@ -31,7 +31,7 @@
                 <div class="col-md-6">
                     <div class="hero-solution-img wow fadeInLeft">
                         <!-- <img class="img-fluid" src="/assets/images/dashboard-04.png" alt="hero-image" /> -->
-                        <img class="img-fluid rounded-xl" width="1024" :src="hero.image.url" :alt="hero.imageAlt" />
+                        <img class="img-fluid rounded-xl" width="1024" :src="hero.image.url+'?fm=webp'" :alt="hero.imageAlt" />
                     </div>
                 </div>
 

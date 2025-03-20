@@ -11,7 +11,7 @@
             <div class="img-block left-column">
               <img
                 class="img-fluid"
-                :src="step.pic.url"
+                :src="step.pic.url+'?fm=webp'"
                 :alt="step.image.alt"
               />
             </div>
@@ -57,7 +57,7 @@
             <div class="img-block right-column">
               <img
                 class="img-fluid"
-                :src="step.pic.url"
+                :src="step.pic.url+'?fm=webp'"
                 :alt="step.image.alt"
               />
             </div>

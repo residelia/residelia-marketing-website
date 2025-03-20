@@ -22,7 +22,7 @@
                             <!-- Team Member Photo -->
                             <div class="team-member-photo r-14">
                                 <div class="hover-overlay">
-                                    <img class="img-fluid" :src="member.pic.url+'?sat=-100'" :alt="member.image.alt" />
+                                    <img class="img-fluid" :src="member.pic.url+'?sat=-100&fm=webp'" :alt="member.image.alt" />
                                     <div class="item-overlay"></div>
                                 </div>
                             </div>

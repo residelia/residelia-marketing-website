@@ -23,7 +23,7 @@
                         <!-- IMAGE BLOCK -->
                         <div class="col-md-6 order-first order-md-2">
                             <div class="img-block right-column">
-                                <img class="img-fluid" :src="problem.pic.url" :alt="problem.image.alt" />
+                                <img class="img-fluid" :src="problem.pic.url+'?fm=webp'" :alt="problem.image.alt" />
                             </div>
                         </div>
                     </div>

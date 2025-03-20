@@ -18,7 +18,7 @@
 
             <SwiperSlide v-for="customer in customers">
                 <div class="brand-logo">
-                    <img class="img-fluid theme-light align-self-center" :src="customer.logoBlack.url" :alt="customer.alt" style="max-height: 50px; min-height: 20px; object-fit: contain; -o-object-fit: contain;"/>
+                    <img class="img-fluid theme-light align-self-center" :src="customer.logoBlack.url+'?fm=webp'" :alt="customer.alt" style="max-height: 50px; min-height: 20px; object-fit: contain; -o-object-fit: contain;"/>
                     <!-- <img v-if="customer.logoWhite != null" class="img-fluid theme-dark" :src="customer.logoWhite.url" :alt="customer.alt" style="max-height: 100px; min-height: 80px; object-fit: contain; -o-object-fit: contain;" /> -->
                 </div>
             </SwiperSlide>

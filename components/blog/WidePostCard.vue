@@ -6,7 +6,7 @@
         <div class="blog-post-img">
           <img
             class="img-fluid r-16"
-            :src="image.url ? image.url : image"
+            :src="image.url ? image.url+'?fm=webp' : image"
             :alt="imageAlt"
           />
         </div>

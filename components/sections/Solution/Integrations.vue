@@ -19,7 +19,7 @@
                 <!-- IMAGE BLOCK -->
                 <div class="col-md-6 order-first order-md-2">
                     <div class="img-block right-column">
-                        <img class="img-fluid" :src="integrations.pic.url" :alt="integrations.image.alt" />
+                        <img class="img-fluid" :src="integrations.pic.url+'?fm=webp'" :alt="integrations.image.alt" />
                     </div>
                 </div>
             </div>

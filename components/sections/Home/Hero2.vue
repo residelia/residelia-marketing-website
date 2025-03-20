@@ -28,7 +28,7 @@
                 <!-- HERO IMAGE -->
                 <div class="col-md-6">
                     <div class="hero-3-img">
-                        <img class="img-fluid rounded" :src="data?.hero?.image.url" :alt="data?.hero?.heroImage.alt" />
+                        <img class="img-fluid rounded" :src="data?.hero?.image.url+'?fm=webp'" :alt="data?.hero?.heroImage.alt" />
                     </div>
                 </div>
             </div>

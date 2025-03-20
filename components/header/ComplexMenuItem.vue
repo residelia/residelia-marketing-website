@@ -1,7 +1,7 @@
 <template>
   <li :key="binder">
     <!-- <NuxtLink to="#" :key="key" class="h-link"> -->
-    <NuxtLink :to="slug ? localePath(routeObject) : '#'"
+    <NuxtLink :to="slug ? localePath(routeObject) : ''"
       class="h-link"
     >        
       <div class="col">
