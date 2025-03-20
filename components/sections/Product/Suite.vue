@@ -23,7 +23,7 @@
                         <div class="fbox-2" :class="`fb-${index+1}`">
                             <!-- Image -->
                             <div class="fbox-img gr--whitesmoke h-175">
-                                <img class="img-fluid" :src="product.pic.url" :alt="product.image.alt" />
+                                <img class="img-fluid" :src="product.pic.url+'?fm=webp'" :alt="product.image.alt" />
                             </div>
                             <!-- Text -->
                             <div class="fbox-txt">
@@ -50,7 +50,7 @@
                             </div>
                             <!-- Image -->
                             <div class="fbox-5-img pt-10">
-                                <img class="img-fluid" :src="product.pic.url" :alt="product.image.alt" />
+                                <img class="img-fluid" :src="product.pic.url+'?fm=webp'" :alt="product.image.alt" />
                             </div>
                         </div>
                     </div>

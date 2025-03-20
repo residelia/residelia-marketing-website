@@ -25,7 +25,7 @@
                         <div class="author-data clearfix">
                             <!-- Avatar -->
                             <div v-if="testimonial.pic" class="review-avatar">
-                                <img :src="testimonial.pic.url" :alt="testimonial.image.alt" />
+                                <img :src="testimonial.pic.url+'?fm=webp'" :alt="testimonial.image.alt" />
                             </div>
                             <!-- Data -->
                             <div class="review-author">

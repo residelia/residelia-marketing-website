@@ -19,7 +19,7 @@
                         <!-- IMAGE BLOCK -->
                         <div class="col-md-6 order-first order-md-2">
                             <div class="img-block right-column">
-                                <img class="img-fluid" :src="whyUs.pic.url" :alt="whyUs.image.alt" />
+                                <img class="img-fluid" :src="whyUs.pic.url+'?fm=webp'" :alt="whyUs.image.alt" />
                             </div>
                         </div>
                     </div>

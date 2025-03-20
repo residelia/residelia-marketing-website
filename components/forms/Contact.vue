@@ -219,6 +219,7 @@ const runtimeConfig = useRuntimeConfig();
 const route = useRoute();
 const { locale } = useI18n()
 const mainStore = useMainStore()
+const { trackEvent, identifyUser } = useTracking()
 const props = defineProps<{
     reason?: String
     formData?: Object
@@ -380,6 +381,10 @@ async function doSubmit() {
   } else {
     formResult.success = false;
   }
+
+  // tracking event
+  trackEvent(`${props.form} Completed`,{ ...suspectData, ...formResult, clickedOnPage: route.path})
+  identifyUser(suspectData.email, { ...suspectData, ...formResult, clickedOnPage: route.path })
 }
 
 onMounted(() => {

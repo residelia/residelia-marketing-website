@@ -41,7 +41,7 @@
                             </template>
                         </ElementsVideoModal> -->
                         <!-- Preview Image -->
-                        <img class="img-fluid"  :src="hero.image.url" :alt="hero.imageAlt" />
+                        <img class="img-fluid"  :src="hero.image.url+'?fm=webp'" :alt="hero.imageAlt" />
                     </div>
                 </div>
             </div>

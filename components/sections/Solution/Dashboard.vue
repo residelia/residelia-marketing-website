@@ -26,7 +26,7 @@
                                 </template>
                             </ElementsVideoModal> -->
                             <!-- Preview Image -->
-                            <img class="img-fluid" width="1024" :src="dashboard.pic.url" :alt="dashboard.image.alt" />
+                            <img class="img-fluid" width="1024" :src="dashboard.pic.url+'?fm=webp'" :alt="dashboard.image.alt" />
                         </div>
                     </div>
                 </div>
