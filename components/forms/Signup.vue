@@ -259,4 +259,6 @@ onMounted(() => {
   font-weight: 500 !important;
   font-size: 1rem !important;
 }
+.grecaptcha-badge { visibility: hidden; }
+
 </style>
