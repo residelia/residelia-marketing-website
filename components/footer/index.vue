@@ -4,7 +4,7 @@
       <!-- FOOTER CONTENT -->
       <div class="row">
         <!-- FOOTER LOGO -->
-        <div class="col-xl-3">
+        <div class="col-xl-3 d-flex flex-column justify-content-between">
           <div class="footer-info logo-black">
             <img
               class="footer-logo"
@@ -21,6 +21,7 @@
               alt="residelia-logo"
             />
           </div>
+
         </div>
 
         <!-- PRODUCT LINKS -->
@@ -111,6 +112,21 @@
             <ElementsLanguageSelector />
           </div>
         </div>
+        <div class="row mt-10 justify-content-end">
+            <div class="footer-info logo-black d-flex align-items-center">
+              <img
+                class="footer-logo mr-10"
+                src="/assets/images/icons/logo-cdti.jpg"
+                alt="cdti-logo"
+              />
+              <a style="text-decoration:none;" target="_blank"  href="https://aplicaciones.ciencia.gob.es/pyiINFO/buscarPyi.mec?&nif=B88421920"  title="Ir a 'Sello Pyme Innovadora con validez 17/04/2026 ' en ventana nueva" >
+                  <div>
+                      <img width="50" alt="Sello PYME INNOVADORA 17/04/2026" src="https://aplicaciones.ciencia.gob.es/pyiINFO/imagenes/sello.jpg" />
+                  </div>
+              </a>
+              <img height="37" class="ml-2" alt="escudo de MEIC 17/04/2026" src="https://aplicaciones.ciencia.gob.es/pyiINFO/imagenes/escudo.jpg"/>
+            </div>
+          </div>
         <!-- End row -->
       </div>
       <!-- END BOTTOM FOOTER -->
