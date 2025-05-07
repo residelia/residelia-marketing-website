@@ -19,7 +19,7 @@
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4">
                     <!-- FEATURE BOX -->
                     <div v-for="(feature, index) in features.features" class="col my-4">
-                        <div class="fbox-6 wow fadeInUp" :class="`fb-${index+1}`">
+                        <div class="fbox-6" :class="`fb-${index+1}`">
                             <!-- Icon -->
                             <div class="fbox-ico ico-40">
                                 <div class="shape-ico color--theme-primary">

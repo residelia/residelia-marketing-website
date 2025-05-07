@@ -18,11 +18,11 @@
                     <!-- TEAM MEMBER -->
                     <div v-for="member in people.team" class="col">
                         <a :href="member.linkedin" target="_blank" rel="noopener">
-                        <div class="team-member mb-50 wow fadeInUp">
+                        <div class="team-member mb-50">
                             <!-- Team Member Photo -->
                             <div class="team-member-photo r-14">
                                 <div class="hover-overlay">
-                                    <img class="img-fluid" :src="member.pic.url+'?sat=-100'" :alt="member.image.alt" />
+                                    <img class="img-fluid" :src="member.pic.url+'?sat=-100&fm=webp'" :alt="member.image.alt" />
                                     <div class="item-overlay"></div>
                                 </div>
                             </div>
@@ -41,7 +41,7 @@
                             :to="localePath(`${people.callToAction.link.slug.find(t => t._key === locale).value.current}${people.callToAction.button.queryString ? people.callToAction.button.queryString : ''}`)"
                             @click="handleClick('Job Application Started','blind-team-member-button')"
                         >
-                        <div class="team-member mb-50 wow fadeInUp">
+                        <div class="team-member mb-50">
                             <!-- Team Member Photo -->
                             <div class="team-member-photo r-14">
                                 <div class="hover-overlay">
@@ -65,7 +65,7 @@
             <!-- MORES BUTTON -->
             <div v-if="people.callToAction" class="row">
                 <div class="col">
-                    <div class="more-btn text-center mt-20 wow fadeInUp">
+                    <div class="more-btn text-center mt-20">
                         <NuxtLink :to="localePath(`${people.callToAction.link.slug.find(t => t._key === locale).value.current}${people.callToAction.button.queryString ? people.callToAction.button.queryString : ''}`)" class="btn btn--tra-black hover--theme">{{ people.callToAction.button.linkText.filter(l => l._key === locale.slice(0,2))[0]?.value }}</NuxtLink>
                     </div>
                 </div>

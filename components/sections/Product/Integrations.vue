@@ -6,7 +6,7 @@
             <div class="row d-flex align-items-center">
                 <!-- TEXT BLOCK -->
                 <div class="col-md-6 order-last order-md-2">
-                    <div class="txt-block left-column wow fadeInRight">
+                    <div class="txt-block left-column">
                         <!-- Section ID -->
                         <span class="section-id">{{ integrations?.upperHeading?.find(t => t._key === locale).value }}</span>
                         <!-- Title -->
@@ -19,8 +19,8 @@
                 <!-- END TEXT BLOCK -->
                 <!-- IMAGE BLOCK -->
                 <div class="col-md-6 order-first order-md-2">
-                    <div class="img-block right-column wow fadeInLeft">
-                        <img class="img-fluid" :src="integrations.pic.url" :alt="integrations.image.alt" />
+                    <div class="img-block right-column">
+                        <img class="img-fluid" :src="integrations.pic.url+'?fm=webp'" :alt="integrations.image.alt" />
                     </div>
                 </div>
             </div>

@@ -197,6 +197,11 @@ export default defineNuxtConfig({
         cookieName: 'cc_cookie', // 🔹 Especificamos la cookie de consentimiento
       },
       segmentWriteKey: process.env.SEGMENT_TRACKING_CODE,
+      sanityProjectId: process.env.SANITY_PROJECTID,
+      sanityDataset: process.env.SANITY_DATASET,
+      apiVersion: "2022-04-26",
+      sanityToken: process.env.SANITY_TOKEN, // esto tiene que ir aquí porque si no falla el renderizado de las páginas y la navegación
+      linkedinPixelId: process.env.LINKEDIN_ID,
     },
   },
 

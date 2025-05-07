@@ -4,7 +4,7 @@
             <div class="row d-flex align-items-center">
                 <!-- HERO TEXT -->
                 <div class="col-md-6">
-                    <div class="hero-3-txt color--white wow fadeInRight">
+                    <div class="hero-3-txt color--white">
                         <!-- Title -->
                         <h2 class="s-60 w-300">{{ data?.hero?.heading }}</h2>
                         <!-- Text -->
@@ -27,8 +27,8 @@
                 <!-- END HERO TEXT -->
                 <!-- HERO IMAGE -->
                 <div class="col-md-6">
-                    <div class="hero-3-img wow fadeInLeft">
-                        <img class="img-fluid rounded" :src="data?.hero?.image.url" :alt="data?.hero?.heroImage.alt" />
+                    <div class="hero-3-img">
+                        <img class="img-fluid rounded" :src="data?.hero?.image.url+'?fm=webp'" :alt="data?.hero?.heroImage.alt" />
                     </div>
                 </div>
             </div>

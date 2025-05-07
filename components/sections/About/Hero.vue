@@ -22,11 +22,11 @@
                     <div class="text-end">
                         <!-- IMAGE-1 -->
                         <div class="about-2-img a-2-1 r-12">
-                            <img class="img-fluid" src="/assets/images/a2-1.jpg" alt="about-image" />
+                            <img class="img-fluid" src="/assets/images/about-image-5.jpg" alt="about-image" />
                         </div>
                         <!-- IMAGE-2 -->
                         <div class="about-2-img a-2-2 r-12">
-                            <img class="img-fluid" src="/assets/images/a2-2.jpg" alt="about-image" />
+                            <img class="img-fluid" src="/assets/images/about-image-6.jpg" alt="about-image" />
                         </div>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                 <div class="col-md-7">
                     <!-- IMAGE-3 -->
                     <div class="about-2-img a-2-3 r-12">
-                        <img class="img-fluid" src="/assets/images/a2-3.jpg" alt="about-image" />
+                        <img class="img-fluid" src="/assets/images/about-image-1.jpg" alt="about-image" />
                     </div>
                     <div class="row">
                         <!-- TEXT -->
@@ -56,7 +56,7 @@
                         <!-- IMAGE-4 -->
                         <div class="col-md-5 col-lg-6">
                             <div class="about-2-img a-2-4 r-12">
-                                <img class="img-fluid" src="/assets/images/a2-4.jpg" alt="about-image" />
+                                <img class="img-fluid" src="/assets/images/about-image-3.jpg" alt="about-image" />
                             </div>
                         </div>
                     </div>

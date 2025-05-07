@@ -73,6 +73,21 @@ export const formBlockQuery = `
         ...
 	}
 `
+export const cookieSettingsModalQuery = `
+	*[_type == "cookieSettingsModal"] {
+		...,
+		categories[]-> {
+			...,
+			cookies[]->
+		}
+	}
+`
+
+export const cookieBannerQuery = `
+	*[_type == "cookieBanner"] {
+	...
+	}
+`
 
 export const seoQuery = `
 	seo {

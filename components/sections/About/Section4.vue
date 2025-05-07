@@ -4,7 +4,7 @@
             <div class="row d-flex align-items-center">
                 <!-- TEXT BLOCK -->
                 <div class="col-md-6 order-last order-md-2">
-                    <div class="txt-block left-column wow fadeInRight">
+                    <div class="txt-block left-column">
                         <!-- Section ID -->
                         <span class="section-id">Co-founder at Martex</span>
                         <!-- Title -->
@@ -16,7 +16,7 @@
                 <!-- END TEXT BLOCK -->
                 <!-- IMAGE BLOCK -->
                 <div class="col-md-6 order-first order-md-2">
-                    <div class="img-block j-img video-preview right-column wow fadeInLeft">
+                    <div class="img-block j-img video-preview right-column">
                         <!-- Play Icon -->
                         <ElementsVideoModal :link="'https://www.youtube.com/embed/GcMiYI1gWD4'">
                             <template v-slot:button>

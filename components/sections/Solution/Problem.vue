@@ -6,10 +6,10 @@
                     <div class="row d-flex align-items-center">
                         <!-- TEXT BLOCK -->
                         <div class="col-md-6 order-last order-md-2">
-                            <div class="txt-block left-column wow fadeInRight">
+                            <div class="txt-block left-column">
                                 <!-- Title -->
                                 <h2 class="s-36 w-700">{{ problem.heading.find(t => t._key === locale).value }}</h2>
-                                <div class="txt-block right-column wow fadeInLeft">
+                                <div class="txt-block right-column">
                                     <!-- TEXT BOX -->
                                     <div class="txt-box">
                                         <p>{{ problem?.subHeading?.find(t => t._key === locale).value}}</p>
@@ -22,8 +22,8 @@
                         <!-- END TEXT BLOCK -->
                         <!-- IMAGE BLOCK -->
                         <div class="col-md-6 order-first order-md-2">
-                            <div class="img-block right-column wow fadeInLeft">
-                                <img class="img-fluid" :src="problem.pic.url" :alt="problem.image.alt" />
+                            <div class="img-block right-column">
+                                <img class="img-fluid" :src="problem.pic.url+'?fm=webp'" :alt="problem.image.alt" />
                             </div>
                         </div>
                     </div>

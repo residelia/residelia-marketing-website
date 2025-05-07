@@ -16,14 +16,14 @@
             <div class="row d-flex align-items-center">
                 <!-- IMAGE BLOCK -->
                 <div class="col-md-6">
-                    <div class="img-block left-column wow fadeInRight">
-                        <img class="img-fluid" :src="problem.pic.url" :alt="problem.image.alt" />
+                    <div class="img-block left-column">
+                        <img class="img-fluid" :src="problem.pic.url+'?fm=webp'" :alt="problem.image.alt" />
 
                     </div>
                 </div>
                 <!-- TEXT BLOCK -->
                 <div class="col-md-6">
-                    <div class="txt-block right-column wow fadeInLeft">
+                    <div class="txt-block right-column">
                         <!-- TEXT BOX -->
                         <div class="txt-box">
                             <PortableText :value="problem.content.find(t => t._key === locale).value.content" :components="serializers" />

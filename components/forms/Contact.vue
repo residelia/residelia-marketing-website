@@ -9,7 +9,7 @@
         ></v-alert>
       </template>
       <div v-else class="form-holder">
-        <v-form name="contactform" class="row contact-form mx-1" @submit.prevent="onSubmit">
+        <v-form name="contactform" class="row contact-form mx-1" @submit.prevent="doSubmit">
           <!-- Form Select -->
           <div v-if="formData.inputs.find(x => x.name === 'type')"
             class="col-md-12 input-subject"
@@ -219,6 +219,7 @@ const runtimeConfig = useRuntimeConfig();
 const route = useRoute();
 const { locale } = useI18n()
 const mainStore = useMainStore()
+const { trackEvent, identifyUser } = useTracking()
 const props = defineProps<{
     reason?: String
     formData?: Object
@@ -366,8 +367,8 @@ async function doSubmit() {
       },
     });
 
-    console.log("printing res ===========>");
-    console.log(res);
+    // console.log("printing res ===========>");
+    // console.log(res);
 
     formResult.success = res.success;
     if (formResult.success) {
@@ -380,6 +381,10 @@ async function doSubmit() {
   } else {
     formResult.success = false;
   }
+
+  // tracking event
+  trackEvent(`${props.form} Completed`,{ ...suspectData, ...formResult, clickedOnPage: route.path})
+  identifyUser(suspectData.email, { ...suspectData, ...formResult, clickedOnPage: route.path })
 }
 
 onMounted(() => {
@@ -406,4 +411,6 @@ onMounted(() => {
   font-weight: 500 !important;
   font-size: 1rem !important;
 }
+.grecaptcha-badge { visibility: hidden; }
+
 </style>

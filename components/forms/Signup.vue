@@ -93,6 +93,7 @@ import { formBlockQuery } from '../queries/helperQueries';
 const runtimeConfig = useRuntimeConfig();
 const route = useRoute();
 const router = useRouter();
+const { trackEvent, identifyUser } = useTracking()
 const  localePath  = useLocalePath()
 const { locale } = useI18n()
 const mainStore = useMainStore()
@@ -228,6 +229,10 @@ async function doSubmit() {
   } else {
     formResult.success = false;
   }
+
+  // tracking event
+  trackEvent(`${props.form} Completed`,{ ...suspectData, ...formResult, clickedOnPage: route.path})
+  identifyUser(suspectData.email, { ...suspectData, ...formResult, clickedOnPage: route.path })
 }
 
 onMounted(() => {
@@ -254,4 +259,6 @@ onMounted(() => {
   font-weight: 500 !important;
   font-size: 1rem !important;
 }
+.grecaptcha-badge { visibility: hidden; }
+
 </style>

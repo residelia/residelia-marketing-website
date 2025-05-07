@@ -6,7 +6,7 @@
                 <div class="row d-flex align-items-start">
                     <!-- PAIN BOX -->
                     <div class="col-md-6">
-                        <div class="fbox-5 r-16 wow fadeInUp d-flex flex-column">
+                        <div class="fbox-5 r-16 d-flex flex-column">
                             <!-- Text -->
                             <div class="fbox-txt">
                                 <h3 class="s-26 w-700" >{{ painAndSolution.pain.heading.find(t => t._key === locale).value }}</h3>
@@ -14,14 +14,14 @@
                             </div>
                             <!-- Image -->
                             <div class="fbox-5-img mt-90">
-                                <img class="img-fluid" width="400" :src="painAndSolution.pain.pic.url" :alt="painAndSolution.pain.image.alt" />
+                                <img class="img-fluid" width="400" :src="painAndSolution.pain.pic.url+'?fm=webp'" :alt="painAndSolution.pain.image.alt" />
                             </div>
                         </div>
                     </div>
                     <!-- END PAIN BOX -->
                     <!-- SOLUTION BOX -->
                     <div class="col-md-6">
-                        <div class="fbox-5 r-16 wow fadeInUp d-flex flex-column">
+                        <div class="fbox-5 r-16 d-flex flex-column">
                             <!-- Text -->
                             <div class="fbox-txt">
                                 <h3 class="s-26 w-700" v-html="balanceString(painAndSolution.solution.heading.find(t => t._key === locale).value,5)"></h3>
@@ -29,7 +29,7 @@
                             </div>
                             <!-- Image -->
                             <div class="fbox-5-img mt-5">
-                                <img class="img-fluid" width="450px" :src="painAndSolution.solution.pic.url" :alt="painAndSolution.solution.image.alt" />
+                                <img class="img-fluid" width="450px" :src="painAndSolution.solution.pic.url+'?fm=webp'" :alt="painAndSolution.solution.image.alt" />
                             </div>
                         </div>
                     </div>

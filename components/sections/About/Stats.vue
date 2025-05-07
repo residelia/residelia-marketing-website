@@ -6,7 +6,7 @@
                 <div class="row row-cols-1 row-cols-md-3">
                     <!-- STATISTIC BLOCK -->
                     <div v-for="(stat, index) in statistics.statGroup" class="col">
-                        <div id="sb-5-1" class="wow fadeInUp">
+                        <div id="sb-5-1">
                             <div class="statistic-block">
                                 <!-- Digit -->
                                 <div class="statistic-digit">

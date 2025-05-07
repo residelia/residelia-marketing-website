@@ -12,7 +12,7 @@
                             <h2 class="s-34 w-700 mt-3">{{ hero?.heading?.find(t => t._key === locale).value }}</h2>
                             <!-- Text -->
                             <!-- <p class="p-md mt-25">{{ hero?.subHeading?.find(t => t._key === locale).value }}</p> -->
-                            <img class="img-fluid mt-3"  :src="hero.image.url" :alt="hero.imageAlt" />
+                            <img class="img-fluid mt-3"  :src="hero.image.url+'?fm=webp'" :alt="hero.imageAlt" />
                         </div>
                     </div>
             </v-col>

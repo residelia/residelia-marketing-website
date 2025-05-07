@@ -24,17 +24,17 @@
             <div class="row d-flex align-items-center">
               <!-- IMAGE BLOCK -->
               <div class="col-md-6">
-                <div class="img-block left-column wow fadeInRight">
+                <div class="img-block left-column">
                   <img
                     class="img-fluid"
-                    :src="step.pic.url"
+                    :src="step.pic.url+'?fm=webp'"
                     :alt="step.image.alt"
                   />
                 </div>
               </div>
               <!-- TEXT BLOCK -->
               <div class="col-md-6">
-                <div class="txt-block right-column wow fadeInLeft">
+                <div class="txt-block right-column">
                   <!-- Section ID -->
                   <span class="section-id">{{step?.upperHeading?.find(t => t._key === locale).value}} <v-chip v-if="step.soon" class="ma-2 text-capitalize" color="primary" size="x-small" label>{{ $t('soon') }}</v-chip><v-chip v-if="step.next" class="ma-2 text-capitalize" color="primary" size="x-small" label>{{ $t('next') }}</v-chip></span>
                   <!-- Title -->
@@ -65,7 +65,7 @@
             <div class="row d-flex align-items-center">
               <!-- TEXT BLOCK -->
               <div class="col-md-6 order-last order-md-2">
-                <div class="txt-block left-column wow fadeInRight">
+                <div class="txt-block left-column">
                   <!-- Section ID -->
                   <span class="section-id">{{step?.upperHeading?.find(t => t._key === locale).value}} <v-chip v-if="step.soon" class="ma-2 text-capitalize" color="primary" size="x-small" label>{{ $t('soon') }}</v-chip><v-chip v-if="step.next" class="ma-2 text-capitalize" color="primary" size="x-small" label>{{ $t('next') }}</v-chip></span>
                   <!-- Title -->
@@ -86,10 +86,10 @@
               <!-- END TEXT BLOCK -->
               <!-- IMAGE BLOCK -->
               <div class="col-md-6 order-first order-md-2">
-                <div class="img-block right-column wow fadeInLeft">
+                <div class="img-block right-column">
                   <img
                     class="img-fluid"
-                    :src="step.pic.url"
+                    :src="step.pic.url+'?fm=webp'"
                     :alt="step.image.alt"
                   />
                 </div>

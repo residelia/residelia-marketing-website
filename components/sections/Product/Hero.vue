@@ -33,15 +33,15 @@
                 <div class="col">
                     <div class="hero-product-img video-preview wow fadeInUp">
                         <!-- Play Icon -->
-                        <ElementsVideoModal :link="'https://www.youtube.com/embed/GcMiYI1gWD4'">
+                        <!-- <ElementsVideoModal :link="'https://www.youtube.com/embed/GcMiYI1gWD4'">
                             <template v-slot:button>
                                 <div class="video-btn video-btn-xl btn--theme hover--theme ico-90" @click="handleClick('Hero Video Launched','hero-video-button')">
                                     <div class="video-block-wrapper"><span class="flaticon-play-button"></span></div>
                                 </div>
                             </template>
-                        </ElementsVideoModal>
+                        </ElementsVideoModal> -->
                         <!-- Preview Image -->
-                        <img class="img-fluid"  :src="hero.image.url" :alt="hero.imageAlt" />
+                        <img class="img-fluid"  :src="hero.image.url+'?fm=webp'" :alt="hero.imageAlt" />
                     </div>
                 </div>
             </div>
