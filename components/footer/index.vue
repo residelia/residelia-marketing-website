@@ -143,5 +143,7 @@ import { useMainStore } from "../../stores/mainStore";
 
 const mainStore = useMainStore()
 const { locale } = useI18n()
+const localePath = useLocalePath()
+
 </script>
 

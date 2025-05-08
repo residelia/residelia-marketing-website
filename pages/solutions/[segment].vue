@@ -24,23 +24,24 @@ const { locale } = useI18n();
 const mainStore = useMainStore();
 const runtimeConfig = useRuntimeConfig();
 
+console.log(
+    "%cStop!",
+    "color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold"
+);
+console.log(route)
+console.log(locale)
+console.log(route.fullPath.startsWith(`/${locale.value}`) ? route.fullPath.slice(`/${locale.value}`.length) || '/' : route.fullPath)
 const data = await useSanityData({
     query: pageQuery,
     params: {
-      // slug: route.path.startsWith(`/${locale.value}`) ? route.path.slice(`/${locale.value}`.length) || '/' : route.path,
-      slug: route.params.segment,
+      slug: route.fullPath.startsWith(`/${locale.value}`) ? route.fullPath.slice(`/${locale.value}`.length) || '/' : route.fullPath,
+      // slug: route.params.segment,
       language: locale.value
     }
 })
 
-// console.log(
-//     "%cStop!",
-//     "color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold"
-// );
-// console.log(runtimeConfig.public.baseUrl)
-// console.log(route)
-// console.log(locale)
-// console.log(data)
+
+console.log(data)
 
 // setting header and hero colors
 const headerColor = data.value[0].headerColor === 'dark' ? 'navbar-light' : 'navbar-dark'

@@ -59,6 +59,7 @@ import { useMainStore } from '../../../stores/mainStore';
 
 
 const { locale } = useI18n()
+const localePath = useLocalePath()
 const mainStore = useMainStore()
 
 const props = defineProps<{

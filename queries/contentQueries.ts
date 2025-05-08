@@ -265,6 +265,38 @@ export const postsQuery = groq`
     }
 `;
 
+export const pillarsQuery = groq`
+	*[_type == "pillar" && language == $language] {
+		_id,
+		excerpt,
+		"slug": slug.current,
+		title,
+		subtitle,
+		"image": mainImage.asset->{url},
+    }
+`;
+
+export const singlePillarQuery = groq`
+	*[_type == "pillar" && slug.current == $slug] {
+		_id,
+		excerpt,
+		"slug": slug.current,
+		title,
+		subtitle,
+		"image": mainImage.asset->{url},
+		clusters->,
+		body[]{
+			...,
+			markDefs[]{
+				...,
+				_type == "internalLink" => {
+					"slug": @.reference->slug
+				}
+			}
+		}
+	}
+`;
+
 export const jobsQuery = groq`
 	*[_type == "position" && active == true] {
 		_id,

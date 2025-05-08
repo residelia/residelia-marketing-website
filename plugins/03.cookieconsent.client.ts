@@ -32,19 +32,19 @@ export default defineNuxtPlugin(async (nuxtApp) => {
     return;
   }
 
-  console.log(
-          "%cStop!",
-          "color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold"
-        );
-  console.log(cookieBannerData)
-  console.log(cookieSettingsData)
-  console.log(mainStore.locales)
+  // console.log(
+  //         "%cStop!",
+  //         "color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold"
+  //       );
+  // console.log(cookieBannerData)
+  // console.log(cookieSettingsData)
+  // console.log(mainStore.locales)
 
   
   const translations = {}
   const tableKeys = ['name', 'domain', 'desc']
 
-  console.log(cookieSettingsData[0].categories[2].cookiesTable.find(t => t._key === 'es').value.rows.slice(1).map(r => (r.cells.map((c, index) => ({ [tableKeys[index]]: c })).reduce((acc, current) => ({ ...acc, ...current }), {}))))
+  // console.log(cookieSettingsData[0].categories[2].cookiesTable.find(t => t._key === 'es').value.rows.slice(1).map(r => (r.cells.map((c, index) => ({ [tableKeys[index]]: c })).reduce((acc, current) => ({ ...acc, ...current }), {}))))
   
   mainStore.locales.forEach(locale => {
     translations[locale.localeCode] = {
@@ -73,7 +73,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
     }
   });
 
-  console.log(translations)
+  // console.log(translations)
 
   const config: CookieConsentConfig = {
     mode: dynamicMode,
@@ -125,7 +125,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
 
     onFirstConsent: () => {
       mainStore.showCookieLauncher();
-      console.log('✅ Primer consentimiento:', CookieConsent.getUserPreferences().acceptedCategories);
+      // console.log('✅ Primer consentimiento:', CookieConsent.getUserPreferences().acceptedCategories);
       // handleConsent(CookieConsent.getUserPreferences());
     },
 
@@ -139,20 +139,20 @@ export default defineNuxtPlugin(async (nuxtApp) => {
 
     onConsent: ({ acceptedCategories }) => {
       if (acceptedCategories) {
-        console.log('✅ Nuevo consentimiento aceptado:', CookieConsent.getUserPreferences().acceptedCategories)
+        // console.log('✅ Nuevo consentimiento aceptado:', CookieConsent.getUserPreferences().acceptedCategories)
         if (acceptedCategories.includes('analytics')) nuxtApp.$loadSegment?.();
         // if (acceptedCategories.includes('marketing')) nuxtApp.$loadMarketing?.();
       } else {
-        console.log('✅ Contamos con los consentimientos:', CookieConsent.getUserPreferences().acceptedCategories);
+        // console.log('✅ Contamos con los consentimientos:', CookieConsent.getUserPreferences().acceptedCategories);
         if(CookieConsent.getUserPreferences().acceptedCategories.includes('analytics')) nuxtApp.$loadSegment?.();
         // if(CookieConsent.getUserPreferences().acceptedCategories.includes('marketing')) nuxtApp.$loadMarketing?.();
       }
     },
 
     onChange: ({ changedCategories }) => {
-      console.log('🔄 Cambio en categorías:', changedCategories);
-      console.log('🔄 Accepted en categorías:', CookieConsent.getUserPreferences().acceptedCategories);
-      console.log('🔄 Rejected en categorías:', CookieConsent.getUserPreferences().rejectedCategories);
+      // console.log('🔄 Cambio en categorías:', changedCategories);
+      // console.log('🔄 Accepted en categorías:', CookieConsent.getUserPreferences().acceptedCategories);
+      // console.log('🔄 Rejected en categorías:', CookieConsent.getUserPreferences().rejectedCategories);
       if (changedCategories.includes('analytics')) {
         if (CookieConsent.getUserPreferences().acceptedCategories.includes('analytics')) nuxtApp.$loadSegment?.();
         else nuxtApp.$disableSegment?.();

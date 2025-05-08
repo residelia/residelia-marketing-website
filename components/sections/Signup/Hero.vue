@@ -42,6 +42,7 @@ import { formBlockQuery } from '../queries/helperQueries';
 const runtimeConfig = useRuntimeConfig();
 const route = useRoute();
 const { locale } = useI18n()
+const localePath = useLocalePath()
 const mainStore = useMainStore()
 const props = defineProps<{
     hero?: Object

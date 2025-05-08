@@ -24,6 +24,8 @@ const props = defineProps({
 
 const { trackEvent } = useTracking();
 const { trackMarketingEvent } = useMarketingTracking();
+const localePath = useLocalePath()
+
 
 const isExternal = computed(() => {
   return /^(https?:)?\/\//.test(props.url) && !props.url.includes(window.location.hostname);

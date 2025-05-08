@@ -8,6 +8,8 @@
 
 <script lang="ts" setup>
 const { locale } = useI18n()
+const localePath = useLocalePath()
+
 defineProps<{
   value: object
 }>();

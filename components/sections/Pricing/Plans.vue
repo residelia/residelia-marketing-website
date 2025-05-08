@@ -133,6 +133,8 @@ function togglePrices() {
 
 
 const { locale } = useI18n()
+const localePath = useLocalePath()
+
 const props = defineProps<{
     plans?: Object
 }>();

@@ -52,6 +52,8 @@
 <script setup lang="ts">
 const route = useRoute();
 const { locale } = useI18n()
+const localePath = useLocalePath()
+
 const props = defineProps<{
     hero: Object
     color: String

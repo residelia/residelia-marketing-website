@@ -39,6 +39,7 @@ const emit = defineEmits<{
 const router = useRouter();
 const mainStore = useMainStore();
 const switchLocalePath = useSwitchLocalePath();
+const localePath = useLocalePath()
 
 const languages = mainStore.locales
 const currentLanguage = mainStore.currentLocale
