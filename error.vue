@@ -45,7 +45,7 @@ const props = defineProps({
   error: Object
 })
 const route = useRoute();
-const { locale } = useI18n()
+const { t, locale } = useI18n()
 const localePath = useLocalePath()
 const handleError = () => clearError({ redirect: localePath('/') })
 

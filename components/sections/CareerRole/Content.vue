@@ -66,6 +66,8 @@ import { jobBenefitsQuery } from '../../../queries/helperQueries'
 
 const route = useRoute();
 const {locale} = useI18n()
+const localePath = useLocalePath()
+
 const props = defineProps<{
     job: Object
 }>();

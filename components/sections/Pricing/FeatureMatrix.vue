@@ -241,6 +241,8 @@
 
 <script setup lang="ts">
 const { locale } = useI18n()
+const localePath = useLocalePath()
+
 const props = defineProps<{
     matrixGeneral?: Object
     matrixExplorer?: Object

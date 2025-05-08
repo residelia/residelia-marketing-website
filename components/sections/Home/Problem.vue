@@ -62,6 +62,8 @@ import ListItemPage from '../../elements/ListItemPage.vue'
 import { PortableText } from '@portabletext/vue';
 
 const { locale } = useI18n();
+const localePath = useLocalePath()
+
 const props = defineProps<{
   problem: Object;
 }>();

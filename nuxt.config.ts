@@ -1,5 +1,120 @@
 import { resolve } from "path";
+import dotenv from "dotenv";
+import { createClient } from "@sanity/client";
 import { useMainStore } from "./stores/mainStore";
+
+dotenv.config();
+
+// Idiomas configurados en el proyecto
+const locales = ["es", "en"]; // Asegúrate de que coincidan con los idiomas en tu configuración de i18n
+const defaultLocale = "es"; // Define el locale por defecto
+
+// Función para obtener las rutas internacionalizadas desde Sanity
+console.log("nuxtConfig: projectId:", process.env.SANITY_PROJECTID);
+console.log("nuxtConfig: dataset:", process.env.SANITY_DATASET);
+console.log("nuxtConfig: sanityToken:", process.env.SANITY_TOKEN);
+
+const fetchRoutesWithLocales = async () => {
+  const sanityClient = createClient({
+    projectId: "asqz10j2",
+    dataset: "production",
+    token: "skHqzduJvPr2TrtA3ugj1NEBAWvZkqY1jJgQWdZewbnyaJKuy5KGFECZLFNcVat0JD4xeWOpXDnzPzC0GDGgCb0JiKWJ2cIt0FplMbZJxLYicS3FNRwGwXEWlmWs4z1WRBrG6UinrlVgx9ehOJH8pVfkhIc3o90zcQQgpJ1c4DUzM61mmxWh", // Necesario para acceder a los slugs
+    apiVersion: "2022-04-26",
+    useCdn: false,
+  });
+
+  // Consulta para obtener los slugs internacionalizados
+  const pages = await sanityClient.fetch(`
+    *[_type == "page"] {
+      slug
+    }
+  `);
+
+  console.log("nuxtConfig: nitroRoutes: pages:", pages);
+
+  // Validar que las páginas y los slugs sean válidos
+  if (!pages || !Array.isArray(pages)) {
+    console.error("No se encontraron páginas o el formato de los datos es incorrecto.");
+    return [];
+  }
+
+  const routes = [];
+  pages.forEach((page) => {
+    if (page.slug && Array.isArray(page.slug)) {
+      page.slug.forEach((slug) => {
+        if (slug && locales.includes(slug._key) && slug.value?.current) {
+          // Excluir el prefijo del locale por defecto
+          const route =
+            slug._key === defaultLocale
+              ? `/${slug.value.current}`
+              : `/${slug._key}/${slug.value.current}`;
+          routes.push(route);
+        }
+      });
+    } else {
+      console.warn("Página sin slugs válidos:", page);
+    }
+  });
+
+  return routes;
+};
+
+// Función para obtener las rutas para el sitemap
+const fetchSitemapUrlsWithLocales = async () => {
+  const sanityClient = createClient({
+    projectId: "asqz10j2",
+    dataset: "production",
+    token: "skHqzduJvPr2TrtA3ugj1NEBAWvZkqY1jJgQWdZewbnyaJKuy5KGFECZLFNcVat0JD4xeWOpXDnzPzC0GDGgCb0JiKWJ2cIt0FplMbZJxLYicS3FNRwGwXEWlmWs4z1WRBrG6UinrlVgx9ehOJH8pVfkhIc3o90zcQQgpJ1c4DUzM61mmxWh", // Necesario para acceder a los slugs
+    apiVersion: "2022-04-26",
+    useCdn: false,
+  });
+
+  // Consulta para obtener los slugs internacionalizados y la fecha de última modificación
+  const pages = await sanityClient.fetch(`
+    *[_type == "page"] {
+      slug,
+      _updatedAt
+    }
+  `);
+  console.log("nuxtConfig: sitemapUrls: pages:", pages);
+
+  // Validar que las páginas y los slugs sean válidos
+  if (!pages || !Array.isArray(pages)) {
+    console.error("No se encontraron páginas o el formato de los datos es incorrecto.");
+    return [];
+  }
+
+  const urls = [];
+  pages.forEach((page) => {
+    if (page.slug && Array.isArray(page.slug)) {
+      page.slug.forEach((slug) => {
+        if (slug && locales.includes(slug._key) && slug.value?.current) {
+          // Excluir el prefijo del locale por defecto
+          const url =
+            slug._key === defaultLocale
+              ? `/${slug.value.current}`
+              : `/${slug._key}/${slug.value.current}`;
+          urls.push({
+            url,
+            lastmod: page._updatedAt,
+          });
+        }
+      });
+    } else {
+      console.warn("Página sin slugs válidos:", page);
+    }
+  });
+
+  return urls;
+};
+
+// Ejecutar las funciones para obtener las rutas y URLs antes de exportar la configuración
+const nitroRoutes = await fetchRoutesWithLocales();
+const sitemapUrls = await fetchSitemapUrlsWithLocales();
+
+
+console.log("nuxtConfig: sitemapUrls:", sitemapUrls);
+console.log("nuxtConfig: nitroRoutes:", nitroRoutes);
 
 export default defineNuxtConfig({
   target: "static",
@@ -107,14 +222,16 @@ export default defineNuxtConfig({
         /* vuetify options */
       },
     },
-  ], "@pinia/nuxt", "dayjs-nuxt", "@nuxtjs/i18n" /*"@portabletext/vue"*/],
+  ], "@pinia/nuxt", "dayjs-nuxt", "@nuxtjs/i18n", '@nuxtjs/sitemap' /*"@portabletext/vue"*/],
 
   sitemap: {
     hostname: process.env.BASE_URL,
-    name: "RESIDELIA - La plataforma",
+    name: "RESIDELIA - La plataforma de gestión de propiedades para profesionales",
     lastmod: new Date("YYYY-MM-DD"),
     path: "/sitemap.xml",
     i18n: true,
+    gzip: true,
+    urls: sitemapUrls,
   },
 
   sanity: {
@@ -157,6 +274,7 @@ export default defineNuxtConfig({
     prerender: {
       crawlLinks: true,
       failOnError: false,
+      routes: nitroRoutes,
     },
   },
 

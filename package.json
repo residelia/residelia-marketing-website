@@ -10,12 +10,12 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@nuxt/devtools": "latest",
+    "@nuxt/devtools": "^2.4.0",
     "@nuxt/scripts": "0.10.3",
     "@nuxtjs/dotenv": "^1.4.2",
-    "@nuxtjs/i18n": "^8.5.1",
-    "@nuxtjs/seo": "^2.0.0-rc.23",
-    "@nuxtjs/sitemap": "^7.2.6",
+    "@nuxtjs/i18n": "^9.5.4",
+    "@nuxtjs/seo": "^3.0.3",
+    "@nuxtjs/sitemap": "^7.2.10",
     "@nuxtjs/tailwindcss": "^6.12.0",
     "@types/node": "^18",
     "@unhead/vue": "^1",
@@ -46,6 +46,7 @@
     "nuxt-swiper": "^1.2.0",
     "pinia": "^2.1.7",
     "sass": "^1.77.5",
+    "unhead": "^2.0.8",
     "vanilla-cookieconsent": "^3.0.1",
     "vue-recaptcha-v3": "^2.0.1",
     "wow.js": "^1.2.2"
