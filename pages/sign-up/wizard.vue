@@ -288,6 +288,9 @@ defineI18nRoute({
     es: "/registro/wizard",
   },
 });
+defineRouteRules({
+  robots: false,
+})
 
 useHead({
   // title: `${data.value[0].title.find(l => l._key === locale._value).value}`,

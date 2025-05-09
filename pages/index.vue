@@ -18,7 +18,6 @@
 import { useMainStore } from '../stores/mainStore';
 import { homeQuery, pageQuery } from '../queries/contentQueries'
 
-
 const route = useRoute()
 const { locale } = useI18n()
 const mainStore = useMainStore()

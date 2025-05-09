@@ -6,15 +6,16 @@
                 <div class="col-xl-10">
                     <div class="post-content">
                         <!--  SINGLE POST TITLE -->
-                        <div class="single-post-title text-center">
+                        <div class="single-post-title">
+                            <NuxtLink :to="localePath('/blog')" class="s-12"><span><v-icon>mdi-chevron-left</v-icon>{{ $t('backToBlog') }}</span></NuxtLink>  
                             <!-- Post Tag -->
-                            <span class="post-tag color--green-400">{{ post[0].category?.name.find(l => l._key === locale).value }}</span>
+                            <span class="post-tag color--green-400 mt-4 mb-2">{{ post[0].category?.name.find(l => l._key === locale).value }}</span>
                             <!-- Title -->
-                            <h2 class="s-46 w-700">{{ post[0].title }}</h2>
+                            <h2 class="s-46 w-700 p-0">{{ post[0].title }}</h2>
                             <!-- Post Meta -->
-                            <div class="blog-post-meta mt-35">
+                            <div class="blog-post-meta mt-3 color--grey-400">
                                 <ul class="post-meta-list ico-10">
-                                    <li><p class="p-md w-500">{{ post[0].author?.name }}</p></li>
+                                    <li><p class="p-xs s-14 w-500">{{ post[0].author?.name }}</p></li>
                                     <li class="meta-list-divider">
                                         <p><span class="flaticon-minus"></span></p>
                                     </li>
@@ -87,10 +88,11 @@ import VideoImage from '../../elements/VideoImage.vue'
 import List from '../../elements/List.vue'
 import NumberedList from '../../elements/NumberedList.vue'
 import ListItem from '../../elements/ListItem.vue'
-
 import { PortableText } from '@portabletext/vue';
 
 const { locale } = useI18n()
+const localePath = useLocalePath();
+
 defineProps<{
   post?: Object
 }>()

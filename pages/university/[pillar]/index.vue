@@ -1,5 +1,17 @@
 <template>
     <div>
+      <template #sidebar>
+        <!-- Contenido del sidebar -->
+      </template>
+
+      <template #toc>
+        <!-- Contenido del Table of Contents -->
+      </template>
+
+      <!-- Contenido principal -->
+      <SectionsBlogPostContent :post="pillarContent" />
+
+
       <SectionsProjectsSection1 :data="data"/>
       <SectionsProjectsSection2 />
       <SectionsProjectsSection3 />
@@ -15,6 +27,9 @@ import { pageQuery } from '../../../queries/contentQueries'
 // -- [pillar-page]
 // -- ...
 //
+definePageMeta({
+  layout: 'university', // Usa el diseño de Docus
+});
 defineI18nRoute({
     paths: {
       en: '/university/[pillar]',

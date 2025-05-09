@@ -10,10 +10,6 @@ const locales = ["es", "en"]; // Asegúrate de que coincidan con los idiomas en 
 const defaultLocale = "es"; // Define el locale por defecto
 
 // Función para obtener las rutas internacionalizadas desde Sanity
-console.log("nuxtConfig: projectId:", process.env.SANITY_PROJECTID);
-console.log("nuxtConfig: dataset:", process.env.SANITY_DATASET);
-console.log("nuxtConfig: sanityToken:", process.env.SANITY_TOKEN);
-
 const fetchRoutesWithLocales = async () => {
   const sanityClient = createClient({
     projectId: "asqz10j2",
@@ -29,8 +25,6 @@ const fetchRoutesWithLocales = async () => {
       slug
     }
   `);
-
-  console.log("nuxtConfig: nitroRoutes: pages:", pages);
 
   // Validar que las páginas y los slugs sean válidos
   if (!pages || !Array.isArray(pages)) {
@@ -76,7 +70,6 @@ const fetchSitemapUrlsWithLocales = async () => {
       _updatedAt
     }
   `);
-  console.log("nuxtConfig: sitemapUrls: pages:", pages);
 
   // Validar que las páginas y los slugs sean válidos
   if (!pages || !Array.isArray(pages)) {
@@ -111,10 +104,6 @@ const fetchSitemapUrlsWithLocales = async () => {
 // Ejecutar las funciones para obtener las rutas y URLs antes de exportar la configuración
 const nitroRoutes = await fetchRoutesWithLocales();
 const sitemapUrls = await fetchSitemapUrlsWithLocales();
-
-
-console.log("nuxtConfig: sitemapUrls:", sitemapUrls);
-console.log("nuxtConfig: nitroRoutes:", nitroRoutes);
 
 export default defineNuxtConfig({
   target: "static",
@@ -222,8 +211,12 @@ export default defineNuxtConfig({
         /* vuetify options */
       },
     },
-  ], "@pinia/nuxt", "dayjs-nuxt", "@nuxtjs/i18n", '@nuxtjs/sitemap' /*"@portabletext/vue"*/],
+  ], "@pinia/nuxt", "dayjs-nuxt", "@nuxtjs/i18n", '@nuxtjs/sitemap', '@nuxtjs/robots'/*"@portabletext/vue"*/],
 
+  site: {
+    url: process.env.BASE_URL,
+    name: "RESIDELIA - La plataforma de gestión de propiedades para profesionales",
+  },
   sitemap: {
     hostname: process.env.BASE_URL,
     name: "RESIDELIA - La plataforma de gestión de propiedades para profesionales",
@@ -335,4 +328,6 @@ export default defineNuxtConfig({
       enabled: true,
     },
   },
+
+  compatibilityDate: '2025-05-09'
 });
