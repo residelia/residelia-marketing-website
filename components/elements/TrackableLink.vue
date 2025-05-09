@@ -2,7 +2,7 @@
   <component
     :is="isExternal ? 'a' : 'NuxtLink'"
     :href="isExternal ? url : undefined"
-    :to="isExternal ? undefined : localePath(url)"
+    :to="isExternal ? undefined : $localePath(url)"
     :target="isExternal ? '_blank' : undefined"
     :rel="isExternal ? 'noopener noreferrer' : undefined"
     @click.native.stop="handleClick"
@@ -24,7 +24,6 @@ const props = defineProps({
 
 const { trackEvent } = useTracking();
 const { trackMarketingEvent } = useMarketingTracking();
-const localePath = useLocalePath()
 
 
 const isExternal = computed(() => {

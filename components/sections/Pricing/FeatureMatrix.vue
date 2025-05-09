@@ -151,7 +151,7 @@
                                         <th scope="row" class="text-start main-cell"></th>
                                         <td class="color--black cell">
                                             <NuxtLink
-                                                :to="localePath('/contactar?reason=sales&plan=starter')"
+                                                :to="$localePath('/contactar?reason=sales&plan=starter')"
                                                 class="btn r-04 btn--theme hover--theme" data-bs-toggle="modal" data-bs-target="#modal-3"
                                                 @click="handleClick(message.button.id,'product-cta-button')"
                                             >Contratar
@@ -159,7 +159,7 @@
                                         </td>
                                         <td class="color--black cell">
                                             <NuxtLink
-                                                :to="localePath('/contactar?reason=sales&plan=advanced')"
+                                                :to="$localePath('/contactar?reason=sales&plan=advanced')"
                                                 class="btn r-04 btn--theme hover--theme" data-bs-toggle="modal" data-bs-target="#modal-3"
                                                 @click="handleClick(message.button.id,'product-cta-button')"
                                             >Contratar
@@ -167,7 +167,7 @@
                                         </td>
                                         <td class="color--black cell">
                                             <NuxtLink
-                                                :to="localePath('/contactar?reason=sales&plan=profesional')"
+                                                :to="$localePath('/contactar?reason=sales&plan=profesional')"
                                                 class="btn r-04 btn--theme hover--theme" data-bs-toggle="modal" data-bs-target="#modal-3"
                                                 @click="handleClick(message.button.id,'product-cta-button')"
                                             >Contratar
@@ -175,7 +175,7 @@
                                         </td>
                                         <td class="color--black cell">
                                             <NuxtLink
-                                                :to="localePath('/contactar?reason=sales&plan=corporate')"
+                                                :to="$localePath('/contactar?reason=sales&plan=corporate')"
                                                 class="btn r-04 btn--theme hover--theme" data-bs-toggle="modal" data-bs-target="#modal-3"
                                                 @click="handleClick(message.button.id,'product-cta-button')"
                                             >Contratar
@@ -220,7 +220,7 @@
                                         <th scope="row" class="text-start main-cell"></th>
                                         <td class="color--black cell">
                                             <NuxtLink
-                                                :to="localePath('/contactar')"
+                                                :to="$localePath('/contactar')"
                                                 class="btn r-04 btn--theme-secondary hover--theme" data-bs-toggle="modal" data-bs-target="#modal-3"
                                                 @click="handleClick(message.button.id,'product-cta-button')"
                                             >Contratar
@@ -241,7 +241,6 @@
 
 <script setup lang="ts">
 const { locale } = useI18n()
-const localePath = useLocalePath()
 
 const props = defineProps<{
     matrixGeneral?: Object

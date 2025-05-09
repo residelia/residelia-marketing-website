@@ -39,7 +39,7 @@
                             <hr />
                         </div>
                         <!-- Button -->
-                        <NuxtLink :to="localePath('contact')" class="btn r-04 btn--theme hover--theme">Apply to this job!</NuxtLink>
+                        <NuxtLink :to="$localePath('contact')" class="btn r-04 btn--theme hover--theme">Apply to this job!</NuxtLink>
                     </div>
                     <!-- END TEXT BLOCK -->
                 </div>
@@ -66,7 +66,6 @@ import { jobBenefitsQuery } from '../../../queries/helperQueries'
 
 const route = useRoute();
 const {locale} = useI18n()
-const localePath = useLocalePath()
 
 const props = defineProps<{
     job: Object

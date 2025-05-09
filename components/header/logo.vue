@@ -31,8 +31,8 @@
 import { useMainStore } from '../../stores/mainStore'
 
 const mainStore = useMainStore()
-const localePath = useLocalePath()
 const { locale } = useI18n()
+const localePath = useLocalePath()
 
 function toggleMobileMenu() {
   // toggle body class "dark-mode"

@@ -32,7 +32,7 @@
                         <!-- Link -->
                         <div v-for="button in problem.buttons" class="txt-block-tra-link mt-25">
                             <NuxtLink
-                                :to="localePath(`${button.button.link.slug.find(t => t._key === locale).value.current}${button.button.queryString ? button.button.queryString : ''}`)"
+                                :to="$localePath(`${button.button.link.slug.find(t => t._key === locale).value.current}${button.button.queryString ? button.button.queryString : ''}`)"
                                 class="tra-link ico-20 color--theme"
                                 @click="handleClick(button.button.id,'Problem CTA')"
                                 >{{ button.button.linkText.filter(l => l._key === locale.slice(0,2))[0]?.value }} <span class="flaticon-next"></span></NuxtLink>
@@ -62,7 +62,6 @@ import ListItemPage from '../../elements/ListItemPage.vue'
 import { PortableText } from '@portabletext/vue';
 
 const { locale } = useI18n();
-const localePath = useLocalePath()
 
 const props = defineProps<{
   problem: Object;

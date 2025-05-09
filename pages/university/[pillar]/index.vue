@@ -1,15 +1,12 @@
 <template>
     <div>
-      <template #sidebar>
-        <!-- Contenido del sidebar -->
+      <!-- <template #sidebar>
       </template>
 
       <template #toc>
-        <!-- Contenido del Table of Contents -->
       </template>
 
-      <!-- Contenido principal -->
-      <SectionsBlogPostContent :post="pillarContent" />
+      <SectionsBlogPostContent :post="pillarContent" /> -->
 
 
       <SectionsProjectsSection1 :data="data"/>

@@ -39,7 +39,7 @@
             </div>
             <!-- END 1x2 WRAPPER -->
             <!-- <div v-if="painAndSolution.buttons" class="txt-block-tra-link mt-25">
-                <NuxtLink :to="localePath(`${painAndSolution.buttons.link.slug.find(t => t._key === locale).value.current}${painAndSolution.buttons.queryString ? painAndSolution.buttons.queryString : ''}`)" class="btn r-04 btn--theme hover--theme">{{ painAndSolution.buttons.button.linkText.filter(l => l._key === locale.slice(0,2))[0]?.value }} <span class="flaticon-next"></span></NuxtLink>
+                <NuxtLink :to="$localePath(`${painAndSolution.buttons.link.slug.find(t => t._key === locale).value.current}${painAndSolution.buttons.queryString ? painAndSolution.buttons.queryString : ''}`)" class="btn r-04 btn--theme hover--theme">{{ painAndSolution.buttons.button.linkText.filter(l => l._key === locale.slice(0,2))[0]?.value }} <span class="flaticon-next"></span></NuxtLink>
             </div> -->
         </div>
         <!-- End container -->
@@ -48,7 +48,6 @@
 
 <script setup lang="ts">
 const { locale } = useI18n();
-const localePath = useLocalePath()
 
 const props = defineProps<{
     painAndSolution: Object;

@@ -32,8 +32,8 @@
             <!-- Links -->
             <ul class="foo-links clearfix">
               <li v-for="menu in mainStore.footer.menuesGroup[0].menu">
-                <!-- <p><NuxtLink v-if="!menu.next" :to="localePath(menu.link.slug?.find(l => l._key === locale).value.current)">{{ menu.title?.find(l => l._key === locale).value }}</NuxtLink></p></li> -->
-                <p><NuxtLink v-if="!menu.next" :to="localePath({ name: 'product', params: { product: menu.link.slug.find(l => l._key === locale).value.current } })">{{ menu.title?.find(l => l._key === locale).value }}</NuxtLink></p></li>
+                <!-- <p><NuxtLink v-if="!menu.next" :to="$localePath(menu.link.slug?.find(l => l._key === locale).value.current)">{{ menu.title?.find(l => l._key === locale).value }}</NuxtLink></p></li> -->
+                <p><NuxtLink v-if="!menu.next" :to="$localePath({ name: 'product', params: { product: menu.link.slug.find(l => l._key === locale).value.current } })">{{ menu.title?.find(l => l._key === locale).value }}</NuxtLink></p></li>
             </ul>
           </div>
         </div>
@@ -46,8 +46,8 @@
             <h6 class="s-17 w-700">{{ mainStore.footer.menuesGroup[1].title.find(l => l._key === locale).value}}</h6>
             <!-- Links -->
             <ul class="foo-links clearfix">
-              <!-- <li v-for="menu in mainStore.footer.menuesGroup[1].menu"><p><NuxtLink :to="localePath(menu.link.slug?.find(l => l._key === locale).value.current)">{{ menu.title?.find(l => l._key === locale).value }}</NuxtLink></p></li> -->
-              <li v-for="menu in mainStore.footer.menuesGroup[1].menu"><p><NuxtLink :to="localePath({ name: 'solutions-segment', params: { segment: menu.link.slug.find(l => l._key === locale).value.current } })">{{ menu.title?.find(l => l._key === locale).value }}</NuxtLink></p></li>
+              <!-- <li v-for="menu in mainStore.footer.menuesGroup[1].menu"><p><NuxtLink :to="$localePath(menu.link.slug?.find(l => l._key === locale).value.current)">{{ menu.title?.find(l => l._key === locale).value }}</NuxtLink></p></li> -->
+              <li v-for="menu in mainStore.footer.menuesGroup[1].menu"><p><NuxtLink :to="$localePath({ name: 'solutions-segment', params: { segment: menu.link.slug.find(l => l._key === locale).value.current } })">{{ menu.title?.find(l => l._key === locale).value }}</NuxtLink></p></li>
             </ul>
           </div>
         </div>
@@ -62,8 +62,8 @@
             <ul class="foo-links clearfix">
               <li v-for="menu in mainStore.footer.menuesGroup[2].menu">
                 <p>
-                  <NuxtLink v-if="menu.pageType === 'legal'" :to="localePath({ name: 'terms-item', params: { item: menu.link.slug.find(l => l._key === locale).value.current } })">{{ menu.title?.find(l => l._key === locale).value }}</NuxtLink>
-                  <NuxtLink v-else :to="localePath(menu.link.slug?.find(l => l._key === locale).value.current)">{{ menu.title?.find(l => l._key === locale).value }}</NuxtLink>
+                  <NuxtLink v-if="menu.pageType === 'legal'" :to="$localePath({ name: 'terms-item', params: { item: menu.link.slug.find(l => l._key === locale).value.current } })">{{ menu.title?.find(l => l._key === locale).value }}</NuxtLink>
+                  <NuxtLink v-else :to="$localePath(menu.link.slug?.find(l => l._key === locale).value.current)">{{ menu.title?.find(l => l._key === locale).value }}</NuxtLink>
                 </p>
               </li>
             </ul>
@@ -78,7 +78,7 @@
             <h6 class="s-17 w-700">{{ mainStore.footer.menuesGroup[3].title?.find(l => l._key === locale).value}}</h6>
             <!-- Links -->
             <ul class="foo-links clearfix">
-              <li v-for="menu in mainStore.footer.menuesGroup[3].menu"><p><NuxtLink :to="localePath(menu.link.slug.find(l => l._key === locale).value.current)">{{ menu.title.find(l => l._key === locale).value }}</NuxtLink></p></li>
+              <li v-for="menu in mainStore.footer.menuesGroup[3].menu"><p><NuxtLink :to="$localePath(menu.link.slug.find(l => l._key === locale).value.current)">{{ menu.title.find(l => l._key === locale).value }}</NuxtLink></p></li>
             </ul>
           </div>
         </div>
@@ -143,7 +143,6 @@ import { useMainStore } from "../../stores/mainStore";
 
 const mainStore = useMainStore()
 const { locale } = useI18n()
-const localePath = useLocalePath()
 
 </script>
 

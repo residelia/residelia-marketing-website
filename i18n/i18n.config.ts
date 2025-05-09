@@ -1,13 +1,12 @@
-import { useMainStore } from "../stores/mainStore";
-
-const mainStore = useMainStore()
-
 export default defineI18nConfig(() => ({
     legacy: true,
     // locale: mainStore.defaultLocale?.localeCode,
-    locales: mainStore.locales.map(l => l.localeCode),
-    defaultLocale: mainStore.defaultLocale?.localeCode,
-    fallbackLocale: mainStore.fallbackLocale?.localeCode,
+    locales: [
+      { code: 'es', iso: 'es-ES', name: 'Español' },
+      { code: 'en', iso: 'en-US', name: 'English' }
+    ],// when adding new languages, add locale here and create the new language in the Sanity Studio    defaultLocale: mainStore.defaultLocale?.localeCode,
+    defaultLocale: "es",
+    fallbackLocale: "en",
     messages: {
         es: {
             soon: '¡Muy Pronto!',

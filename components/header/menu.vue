@@ -4,11 +4,11 @@
             <div class="d-flex align-items-stretch">
                 <!-- HEADER BLACK LOGO -->
                 <div class="desktoplogo align-self-center">
-                    <NuxtLink :to="localePath('/')" class="logo-black"><img src="/assets/images/residelia-logo-black.svg" alt="residelia-logo" /></NuxtLink>
+                    <NuxtLink :to="$localePath('/')" class="logo-black"><img src="/assets/images/residelia-logo-black.svg" alt="residelia-logo" /></NuxtLink>
                 </div>
                 <!-- HEADER WHITE LOGO -->
                 <div class="desktoplogo">
-                    <NuxtLink :to="localePath('/')" class="logo-white"><img src="/assets/images/residelia-logo-white.svg" alt="residelia-logo" /></NuxtLink>
+                    <NuxtLink :to="$localePath('/')" class="logo-white"><img src="/assets/images/residelia-logo-white.svg" alt="residelia-logo" /></NuxtLink>
                 </div>
             </div>
             <!-- MAIN MENU -->
@@ -33,7 +33,7 @@
                                 <div v-if="!$vuetify.display.xs" class="row my-2">
                                     <div v-if="!$vuetify.display.xs" class="d-flex flex-row justify-content-between align-items-center">
                                         <h6 class="s-16 w-600 align-self-center pt-3">{{ mainStore.menu.products?.action.link.linkText.find(l => l._key === locale).value }}</h6>
-                                        <NuxtLink class="btn r-04 btn--theme hover--theme last-link"  :to="localePath(mainStore.menu.products?.action.link.slug.find(l => l._key === locale).value.current+(mainStore.menu.callToAction.queryString ? mainStore.menu.callToAction.queryString : '' ))">{{ mainStore.menu.products?.action.link.actionText.find(l => l._key === locale).value }}</NuxtLink>
+                                        <NuxtLink class="btn r-04 btn--theme hover--theme last-link"  :to="$localePath(mainStore.menu.products?.action.link.slug.find(l => l._key === locale).value.current+(mainStore.menu.callToAction.queryString ? mainStore.menu.callToAction.queryString : '' ))">{{ mainStore.menu.products?.action.link.actionText.find(l => l._key === locale).value }}</NuxtLink>
                                     </div>
                                 </div>
                             </div>
@@ -72,7 +72,7 @@
 
                     <!-- PRECIOS -->
                     <li class="nl-simple" aria-haspopup="true">
-                        <NuxtLink :to="localePath(mainStore.menu.pricing.menuLink.link.slug.find(l => l._key === locale).value.current)" class="h-link">{{ mainStore.menu.pricing.title.find(l => l._key === locale).value }}</NuxtLink>
+                        <NuxtLink :to="$localePath(mainStore.menu.pricing.menuLink.link.slug.find(l => l._key === locale).value.current)" class="h-link">{{ mainStore.menu.pricing.title.find(l => l._key === locale).value }}</NuxtLink>
                     </li>
 
                     <!-- RECURSOS -->
@@ -100,7 +100,7 @@
                     <li class="nl-simple" aria-haspopup="true" @click="handleClick('Demo Request Started','header-demo-button')">
                         <NuxtLink
                         id="header-demo-button"
-                        :to="localePath(mainStore.menu.demoAction.slug.find(l => l._key === locale).value.current+mainStore.menu.demoAction.queryString)"
+                        :to="$localePath(mainStore.menu.demoAction.slug.find(l => l._key === locale).value.current+mainStore.menu.demoAction.queryString)"
                         class="btn w-100 r-04 btn--theme-tertiary last-link"
                         >{{ mainStore.menu.demoAction.linkText.find(l => l._key === locale).value }}</NuxtLink
                         >
@@ -112,13 +112,13 @@
                         @click="handleClick('Log-in Started', 'header-login-button')"
                     >
                         <NuxtLink :to="mainStore.menu.accessAction.slug" class="btn btn--theme-secondary hover--theme" v-if="mainStore.menu.accessAction.linkType === 'external' || mainStore.menu.accessAction.linkType === 'video' || mainStore.menu.accessAction.linkType === 'anchor'" :target="mainStore.menu.accessAction.newWindow ? '_blank' : '_self'" external>{{ mainStore.menu.accessAction.linkText.find(l => l._key === locale).value }}</NuxtLink>
-                        <NuxtLink :to="localePath(mainStore.menu.accessAction.slug)" class="h-link" v-else>{{ mainStore.menu.accessAction.linkText }}</NuxtLink>
+                        <NuxtLink :to="$localePath(mainStore.menu.accessAction.slug)" class="h-link" v-else>{{ mainStore.menu.accessAction.linkText }}</NuxtLink>
                     </li>
                     <!-- SIGN UP LINK -->
                     <li class="nl-simple" aria-haspopup="true" @click="handleClick('Sign Up Started','header-signup-button')">
                         <NuxtLink
                         id="header-demo-button"
-                        :to="localePath(mainStore.menu.callToAction.slug.find(l => l._key === locale).value.current)"
+                        :to="$localePath(mainStore.menu.callToAction.slug.find(l => l._key === locale).value.current)"
                         class="btn w-100 r-04 btn--theme hover--theme last-link"
                         >{{ mainStore.menu.callToAction.linkText.find(l => l._key === locale).value }}</NuxtLink
                         >
@@ -141,7 +141,6 @@ const toggle = (index) => {
 };
 
 const mainStore = useMainStore()
-const localePath = useLocalePath()
 const route = useRoute()
 const { locale } = useI18n()
 const { trackEvent } = useTracking()

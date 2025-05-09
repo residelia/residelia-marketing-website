@@ -24,7 +24,7 @@
             <h6 class="s-22 color--grey">{{ $t("notFoundMessage") }}</h6>
 
             <!-- Button -->
-            <a :href="localePath('/')" class="btn btn--theme hover--theme"
+            <a :href="$localePath('/')" class="btn btn--theme hover--theme"
             @click="handleError" >{{ $t('backHome') }}</a
             >
           </div>

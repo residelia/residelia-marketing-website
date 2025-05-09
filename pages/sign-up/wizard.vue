@@ -184,12 +184,12 @@
                   </div>
                   <div class="s-22 w-500 text-center color--black my-4">{{ $t('onboardingWizard.completed.error.title') }}</div>
                   <div class="s-14 w-400 text-center">{{ $t('onboardingWizard.completed.error.description') }}</div>
-                  <NuxtLink type="button" :to="localePath('/')" class="btn r-04 btn--theme hover--theme mt-4" @click="handleClick('Sign Up Completed','wizard-completed-button')">{{ $t('backHome') }}</NuxtLink>
+                  <NuxtLink type="button" :to="$localePath('/')" class="btn r-04 btn--theme hover--theme mt-4" @click="handleClick('Sign Up Completed','wizard-completed-button')">{{ $t('backHome') }}</NuxtLink>
               </v-container>
             </template>
             <template v-else>
               <div v-if="$vuetify.display.xs" class="mt-5 mb-3">
-                  <NuxtLink :to="localePath('/')"><img src="/assets/images/residelia-logo-black.svg" width="150" /></NuxtLink>
+                  <NuxtLink :to="$localePath('/')"><img src="/assets/images/residelia-logo-black.svg" width="150" /></NuxtLink>
               </div>
 
               <v-container class="d-flex flex-column justify-content-center align-items-center">
@@ -198,7 +198,7 @@
                   </div>
                   <div class="s-22 w-500 text-center color--black mb-4">{{ $t('onboardingWizard.completed.success.title') }}</div>
                   <div class="s-14 w-400 text-center">{{ $t('onboardingWizard.completed.success.description') }}</div>
-                  <NuxtLink type="button" :to="localePath('/')" class="btn r-04 btn--theme hover--theme mt-4" @click="handleClick('Sign Up Completed','wizard-completed-button')">{{ $t('backHome') }}</NuxtLink>
+                  <NuxtLink type="button" :to="$localePath('/')" class="btn r-04 btn--theme hover--theme mt-4" @click="handleClick('Sign Up Completed','wizard-completed-button')">{{ $t('backHome') }}</NuxtLink>
               </v-container>
             </template>
           </div>

@@ -16,7 +16,7 @@
                             <div v-for="(button,index) in hero?.buttons" @click="handleClick(button.button.id,'hero-solution-button')">
                                 <NuxtLink v-if="button.button.linkType === 'anchor'" :to="button.button.anchor" class="btn r-04  hover--theme" :class="{'btn--theme': index === 0, 'btn--theme-secondary': index !== 0}">{{ button.button.linkText.filter(l => l._key === locale.slice(0,2))[0]?.value }}</NuxtLink>
                                 <a v-else-if="button.button.linkType === 'external'" :href="button.button.externalUrl" class="btn r-04 hover--theme" :class="{'btn--theme': index === 0, 'btn--theme-secondary': index !== 0}">{{ button.button.linkText.filter(l => l._key === locale.slice(0,2))[0]?.value }}</a>
-                                <NuxtLink v-else-if="button.button.linkType === 'internal'" :to="localePath(button.button.link.slug.find(l => l._key === locale).value.current+(button.button.queryString ? button.button.queryString : ''))" class="btn r-04 hover--theme" :class="{'btn--theme': index === 0, 'btn--theme-secondary': index !== 0}">{{ button.button.linkText.filter(l => l._key === locale.slice(0,2))[0]?.value }}</NuxtLink>
+                                <NuxtLink v-else-if="button.button.linkType === 'internal'" :to="$localePath(button.button.link.slug.find(l => l._key === locale).value.current+(button.button.queryString ? button.button.queryString : ''))" class="btn r-04 hover--theme" :class="{'btn--theme': index === 0, 'btn--theme-secondary': index !== 0}">{{ button.button.linkText.filter(l => l._key === locale.slice(0,2))[0]?.value }}</NuxtLink>
                                 <ElementsVideoModal v-else-if="button.button.linkType === 'video'" :link="button.button.externalUrl">
                                     <template v-slot:button>
                                         <span class="video-popup2 btn r-04 hover--theme ico-20 ico-right" :class="{'btn--theme': index === 0, 'btn--theme-secondary': index !== 0}">{{ button.button.linkText.filter(l => l._key === locale.slice(0,2))[0]?.value }}</span>
@@ -52,7 +52,6 @@
 <script setup lang="ts">
 const route = useRoute();
 const { locale } = useI18n()
-const localePath = useLocalePath()
 
 const props = defineProps<{
     hero: Object

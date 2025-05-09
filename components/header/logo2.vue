@@ -3,11 +3,11 @@
 
       <!-- HEADER BLACK LOGO -->
       <div class="smllogo">
-        <NuxtLink :to="localePath('/')" class="logo-black"><img src="/assets/images/residelia-logo-black.svg" alt="residelia-logo" /></NuxtLink>
+        <NuxtLink :to="$localePath('/')" class="logo-black"><img src="/assets/images/residelia-logo-black.svg" alt="residelia-logo" /></NuxtLink>
       </div>
       <!-- HEADER WHITE LOGO -->
       <div class="smllogo">
-        <NuxtLink :to="localePath('/')" class="logo-white"><img src="/assets/images/residelia-logo-white.svg" alt="residelia-logo" /></NuxtLink>
+        <NuxtLink :to="$localePath('/')" class="logo-white"><img src="/assets/images/residelia-logo-white.svg" alt="residelia-logo" /></NuxtLink>
       </div>
     </div>
 </template>
@@ -16,7 +16,6 @@
 import { useMainStore } from '../../stores/mainStore'
 
 const mainStore = useMainStore()
-const localePath = useLocalePath()
 const { locale } = useI18n()
 
 function toggleMobileMenu() {

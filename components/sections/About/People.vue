@@ -38,7 +38,7 @@
                     <!-- TEAM MEMBER #8 -->
                     <div class="col">
                         <NuxtLink
-                            :to="localePath(`${people.callToAction.link.slug.find(t => t._key === locale).value.current}${people.callToAction.button.queryString ? people.callToAction.button.queryString : ''}`)"
+                            :to="$localePath(`${people.callToAction.link.slug.find(t => t._key === locale).value.current}${people.callToAction.button.queryString ? people.callToAction.button.queryString : ''}`)"
                             @click="handleClick('Job Application Started','blind-team-member-button')"
                         >
                         <div class="team-member mb-50">
@@ -52,7 +52,7 @@
                             <!-- Team Member Data -->
                             <div class="team-member-data">
                                 <h6 class="s-20 w-700 color--black">{{ $t('growWithUs') }}</h6>
-                                <!-- <p class="color--grey"><NuxtLink :to="localePath(`${people.callToAction.link.slug.find(t => t._key === locale).value.current}${people.callToAction.button.queryString ? people.callToAction.button.queryString : ''}`)">hireme@domain.com</NuxtLink></p> -->
+                                <!-- <p class="color--grey"><NuxtLink :to="$localePath(`${people.callToAction.link.slug.find(t => t._key === locale).value.current}${people.callToAction.button.queryString ? people.callToAction.button.queryString : ''}`)">hireme@domain.com</NuxtLink></p> -->
                             </div>
                         </div>
                         </NuxtLink>
@@ -66,7 +66,7 @@
             <div v-if="people.callToAction" class="row">
                 <div class="col">
                     <div class="more-btn text-center mt-20">
-                        <NuxtLink :to="localePath(`${people.callToAction.link.slug.find(t => t._key === locale).value.current}${people.callToAction.button.queryString ? people.callToAction.button.queryString : ''}`)" class="btn btn--tra-black hover--theme">{{ people.callToAction.button.linkText.filter(l => l._key === locale.slice(0,2))[0]?.value }}</NuxtLink>
+                        <NuxtLink :to="$localePath(`${people.callToAction.link.slug.find(t => t._key === locale).value.current}${people.callToAction.button.queryString ? people.callToAction.button.queryString : ''}`)" class="btn btn--tra-black hover--theme">{{ people.callToAction.button.linkText.filter(l => l._key === locale.slice(0,2))[0]?.value }}</NuxtLink>
                     </div>
                 </div>
             </div>
@@ -77,7 +77,6 @@
 
 <script setup lang="ts">
 const { locale } = useI18n()
-const localePath = useLocalePath()
 
 const props = defineProps<{
     people: Object

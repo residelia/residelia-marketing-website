@@ -14,7 +14,7 @@
                             <template v-for="(button,index) in hero?.buttons" >
                                 <NuxtLink type="button" v-if="button.button.linkType === 'anchor'" :to="button.button.anchor" class="btn r-04 hover--theme" :class="{'btn--theme': index === 0, 'btn--theme-secondary': index !== 0}" @click="handleClick(button.button.id,'home-hero-button')">{{ button.button.linkText.filter(l => l._key === locale.slice(0,2))[0]?.value }}</NuxtLink>
                                 <a type="button"  v-else-if="button.button.linkType === 'external'" :href="button.button.externalUrl" class="btn r-04 hover--theme" :class="{'btn--theme': index === 0, 'btn--theme-secondary': index !== 0}" @click="handleClick(button.button.id,'home-hero-button')" >{{ button.button.linkText.filter(l => l._key === locale.slice(0,2))[0]?.value }}</a>
-                                <NuxtLink type="button"  v-else-if="button.button.linkType === 'internal'" :to="localePath(button.button.link.slug.find(l => l._key === locale).value.current+(button.button.queryString ? button.button.queryString : ''))" class="btn r-04 hover--theme" :class="{'btn--theme': index === 0, 'btn--theme-secondary': index !== 0}" @click="handleClick(button.button.id,'home-hero-button')">{{ button.button.linkText.filter(l => l._key === locale.slice(0,2))[0]?.value }}</NuxtLink>
+                                <NuxtLink type="button"  v-else-if="button.button.linkType === 'internal'" :to="$localePath(button.button.link.slug.find(l => l._key === locale).value.current+(button.button.queryString ? button.button.queryString : ''))" class="btn r-04 hover--theme" :class="{'btn--theme': index === 0, 'btn--theme-secondary': index !== 0}" @click="handleClick(button.button.id,'home-hero-button')">{{ button.button.linkText.filter(l => l._key === locale.slice(0,2))[0]?.value }}</NuxtLink>
                                 <ElementsVideoModal v-else-if="button.button.linkType === 'video'" :link="button.button.externalUrl">
                                     <template v-slot:button>
                                         <!-- <span class="video-popup2 btn r-04 hover--theme" :class="{'btn--theme': index === 0, 'btn--theme-secondary': index !== 0}" @click="handleClick(button.button.id,'home-hero-button')">{{ button.button.linkText.filter(l => l._key === locale.slice(0,2))[0]?.value }}</span> -->
@@ -59,7 +59,6 @@ import { useMainStore } from '../../../stores/mainStore';
 
 
 const { locale } = useI18n()
-const localePath = useLocalePath()
 const mainStore = useMainStore()
 
 const props = defineProps<{

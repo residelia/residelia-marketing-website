@@ -20,7 +20,7 @@
             <!-- SIGN UP FORM -->
             <v-col cols="12" md="5" offset-md="1" class="d-flex flex-column justify-center align-center">
                 <div class="mt-5 mb-3 d-lg-none d-flex">
-                    <NuxtLink :to="localePath('/')"> <img src="/assets/images/residelia-logo-black.svg" width="150" /></NuxtLink>
+                    <NuxtLink :to="$localePath('/')"> <img src="/assets/images/residelia-logo-black.svg" width="150" /></NuxtLink>
                 </div>
 
                 <v-container v-if="formData">
@@ -42,7 +42,6 @@ import { formBlockQuery } from '../queries/helperQueries';
 const runtimeConfig = useRuntimeConfig();
 const route = useRoute();
 const { locale } = useI18n()
-const localePath = useLocalePath()
 const mainStore = useMainStore()
 const props = defineProps<{
     hero?: Object
