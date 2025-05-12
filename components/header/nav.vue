@@ -30,6 +30,6 @@ onUnmounted(() => {
 });
 
 function handleScroll(event) {
-  this.scrollPosition =  Math.round((window.scrollY / (document.body.offsetHeight - window.innerHeight)) * 100);
+  scrollPosition.value =  Math.round((window.scrollY / (document.body.offsetHeight - window.innerHeight)) * 100);
 }
 </script>
