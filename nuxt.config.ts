@@ -19,29 +19,32 @@ const fetchRoutesWithLocales = async () => {
     useCdn: false,
   });
 
-  // Consulta para obtener los slugs internacionalizados
+  // Consulta para obtener las páginas y los posts
   const pages = await sanityClient.fetch(`
     *[_type == "page"] {
       slug
     }
   `);
 
-  // Validar que las páginas y los slugs sean válidos
-  if (!pages || !Array.isArray(pages)) {
-    console.error("No se encontraron páginas o el formato de los datos es incorrecto.");
-    return [];
-  }
+  const posts = await sanityClient.fetch(`
+    *[_type == "post"] {
+      slug,
+      language
+    }
+  `);
 
   const routes = [];
+
+  // Procesar las páginas
   pages.forEach((page) => {
     if (page.slug && Array.isArray(page.slug)) {
       page.slug.forEach((slug) => {
         if (slug && locales.includes(slug._key) && slug.value?.current) {
-          // Excluir el prefijo del locale por defecto
+          // Excluir el prefijo del locale por defecto y evitar el doble '/'
           const route =
             slug._key === defaultLocale
-              ? `/${slug.value.current}`
-              : `/${slug._key}/${slug.value.current}`;
+              ? `${slug.value.current}` // Sin prefijo para el idioma por defecto
+              : `/${slug._key}${slug.value.current}`; // Con prefijo para otros idiomas
           routes.push(route);
         }
       });
@@ -50,8 +53,23 @@ const fetchRoutesWithLocales = async () => {
     }
   });
 
+  // Procesar los posts
+  posts.forEach((post) => {
+    if (post.slug?.current && post.language) {
+      // Excluir el prefijo del idioma por defecto y evitar el doble '/'
+      const route =
+        post.language === defaultLocale
+          ? `${post.slug.current}` // Sin prefijo para el idioma por defecto
+          : `/${post.language}${post.slug.current}`; // Con prefijo para otros idiomas
+      routes.push(route);
+    } else {
+      console.warn("Post sin slug válido o idioma:", post);
+    }
+  });
+
   return routes;
 };
+
 
 // Función para obtener las rutas para el sitemap
 const fetchSitemapUrlsWithLocales = async () => {
@@ -63,7 +81,7 @@ const fetchSitemapUrlsWithLocales = async () => {
     useCdn: false,
   });
 
-  // Consulta para obtener los slugs internacionalizados y la fecha de última modificación
+  // Consulta para obtener las páginas y los posts
   const pages = await sanityClient.fetch(`
     *[_type == "page"] {
       slug,
@@ -71,22 +89,26 @@ const fetchSitemapUrlsWithLocales = async () => {
     }
   `);
 
-  // Validar que las páginas y los slugs sean válidos
-  if (!pages || !Array.isArray(pages)) {
-    console.error("No se encontraron páginas o el formato de los datos es incorrecto.");
-    return [];
-  }
+  const posts = await sanityClient.fetch(`
+    *[_type == "post"] {
+      slug,
+      language,
+      _updatedAt
+    }
+  `);
 
   const urls = [];
+
+  // Procesar las páginas
   pages.forEach((page) => {
     if (page.slug && Array.isArray(page.slug)) {
       page.slug.forEach((slug) => {
         if (slug && locales.includes(slug._key) && slug.value?.current) {
-          // Excluir el prefijo del locale por defecto
+          // Excluir el prefijo del locale por defecto y evitar el doble '/'
           const url =
             slug._key === defaultLocale
-              ? `/${slug.value.current}`
-              : `/${slug._key}/${slug.value.current}`;
+              ? `${slug.value.current}` // Sin prefijo para el idioma por defecto
+              : `/${slug._key}${slug.value.current}`; // Con prefijo para otros idiomas
           urls.push({
             url,
             lastmod: page._updatedAt,
@@ -95,6 +117,23 @@ const fetchSitemapUrlsWithLocales = async () => {
       });
     } else {
       console.warn("Página sin slugs válidos:", page);
+    }
+  });
+
+  // Procesar los posts
+  posts.forEach((post) => {
+    if (post.slug?.current && post.language) {
+      // Excluir el prefijo del idioma por defecto y evitar el doble '/'
+      const url =
+        post.language === defaultLocale
+          ? `${post.slug.current}` // Sin prefijo para el idioma por defecto
+          : `/${post.language}${post.slug.current}`; // Con prefijo para otros idiomas
+      urls.push({
+        url,
+        lastmod: post._updatedAt,
+      });
+    } else {
+      console.warn("Post sin slug válido o idioma:", post);
     }
   });
 
