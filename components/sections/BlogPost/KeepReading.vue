@@ -6,9 +6,9 @@
                 <div class="col-md-10 col-lg-9">
                     <div class="section-title mb-70">
                         <!-- Title -->
-                        <h2 class="s-50 w-700">{{ content[0]?.heading }}</h2>
+                        <h2 class="s-50 w-700">{{ content[0]?.heading.find(t => t._key === locale).value }}</h2>
                         <!-- Text -->
-                        <p class="s-21 color--grey">{{ content[0]?.subHeading }}</p>
+                        <p class="s-21 color--grey">{{ content[0]?.subHeading.find(t => t._key === locale).value }}</p>
                     </div>
                 </div>
             </div>
@@ -29,9 +29,10 @@
 import { useBlogStore } from "../../../stores/blogStore";
 
 defineProps<{
-  content?: Object
+    content?: Object
 }>()
 
+const { locale } = useI18n();
 const blogStore = useBlogStore()
 const posts = blogStore.allPostsSortedByDate.slice(0,3)
 </script>
