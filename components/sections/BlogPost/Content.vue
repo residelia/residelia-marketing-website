@@ -14,12 +14,13 @@
                             <h2 class="s-46 w-700 p-0">{{ post[0].title }}</h2>
                             <!-- Post Meta -->
                             <div class="blog-post-meta mt-3 color--grey-400">
-                                <ul class="post-meta-list ico-10">
+                                <ul class="post-meta-list ico-10 align-items-center">
                                     <li><p class="p-xs s-14 w-500">{{ post[0].author?.name }}</p></li>
                                     <li class="meta-list-divider">
-                                        <p><span class="flaticon-minus"></span></p>
+                                        <v-icon>mdi-circle-small</v-icon>
+                                        <!-- <p><span class="flaticon-minus"></span></p> -->
                                     </li>
-                                    <li><p class="p-md">{{ $dayjs(post[0].publishedDate).format("MMMM D, YYYY") }}</p></li>
+                                    <li><p class="p-xs">{{ $dayjs(post[0].publishedDate).format("MMMM D, YYYY") }}</p></li>
                                 </ul>
                             </div>
                         </div>
@@ -34,7 +35,7 @@
                         </div>
                         <!-- END SINGLE POST TEXT -->
                         <!-- SINGLE POST SHARE LINKS -->
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col post-share-list">
                                 <ul class="share-social-icons ico-20 text-center clearfix">
                                     <li>
@@ -48,24 +49,18 @@
                                     </li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- END SINGLE POST SHARE -->
                         <!-- POST AUTHOR -->
-                        <div class="post-author py-100 x-border">
-                            <!-- Avatar -->
+                        <!-- <div class="post-author py-100 x-border">
                             <div class="post-author-avatar">
                                 <img :src="post[0].author?.picture.url" alt="author-avatar" />
                             </div>
-                            <!-- Text -->
                             <div class="post-author-txt">
-                                <!-- Title -->
                                 <h5 class="s-24 w-700">{{ post[0].author?.name }}</h5>
-                                <!-- Text -->
                                 <p><PortableText :value="post[0].author?.bio" :serializers="serializers" /></p>
-                                <!-- Follow Button -->
-                                <!-- <div class="author-follow-btn r-04"><a href="#">Follow</a></div> -->
                             </div>
-                        </div>
+                        </div> -->
                         <!-- END ABOUT POST AUTHOR -->
                     </div>
                 </div>

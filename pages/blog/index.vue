@@ -3,7 +3,7 @@
     <div class="container">
       <SectionsBlogListingFeaturedPosts :posts="blogStore.posts?.filter(p => p.featured).slice(0,4)" />
       <SectionsBlogListingLatestPosts :posts="blogStore.allPostsSortedByDate.filter(t => !t.featured).slice(0,4)"/>
-      <BlogSquarePostCard
+      <!-- <BlogSquarePostCard
         slug="/blog/single-post"
         title="Lipsum sodales sapien Martex aliquet blandit augue gravida posuere"
         excerpt="Aliqum mullam blandit vitae and tempor sapien and donec lipsum gravida porta undo velna dolor libero risus aliquet tempus posuere vitae tempor"
@@ -13,7 +13,7 @@
         category="Video Tutorials"
         author="Martex Team"
         publishedDate="Feb 12, 2023"
-        />
+        /> -->
       <SectionsBlogListingAllPosts />
 
       <hr class="divider" />
