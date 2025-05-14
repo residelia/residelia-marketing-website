@@ -32,6 +32,15 @@ const fetchRoutesWithLocales = async () => {
       language
     }
   `);
+  
+  const pillars = await sanityClient.fetch(`
+    *[_type == "pillar"] {
+      "slug": slug.current,
+      clusters[]->{
+        "slug": slug.current
+      }
+    }
+  `);
 
   const routes = [];
 
@@ -67,6 +76,19 @@ const fetchRoutesWithLocales = async () => {
     }
   });
 
+  // Procesar los pilares y clusters
+  pillars.forEach((pillar) => {
+    // URL del pilar
+    routes.push(`${pillar.slug}`);
+
+    // URLs de los clusters asociados
+    if (pillar.clusters) {
+      pillar.clusters.forEach((cluster) => {
+        routes.push(`${cluster.slug}`);
+      });
+    }
+  });
+
   return routes;
 };
 
@@ -94,6 +116,17 @@ const fetchSitemapUrlsWithLocales = async () => {
       slug,
       language,
       _updatedAt
+    }
+  `);
+
+  const pillars = await sanityClient.fetch(`
+    *[_type == "pillar"] {
+      "slug": slug.current,
+      _updatedAt,
+      clusters[]->{
+        "slug": slug.current,
+        _updatedAt
+      }
     }
   `);
 
@@ -134,6 +167,25 @@ const fetchSitemapUrlsWithLocales = async () => {
       });
     } else {
       console.warn("Post sin slug válido o idioma:", post);
+    }
+  });
+
+  // Procesar los pilares y clusters
+  pillars.forEach((pillar) => {
+    // URL del pilar
+    urls.push({
+      url: `${pillar.slug}`,
+      lastmod: pillar._updatedAt,
+    });
+
+    // URLs de los clusters asociados
+    if (pillar.clusters) {
+      pillar.clusters.forEach((cluster) => {
+        urls.push({
+          url: `${cluster.slug}`,
+          lastmod: cluster._updatedAt,
+        });
+      });
     }
   });
 
