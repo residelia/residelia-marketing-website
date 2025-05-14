@@ -9,6 +9,10 @@ export default defineI18nConfig(() => ({
     fallbackLocale: "en",
     messages: {
         es: {
+            updated: 'Actualizado',
+            tableOfContents: 'En este artículo',
+            otherReadings: 'Lecturas destacadas',
+            viewContent: 'Ir al contenido',
             soon: '¡Muy Pronto!',
             next: 'Proximamente',
             solutions: 'soluciones',
@@ -136,6 +140,10 @@ export default defineI18nConfig(() => ({
             }
         },
         en: {
+            updated: 'Updated',
+            tableOfContents: 'In this article',
+            otherReadings: 'Highlighted readings',
+            viewContent: 'View content',
             soon: 'Coming Soon!',
             next: 'Coming Next',
             solutions: 'solutions',

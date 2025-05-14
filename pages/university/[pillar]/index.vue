@@ -1,32 +1,17 @@
 <template>
-    <div>
-      <!-- <template #sidebar>
-      </template>
-
-      <template #toc>
-      </template>
-
-      <SectionsBlogPostContent :post="pillarContent" /> -->
-
-
-      <SectionsProjectsSection1 :data="data"/>
-      <SectionsProjectsSection2 />
-      <SectionsProjectsSection3 />
-      <SectionsProjectsSection4 />
-      <SectionsProjectsSection5 />
+  <div>
+    <SectionsUniversityPostContent :post="data" />
   </div>
 </template>
 
 <script setup>
 import { useMainStore } from '../../../stores/mainStore';
-import { pageQuery } from '../../../queries/contentQueries'
+import { singlePillarQuery } from '../../../queries/contentQueries'
 // [pillar]
 // -- [pillar-page]
 // -- ...
 //
-definePageMeta({
-  layout: 'university', // Usa el diseño de Docus
-});
+
 defineI18nRoute({
     paths: {
       en: '/university/[pillar]',
@@ -34,52 +19,49 @@ defineI18nRoute({
     }
 })
 
-
-
 const route = useRoute();
 const { locale } = useI18n()
 const mainStore = useMainStore()
 
 const data = await useSanityData({
-  query: pageQuery,
+  query: singlePillarQuery,
   params: {
     pillar: route.params.pillar,
     slug: route.path.startsWith(`/${locale.value}`) ? route.path.slice(`/${locale.value}`.length) || '/' : route.path,
     language: locale.value
   }
 })
-// console.log(route.path)
-// console.log(data)
-// console.log(data)
+
+console.log(
+  "%cStop!",
+  "color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold"
+);
+console.log(route)
+console.log(locale)
+console.log(data)
+
 const setI18nParams = useSetI18nParams()
 setI18nParams({
-  en: { type: data.value[0].slug.find(t => t._key === 'en').value.current.slice('/university/'.length) },
-  es: { type: data.value[0].slug.find(t => t._key === 'es').value.current.slice('/university/'.length) }
+  en: { pillar: data.value[0].slug.slice('/university/'.length) },
+  es: { pillar: data.value[0].slug.slice('/university/'.length) }
 })
 
-// console.log(
-//   "%cStop!",
-//   "color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold"
-// );
-// console.log(route)
-// console.log(locale)
-// console.log(data)
 
 useHead({
-  title: `${data.value[0].title.find(l => l._key === locale._value).value}`,
-  description: `${data.value[0].description.find(l => l._key === locale._value).value}`,
+  title: `${data.value[0].title}`,
+  description: `${data.value[0].description}`,
   bodyAttrs: {
       class: "navbar-dark scheme-residelia"
   },
 })
-useServerSeoMeta({
-  title: `${data?.value[0].title.find(l => l._key === locale.value).value} | RESIDELIA`,
-  ogTitle: `${data?.value[0].title.find(l => l._key === locale.value).value} | RESIDELIA`,
-  description: `${data?.value[0].description.find(l => l._key === locale.value).value}`,
-  ogDescription: `${data?.value[0].description.find(l => l._key === locale.value).value}`,
-  ogImage: `${data?.value[0]?.hero?.image}`,
-  twitterCard: 'summary_large_image',
-})
+// useServerSeoMeta({
+//   title: `${data?.value[0].title.find(l => l._key === locale.value).value} | RESIDELIA`,
+//   ogTitle: `${data?.value[0].title.find(l => l._key === locale.value).value} | RESIDELIA`,
+//   description: `${data?.value[0].description.find(l => l._key === locale.value).value}`,
+//   ogDescription: `${data?.value[0].description.find(l => l._key === locale.value).value}`,
+//   ogImage: `${data?.value[0]?.hero?.image}`,
+//   twitterCard: 'summary_large_image',
+// })
 
 
 // defineWebPage({
@@ -95,7 +77,7 @@ useServerSeoMeta({
 const { trackPage } = useTracking();
 const trackPageView = () => {
   trackPage('Page View', {
-    title: `${data.value[0].title.find(l => l._key === locale._value).value}`,
+    title: `${data.value[0].title}`,
     path: route.fullPath,
   })
 };

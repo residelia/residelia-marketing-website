@@ -47,11 +47,11 @@ defineProps<{
   slug: string,
   title: string,
   excerpt: string,
-  image: string,
+  image: Object,
   imageAlt: string,
   publishedDate: string,
-  author: string,
-  category: Array
+  author: Object,
+  category: Object
 }>();
 </script>
 

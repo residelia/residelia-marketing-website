@@ -222,6 +222,7 @@ export const featuredPostsQuery = groq`
         "slug": slug.current,
         name
       },
+	  "imageAlt": mainImage.alt,
       "image": mainImage.asset->{url},
       category->{
         "slug": slug.current,
@@ -243,6 +244,7 @@ export const postsQuery = groq`
 			"picture": picture.asset->{url},
 			bio
 		},
+		"imageAlt": mainImage.alt,
 		"image": mainImage.asset->{url},
 		category->{
 			slug,
@@ -271,8 +273,16 @@ export const pillarsQuery = groq`
 		excerpt,
 		"slug": slug.current,
 		title,
-		subtitle,
+		subTitle,
+		shortTitle,
+		icon,
+		isMDI,
 		"image": mainImage.asset->{url},
+  		clusters[]->{
+			"updatedAt": _updatedAt,
+			...
+		},
+		"updatedAt": _updatedAt,
     }
 `;
 
@@ -282,9 +292,42 @@ export const singlePillarQuery = groq`
 		excerpt,
 		"slug": slug.current,
 		title,
-		subtitle,
+		subTitle,
+		shortTitle,
+		icon,
+		isMDI,
 		"image": mainImage.asset->{url},
-		clusters->,
+  		clusters[]->{
+			"updatedAt": _updatedAt,
+			...
+		},
+		"updatedAt": _updatedAt,
+		"headings": body[length(style) == 2 && string::startsWith(style, "h")],
+		body[]{
+			...,
+			markDefs[]{
+				...,
+				_type == "internalLink" => {
+					"slug": @.reference->slug
+				}
+			}
+		}
+	}
+`;
+
+export const singleClusterQuery = groq`
+	*[_type == "clusterContent" && slug.current == $slug] {
+		_id,
+		excerpt,
+		"slug": slug.current,
+		title,
+		subTitle,
+		shortTitle,
+		icon,
+		isMDI,
+		"image": mainImage.asset->{url},
+		"updatedAt": _updatedAt,
+		"headings": body[length(style) == 2 && string::startsWith(style, "h")],
 		body[]{
 			...,
 			markDefs[]{
@@ -339,6 +382,7 @@ export const singlePostQuery = groq`
 			"picture": picture.asset->{url},
 			bio
 		},
+		"imageAlt": mainImage.alt,
 		"image": mainImage.asset->{url},
 		category->{
 			"slug": slug.current,

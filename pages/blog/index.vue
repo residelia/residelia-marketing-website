@@ -33,10 +33,10 @@ useHead({
 });
 
 const blogStore = useBlogStore();
-// console.log(
-//   "%cAllPosts!",
-//   "color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold"
-// );
-// console.log(blogStore.posts?.filter(p => p.featured))
+console.log(
+  "%cAllPosts!",
+  "color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold"
+);
+console.log(blogStore.posts?.filter(p => p.featured))
 
 </script>
