@@ -32,13 +32,13 @@ const data = await useSanityData({
   }
 })
 
-console.log(
-  "%cStop!",
-  "color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold"
-);
-console.log(route)
-console.log(locale)
-console.log(data)
+// console.log(
+//   "%cStop!",
+//   "color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold"
+// );
+// console.log(route)
+// console.log(locale)
+// console.log(data)
 
 const setI18nParams = useSetI18nParams()
 setI18nParams({
@@ -47,31 +47,48 @@ setI18nParams({
 })
 
 
+// SEO
+const dateModified = new Date(data.value[0].updatedAt).toISOString()
+const datePublished = new Date(data.value[0].createdAt).toISOString()
 useHead({
-  title: `${data.value[0].title}`,
+  title: `${data.value[0].title} | RESIDELIA`,
   description: `${data.value[0].description}`,
   bodyAttrs: {
-      class: "navbar-dark scheme-residelia"
+    class: "navbar-dark scheme-residelia"
   },
 })
-// useServerSeoMeta({
-//   title: `${data?.value[0].title.find(l => l._key === locale.value).value} | RESIDELIA`,
-//   ogTitle: `${data?.value[0].title.find(l => l._key === locale.value).value} | RESIDELIA`,
-//   description: `${data?.value[0].description.find(l => l._key === locale.value).value}`,
-//   ogDescription: `${data?.value[0].description.find(l => l._key === locale.value).value}`,
-//   ogImage: `${data?.value[0]?.hero?.image}`,
-//   twitterCard: 'summary_large_image',
-// })
+useServerSeoMeta({
+  title: `${data.value[0].title} | RESIDELIA`,
+  ogTitle: `${data.value[0].title} | RESIDELIA`,
+  description: `${data.value[0].description}`,
+  ogDescription: `${data.value[0].description}`,
+  ogImage: `${data.value[0]?.hero?.image}`,
+  twitterCard: 'summary_large_image',
+})
 
+// Schema.org
+defineWebPage({
+  '@type': 'WebPage',
+  url: `${process.env.BASE_URL}/${route.fullPath}`,
+  name: `${data.value[0].title}`,
+  description: `${data.value[0].description}`,
+  image: `${data.value[0].image}`,
+  datePublished,
+  dateModified,
+});
 
-// defineWebPage({
-//   // will resolve to ISO 8601 format
-//   '@type': 'CollectionPage',
-//   url: `${process.env.BASE_URL}/${route.fullPath}`,
-//   name: `${data._value[0].title.find(l => l._key === locale._value).value}`,
-//   image: `${data._value[0]?.hero?.image}`,
-//   datePublished: new Date(2024, 10, 1)
-// })
+defineArticle({
+  '@type': 'Article',
+  headline: `${data.value[0].title}`,
+  description: `${data.value[0].description}`,
+  image: `${data.value[0].image}`,
+  author: {
+    '@type': 'Organization',
+    name: 'RESIDELIA',
+  },
+  datePublished,
+  dateModified,
+});
 
 // tracking
 const { trackPage } = useTracking();

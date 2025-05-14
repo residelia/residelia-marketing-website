@@ -194,7 +194,6 @@ const fetchSitemapUrlsWithLocales = async () => {
         pillar.language === defaultLocale
           ? `${pillar.slug.current}` // Sin prefijo para el idioma por defecto
           : `/${pillar.language}${pillar.slug.current}`; // Con prefijo para otros idiomas
-      console.log("Pilar URL:", JSON.stringify(pillarUrl));
       urls.push({
         url: pillarUrl,
         lastmod: pillar._updatedAt,
@@ -208,7 +207,6 @@ const fetchSitemapUrlsWithLocales = async () => {
               cluster.language === defaultLocale
                 ? `${cluster.slug.current}` // Sin prefijo para el idioma por defecto
                 : `/${cluster.language}${cluster.slug.current}`; // Con prefijo para otros idiomas
-            console.log("Cluster URL:", JSON.stringify(clusterUrl));
             urls.push({
               url: clusterUrl,
               lastmod: cluster._updatedAt,
@@ -332,7 +330,7 @@ export default defineNuxtConfig({
         /* vuetify options */
       },
     },
-  ], "@pinia/nuxt", "dayjs-nuxt", "@nuxtjs/i18n", '@nuxtjs/sitemap', '@nuxtjs/robots'/*"@portabletext/vue"*/],
+  ], "@pinia/nuxt", "dayjs-nuxt", "@nuxtjs/i18n", '@nuxtjs/sitemap', '@nuxtjs/robots', 'nuxt-schema-org'/*"@portabletext/vue"*/],
 
   site: {
     url: process.env.BASE_URL,

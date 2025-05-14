@@ -47,6 +47,9 @@ const data = await useSanityData({
 // console.log(locale)
 // console.log(data)
 
+// SEO
+const dateModified = new Date(data.value[0].updatedAt).toISOString()
+const datePublished = new Date(data.value[0].createdAt).toISOString()
 useHead({
     title: `${data.value[0].title.find(l => l._key === locale._value).value}`,
     description: `${data.value[0].description.find(l => l._key === locale._value).value}`,
@@ -54,8 +57,6 @@ useHead({
         class: "navbar-dark scheme-residelia theme--light",
     },
 })
-
-
 useServerSeoMeta({
   title: `${data.value[0].title.find(l => l._key === locale.value).value}`,
   ogTitle: `${data.value[0].title.find(l => l._key === locale.value).value}`,
@@ -64,14 +65,14 @@ useServerSeoMeta({
   ogImage: `${data.value[0]?.hero?.image}`,
   twitterCard: 'summary_large_image',
 })
-// defineWebPage({
-//   // will resolve to ISO 8601 format
-//   '@type': 'ContactPage',
-//   url: `${process.env.BASE_URL}/${route.fullPath}`,
-//   name: `${data.value[0].title.find(l => l._key === locale.value).value}`,
-//   image: `${data.value[0]?.hero?.image}`,
-//   datePublished: new Date(2024, 10, 1)
-// })
+defineWebPage({
+  // will resolve to ISO 8601 format
+  '@type': 'ContactPage',
+  url: `${process.env.BASE_URL}/${route.fullPath}`,
+  name: `${data.value[0].title.find(l => l._key === locale.value).value}`,
+  image: `${data.value[0]?.hero?.image}`,
+  datePublished,
+})
 
 // tracking
 const { trackPage } = useTracking();

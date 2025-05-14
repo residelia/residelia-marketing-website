@@ -55,6 +55,8 @@ setI18nParams({
 // console.log(locale)
 // console.log(data)
 
+// SEO
+const datePublished = new Date(data.value[0].createdAt).toISOString()
 useHead({
   title: `${data.value[0].title.find(l => l._key === locale._value).value}`,
   description: `${data.value[0].description.find(l => l._key === locale._value).value}`,
@@ -71,15 +73,15 @@ useServerSeoMeta({
   twitterCard: 'summary_large_image',
 })
 
-
-// defineWebPage({
-//   // will resolve to ISO 8601 format
-//   '@type': 'CollectionPage',
-//   url: `${process.env.BASE_URL}/${route.fullPath}`,
-//   name: `${data._value[0].title.find(l => l._key === locale._value).value}`,
-//   image: `${data._value[0]?.hero?.image}`,
-//   datePublished: new Date(2024, 10, 1)
-// })
+// Schema.org
+defineWebPage({
+  // will resolve to ISO 8601 format
+  '@type': 'WebPage',
+  url: `${process.env.BASE_URL}/${route.fullPath}`,
+  name: `${data.value[0].title.find(l => l._key === locale.value).value}`,
+  image: `${data.value[0]?.hero?.image}`,
+  datePublished,
+})
 
 // tracking
 const { trackPage } = useTracking();

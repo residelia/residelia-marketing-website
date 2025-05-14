@@ -43,6 +43,8 @@ const prefillData = ref({})
 
 // setting header and hero colors
 
+// SEO
+const datePublished = new Date(data.value[0].createdAt).toISOString()
 definePageMeta({
   layout: 'no-header-footer'
 })
@@ -61,6 +63,15 @@ useServerSeoMeta({
   ogImage: `${data.value[0]?.hero?.image}`,
   twitterCard: 'summary_large_image',
 })
+
+// Schema.org
+defineWebPage({
+  '@type': 'WebPage',
+  url: `${process.env.BASE_URL}/${route.fullPath}`,
+  name: `${data.value[0].title.find(l => l._key === locale.value).value}`,
+  description: `${data.value[0].description.find(l => l._key === locale.value).value}`,
+  image: `${data.value[0]?.hero?.image}`,
+});
 
 onMounted(() => {
   const storedData = JSON.parse(localStorage.getItem("signupData"));

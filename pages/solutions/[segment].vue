@@ -24,13 +24,13 @@ const { locale } = useI18n();
 const mainStore = useMainStore();
 const runtimeConfig = useRuntimeConfig();
 
-console.log(
-    "%cStop!",
-    "color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold"
-);
-console.log(route)
-console.log(locale)
-console.log(route.fullPath.startsWith(`/${locale.value}`) ? route.fullPath.slice(`/${locale.value}`.length) || '/' : route.fullPath)
+// console.log(
+//     "%cStop!",
+//     "color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold"
+// );
+// console.log(route)
+// console.log(locale)
+// console.log(route.fullPath.startsWith(`/${locale.value}`) ? route.fullPath.slice(`/${locale.value}`.length) || '/' : route.fullPath)
 const data = await useSanityData({
     query: pageQuery,
     params: {
@@ -60,6 +60,9 @@ setI18nParams({
   es: { segment: data.value[0].slug.find(t => t._key === 'es').value.current }
 })
 
+// SEO
+const dateModified = new Date(data.value[0].updatedAt).toISOString()
+const datePublished = new Date(data.value[0].createdAt).toISOString()
 useHead({
     title: `${data.value[0].title.find(l => l._key === locale.value).value}`,
     description: `${data.value[0].description.find(l => l._key === locale.value).value}`,
@@ -75,15 +78,18 @@ useServerSeoMeta({
   ogImage: `${data?.value[0]?.hero?.image}`,
   twitterCard: 'summary_large_image',
 })
+
 // Schema.org
-// defineWebPage({
-//   // will resolve to ISO 8601 format
-//   '@type': 'WebPage',
-//   url: `${runtimeConfig.public.baseUrl}/${route.fullPath}`,
-//   name: `${data.value[0].title.find(l => l._key === locale.value).value}`,
-//   image: `${data.value[0]?.hero?.image}`,
-//   datePublished: new Date(2024, 10, 1)
-// })
+defineWebPage({
+  '@type': 'WebPage',
+  url: `${process.env.BASE_URL}/${route.fullPath}`,
+  name: `${data.value[0].title.find(l => l._key === locale.value).value}`,
+  description: `${data.value[0].description.find(l => l._key === locale.value).value}`,
+  image: `${data.value[0]?.hero?.image}`,
+  datePublished,
+  dateModified,
+});
+
 
 // tracking
 const { trackPage } = useTracking();

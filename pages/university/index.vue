@@ -63,7 +63,9 @@ const clusters = pillars.value.flatMap(pillar =>
 // console.log(pillars)
 // console.log(clusters);
 
-
+// SEO
+const dateModified = new Date(data.value[0].updatedAt).toISOString();
+const datePublished = new Date(data.value[0].createdAt).toISOString();
 useHead({
   title: `${data.value[0].title.find(l => l._key === locale._value).value}`,
   description: `${data.value[0].description.find(l => l._key === locale._value).value}`,
@@ -79,6 +81,24 @@ useServerSeoMeta({
   ogImage: `${data?.value[0]?.hero?.image}`,
   twitterCard: 'summary_large_image',
 })
+
+// Schema.org
+defineWebPage({
+  '@type': 'WebPage',
+  url: `${process.env.BASE_URL}/${route.fullPath}`,
+  name: `${data?.value[0].title.find(l => l._key === locale.value).value} | RESIDELIA`,
+  description: `${data?.value[0].description.find(l => l._key === locale.value).value}`,
+  image: `${data?.value[0]?.hero?.image}`,
+  hasPart: pillars.value.map((pillar) => ({
+    '@type': 'Article',
+    headline: pillar.title,
+    description: pillar.description,
+    url: `${process.env.BASE_URL}/university/${pillar.slug}`,
+    image: pillar.image,
+    datePublished,
+    dateModified,
+  })),
+});
 
 // tracking events
 const { trackEvent } = useTracking()

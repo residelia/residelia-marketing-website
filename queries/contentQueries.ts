@@ -283,6 +283,7 @@ export const pillarsQuery = groq`
 			...
 		},
 		"updatedAt": _updatedAt,
+		"createdAt": _createdAt,
     }
 `;
 
@@ -302,6 +303,7 @@ export const singlePillarQuery = groq`
 			...
 		},
 		"updatedAt": _updatedAt,
+		"createdAt": _createdAt,
 		"headings": body[length(style) == 2 && string::startsWith(style, "h")],
 		body[]{
 			...,
@@ -327,6 +329,7 @@ export const singleClusterQuery = groq`
 		isMDI,
 		"image": mainImage.asset->{url},
 		"updatedAt": _updatedAt,
+		"createdAt": _createdAt,
 		"headings": body[length(style) == 2 && string::startsWith(style, "h")],
 		body[]{
 			...,
@@ -389,6 +392,7 @@ export const singlePostQuery = groq`
 			name
 		},
 		"publishedDate": publishedAt,
+		"updatedAt": _updatedAt,
 		metaDescription,
 		"tags": tags[]->{
 			name,
@@ -438,6 +442,8 @@ export const pageQuery = groq`
 		slug,
 		headerColor,
 		pageType,
+		"updatedAt": _updatedAt,
+		"createdAt": _createdAt,
 		"hero": hero->{
 			overline,
 			heading,

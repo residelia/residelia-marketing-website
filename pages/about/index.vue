@@ -61,14 +61,26 @@ useServerSeoMeta({
   ogImage: `${data.value[0]?.hero?.image}`,
   twitterCard: 'summary_large_image',
 })
-// defineWebPage({
-//   // will resolve to ISO 8601 format
-//   '@type': 'AboutPage',
-//   url: `${process.env.BASE_URL}/${route.fullPath}`,
-//   name: `${data.value[0].title.find(l => l._key === locale.value).value}`,
-//   image: `${data.value[0]?.hero?.image}`,
-//   datePublished: new Date(2024, 10, 1)
-// })
+
+// Schema.org
+DefineWebPage({
+  // will resolve to ISO 8601 format
+  '@type': 'AboutPage',
+  url: `${process.env.BASE_URL}/${route.fullPath}`,
+  name: `${data.value[0].title.find(l => l._key === locale.value).value}`,
+  image: `${data.value[0]?.hero?.image}`,
+})
+defineOrganization({
+  '@type': 'Organization',
+  name: 'RESIDELIA',
+  url: `${process.env.BASE_URL}`,
+  logo: '/img/logos/logo_casa_negro.svg',
+  sameAs: [
+    'https://www.facebook.com/resideliacom',
+    'https://x.com/resideliacom',
+    'https://www.linkedin.com/company/residelia',
+  ],
+});
 
 // tracking
 const { trackPage } = useTracking();

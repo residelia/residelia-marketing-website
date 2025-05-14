@@ -55,6 +55,14 @@ useServerSeoMeta({
   ogImage: `${data.value[0]?.hero?.image}`,
   twitterCard: 'summary_large_image',
 })
+defineWebPage({
+  // will resolve to ISO 8601 format
+  '@type': 'WebPage',
+  url: `${process.env.BASE_URL}/${route.fullPath}`,
+  name: `${data._value[0].title.find(l => l._key === locale._value).value}`,
+  image: `${data._value[0]?.hero?.image}`,
+  datePublished: new Date()
+})
 
 // tracking
 const { trackPage } = useTracking();

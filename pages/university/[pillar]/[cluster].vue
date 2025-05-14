@@ -30,11 +30,6 @@ const pillar = await useSanityData({
   }
 })
 
-useHead({
-    bodyAttrs: {
-        class: "navbar-dark scheme-residelia"
-    },
-})
 defineI18nRoute({
     paths: {
       en: '/university/[pillar]/[cluster]',
@@ -57,22 +52,51 @@ console.log(route)
 console.log(locale)
 console.log(data)
 
-// useServerSeoMeta({
-//   title: `${data.value[0].title.find(l => l._key === locale.value).value} | RESIDELIA`,
-//   ogTitle: `${data.value[0].title.find(l => l._key === locale.value).value} | RESIDELIA`,
-//   description: `${data.value[0].description.find(l => l._key === locale.value).value}`,
-//   ogDescription: `${data.value[0].description.find(l => l._key === locale.value).value}`,
-//   ogImage: `${data.value[0]?.hero?.image}`,
-//   twitterCard: 'summary_large_image',
-// })
-// defineWebPage({
-//   // will resolve to ISO 8601 format
-//   '@type': 'ItemPage',
-//   url: `${process.env.BASE_URL}/${route.fullPath}`,
-//   name: `${data.value[0].title.find(l => l._key === locale.value).value}`,
-//   image: `${data.value[0]?.hero?.image}`,
-//   datePublished: new Date(2024, 10, 1)
-// })
+
+// SEO
+const dateModified = new Date(data.value[0].updatedAt).toISOString()
+const datePublished = new Date(data.value[0].createdAt).toISOString()
+useHead({
+  title: `${data.value[0].title} | RESIDELIA`,
+  description: `${data.value[0].description}`,
+  bodyAttrs: {
+    class: "navbar-dark scheme-residelia"
+  },
+})
+useServerSeoMeta({
+  title: `${data.value[0].title} | RESIDELIA`,
+  ogTitle: `${data.value[0].title} | RESIDELIA`,
+  description: `${data.value[0].description}`,
+  ogDescription: `${data.value[0].description}`,
+  ogImage: `${data.value[0]?.hero?.image}`,
+  twitterCard: 'summary_large_image',
+})
+
+// Schema.org
+defineWebPage({
+  '@type': 'WebPage',
+  url: `${process.env.BASE_URL}/${route.fullPath}`,
+  name: `${data.value[0].title}`,
+  description: `${data.value[0].description}`,
+  image: `${data.value[0].image}`,
+  datePublished,
+  dateModified,
+});
+
+defineArticle({
+  '@type': 'Article',
+  headline: `${data.value[0].title}`,
+  description: `${data.value[0].description}`,
+  image: `${data.value[0].image}`,
+  author: {
+    '@type': 'Organization',
+    name: 'RESIDELIA',
+  },
+  datePublished,
+  dateModified,
+});
+
+
 
 // tracking
 const { trackPage } = useTracking();
