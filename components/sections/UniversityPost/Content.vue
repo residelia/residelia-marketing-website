@@ -53,7 +53,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="sidebar-widget other-readings mt-10">
+                        <div v-if="pillar || post[0].clusters?.length > 0" class="sidebar-widget other-readings mt-10">
                             <h5 class="s-14 w-700 mt-5 mb-2">{{ $t('otherReadings') }}</h5>
                             <ul v-if="pillar" >
                                 <!-- Mostrar el pilar asociado si está disponible -->

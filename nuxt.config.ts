@@ -35,9 +35,11 @@ const fetchRoutesWithLocales = async () => {
   
   const pillars = await sanityClient.fetch(`
     *[_type == "pillar"] {
-      "slug": slug.current,
+      slug,
+      language,
       clusters[]->{
-        "slug": slug.current
+        slug,
+        language
       }
     }
   `);
@@ -78,14 +80,26 @@ const fetchRoutesWithLocales = async () => {
 
   // Procesar los pilares y clusters
   pillars.forEach((pillar) => {
-    // URL del pilar
-    routes.push(`${pillar.slug}`);
+    if (pillar.slug && pillar.language) {
+      // URL del pilar
+      const pillarRoute =
+        pillar.language === defaultLocale
+          ? `${pillar.slug.current}` // Sin prefijo para el idioma por defecto
+          : `/${pillar.language}${pillar.slug.current}`; // Con prefijo para otros idiomas
+      routes.push(pillarRoute);
 
-    // URLs de los clusters asociados
-    if (pillar.clusters) {
-      pillar.clusters.forEach((cluster) => {
-        routes.push(`${cluster.slug}`);
-      });
+      // URLs de los clusters asociados
+      if (pillar.clusters) {
+        pillar.clusters.forEach((cluster) => {
+          if (cluster.slug && cluster.language === pillar.language) {
+            const clusterRoute =
+              cluster.language === defaultLocale
+                ? `${cluster.slug.current}` // Sin prefijo para el idioma por defecto
+                : `/${cluster.language}${cluster.slug.current}`; // Con prefijo para otros idiomas
+            routes.push(clusterRoute);
+          }
+        });
+      }
     }
   });
 
@@ -121,10 +135,12 @@ const fetchSitemapUrlsWithLocales = async () => {
 
   const pillars = await sanityClient.fetch(`
     *[_type == "pillar"] {
-      "slug": slug.current,
+      slug,
+      language,
       _updatedAt,
       clusters[]->{
-        "slug": slug.current,
+        slug,
+        language,
         _updatedAt
       }
     }
@@ -172,20 +188,34 @@ const fetchSitemapUrlsWithLocales = async () => {
 
   // Procesar los pilares y clusters
   pillars.forEach((pillar) => {
-    // URL del pilar
-    urls.push({
-      url: `${pillar.slug}`,
-      lastmod: pillar._updatedAt,
-    });
-
-    // URLs de los clusters asociados
-    if (pillar.clusters) {
-      pillar.clusters.forEach((cluster) => {
-        urls.push({
-          url: `${cluster.slug}`,
-          lastmod: cluster._updatedAt,
-        });
+    if (pillar.slug && pillar.language) {
+      // URL del pilar
+      const pillarUrl =
+        pillar.language === defaultLocale
+          ? `${pillar.slug.current}` // Sin prefijo para el idioma por defecto
+          : `/${pillar.language}${pillar.slug.current}`; // Con prefijo para otros idiomas
+      console.log("Pilar URL:", JSON.stringify(pillarUrl));
+      urls.push({
+        url: pillarUrl,
+        lastmod: pillar._updatedAt,
       });
+
+      // URLs de los clusters asociados
+      if (pillar.clusters) {
+        pillar.clusters.forEach((cluster) => {
+          if (cluster.slug && cluster.language === pillar.language) {
+            const clusterUrl =
+              cluster.language === defaultLocale
+                ? `${cluster.slug.current}` // Sin prefijo para el idioma por defecto
+                : `/${cluster.language}${cluster.slug.current}`; // Con prefijo para otros idiomas
+            console.log("Cluster URL:", JSON.stringify(clusterUrl));
+            urls.push({
+              url: clusterUrl,
+              lastmod: cluster._updatedAt,
+            });
+          }
+        });
+      }
     }
   });
 
