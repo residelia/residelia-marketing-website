@@ -78,15 +78,6 @@ defineWebPage({
   datePublished: new Date(data.value[0].createdAt).toISOString(),
   dateModified: new Date(data.value[0].updatedAt).toISOString(),
 });
-defineSoftwareApplication({
-  '@type': 'SoftwareApplication',
-  name: `${data.value[0].title.find(l => l._key === locale.value).value}`,
-  description: `${data.value[0].description.find(l => l._key === locale.value).value}`,
-  operatingSystem: 'All',
-  applicationCategory: 'BusinessApplication',
-  url: `${process.env.BASE_URL}/${route.fullPath}`,
-  image: `${data.value[0]?.hero?.image}`,
-});
 
 // tracking
 const { trackPage } = useTracking();
