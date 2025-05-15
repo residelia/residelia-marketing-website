@@ -9,6 +9,7 @@
       type="info"
       variant="tonal"
       rounded
+      class="pt-10"
     >
       <SanityContent :blocks="value.content" :serializers="serializers" />
     </v-alert>
@@ -20,6 +21,7 @@
       type="info"
       variant="tonal"
       rounded
+      class="pt-10"
     >
       <SanityContent :blocks="value.content" :serializers="serializers" />
     </v-alert>
@@ -31,6 +33,7 @@
       type="info"
       variant="tonal"
       rounded
+      class="pt-10"
     >
       <SanityContent :blocks="value.content" :serializers="serializers" />
     </v-alert>
@@ -42,6 +45,7 @@
       type="info"
       variant="tonal"
       rounded
+      class="pt-10"
     >
       <SanityContent :blocks="value.content" :serializers="serializers" />
     </v-alert>
@@ -51,17 +55,19 @@
       color="'light-blue-accent-4"
       variant="tonal"
       rounded
+      class="pt-10"
     >
       <SanityContent :blocks="value.content" :serializers="serializers" />
     </v-alert>
     <v-alert
-      v-else-if="value.calloutType === 'message'"
-      icon="mdi-message-text-outline"
+      v-else-if="value.calloutType === 'hands-on'"
+      icon="mdi-hand-pointing-right"
       :title="value.title"
       color="'light-blue-accent-4"
       type="info"
       variant="tonal"
       rounded
+      class="pt-10"
     >
       <SanityContent :blocks="value.content" :serializers="serializers" />
     </v-alert>
@@ -73,6 +79,7 @@
       type="info"
       variant="tonal"
       rounded
+      class="pt-10"
     >
       <SanityContent :blocks="value.content" :serializers="serializers" />
     </v-alert>
@@ -84,6 +91,7 @@
       type="info"
       variant="tonal"
       rounded
+      class="pt-10"
     >
       <SanityContent :blocks="value.content" :serializers="serializers" />
     </v-alert>

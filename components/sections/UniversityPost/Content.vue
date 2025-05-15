@@ -38,18 +38,18 @@
                         <div v-if="tocItems.length > 0 && !$vuetify.display.xs" class="sidebar-widget table-of-contents">
                             <h5 class="s-14 w-700 mb-2">{{ $t('tableOfContents') }}</h5>
                             <ul class="toc">
-                                <li v-for="item in tocItems" :key="item.id">
-                                <NuxtLink :to="'#' + item.id" class="s-13 w-500">{{ item.title }}</NuxtLink>
-                                <ul v-if="item.children.length">
-                                    <li v-for="child in item.children" :key="child.id">
-                                    <NuxtLink :to="'#' + child.id" class="s-13 w-500">{{ child.title }}</NuxtLink>
-                                    <ul v-if="child.children.length">
-                                        <li v-for="subChild in child.children" :key="subChild.id">
-                                        <NuxtLink :to="'#' + subChild.id" class="s-13 w-500">{{ subChild.title }}</NuxtLink>
+                                <li v-for="item in tocItems.filter(i => i.title && i.title.trim())" :key="item.id">
+                                    <NuxtLink :to="'#' + item.id" class="s-13 w-500">{{ item.title }}</NuxtLink>
+                                    <ul v-if="item.children.length">
+                                        <li v-for="child in item.children" :key="child.id">
+                                        <NuxtLink :to="'#' + child.id" class="s-13 w-500">{{ child.title }}</NuxtLink>
+                                        <!-- <ul v-if="child.children.length">
+                                            <li v-for="subChild in child.children" :key="subChild.id">
+                                            <NuxtLink :to="'#' + subChild.id" class="s-13 w-500">{{ subChild.title }}</NuxtLink>
+                                            </li>
+                                        </ul> -->
                                         </li>
                                     </ul>
-                                    </li>
-                                </ul>
                                 </li>
                             </ul>
                         </div>
