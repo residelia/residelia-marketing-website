@@ -61,7 +61,7 @@
     </v-alert>
     <v-alert
       v-else-if="value.calloutType === 'hands-on'"
-      icon="mdi-hand-pointing-right"
+      icon="mdi-gesture-double-tap"
       :title="value.title"
       color="'light-blue-accent-4"
       type="info"

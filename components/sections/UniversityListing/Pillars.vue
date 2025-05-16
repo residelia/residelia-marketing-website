@@ -4,8 +4,9 @@
         <div class="row justify-content-center">
           <div 
             class="col-4"
-            v-for="pillar in pillars"
+            v-for="(pillar, index) in pillars"
             :key="pillar._id"
+            :class="{ 'mt-4': index >= 3 }"
           >
             <v-card
               class="mx-auto"
