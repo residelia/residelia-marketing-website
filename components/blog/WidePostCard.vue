@@ -15,7 +15,7 @@
       <div class="col-md-6">
         <div class="blog-post-txt">
           <!-- Post Tag -->
-          <span class="post-tag color--blue-400">{{ category.name ? category.name.find(l => l._key === locale).value : category.find(l => l._key === locale).value }}</span>
+          <span v-if="category" class="post-tag color--blue-400">{{ category.name ? category.name.find(l => l._key === locale).value : category.find(l => l._key === locale).value }}</span>
           <!-- Post Link -->
           <h3 class="s-38 w-700">
             <NuxtLink :to="slug">{{ title }}</NuxtLink>
@@ -25,8 +25,8 @@
           <!-- Post Meta -->
           <div class="blog-post-meta mt-30">
             <ul class="post-meta-list ico-10">
-              <li><p class="w-500">{{ author.name ? author.name : author }}</p></li>
-              <li class="meta-list-divider">
+              <li v-if="author"><p class="w-500">{{ author.name ? author.name : author }}</p></li>
+              <li v-if="author" class="meta-list-divider">
                 <p><span class="flaticon-minus"></span></p>
               </li>
               <li><p>{{ $dayjs(publishedDate).format("MMMM D, YYYY") }}</p></li>

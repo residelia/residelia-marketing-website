@@ -11,7 +11,7 @@
     <!-- BLOG POST TEXT -->
     <div class="blog-post-txt">
       <!-- Post Tag -->
-      <span class="post-tag color--pink-400">{{ category.name ? category.name.find(l => l._key === locale).value : category.find(l => l._key === locale).value }}</span>
+      <span v-if="category" class="post-tag color--pink-400">{{ category.name ? category.name.find(l => l._key === locale).value : category.find(l => l._key === locale).value }}</span>
       <!-- Post Link -->
       <h6 class="s-20 w-700">
         <NuxtLink :to="slug">{{ title }}</NuxtLink>
@@ -21,8 +21,8 @@
       <!-- Post Meta -->
       <div class="blog-post-meta mt-20">
         <ul class="post-meta-list ico-10">
-          <li><p class="p-sm w-500">{{ author?.name ? author.name : author }}</p></li>
-          <li class="meta-list-divider">
+          <li v-if="author"><p class="p-sm w-500">{{ author?.name ? author.name : author }}</p></li>
+          <li v-if="author" class="meta-list-divider">
             <p><span class="flaticon-minus"></span></p>
           </li>
           <li><p class="p-sm">{{ $dayjs(publishedDate).format("MMMM D, YYYY") }}</p></li>
@@ -40,11 +40,11 @@ defineProps<{
   slug: string,
   title: string,
   excerpt: string,
-  image: string,
-  imageAlt: string,
-  publishedDate: Date,
-  author: string,
-  category: string
+  image: Object,
+  imageAlt?: string,
+  publishedDate: string,
+  author?: Object,
+  category?: Object
 }>();
 </script>
 

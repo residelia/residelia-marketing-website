@@ -2,7 +2,7 @@
   <section id="blog-page" class="pb-60 inner-page-hero blog-page-section">
     <div class="container">
       <SectionsBlogListingFeaturedPosts :posts="blogStore.posts?.filter(p => p.featured).slice(0,4)" />
-      <SectionsBlogListingLatestPosts :posts="blogStore.allPostsSortedByDate.filter(t => !t.featured).slice(0,4)"/>
+      <!-- <SectionsBlogListingLatestPosts :posts="blogStore.allPostsSortedByDate.filter(t => !t.featured).slice(0,4)"/> -->
       <!-- <BlogSquarePostCard
         slug="/blog/single-post"
         title="Lipsum sodales sapien Martex aliquet blandit augue gravida posuere"
@@ -14,7 +14,7 @@
         author="Martex Team"
         publishedDate="Feb 12, 2023"
         /> -->
-      <SectionsBlogListingAllPosts />
+      <!-- <SectionsBlogListingAllPosts /> -->
 
       <hr class="divider" />
       <BlogNewsletter />

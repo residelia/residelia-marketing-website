@@ -15,8 +15,8 @@
                             <!-- Post Meta -->
                             <div class="blog-post-meta mt-3 color--grey-400">
                                 <ul class="post-meta-list ico-10 align-items-center">
-                                    <li><p class="p-xs s-14 w-500">{{ post[0].author?.name }}</p></li>
-                                    <li class="meta-list-divider">
+                                    <li v-if="post[0].author" ><p class="p-xs s-14 w-500">{{ post[0].author?.name }}</p></li>
+                                    <li v-if="post[0].author" class="meta-list-divider">
                                         <v-icon>mdi-circle-small</v-icon>
                                         <!-- <p><span class="flaticon-minus"></span></p> -->
                                     </li>

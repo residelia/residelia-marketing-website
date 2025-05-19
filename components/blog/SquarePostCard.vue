@@ -10,7 +10,7 @@
             <div class="col-md-6 order-last order-md-2">
               <div class="blog-post-txt color--white">
                 <!-- Post Tag -->
-                <span class="post-tag color--pink-400">{{ category }}</span>
+                <span v-if="category" class="post-tag color--pink-400">{{ category }}</span>
                 <!-- Post Link -->
                 <h4 class="s-34 w-700 mb-20">
                   <NuxtLink :to="slug">{{ title }}</NuxtLink>

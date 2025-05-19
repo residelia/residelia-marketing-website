@@ -81,15 +81,16 @@ defineWebPage({
   dateModified,
 });
 
+const author = data.value[0].author ? {
+  '@type': 'Person',
+  name: `${data.value[0].author.name}`,
+} : null;
 defineArticle({
   '@type': 'Article',
   headline: `${data.value[0].title}`,
   description: `${data.value[0].description}`,
   image: `${data.value[0].image}`,
-  author: {
-    '@type': 'Person',
-    name: `${data.value[0].author.name}`,
-  },
+  author,
   datePublished,
   dateModified,
 });
