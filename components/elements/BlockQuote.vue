@@ -1,7 +1,6 @@
 <template>
   <div>
-  {{ value }}
-          <PortableText :value="value" :components="serializers"/>
+    <PortableText :value="value" :components="serializers"/>
     <figure>
       <blockquote class="blockquote w-300">
         <p>

@@ -74,6 +74,7 @@
 
 <script lang="ts" setup>
 import Code from '../../elements/Code.vue'
+import Table from '../../elements/Table.vue'
 import Callout from '../../elements/Callout.vue'
 import BlockQuote from '../../elements/BlockQuote.vue'
 import Link from '../../elements/Link.vue'
@@ -96,7 +97,8 @@ const serializers = {
         code: Code,
         callout: Callout,
         seoImage: SeoImage,
-        video: VideoImage
+        video: VideoImage,
+        table: Table,
     },
     list: {
         bullet: List,
