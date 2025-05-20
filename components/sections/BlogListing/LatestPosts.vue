@@ -1,7 +1,8 @@
 <template>
   <div>
     <!-- BLOG POSTS CATEGORY -->
-    <div class="row">
+    <hr v-if="posts && posts.length > 0" class="divider" />
+    <div v-if="posts && posts.length > 0" class="row">
       <div class="col">
         <div class="posts-category ico-20 wow fadeInUp">
           <h4 class="s-34 w-700">{{ $t('latestNews') }}<span class="flaticon-next"></span>

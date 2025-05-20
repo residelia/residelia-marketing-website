@@ -1,6 +1,7 @@
 <template>
   <div>
     <!-- BLOG POSTS CATEGORY -->
+    <hr v-if="blogStore.posts && blogStore.posts.length > 0" class="divider" />
     <div class="row">
       <div class="col">
         <div class="posts-category ico-20 wow fadeInUp">
