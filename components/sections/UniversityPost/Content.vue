@@ -92,6 +92,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import Code from '../../elements/Code.vue'
+import Formula from '../../elements/Formula.vue'
 import Callout from '../../elements/Callout.vue'
 import BlockQuote from '../../elements/BlockQuote.vue'
 import Link from '../../elements/Link.vue'
@@ -119,7 +120,8 @@ const serializers = {
         code: Code,
         callout: Callout,
         seoImage: SeoImage,
-        video: VideoImage
+        video: VideoImage,
+        latex: Formula,
     },
     list: {
         bullet: List,
