@@ -133,6 +133,7 @@ const serializers = {
     },
     block: {
         'blockquote': (_, { slots }) => h('blockquote', { class: 'blockquote w-300' }, slots.default?.()),
+        'hidden': (_, { slots }) => h('blockquote', { style:"display: none;" }, slots.default?.()),
         h2: (props) => {
             const id = props.node._key; // Usa `_key` como id único
             const text = props.node.children.map((child) => child.text).join(""); // Combina el texto de los hijos
