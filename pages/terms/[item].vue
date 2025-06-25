@@ -24,8 +24,8 @@ const mainStore = useMainStore()
 const data = await useSanityData({
     query: pageQuery,
     params: {
-      // slug: rote.path.startsWith(`/${locale.value}`) ? route.path.slice(`/${locale.value}`.length) || '/' : route.path,
-      slug: route.params.item,
+      slug: route.path.startsWith(`/${locale.value}`) ? route.path.slice(`/${locale.value}`.length) || '/' : route.path,
+      // slug: route.params.item,
       language: locale.value
     }
 })

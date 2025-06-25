@@ -1,6 +1,10 @@
 <template>
   <li :key="binder">
     <!-- <NuxtLink to="#" :key="key" class="h-link"> -->
+    {{ name }}
+    {{ slug }}
+
+    <!-- {{ routeObject }} -->
     <NuxtLink :to="slug ? $localePath(routeObject) : ''"
       class="h-link"
     >        
@@ -59,16 +63,17 @@ const props = defineProps<{
 const { getLocalizedString } = useLocalizedString()
 
 const routeObject = computed(() => {
+  const lastSegment = props.slug.find(l => l._key === locale.value).value.current.split('/').filter(Boolean).pop()
   switch (props.name) {
     case 'solutions-segment':
-      return { name: 'solutions-segment', params: { segment: props.slug.find(l => l._key === locale.value).value.current } }
+      return { name: 'solutions-segment', params: { segment: lastSegment } }
     case 'product':
-      return { name: 'product', params: { product: props.slug.find(l => l._key === locale.value).value.current } }
+      return { name: 'product', params: { product: lastSegment } }
     case 'terms-item':
-      return { name: 'terms-item', params: { item: props.slug.find(l => l._key === locale.value).value.current } }
+      return { name: 'terms-item', params: { item: lastSegment } }
     default:
       // Si no es una ruta dinámica, puedes devolver la cadena literal o un objeto vacío
-      return props.slug.find(l => l._key === locale.value).value.current
+      return lastSegment
   }
 })
 </script>

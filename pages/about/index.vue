@@ -63,13 +63,14 @@ useServerSeoMeta({
 })
 
 // Schema.org
-DefineWebPage({
+defineWebPage({
   // will resolve to ISO 8601 format
   '@type': 'AboutPage',
   url: `${process.env.BASE_URL}/${route.fullPath}`,
   name: `${data.value[0].title.find(l => l._key === locale.value).value}`,
   image: `${data.value[0]?.hero?.image}`,
 })
+
 defineOrganization({
   '@type': 'Organization',
   name: 'RESIDELIA',

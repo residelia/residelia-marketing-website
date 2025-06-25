@@ -31,7 +31,7 @@ const data = await useSanityData({
   params: {
       slug: route.path.startsWith(`/${locale.value}`) ? route.path.slice(`/${locale.value}`.length) || '/' : route.path,
       // slug: route.params.product,
-      language: locale._value
+      language: locale.value
   }
 })
 const setI18nParams = useSetI18nParams()
