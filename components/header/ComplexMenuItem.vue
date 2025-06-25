@@ -1,10 +1,6 @@
 <template>
   <li :key="binder">
     <!-- <NuxtLink to="#" :key="key" class="h-link"> -->
-    {{ name }}
-    {{ slug }}
-
-    <!-- {{ routeObject }} -->
     <NuxtLink :to="slug ? $localePath(routeObject) : ''"
       class="h-link"
     >        
