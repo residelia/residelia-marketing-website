@@ -10,7 +10,7 @@
       <SectionsProductEnterprise :enterprise="data[0].enterprise"/>
       <SectionsProductCustomers :customers="data[0].customers"/>
       <SectionsProductTestimonials :testimonials="data[0].testimonials"/>
-      <SectionsProductWaitlist v-if="data[0]?.hero?.soon"/>
+      <SectionsProductWaitlist v-if="data[0].hero.soon"/>
       <SectionsProductCallToAction v-else :message="data[0].callToAction"/>
     </div>
 </template>
