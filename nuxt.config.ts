@@ -386,7 +386,7 @@ export default defineNuxtConfig({
     prerender: {
       crawlLinks: true,
       failOnError: false,
-      routes: nitroRoutes,
+      // routes: nitroRoutes,
     },
   },
 
