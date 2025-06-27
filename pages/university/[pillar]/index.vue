@@ -42,8 +42,8 @@ const data = await useSanityData({
 
 const setI18nParams = useSetI18nParams()
 setI18nParams({
-  en: { pillar: data.value[0].slug.slice('/university/'.length) },
-  es: { pillar: data.value[0].slug.slice('/university/'.length) }
+  en: { pillar: data.value[0].slug.split('/').filter(Boolean).pop()},
+  es: { pillar: data.value[0].slug.split('/').filter(Boolean).pop() }
 })
 
 

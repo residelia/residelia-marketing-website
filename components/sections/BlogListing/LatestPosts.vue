@@ -4,7 +4,7 @@
     <hr v-if="posts && posts.length > 0" class="divider" />
     <div v-if="posts && posts.length > 0" class="row">
       <div class="col">
-        <div class="posts-category ico-20 wow fadeInUp">
+        <div class="posts-category ico-20" :class="{'wow fadeInUp': mounted}">
           <h4 class="s-34 w-700">{{ $t('latestNews') }}<span class="flaticon-next"></span>
           </h4>
         </div>
@@ -15,7 +15,7 @@
       <div class="row">
         <!-- BLOG POST -->
         <div v-for="post in posts" class="col-md-6 col-lg-4">
-          <BlogPostCard :key="post._id" :slug="post.slug" :title="post.title" :excerpt="post.excerpt" :image="post.image" :imageAlt="post.imageAlt" :author="post.author" :publishedDate="post.publishedDate" :category="post.category" />
+          <BlogPostCard :key="post._id" :slug="post.slug" :title="post.title" :excerpt="post.excerpt" :image="post.image" :imageAlt="post.imageAlt" :author="post?.author" :publishedDate="post.publishedDate" :category="post.category" />
         </div>
         <!-- END BLOG POST -->
       </div>
@@ -29,6 +29,9 @@
 defineProps<{
   posts: Array,
 }>();
+
+const mounted = ref(false)
+onMounted(() => { mounted.value = true })
 
 </script>
 

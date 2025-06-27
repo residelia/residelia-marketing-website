@@ -1,5 +1,5 @@
 <template>
-  <div class="blog-post wide-post wow fadeInUp">
+  <div class="blog-post wide-post" :class="{'wow fadeInUp': mounted}">
     <div class="row d-flex align-items-center">
       <!-- BLOG POST IMAGE -->
       <div class="col-md-6">
@@ -25,7 +25,7 @@
           <!-- Post Meta -->
           <div class="blog-post-meta mt-30">
             <ul class="post-meta-list ico-10">
-              <li v-if="author"><p class="w-500">{{ author.name ? author.name : author }}</p></li>
+              <li v-if="author"><p class="w-500">{{ author?.name ? author.name : author }}</p></li>
               <li v-if="author" class="meta-list-divider">
                 <p><span class="flaticon-minus"></span></p>
               </li>
@@ -50,9 +50,13 @@ defineProps<{
   image: Object,
   imageAlt: string,
   publishedDate: string,
-  author: Object,
+  author?: Object,
   category: Object
 }>();
+
+const mounted = ref(false)
+onMounted(() => { mounted.value = true })
+
 </script>
 
 <style></style>

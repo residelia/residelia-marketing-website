@@ -5,7 +5,7 @@
                 <div class="row d-flex align-items-center">
                     <!-- TEXT BLOCK -->
                     <div class="col-md-6">
-                        <div class="txt-block left-column color--white wow fadeInRight">
+                        <div class="txt-block left-column color--white" :class="{'wow fadeInRight': mounted}">
                             <!-- Section ID -->
                             <span class="section-id rounded-id bg--tra-white color--white"> Careers </span>
                             <!-- Title -->
@@ -17,7 +17,7 @@
                     <!-- END TEXT BLOCK -->
                     <!-- IMAGE BLOCK -->
                     <div class="col-md-6">
-                        <div class="img-block right-column wow fadeInLeft">
+                        <div class="img-block right-column" :class="{'wow fadeInLeft': mounted}">
                             <img class="img-fluid" src="/assets/images/img-18.png" alt="content-image" />
                         </div>
                     </div>
@@ -33,3 +33,8 @@
         </div>
     </section>
 </template>
+
+<script setup>
+const mounted = ref(false)
+onMounted(() => { mounted.value = true })
+</script>

@@ -4,7 +4,7 @@
             <div class="row d-flex align-items-center">
                 <!-- HERO TEXT -->
                 <div class="col-md-6 col-lg-7">
-                    <div class="hero-8-txt color--white wow fadeInRight">
+                    <div class="hero-8-txt color--white" :class="{'wow fadeInRight': mounted}">
                         <!-- Title -->
                         <h2 class="s-54 w-700">Optimize your website for speed and efficiency</h2>
                         <!-- Text -->
@@ -46,7 +46,7 @@
                 <!-- END HERO TEXT -->
                 <!-- HERO REQUEST FORM -->
                 <div class="col-md-6 col-lg-5">
-                    <div id="hero-8-form" class="r-10 wow fadeInLeft">
+                    <div id="hero-8-form" class="r-10" :class="{'wow fadeInLeft': mounted}">
                         <!-- Title -->
                         <h4 class="s-26 w-700">Get started for Free!</h4>
                         <!-- Text -->
@@ -86,3 +86,8 @@
         </div>
     </section>
 </template>
+
+<script setup>
+const mounted = ref(false)
+onMounted(() => { mounted.value = true })
+</script>

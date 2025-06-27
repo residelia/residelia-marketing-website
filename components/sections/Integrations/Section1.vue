@@ -15,7 +15,7 @@
             <!-- IMAGE BLOCK -->
             <div class="row">
                 <div class="col">
-                    <div class="img-block video-preview wow fadeInUp">
+                    <div class="img-block video-preview" :class="{'wow fadeInUp': mounted}">
                         <!-- Play Icon -->
                         <ElementsVideoModal :link="'https://www.youtube.com/embed/Pf03RTjeISE'">
                             <template v-slot:button>
@@ -33,3 +33,8 @@
         <!-- End container -->
     </section>
 </template>
+
+<script lang="ts" setup>
+const mounted = ref(false)
+onMounted(() => { mounted.value = true })
+</script>

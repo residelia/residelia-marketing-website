@@ -30,8 +30,8 @@ const data = await useSanityData({
 })
 const setI18nParams = useSetI18nParams()
 setI18nParams({
-    en: { job: data.value[0].slug.find(t => t._key === 'en').value.current.slice('/join-us/'.length) },
-    es: { job: data.value[0].slug.find(t => t._key === 'es').value.current.slice('/unete-a-residelia/'.length) }
+    en: { job: data.value[0].slug.find(t => t._key === 'en').value.current.split('/').filter(Boolean).pop() },
+    es: { job: data.value[0].slug.find(t => t._key === 'es').value.current.split('/').filter(Boolean).pop()}
 })
 
 // console.log(

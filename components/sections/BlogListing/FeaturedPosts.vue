@@ -18,7 +18,7 @@
       <div class="row">
         <!-- BLOG POST -->
         <div v-for="post in posts.slice(1)" class="col-md-6 col-lg-4">
-          <BlogPostCard :key="post._id" :slug="post.slug" :title="post.title" :excerpt="post.excerpt" :image="post.image" :imageAlt="post.imageAlt" :author="post.author" :publishedDate="post.publishedDate" :category="post.category" />
+          <BlogPostCard :key="post._id" :slug="post.slug" :title="post.title" :excerpt="post.excerpt" :image="post.image" :imageAlt="post.imageAlt" :author="post?.author" :publishedDate="post.publishedDate" :category="post.category" />
         </div>
         <!-- END BLOG POST -->
       </div>

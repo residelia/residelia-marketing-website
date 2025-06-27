@@ -14,7 +14,7 @@
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
                     <!-- TEAM MEMBER #1 -->
                     <div class="col">
-                        <div id="tm-2-1" class="team-member mb-60 wow fadeInUp">
+                        <div id="tm-2-1" class="team-member mb-60" :class="{'wow fadeInUp': mounted}">
                             <!-- Team Member Photo -->
                             <div class="team-member-photo r-14">
                                 <div class="hover-overlay">
@@ -42,7 +42,7 @@
                     <!-- END TEAM MEMBER #1 -->
                     <!-- TEAM MEMBER #2 -->
                     <div class="col">
-                        <div id="tm-2-2" class="team-member mb-60 wow fadeInUp">
+                        <div id="tm-2-2" class="team-member mb-60" :class="{'wow fadeInUp': mounted}">
                             <!-- Team Member Photo -->
                             <div class="team-member-photo r-14">
                                 <div class="hover-overlay">
@@ -70,7 +70,7 @@
                     <!-- END TEAM MEMBER #2 -->
                     <!-- TEAM MEMBER #3 -->
                     <div class="col">
-                        <div id="tm-2-3" class="team-member mb-60 wow fadeInUp">
+                        <div id="tm-2-3" class="team-member mb-60" :class="{'wow fadeInUp': mounted}">
                             <!-- Team Member Photo -->
                             <div class="team-member-photo r-14">
                                 <div class="hover-overlay">
@@ -98,7 +98,7 @@
                     <!-- END TEAM MEMBER #3 -->
                     <!-- TEAM MEMBER #4 -->
                     <div class="col">
-                        <div id="tm-2-4" class="team-member mb-60 wow fadeInUp">
+                        <div id="tm-2-4" class="team-member mb-60" :class="{'wow fadeInUp': mounted}">
                             <!-- Team Member Photo -->
                             <div class="team-member-photo r-14">
                                 <div class="hover-overlay">
@@ -126,7 +126,7 @@
                     <!-- END TEAM MEMBER #4 -->
                     <!-- TEAM MEMBER #5 -->
                     <div class="col">
-                        <div id="tm-2-5" class="team-member mb-60 wow fadeInUp">
+                        <div id="tm-2-5" class="team-member mb-60" :class="{'wow fadeInUp': mounted}">
                             <!-- Team Member Photo -->
                             <div class="team-member-photo r-14">
                                 <div class="hover-overlay">
@@ -154,7 +154,7 @@
                     <!-- END TEAM MEMBER #5 -->
                     <!-- TEAM MEMBER #6 -->
                     <div class="col">
-                        <div id="tm-2-6" class="team-member mb-60 wow fadeInUp">
+                        <div id="tm-2-6" class="team-member mb-60" :class="{'wow fadeInUp': mounted}">
                             <!-- Team Member Photo -->
                             <div class="team-member-photo r-14">
                                 <div class="hover-overlay">
@@ -182,7 +182,7 @@
                     <!-- END TEAM MEMBER #6 -->
                     <!-- TEAM MEMBER #7 -->
                     <div class="col">
-                        <div id="tm-2-7" class="team-member mb-60 wow fadeInUp">
+                        <div id="tm-2-7" class="team-member mb-60" :class="{'wow fadeInUp': mounted}">
                             <!-- Team Member Photo -->
                             <div class="team-member-photo r-14">
                                 <div class="hover-overlay">
@@ -210,7 +210,7 @@
                     <!-- END TEAM MEMBER #7 -->
                     <!-- TEAM MEMBER #8 -->
                     <div class="col">
-                        <div id="tm-2-8" class="team-member mb-60 wow fadeInUp">
+                        <div id="tm-2-8" class="team-member mb-60" :class="{'wow fadeInUp': mounted}">
                             <!-- Team Member Photo -->
                             <div class="team-member-photo r-14">
                                 <div class="hover-overlay">
@@ -238,7 +238,7 @@
                     <!-- END TEAM MEMBER #8 -->
                     <!-- TEAM MEMBER #9 -->
                     <div class="col">
-                        <div id="tm-2-9" class="team-member mb-60 wow fadeInUp">
+                        <div id="tm-2-9" class="team-member mb-60" :class="{'wow fadeInUp': mounted}">
                             <!-- Team Member Photo -->
                             <div class="team-member-photo r-14">
                                 <div class="hover-overlay">
@@ -266,7 +266,7 @@
                     <!-- END TEAM MEMBER #9 -->
                     <!-- TEAM MEMBER #10 -->
                     <div class="col">
-                        <div id="tm-2-10" class="team-member mb-60 wow fadeInUp">
+                        <div id="tm-2-10" class="team-member mb-60" :class="{'wow fadeInUp': mounted}">
                             <!-- Team Member Photo -->
                             <div class="team-member-photo r-14">
                                 <div class="hover-overlay">
@@ -294,7 +294,7 @@
                     <!-- END TEAM MEMBER #10 -->
                     <!-- TEAM MEMBER #11 -->
                     <div class="col">
-                        <div id="tm-2-11" class="team-member mb-60 wow fadeInUp">
+                        <div id="tm-2-11" class="team-member mb-60" :class="{'wow fadeInUp': mounted}">
                             <!-- Team Member Photo -->
                             <div class="team-member-photo r-14">
                                 <div class="hover-overlay">
@@ -322,7 +322,7 @@
                     <!-- END TEAM MEMBER #11 -->
                     <!-- TEAM MEMBER #12 -->
                     <div class="col">
-                        <div id="tm-2-12" class="team-member mb-60 wow fadeInUp">
+                        <div id="tm-2-12" class="team-member mb-60" :class="{'wow fadeInUp': mounted}">
                             <!-- Team Member Photo -->
                             <div class="team-member-photo r-14">
                                 <div class="hover-overlay">
@@ -356,3 +356,7 @@
         <!-- End container -->
     </section>
 </template>
+<script setup>
+const mounted = ref(false)
+onMounted(() => { mounted.value = true })
+</script>

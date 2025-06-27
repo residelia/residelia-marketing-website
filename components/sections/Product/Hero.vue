@@ -4,13 +4,13 @@
             <!-- HERO TEXT -->
             <div class="row justify-content-center">
                 <div class="col-md-10 col-lg-9 col-xl-10">
-                    <div class="hero-product-txt wow fadeInUp">
+                    <div class="hero-product-txt" :class="{'wow fadeInUp': mounted}">
                         <!-- Title -->
                         <h1 class="s-44 w-700" :class="textColor" v-html="balanceString(hero.heading.find(t => t._key === locale).value,5)"></h1>
                         <!-- Text -->
                         <p class="p-xl pt-4" :class="textColor" v-html="balanceString(hero.subHeading.find(t => t._key === locale).value, 10)"></p>
                         <!-- HERO QUICK FORM -->
-                        <FormsSimple v-if="hero.soon" :color="textColor" :textColor="textColor" form="waitlist" location="hero"/>
+                        <FormsSimple v-if="hero?.soon" :color="textColor" :textColor="textColor" form="waitlist" location="hero"/>
                         <!-- Buttons -->
                         <div v-if="hero.buttons" class="btns-group d-flex justify-content-center pt-3">
                             <div v-for="(button,index) in hero?.buttons" @click="handleClick(button.button.id,'product-hero-button')">
@@ -31,7 +31,7 @@
             <!-- HERO IMAGE -->
             <div class="row">
                 <div class="col">
-                    <div class="hero-product-img video-preview wow fadeInUp">
+                    <div class="hero-product-img video-preview" :class="{'wow fadeInUp': mounted}">
                         <!-- Play Icon -->
                         <!-- <ElementsVideoModal :link="'https://www.youtube.com/embed/GcMiYI1gWD4'">
                             <template v-slot:button>
@@ -99,6 +99,9 @@ function clearForm() {
     formResult.success = false
     formResult.message = ""
 }
+
+const mounted = ref(false)
+onMounted(() => { mounted.value = true })
 
 const { trackEvent } = useTracking()
 function handleClick(eventName, buttonId) {

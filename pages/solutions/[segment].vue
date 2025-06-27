@@ -56,8 +56,8 @@ defineI18nRoute({
 
 const setI18nParams = useSetI18nParams()
 setI18nParams({
-  en: { segment: data.value[0].slug.find(t => t._key === 'en').value.current },
-  es: { segment: data.value[0].slug.find(t => t._key === 'es').value.current }
+  en: { segment: data.value[0].slug.find(t => t._key === 'en').value.current.split('/').filter(Boolean).pop() },
+  es: { segment: data.value[0].slug.find(t => t._key === 'es').value.current.split('/').filter(Boolean).pop() }
 })
 
 // SEO

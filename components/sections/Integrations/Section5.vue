@@ -5,7 +5,7 @@
             <div class="row d-flex align-items-center">
                 <!-- TEXT BLOCK -->
                 <div class="col-md-6 order-last order-md-2">
-                    <div class="txt-block left-column wow fadeInRight">
+                    <div class="txt-block left-column" :class="{'wow fadeInRight': mounted}">
                         <!-- CONTENT BOX #1 -->
                         <div class="cbox-2 process-step">
                             <!-- Icon -->
@@ -52,7 +52,7 @@
                 <!-- END TEXT BLOCK -->
                 <!-- IMAGE BLOCK -->
                 <div class="col-md-6 order-first order-md-2">
-                    <div class="img-block wow fadeInLeft">
+                    <div class="img-block" :class="{'wow fadeInLeft': mounted}">
                         <img class="img-fluid" src="/assets/images/tablet-01.png" alt="content-image" />
                     </div>
                 </div>
@@ -62,3 +62,8 @@
         <!-- End container -->
     </section>
 </template>
+
+<script setup>
+const mounted = ref(false)
+onMounted(() => { mounted.value = true })
+</script>

@@ -400,6 +400,7 @@ export default defineNuxtConfig({
 
   i18n: {
     // vueI18n: "@/i18n/config.ts", // if you are using custom path, default
+    baseUrl: process.env.BASE_URL || "http://localhost:3000",
     strategy: "prefix_except_default",
     locales: [
       { code: 'es', iso: 'es-ES', name: 'Español' },

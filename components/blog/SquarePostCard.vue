@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col">
         <!-- SQUARE BLOG POST WRAPPER -->
-        <div class="square-post-wrapper bg--black-400 block-shadow r-16 wow fadeInUp">
+        <div class="square-post-wrapper bg--black-400 block-shadow r-16" :class="{'wow fadeInUp': mounted}">
           <div class="row d-flex align-items-center">
             <!-- BLOG POST TEXT -->
             <div class="col-md-6 order-last order-md-2">
@@ -20,7 +20,7 @@
                 <!-- Post Meta -->
                 <div class="blog-post-meta mt-30">
                   <ul class="post-meta-list ico-10">
-                    <li><p class="w-500">{{ author }}</p></li>
+                    <li><p class="w-500">{{ author?.name ? author.name : author }}</p></li>
                     <li class="meta-list-divider">
                       <p><span class="flaticon-minus"></span></p>
                     </li>
@@ -70,9 +70,12 @@ defineProps<{
   imageAlt: string,
   video: string,
   publishedDate: string,
-  author: string,
+  author?: string,
   category: string
 }>();
+
+const mounted = ref(false)
+onMounted(() => { mounted.value = true })
 </script>
 
 <style></style>

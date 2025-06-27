@@ -36,7 +36,7 @@
               <div class="col-md-6">
                 <div class="txt-block right-column">
                   <!-- Section ID -->
-                  <span class="section-id">{{step?.upperHeading?.find(t => t._key === locale).value}} <v-chip v-if="step.soon" class="ma-2 text-capitalize" color="primary" size="x-small" label>{{ $t('soon') }}</v-chip><v-chip v-if="step.next" class="ma-2 text-capitalize" color="primary" size="x-small" label>{{ $t('next') }}</v-chip></span>
+                  <span class="section-id">{{step?.upperHeading?.find(t => t._key === locale).value}} <v-chip v-if="step?.soon" class="ma-2 text-capitalize" color="primary" size="x-small" label>{{ $t('soon') }}</v-chip><v-chip v-if="step.next" class="ma-2 text-capitalize" color="primary" size="x-small" label>{{ $t('next') }}</v-chip></span>
                   <!-- Title -->
                   <h2 class="s-32 w-700">{{step.heading.find(t => t._key === locale).value}}</h2>
                   <!-- Text -->
@@ -67,7 +67,7 @@
               <div class="col-md-6 order-last order-md-2">
                 <div class="txt-block left-column">
                   <!-- Section ID -->
-                  <span class="section-id">{{step?.upperHeading?.find(t => t._key === locale).value}} <v-chip v-if="step.soon" class="ma-2 text-capitalize" color="primary" size="x-small" label>{{ $t('soon') }}</v-chip><v-chip v-if="step.next" class="ma-2 text-capitalize" color="primary" size="x-small" label>{{ $t('next') }}</v-chip></span>
+                  <span class="section-id">{{step?.upperHeading?.find(t => t._key === locale).value}} <v-chip v-if="step?.soon" class="ma-2 text-capitalize" color="primary" size="x-small" label>{{ $t('soon') }}</v-chip><v-chip v-if="step.next" class="ma-2 text-capitalize" color="primary" size="x-small" label>{{ $t('next') }}</v-chip></span>
                   <!-- Title -->
                   <h2 class="s-32 w-700">{{step.heading.find(t => t._key === locale).value}}</h2>
                   <!-- List -->

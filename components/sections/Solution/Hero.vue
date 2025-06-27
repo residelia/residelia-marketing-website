@@ -4,7 +4,7 @@
             <div class="row d-flex align-items-center">
                 <!-- HERO TEXT -->
                 <div class="col-md-6">
-                    <div class="hero-solution-txt wow fadeInRight">
+                    <div class="hero-solution-txt" :class="{'wow fadeInRight': mounted}">
                         <!-- Solution ID -->
                         <span class="section-id hero" :class="textColor, {'mt-10': $vuetify.display.xs}">{{hero?.overline?.find(t => t._key === locale).value}}</span>
                         <!-- Title -->
@@ -29,7 +29,7 @@
                 <!-- END HERO TEXT -->
                 <!-- HERO IMAGE -->
                 <div class="col-md-6">
-                    <div class="hero-solution-img wow fadeInLeft">
+                    <div class="hero-solution-img" :class="{'wow fadeInLeft': mounted}">
                         <!-- <img class="img-fluid" src="/assets/images/dashboard-04.png" alt="hero-image" /> -->
                         <img class="img-fluid rounded-xl" width="1024" :src="hero.image.url+'?fm=webp'" :alt="hero.imageAlt" />
                     </div>
@@ -58,6 +58,9 @@ const props = defineProps<{
     color: String
     textColor: String
 }>();
+
+const mounted = ref(false)
+onMounted(() => { mounted.value = true })
 
 const { trackEvent } = useTracking()
 

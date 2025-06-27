@@ -1,5 +1,5 @@
 <template>
-  <div class="blog-post mb-40 wow fadeInUp clearfix">
+  <div class="blog-post mb-40 clearfix" :class="{'wow fadeInUp': mounted}">
     <!-- BLOG POST IMAGE -->
     <div class="blog-post-img mb-35">
       <img
@@ -46,6 +46,9 @@ defineProps<{
   author?: Object,
   category?: Object
 }>();
+
+const mounted = ref(false)
+onMounted(() => { mounted.value = true })
 </script>
 
 <style></style>

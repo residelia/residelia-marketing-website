@@ -43,8 +43,8 @@ const data = await useSanityData({
 // console.log(data)
 const setI18nParams = useSetI18nParams()
 setI18nParams({
-  en: { type: data.value[0].slug.find(t => t._key === 'en').value.current.slice('/resources/'.length) },
-  es: { type: data.value[0].slug.find(t => t._key === 'es').value.current.slice('/recursos/'.length) }
+  en: { type: data.value[0].slug.find(t => t._key === 'en').value.current.split('/').filter(Boolean).pop() },
+  es: { type: data.value[0].slug.find(t => t._key === 'es').value.current.split('/').filter(Boolean).pop() }
 })
 
 // console.log(

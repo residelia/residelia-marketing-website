@@ -4,7 +4,7 @@
     <hr v-if="blogStore.posts && blogStore.posts.length > 0" class="divider" />
     <div class="row">
       <div class="col">
-        <div class="posts-category ico-20 wow fadeInUp">
+        <div class="posts-category ico-20" :class="{'wow fadeInUp': mounted}">
           <h4 class="s-34 w-700">{{ $t('allPosts') }}<span class="flaticon-next"></span>
           </h4>
         </div>
@@ -23,7 +23,7 @@
       <div class="row">
         <!-- BLOG POST -->
         <div v-for="post in blogStore.shownPosts" class="col-md-6 col-lg-4">
-          <BlogPostCard :key="post._id" :slug="post.slug" :title="post.title" :excerpt="post.excerpt" :image="post.image" :imageAlt="post.imageAlt" :author="post.author" :publishedDate="post.publishedDate" :category="post.category" />
+          <BlogPostCard :key="post._id" :slug="post.slug" :title="post.title" :excerpt="post.excerpt" :image="post.image" :imageAlt="post.imageAlt" :author="post?.author" :publishedDate="post.publishedDate" :category="post.category" />
         </div>
         <!-- END BLOG POST -->
       </div>
@@ -56,6 +56,9 @@ import { useBlogStore } from '../../../stores/blogStore';
 
 const blogStore = useBlogStore()
 const numPages = Math.ceil(blogStore.posts.length / blogStore.limit)
+
+const mounted = ref(false)
+onMounted(() => { mounted.value = true })
 
 // console.log("posts length => "+blogStore.posts.length)
 // console.log("posts numPages => "+numPages)

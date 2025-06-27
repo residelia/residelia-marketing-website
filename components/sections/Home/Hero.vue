@@ -4,7 +4,7 @@
             <!-- HERO TEXT -->
             <div class="row justify-content-center">
                 <div class="col-md-10 col-lg-9 col-xl-10">
-                    <div class="hero-product-txt wow fadeInUp">
+                    <div class="hero-product-txt" :class="{'wow fadeInUp': mounted}">
                         <!-- Title -->
                         <h1 class="s-44 w-700" :class="textColor" v-html="balanceString(hero.heading.find(t => t._key === locale).value,5)"></h1>
                         <!-- Text -->
@@ -30,7 +30,7 @@
             <!-- HERO IMAGE -->
             <div class="row">
                 <div class="col">
-                    <div class="hero-product-img video-preview wow fadeInUp">
+                    <div class="hero-product-img video-preview" :class="{'wow fadeInUp': mounted}">
                         <!-- Play Icon -->
                         <!-- <ElementsVideoModal :link="'https://www.youtube.com/embed/GcMiYI1gWD4'">
                             <template v-slot:button>
@@ -67,6 +67,11 @@ const props = defineProps<{
 }>();
 
 const route = useRoute()
+
+const mounted = ref(false)
+onMounted(() => { mounted.value = true })
+
+
 const { trackEvent } = useTracking()
 
 function handleClick(eventName, buttonId) {

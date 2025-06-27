@@ -10,7 +10,7 @@
       <SectionsProductEnterprise :enterprise="data[0].enterprise"/>
       <SectionsProductCustomers :customers="data[0].customers"/>
       <SectionsProductTestimonials :testimonials="data[0].testimonials"/>
-      <SectionsProductWaitlist v-if="data[0].hero.soon"/>
+      <SectionsProductWaitlist v-if="data[0].hero?.soon"/>
       <SectionsProductCallToAction v-else :message="data[0].callToAction"/>
     </div>
 </template>
@@ -36,8 +36,8 @@ const data = await useSanityData({
 })
 const setI18nParams = useSetI18nParams()
 setI18nParams({
-  en: { product: data.value[0].slug.find(t => t._key === 'en').value.current },
-  es: { product: data.value[0].slug.find(t => t._key === 'es').value.current }
+  en: { product: data.value[0].slug.find(t => t._key === 'en').value.current.split('/').filter(Boolean).pop() },
+  es: { product: data.value[0].slug.find(t => t._key === 'es').value.current.split('/').filter(Boolean).pop() }
 })
 
 // console.log(

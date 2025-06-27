@@ -6,7 +6,7 @@
                 <div class="row justify-content-md-center row-cols-1 row-cols-md-3">
                     <!-- STATISTIC BLOCK #1 -->
                     <div class="col">
-                        <div id="sb-1-1" class="wow fadeInUp">
+                        <div id="sb-1-1" :class="{'wow fadeInUp': mounted}">
                             <div class="statistic-block">
                                 <!-- Digit -->
                                 <div class="statistic-block-digit text-center">
@@ -24,7 +24,7 @@
                     <!-- END STATISTIC BLOCK #1 -->
                     <!-- STATISTIC BLOCK #2 -->
                     <div class="col">
-                        <div id="sb-1-2" class="wow fadeInUp">
+                        <div id="sb-1-2" :class="{'wow fadeInUp': mounted}">
                             <div class="statistic-block">
                                 <!-- Digit -->
                                 <div class="statistic-block-digit text-center">
@@ -42,7 +42,7 @@
                     <!-- END STATISTIC BLOCK #2 -->
                     <!-- STATISTIC BLOCK #3 -->
                     <div class="col">
-                        <div id="sb-1-3" class="wow fadeInUp">
+                        <div id="sb-1-3" :class="{'wow fadeInUp': mounted}">
                             <div class="statistic-block">
                                 <!-- Digit -->
                                 <div class="statistic-block-digit text-center">
@@ -67,3 +67,8 @@
     </div>
     <hr class="divider" />
 </template>
+
+<script setup>
+const mounted = ref(false)
+onMounted(() => { mounted.value = true })
+</script>
