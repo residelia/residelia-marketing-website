@@ -18,7 +18,7 @@
             </v-col>
             <!-- END SIGN UP PAGE TEXT -->
             <!-- SIGN UP FORM -->
-            <v-col cols="12" md="5" offset-md="1" class="d-flex flex-column justify-center align-center">
+            <v-col cols="12" md="5" offset-md="1" class="d-flex flex-column justify-center align-center px-10">
                 <div class="mt-5 mb-3 d-lg-none d-flex">
                     <NuxtLink :to="$localePath('/')"> <img src="/assets/images/residelia-logo-black.svg" width="150" /></NuxtLink>
                 </div>
