@@ -3,18 +3,18 @@
         <v-row no-gutters class="fill-height">
             <!-- SIGN UP PAGE TEXT -->
             <v-col cols="12" md="5" v-if="hero" class="left-column d-none d-sm-flex d-flex flex-column justify-center align-center">
-                    <div class="text-container">
-                        <div class="color--white text-center">
-                            <img src="/assets/images/residelia-logo-white.svg" width="150" />
-                            <!-- Section ID -->
-                            <!-- <span class="section-id">{{ hero?.overline?.find(t => t._key === locale).value }}</span> -->
-                            <!-- Title -->
-                            <h2 class="s-34 w-700 mt-3">{{ hero?.heading?.find(t => t._key === locale).value }}</h2>
-                            <!-- Text -->
-                            <!-- <p class="p-md mt-25">{{ hero?.subHeading?.find(t => t._key === locale).value }}</p> -->
-                            <img class="img-fluid mt-3"  :src="hero.image.url+'?fm=webp'" :alt="hero.imageAlt" />
-                        </div>
-                    </div>
+              <div class="overflow-x-hidden">
+                  <div class="color--white text-center">
+                      <img src="/assets/images/residelia-logo-white.svg" width="120"/>
+                      <!-- Section ID -->
+                      <!-- <span class="section-id">{{ hero?.overline?.find(t => t._key === locale).value }}</span> -->
+                      <!-- Title -->
+                      <h2 class="s-33 w-700 mt-3 px-4" style="line-height: 39px">{{ hero?.heading?.find(t => t._key === locale).value }}</h2>
+                      <!-- Text -->
+                      <!-- <p class="p-md mt-25">{{ hero?.subHeading?.find(t => t._key === locale).value }}</p> -->
+                      <img class="mt-3 mr-10 centered-cropped-img" :src="hero.image.url" :alt="hero.imageAlt" />
+                  </div>
+              </div>
             </v-col>
             <!-- END SIGN UP PAGE TEXT -->
             <!-- SIGN UP FORM -->
@@ -51,6 +51,18 @@ const props = defineProps<{
 </script>
 
 <style scoped>
+.overflow-x-hidden {
+  overflow-x: hidden;
+  position: relative;
+}
+.centered-cropped-img {
+  display: flex;
+  justify-content: center;
+  margin-left: -20%;
+  position: relative;
+  width: 150%;
+}
+
 /* Estilo para la columna izquierda */
 .left-column {
   background-image: url('/assets/images/signup-background.svg');
