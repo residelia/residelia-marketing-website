@@ -383,6 +383,7 @@ export default defineNuxtConfig({
 
   nitro: {
     // baseURL: process.env.BASE_URL,
+    static: true,
     preset: 'aws-amplify',
     prerender: {
       crawlLinks: true,
