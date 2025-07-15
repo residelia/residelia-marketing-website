@@ -104,7 +104,7 @@ import NumberedList from '../../elements/NumberedList.vue'
 import ListItem from '../../elements/ListItem.vue'
 import { PortableText } from '@portabletext/vue';
 
-import { VTreeview } from 'vuetify/labs/VTreeview'
+// import { VTreeview } from 'vuetify/labs/VTreeview'
 
 
 const { locale } = useI18n()
