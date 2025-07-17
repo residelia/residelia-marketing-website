@@ -226,10 +226,14 @@ const sitemapUrls = await fetchSitemapUrlsWithLocales();
 
 export default defineNuxtConfig({
   target: "static",
-  ssr: true,
+  ssr: false,
 
   alias: {
     "@": resolve(__dirname, "/"),
+  },
+
+  generate: {
+    routes: nitroRoutes,
   },
 
   app: {
