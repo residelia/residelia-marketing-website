@@ -1,6 +1,6 @@
 # Nuxt dev/build outputs
 .output
-.amplify_hosting
+.amplify-hosting
 .nuxt
 .nitro
 .cache
