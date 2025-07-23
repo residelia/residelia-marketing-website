@@ -231,6 +231,11 @@ export default defineNuxtConfig({
   alias: {
     "@": resolve(__dirname, "/"),
   },
+
+  routeRules: {
+    '/**': { prerender: true }
+  },
+
   app: {
     head: {
       pageTransition: { name: "page", mode: "out-in" },
@@ -390,9 +395,6 @@ export default defineNuxtConfig({
       routes: nitroRoutes,
       generateFallback: true,
     },
-    // routeRules: {
-    //   '/**': { ssr: false }
-    // }
   },
 
   imports: {
