@@ -388,10 +388,11 @@ export default defineNuxtConfig({
       crawlLinks: true,
       failOnError: false,
       routes: nitroRoutes,
+      generateFallback: true,
     },
-    routeRules: {
-      '/**': { ssr: false }
-    }
+    // routeRules: {
+    //   '/**': { ssr: false }
+    // }
   },
 
   imports: {
