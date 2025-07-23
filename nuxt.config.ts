@@ -389,6 +389,9 @@ export default defineNuxtConfig({
       failOnError: false,
       routes: nitroRoutes,
     },
+    routeRules: {
+      '/**': { ssr: false }
+    }
   },
 
   imports: {
