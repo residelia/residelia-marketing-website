@@ -1,4 +1,5 @@
 import { contentBlockQuery, seoQuery, linkQuery } from "./helperQueries";
+import groq from 'groq';
 
 export const siteQuery1 = groq`
 {

@@ -1,7 +1,6 @@
 import { resolve } from "path";
 import dotenv from "dotenv";
 import { createClient } from "@sanity/client";
-import { useMainStore } from "./stores/mainStore";
 
 dotenv.config();
 
@@ -294,17 +293,18 @@ export default defineNuxtConfig({
     "~/assets/css/color-scheme/magenta.scss",
     "~/assets/css/color-scheme/pink.scss",
     "~/assets/css/color-scheme/skyblue.scss",
-    "~/assets/css/color-scheme/violet.scss",
+    "~/assets/css/color-scheme/violet.scss", 
+    "vuetify/styles"
   ],
 
   // build: {
   //   transpile: ['@vuelidate/core']
   // },
 
-  buildModules: ["@nuxtjs/sanity/module", "@nuxtjs/dotenv"],
+  buildModules: [/*"@nuxtjs/sanity/module"*/ "@nuxtjs/dotenv"],
 
   modules: [
-  "@nuxtjs/sanity", [
+    [
     "@nuxtjs/google-fonts",
     {
       families: {
@@ -324,17 +324,7 @@ export default defineNuxtConfig({
         inject: true,
       },
     },
-  ], "nuxt-swiper", [
-    "vuetify-nuxt-module",
-    {
-      moduleOptions: {
-        /* module specific options */
-      },
-      vuetifyOptions: {
-        /* vuetify options */
-      },
-    },
-  ], "@pinia/nuxt", "dayjs-nuxt", "@nuxtjs/i18n", '@nuxtjs/sitemap', '@nuxtjs/robots', 'nuxt-schema-org'/*"@portabletext/vue"*/],
+  ], "@pinia/nuxt", "dayjs-nuxt", "@nuxtjs/i18n", '@nuxtjs/sitemap', '@nuxtjs/robots', 'nuxt-schema-org'],
 
   site: {
     url: process.env.BASE_URL,
@@ -380,6 +370,8 @@ export default defineNuxtConfig({
     define: {
       "process.env.DEBUG": true,
     },
+    ssr: {
+      noExternal: ["@vuelidate/core", "vuetify"],}
     // optimizeDeps: {
     //   include: ['@vuelidate/core']
     // }
