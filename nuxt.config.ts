@@ -232,8 +232,13 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    '/**': { prerender: true }
+    '/**': { prerender: true, redirect: { to: '/:splat/', statusCode: 301 } }
   },
+  router: {
+    options: {
+      trailingSlash: true
+    }
+  }
 
   app: {
     head: {
@@ -385,7 +390,7 @@ export default defineNuxtConfig({
       crawlLinks: true,
       failOnError: false,
       routes: nitroRoutes,
-      generateFallback: true,
+      trailingSlash: true
     },
   },
 
