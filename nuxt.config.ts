@@ -238,7 +238,7 @@ export default defineNuxtConfig({
     options: {
       trailingSlash: true
     }
-  }
+  },
 
   app: {
     head: {
