@@ -232,7 +232,7 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    '/**': { prerender: true, redirect: { to: '/:splat/', statusCode: 301 } }
+    '/**': { prerender: true }
   },
   router: {
     options: {
