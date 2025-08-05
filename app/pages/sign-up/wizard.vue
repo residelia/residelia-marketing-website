@@ -447,13 +447,31 @@ const rules = computed(() => {
 
 const v$ = useVuelidate(rules, form);
 
-// Avanzar y retroceder pasos
+
+// Analítica de funnel: trackear cada cambio de paso, éxito, error y abandono
+function trackSignUpStepChange(from, to) {
+  trackEvent('Sign Up Step Change', {
+    fromStep: from,
+    toStep: to,
+    stepLabelFrom: steps.find(s => s.value === from)?.text,
+    stepLabelTo: steps.find(s => s.value === to)?.text,
+    email: form.companyDomain || undefined
+  });
+}
+
 const nextStep = () => {
-  if (currentStep.value < 4) currentStep.value++;
+  if (currentStep.value < 4) {
+    trackSignUpStepChange(currentStep.value, currentStep.value + 1);
+    currentStep.value++;
+  }
 };
 const prevStep = () => {
-  if (currentStep.value > 1) currentStep.value--;
+  if (currentStep.value > 1) {
+    trackSignUpStepChange(currentStep.value, currentStep.value - 1);
+    currentStep.value--;
+  }
 };
+
 
 // Enviar datos al webhook y redirigir
 const submit = async () => {
@@ -462,8 +480,6 @@ const submit = async () => {
 
   try {
     loading.value = true; // Activa el loader
-    // console.log("gathered form=======>", form, storedData)
-
     if (!v$.value.$error) {
       const { token } = await executeRecaptcha(RecaptchaAction.login);
       const res = await $fetch(runtimeConfig.public.signUpWebhook, {
@@ -479,27 +495,20 @@ const submit = async () => {
         },
       });
 
-      // console.log("printing res ===========>");
-      // console.log(res);
-
       signUpResult.success = res.success;
       // signUpResult.success = false;
-      currentStep.value++
+      trackSignUpStepChange(currentStep.value, currentStep.value + 1);
+      currentStep.value++;
       if (signUpResult.success) {
         signUpResult.message = "Todo OK";
-
-        // tracking event and identifying
-        trackEvent("Sign Up Completed", form)
-        // storing wizard finish and navigating to end
-        // localStorage.setItem('finishedSignupWizard', true)
+        trackEvent("Sign Up Completed", { ...form, ...storedData });
         signupCompleted.value = JSON.stringify(storedData)
         localStorage.removeItem('signupData')
         sent.value = true;
         loading.value = false;
-        // router.push(localePath('/registro/completado'))
       } else {
         signUpResult.message = "Hemos tenido un problema para procesar tu alta. Por favor, inténtalo más tarde";
-        trackEvent("Sign Up Failed",form)
+        trackEvent("Sign Up Failed", { ...form, ...storedData, error: signUpResult.message });
       }
     } else {
       signUpResult.message = "Resuelve los errores primero";
@@ -510,6 +519,16 @@ const submit = async () => {
   }
   loading.value = false; // Oculta el loader
 };
+// Evento de abandono del wizard
+onBeforeUnmount(() => {
+  if (currentStep.value < 4) {
+    trackEvent('Sign Up Abandoned', {
+      step: currentStep.value,
+      stepLabel: steps.find(s => s.value === currentStep.value)?.text,
+      email: form.companyDomain || undefined
+    });
+  }
+});
 
 
 onMounted(() => {
