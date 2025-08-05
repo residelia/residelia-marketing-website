@@ -234,11 +234,6 @@ export default defineNuxtConfig({
   routeRules: {
     '/**': { prerender: true }
   },
-  router: {
-    options: {
-      trailingSlash: true
-    }
-  },
 
   app: {
     head: {
@@ -390,7 +385,6 @@ export default defineNuxtConfig({
       crawlLinks: true,
       failOnError: false,
       routes: nitroRoutes,
-      trailingSlash: true
     },
   },
 
