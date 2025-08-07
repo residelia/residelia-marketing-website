@@ -43,8 +43,6 @@ const props = defineProps<{
     message: Object
 }>();
 
-console.log("Call to Action Message", props.message)
-
 const route = useRoute()
 const { trackEvent } = useTracking()
 
