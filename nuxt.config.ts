@@ -231,9 +231,9 @@ export default defineNuxtConfig({
     "@": resolve(__dirname, "/"),
   },
 
-  routeRules: {
-    '/**': { prerender: true }
-  },
+  // routeRules: {
+  //   '/**': { prerender: true }
+  // },
 
   app: {
     head: {
@@ -379,7 +379,7 @@ export default defineNuxtConfig({
 
   nitro: {
     // baseURL: process.env.BASE_URL,
-    static: true,
+    // static: true,
     preset: 'aws-amplify',
     prerender: {
       crawlLinks: true,
