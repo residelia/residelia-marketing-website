@@ -56,6 +56,7 @@
                   class="name mb-0 text-left"
                   @input="v$.companyDomain.$touch"
                   @blur="v$.companyDomain.$touch"
+                  @focus="addHttpsToDomain"
                   :placeholder="$t('onboardingWizard.step1.companyDomain.placeholder')"
                 >
                 </v-text-field>
@@ -220,36 +221,37 @@
 
             <v-btn
               v-if="currentStep === 1"
+              :disabled="!isStepValid(1)"
+              @click="nextStep"
               variant="outlined"
               elevation="0"
               size="x-large"
               type="submit"
               :ripple="false"
               class="btn btn--theme hover--theme "
-              @click="nextStep"
             >
-            {{ $t('onboardingWizard.buttons.next') }}
+              {{ $t('onboardingWizard.buttons.next') }}
             </v-btn>
             <v-btn
               v-if="currentStep === 2"
-              :disabled="form.platformUsage.length === 0 || (form.platformUsage.includes('other') && (!v$.otherUsage.$dirty || (v$.otherUsage.$dirty && (v$.otherUsage?.$errors.length > 0 || v$.otherUsage?.$invalid))))"
+              :disabled="!isStepValid(2)"
+              @click="nextStep"
               variant="outlined"
               elevation="0"
               size="x-large"
               type="submit"
               :ripple="false"
               class="btn btn--theme hover--theme "
-              @click="nextStep"
             >
-            {{ $t('onboardingWizard.buttons.next') }}
+              {{ $t('onboardingWizard.buttons.next') }}
             </v-btn>
             <v-btn
               v-if="currentStep === 3"
+              :disabled="!isStepValid(3)"
+              @click="submit"
               class="btn btn--theme hover--theme "
               size="x-large"
               type="submit"
-              @click="submit"
-              :disabled="form.referrals.length === 0 || (form.referrals.includes('other') && (!v$.otherReferrals.$dirty || (v$.otherReferrals.$dirty && (v$.otherReferrals?.$errors.length > 0 || v$.otherReferrals?.$invalid))))"
               :loading="loading"
             >
               {{ $t('onboardingWizard.buttons.end') }}
@@ -263,6 +265,12 @@
 </template>
 
 <script setup>
+// Añade 'https://' al hacer foco en el campo si está vacío
+function addHttpsToDomain() {
+  if (!form.companyDomain) {
+    form.companyDomain = 'https://';
+  }
+}
 import { ref } from "vue";
 import useVuelidate from "@vuelidate/core";
 import {
@@ -459,8 +467,61 @@ function trackSignUpStepChange(from, to) {
   });
 }
 
+function isStepValid(step) {
+  if (step === 1) {
+    return !(
+      v$.value.company.$invalid ||
+      v$.value.companyDomain.$invalid ||
+      v$.value.assetsManaged.$invalid ||
+      v$.value.assetsAnalyzed.$invalid
+    );
+  }
+  if (step === 2) {
+    // Si se selecciona 'other', el campo debe estar tocado y válido
+    if (form.platformUsage.includes('other')) {
+      return (
+        !v$.value.platformUsage.$invalid &&
+        v$.value.otherUsage.$dirty &&
+        !v$.value.otherUsage.$invalid
+      );
+    }
+    return !v$.value.platformUsage.$invalid;
+  }
+  if (step === 3) {
+    // Si se selecciona 'other', el campo debe estar tocado y válido
+    if (form.referrals.includes('other')) {
+      return (
+        !v$.value.referrals.$invalid &&
+        v$.value.otherReferrals.$dirty &&
+        !v$.value.otherReferrals.$invalid
+      );
+    }
+    return !v$.value.referrals.$invalid;
+  }
+  return true;
+}
+
 const nextStep = () => {
-  if (currentStep.value < 4) {
+  // Solo tocamos los campos al intentar avanzar
+  if (currentStep.value === 1) {
+    v$.value.company.$touch();
+    v$.value.companyDomain.$touch();
+    v$.value.assetsManaged.$touch();
+    v$.value.assetsAnalyzed.$touch();
+  }
+  if (currentStep.value === 2) {
+    v$.value.platformUsage.$touch();
+    if (form.platformUsage.includes('other')) {
+      v$.value.otherUsage.$touch();
+    }
+  }
+  if (currentStep.value === 3) {
+    v$.value.referrals.$touch();
+    if (form.referrals.includes('other')) {
+      v$.value.otherReferrals.$touch();
+    }
+  }
+  if (currentStep.value < 4 && isStepValid(currentStep.value)) {
     trackSignUpStepChange(currentStep.value, currentStep.value + 1);
     currentStep.value++;
   }
