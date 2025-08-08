@@ -379,12 +379,12 @@ export default defineNuxtConfig({
 
   nitro: {
     // baseURL: process.env.BASE_URL,
-    // static: true,
+    static: true,
     preset: 'aws-amplify',
     prerender: {
+      routes: nitroRoutes,
       crawlLinks: true,
       failOnError: false,
-      routes: nitroRoutes,
     },
   },
 
