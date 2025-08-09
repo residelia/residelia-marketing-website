@@ -65,13 +65,15 @@ export const useMainStore = defineStore('main', {
 		},
 		async fetchLocales() {
 			const nuxtApp = useNuxtApp()
-			const { data } = await useSanityQuery(localesQuery)
-			this.locale.supported = data?.value
+			const data = await useSanityData({query: localesQuery})
+			this.locale.supported = data
 			this.locale.current = nuxtApp.$i18n.locale.value.slice(0, 2)
 		},
 		async fetchNavigationContent() {
-			const { data } = await useSanityQuery(navQuery)
-			this.siteNav = data?.value[0]
+			const data = await useSanityData({query: navQuery})
+			// console.log("Site Navigation Data", data[0])
+			this.siteNav = data[0]
+			// console.log("Site Navigation", this.siteNav)
 			// this.menu.products['info'] = this.siteNav.menuesGroup[0]
 			// this.menu.solutions['info'] = this.siteNav.menuesGroup[1]
 			// this.menu.pricing['info'] = this.siteNav.menuesGroup[2]
@@ -86,15 +88,17 @@ export const useMainStore = defineStore('main', {
 			this.menu.callToAction = { open: false, ...this.siteNav.callToAction }
 		},
 		async fetchFooterContent() {
-			const { data } = await useSanityQuery(footQuery)
-			this.footer = data?.value[0]
+			const data = await useSanityData({ query: footQuery })
+			this.footer = data[0]
 		},
 		async fetchSiteContent() {
-			const { data } = await useSanityQuery(siteQuery)
+			const data = await useSanityData({ query: siteQuery })
+			console.log("Site Data", data)
 			this.home = data[0]
 		},
 		async fetchSitePosts() {
-			const { data } = await useSanityQuery(allPostsQuery)
+			const data = await useSanityQuery({ query: allPostsQuery })
+			console.log("Site Posts Data", data)
 			this.posts.push(data?.value[0])
 		},
 		setLocale(locale) {
