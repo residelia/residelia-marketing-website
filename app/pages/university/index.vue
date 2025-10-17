@@ -13,18 +13,17 @@
 import { useBlogStore } from "../../../stores/blogStore";
 import { pillarsQuery, pageQuery } from '../../../queries/contentQueries';
 
+const route = useRoute();
+const { locale } = useI18n()
+const blogStore = useBlogStore()
+const textColor = 'color--dark'
+
 defineI18nRoute({
     paths: {
       en: '/university',
       es: '/university'
     }
 })
-
-const route = useRoute();
-const { locale } = useI18n()
-const blogStore = useBlogStore()
-
-const textColor = 'color--dark'
 
 const data = await useSanityData({
   query: pageQuery,
@@ -34,6 +33,7 @@ const data = await useSanityData({
   }
 })
 
+
 const pillars = await useSanityData({
   query: pillarsQuery,
   params: {
@@ -41,7 +41,7 @@ const pillars = await useSanityData({
   }
 });
 
-const clusters = pillars.value.flatMap(pillar => 
+const clusters = pillars.flatMap(pillar => 
   (pillar.clusters || []).map(cluster => ({
     id: cluster._id,
     title: cluster.title,
@@ -53,32 +53,32 @@ const clusters = pillars.value.flatMap(pillar =>
   }))
 );
 
-
 // console.log(
 //   "%cStop!",
 //   "color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold"
 // );
 // console.log(route)
+// console.log(locale)
 // console.log(data)
 // console.log(pillars)
 // console.log(clusters);
 
 // SEO
-const dateModified = new Date(data.value[0].updatedAt).toISOString();
-const datePublished = new Date(data.value[0].createdAt).toISOString();
+const dateModified = new Date(data[0].updatedAt).toISOString();
+const datePublished = new Date(data[0].createdAt).toISOString();
 useHead({
-  title: `${data.value[0].title.find(l => l._key === locale._value).value}`,
-  description: `${data.value[0].description.find(l => l._key === locale._value).value}`,
+  title: `${data[0].title.find(l => l._key === locale._value).value}`,
+  description: `${data[0].description.find(l => l._key === locale._value).value}`,
   bodyAttrs: {
       class: "navbar-dark scheme-residelia"
   },
 })
 useServerSeoMeta({
-  title: `${data?.value[0].title.find(l => l._key === locale.value).value} | RESIDELIA`,
-  ogTitle: `${data?.value[0].title.find(l => l._key === locale.value).value} | RESIDELIA`,
-  description: `${data?.value[0].description.find(l => l._key === locale.value).value}`,
-  ogDescription: `${data?.value[0].description.find(l => l._key === locale.value).value}`,
-  ogImage: `${data?.value[0]?.hero?.image}`,
+  title: `${data[0].title.find(l => l._key === locale.value).value} | RESIDELIA`,
+  ogTitle: `${data[0].title.find(l => l._key === locale.value).value} | RESIDELIA`,
+  description: `${data[0].description.find(l => l._key === locale.value).value}`,
+  ogDescription: `${data[0].description.find(l => l._key === locale.value).value}`,
+  ogImage: `${data[0]?.hero?.image}`,
   twitterCard: 'summary_large_image',
 })
 
@@ -86,18 +86,18 @@ useServerSeoMeta({
 defineWebPage({
   '@type': 'WebPage',
   url: `${process.env.BASE_URL}/${route.fullPath}`,
-  name: `${data?.value[0].title.find(l => l._key === locale.value).value} | RESIDELIA`,
-  description: `${data?.value[0].description.find(l => l._key === locale.value).value}`,
-  image: `${data?.value[0]?.hero?.image}`,
-  hasPart: pillars.value.map((pillar) => ({
+  name: `${data[0].title.find(l => l._key === locale.value).value} | RESIDELIA`,
+  description: `${data[0].description.find(l => l._key === locale.value).value}`,
+  image: `${data[0]?.hero?.image}`,
+  hasPart: pillars.map((pillar) => ({
     '@type': 'Article',
     headline: pillar.title,
     description: pillar.description,
     url: `${process.env.BASE_URL}/university/${pillar.slug}`,
     image: pillar.image,
-    datePublished,
-    dateModified,
   })),
+  datePublished,
+  dateModified,
 });
 
 // tracking events

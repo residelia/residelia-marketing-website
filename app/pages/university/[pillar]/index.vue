@@ -42,27 +42,27 @@ console.log(data)
 
 const setI18nParams = useSetI18nParams()
 setI18nParams({
-  en: { pillar: data.value[0].slug.split('/').filter(Boolean).pop()},
-  es: { pillar: data.value[0].slug.split('/').filter(Boolean).pop() }
+  en: { pillar: data[0].slug.split('/').filter(Boolean).pop()},
+  es: { pillar: data[0].slug.split('/').filter(Boolean).pop() }
 })
 
 
 // SEO
-const dateModified = new Date(data.value[0].updatedAt).toISOString()
-const datePublished = new Date(data.value[0].createdAt).toISOString()
+const dateModified = new Date(data[0].updatedAt).toISOString()
+const datePublished = new Date(data[0].createdAt).toISOString()
 useHead({
-  title: `${data.value[0].title} | RESIDELIA`,
-  description: `${data.value[0].description}`,
+  title: `${data[0].title} | RESIDELIA`,
+  description: `${data[0].description}`,
   bodyAttrs: {
     class: "navbar-dark scheme-residelia"
   },
 })
 useServerSeoMeta({
-  title: `${data.value[0].title} | RESIDELIA`,
-  ogTitle: `${data.value[0].title} | RESIDELIA`,
-  description: `${data.value[0].description}`,
-  ogDescription: `${data.value[0].description}`,
-  ogImage: `${data.value[0]?.hero?.image}`,
+  title: `${data[0].title} | RESIDELIA`,
+  ogTitle: `${data[0].title} | RESIDELIA`,
+  description: `${data[0].description}`,
+  ogDescription: `${data[0].description}`,
+  ogImage: `${data[0]?.hero?.image}`,
   twitterCard: 'summary_large_image',
 })
 
@@ -70,18 +70,18 @@ useServerSeoMeta({
 defineWebPage({
   '@type': 'WebPage',
   url: `${process.env.BASE_URL}/${route.fullPath}`,
-  name: `${data.value[0].title}`,
-  description: `${data.value[0].description}`,
-  image: `${data.value[0].image}`,
+  name: `${data[0].title}`,
+  description: `${data[0].description}`,
+  image: `${data[0].image}`,
   datePublished,
   dateModified,
 });
 
 defineArticle({
   '@type': 'Article',
-  headline: `${data.value[0].title}`,
-  description: `${data.value[0].description}`,
-  image: `${data.value[0].image}`,
+  headline: `${data[0].title}`,
+  description: `${data[0].description}`,
+  image: `${data[0].image}`,
   author: {
     '@type': 'Organization',
     name: 'RESIDELIA',
@@ -94,7 +94,7 @@ defineArticle({
 const { trackPage } = useTracking();
 const trackPageView = () => {
   trackPage('Page View', {
-    title: `${data.value[0].title}`,
+    title: `${data[0].title}`,
     path: route.fullPath,
   })
 };
