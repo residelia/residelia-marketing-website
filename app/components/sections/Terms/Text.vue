@@ -32,6 +32,7 @@ import VideoImage from '../../elements/VideoImage.vue'
 import List from '../../elements/List.vue'
 import NumberedList from '../../elements/NumberedList.vue'
 import ListItem from '../../elements/ListItem.vue'
+import Table from '../../elements/Table.vue'
 import { PortableText } from '@portabletext/vue';
 
 const { locale } = useI18n()
@@ -43,7 +44,8 @@ const serializers = {
         code: Code,
         callout: Callout,
         seoImage: SeoImage,
-        video: VideoImage
+        video: VideoImage,
+        table: Table
     },
     list: {
         bullet: List,
