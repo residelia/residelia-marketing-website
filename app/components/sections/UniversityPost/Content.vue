@@ -123,7 +123,7 @@ const serializers = {
         seoImage: SeoImage,
         video: VideoImage,
         latex: Formula,
-        table: Table
+        table: Table,
     },
     list: {
         bullet: List,
