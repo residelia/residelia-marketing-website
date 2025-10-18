@@ -11,7 +11,7 @@
       rounded
       class="pt-10"
     >
-      <SanityContent :blocks="value.content" :serializers="serializers" />
+      <PortableText :value="value.content" :components="serializers" />
     </v-alert>
     <v-alert
       v-else-if="value.calloutType === 'info'"
@@ -23,7 +23,7 @@
       rounded
       class="pt-10"
     >
-      <SanityContent :blocks="value.content" :serializers="serializers" />
+      <PortableText :value="value.content" :components="serializers" />
     </v-alert>
     <v-alert
       v-else-if="value.calloutType === 'warning'"
@@ -35,7 +35,7 @@
       rounded
       class="pt-10"
     >
-      <SanityContent :blocks="value.content" :serializers="serializers" />
+      <PortableText :value="value.content" :components="serializers" />
     </v-alert>
     <v-alert
       v-else-if="value.calloutType === 'error'"
@@ -47,7 +47,7 @@
       rounded
       class="pt-10"
     >
-      <SanityContent :blocks="value.content" :serializers="serializers" />
+      <PortableText :value="value.content" :components="serializers" />
     </v-alert>
     <v-alert
       v-else-if="value.calloutType === 'normal'"
@@ -57,7 +57,7 @@
       rounded
       class="pt-10"
     >
-      <SanityContent :blocks="value.content" :serializers="serializers" />
+      <PortableText :value="value.content" :components="serializers" />
     </v-alert>
     <v-alert
       v-else-if="value.calloutType === 'hands-on'"
@@ -69,7 +69,7 @@
       rounded
       class="pt-10"
     >
-      <SanityContent :blocks="value.content" :serializers="serializers" />
+      <PortableText :value="value.content" :components="serializers" />
     </v-alert>
     <v-alert
       v-else-if="value.calloutType === 'euro'"
@@ -81,7 +81,7 @@
       rounded
       class="pt-10"
     >
-      <SanityContent :blocks="value.content" :serializers="serializers" />
+      <PortableText :value="value.content" :components="serializers" />
     </v-alert>
     <v-alert
       v-else="value.calloutType === 'tip'"
@@ -93,13 +93,15 @@
       rounded
       class="pt-10"
     >
-      <SanityContent :blocks="value.content" :serializers="serializers" />
+      <PortableText :value="value.content" :components="serializers" />
     </v-alert>
     <br>
   </div>
 </template>
 
 <script setup lang="ts">
+import { PortableText } from '@portabletext/vue';
+
 defineProps<{
   value: object;
 }>();
