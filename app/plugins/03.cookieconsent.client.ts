@@ -4,6 +4,7 @@ import type { CookieConsentConfig } from 'vanilla-cookieconsent';
 import { useMainStore } from '../../stores/mainStore';
 import { cookieBannerQuery, cookieSettingsModalQuery } from '../../queries/helperQueries';
 import { createClient } from '@sanity/client';
+import {toHTML} from '@portabletext/to-html'
 
 
 export default defineNuxtPlugin(async (nuxtApp) => {
@@ -32,20 +33,12 @@ export default defineNuxtPlugin(async (nuxtApp) => {
     return;
   }
 
-  // console.log(
-  //         "%cStop!",
-  //         "color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold"
-  //       );
-  // console.log(cookieBannerData)
-  // console.log(cookieSettingsData)
-  // console.log(mainStore.locales)
-
-  
+ 
   const translations = {}
   const tableKeys = ['name', 'domain', 'desc']
 
   // console.log(cookieSettingsData[0].categories[2].cookiesTable.find(t => t._key === 'es').value.rows.slice(1).map(r => (r.cells.map((c, index) => ({ [tableKeys[index]]: c })).reduce((acc, current) => ({ ...acc, ...current }), {}))))
-  
+  console.log(cookieBannerData[0].footer.find(t => t._key === 'es').value)
   mainStore.locales.forEach(locale => {
     translations[locale.localeCode] = {
       consentModal: {
