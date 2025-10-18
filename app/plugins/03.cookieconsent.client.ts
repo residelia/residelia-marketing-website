@@ -38,7 +38,6 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   const tableKeys = ['name', 'domain', 'desc']
 
   // console.log(cookieSettingsData[0].categories[2].cookiesTable.find(t => t._key === 'es').value.rows.slice(1).map(r => (r.cells.map((c, index) => ({ [tableKeys[index]]: c })).reduce((acc, current) => ({ ...acc, ...current }), {}))))
-  console.log(cookieBannerData[0].footer.find(t => t._key === 'es').value)
   mainStore.locales.forEach(locale => {
     translations[locale.localeCode] = {
       consentModal: {
