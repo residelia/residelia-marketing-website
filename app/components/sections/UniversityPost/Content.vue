@@ -103,6 +103,7 @@ import List from '../../elements/List.vue'
 import NumberedList from '../../elements/NumberedList.vue'
 import ListItem from '../../elements/ListItem.vue'
 import { PortableText } from '@portabletext/vue';
+import Table from '~/components/elements/Table.vue';
 
 const { locale } = useI18n()
 
@@ -119,6 +120,7 @@ const serializers = {
         seoImage: SeoImage,
         video: VideoImage,
         latex: Formula,
+        table: Table,
     },
     list: {
         bullet: List,

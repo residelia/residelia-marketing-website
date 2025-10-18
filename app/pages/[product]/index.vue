@@ -22,14 +22,14 @@ import { pageQuery } from '../../../queries/contentQueries'
 const route = useRoute();
 const { locale } = useI18n()
 const mainStore = useMainStore()
-const headerColor = !["legal", "broker","explorer","valuation","management","maintenance"].includes(route.params.product) ? 'navbar-dark' : 'navbar-light'
-const textColor = ["legal", "broker","explorer","valuation","management","maintenance"].includes(route.params.product) ? 'color--white' : 'color--dark'
+const headerColor = !["legal", "broker","explorer","valuation","management","maintenance","estate-leads"].includes(route.params.product) ? 'navbar-dark' : 'navbar-light'
+const textColor = ["legal", "broker","explorer","valuation","management","maintenance","estate-leads"].includes(route.params.product) ? 'color--white' : 'color--dark'
 
 
 const data = await useSanityData({
   query: pageQuery,
   params: {
-      slug: route.path.startsWith(`/${locale.value}`) ? route.path.slice(`/${locale.value}`.length) || '/' : route.path,
+      slug: route.path.startsWith(`/${locale.value}/`) ? route.path.slice(`/${locale.value}`.length) || '/' : route.path,
       // slug: route.params.product,
       language: locale.value
   }

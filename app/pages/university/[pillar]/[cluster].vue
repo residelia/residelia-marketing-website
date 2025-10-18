@@ -39,8 +39,8 @@ defineI18nRoute({
 // FIXME: para que se realice el cambio entre idiomas correctamente
 // const setI18nParams = useSetI18nParams()
 // setI18nParams({
-//     en: { type: data.value[0].slug.find(t => t._key === 'en').value.current, resource:  },
-//     es: { slug: data.value[0].slug.find(t => t._key === 'es').value.current, resource: },
+//     en: { type: data[0].slug.find(t => t._key === 'en').value.current, resource:  },
+//     es: { slug: data[0].slug.find(t => t._key === 'es').value.current, resource: },
 // })
 
 console.log(
@@ -53,21 +53,21 @@ console.log(data)
 
 
 // SEO
-const dateModified = new Date(data.value[0].updatedAt).toISOString()
-const datePublished = new Date(data.value[0].createdAt).toISOString()
+const dateModified = new Date(data[0].updatedAt).toISOString()
+const datePublished = new Date(data[0].createdAt).toISOString()
 useHead({
-  title: `${data.value[0].title} | RESIDELIA`,
-  description: `${data.value[0].description}`,
+  title: `${data[0].title} | RESIDELIA`,
+  description: `${data[0].description}`,
   bodyAttrs: {
     class: "navbar-dark scheme-residelia"
   },
 })
 useServerSeoMeta({
-  title: `${data.value[0].title} | RESIDELIA`,
-  ogTitle: `${data.value[0].title} | RESIDELIA`,
-  description: `${data.value[0].description}`,
-  ogDescription: `${data.value[0].description}`,
-  ogImage: `${data.value[0]?.hero?.image}`,
+  title: `${data[0].title} | RESIDELIA`,
+  ogTitle: `${data[0].title} | RESIDELIA`,
+  description: `${data[0].description}`,
+  ogDescription: `${data[0].description}`,
+  ogImage: `${data[0]?.hero?.image}`,
   twitterCard: 'summary_large_image',
 })
 
@@ -75,18 +75,18 @@ useServerSeoMeta({
 defineWebPage({
   '@type': 'WebPage',
   url: `${process.env.BASE_URL}/${route.fullPath}`,
-  name: `${data.value[0].title}`,
-  description: `${data.value[0].description}`,
-  image: `${data.value[0].image}`,
+  name: `${data[0].title}`,
+  description: `${data[0].description}`,
+  image: `${data[0].image}`,
   datePublished,
   dateModified,
 });
 
 defineArticle({
   '@type': 'Article',
-  headline: `${data.value[0].title}`,
-  description: `${data.value[0].description}`,
-  image: `${data.value[0].image}`,
+  headline: `${data[0].title}`,
+  description: `${data[0].description}`,
+  image: `${data[0].image}`,
   author: {
     '@type': 'Organization',
     name: 'RESIDELIA',
@@ -101,7 +101,7 @@ defineArticle({
 const { trackPage } = useTracking();
 const trackPageView = () => {
   trackPage('Page View', {
-    // title: `${data.value[0].title.find(l => l._key === locale._value).value}`,
+    // title: `${data[0].title.find(l => l._key === locale._value).value}`,
     path: route.fullPath,
   })
 };
