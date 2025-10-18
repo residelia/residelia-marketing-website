@@ -118,7 +118,7 @@
                     <li class="nl-simple" aria-haspopup="true" @click="handleClick('Sign Up Started','header-signup-button')">
                         <NuxtLink
                         id="header-demo-button"
-                        :to="$localePath(mainStore.menu.callToAction.slug.find(l => l._key === locale).value.current)"
+                        :to="mainStore.menu.callToAction.slug"
                         class="btn w-100 r-04 btn--theme hover--theme last-link"
                         >{{ mainStore.menu.callToAction.linkText.find(l => l._key === locale).value }}</NuxtLink
                         >
