@@ -4,8 +4,6 @@ import type { CookieConsentConfig } from 'vanilla-cookieconsent';
 import { useMainStore } from '../../stores/mainStore';
 import { cookieBannerQuery, cookieSettingsModalQuery } from '../../queries/helperQueries';
 import { createClient } from '@sanity/client';
-import {toHTML} from '@portabletext/to-html'
-
 
 export default defineNuxtPlugin(async (nuxtApp) => {
   if (process.server) return;
