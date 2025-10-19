@@ -7,6 +7,7 @@
                     <div class="section-title mb-30">
                         <!-- Title -->
                         <h1 class="s-52 w-700">{{ plans.heading?.find(t => t._key === locale).value}}</h1>
+                        <p  class="p-xl color--gray mt-0">{{ plans.generalDiscount.generalDiscountText?.find(t => t._key === locale).value}}</p>
                         <!-- TOGGLE BUTTON -->
                         <div class="toggle-btn ext-toggle-btn toggle-btn-md mt-30">
                             <span class="toggler-txt"> {{ plans.monthlyBilling?.find(t => t._key === locale).value}}</span>
@@ -18,7 +19,7 @@
                                 </span>
                             </label>
                             <span class="toggler-txt">{{ plans.yearlyBilling?.find(t => t._key === locale).value}}</span>
-                            <p class="color--theme">{{ plans.discount?.find(t => t._key === locale).value}}</p>
+                            <p v-if="!showMonthly" class="mt-1 color--theme">{{ plans.discount?.find(t => t._key === locale).value}}</p>
                         </div>
                     </div>
                 </div>
@@ -36,8 +37,9 @@
 
             <!-- PRICING TABLES -->
             <div class="pricing-1-wrapper">
-                <div class="row row-cols-1 row-cols-md-4">
+                <div class="row row-cols-1 row-cols-md-4 row-cols-sm-2">
                     <!-- PRICING PLAN -->
+
                     <div v-for="(plan,index) in plans.pricingPlans" class="col">
                         <div :id="`pt-1-${index+1}`" class="p-table pricing-1-table bg--white-100 block-shadow r-12">
                             <!-- TABLE HEADER -->
@@ -55,8 +57,9 @@
                                 <div class="price">
                                     <!-- Monthly/Yearly Price -->
                                     <div v-if="plan.noPrice" class="price">
+                                        <span v-if="plans.generalDiscount.generalDiscountApplied" class="discount color--grey">{{ showMonthly ? plan.monthlyPrice/(plans.generalDiscount.generalDiscount/100) : Math.round((plan.monthlyPrice/(plans.generalDiscount.generalDiscount/100))*(1-plan.yearlyDiscount/100)) }}</span>
                                         <span class="color--black">{{ showMonthly ? plan.monthlyPrice : Math.round(plan.monthlyPrice*(1-plan.yearlyDiscount/100)) }}</span>
-                                        <sup class="validity color--grey">&nbsp;{{ plan.currency?.find(t => t._key === locale).value }}&nbsp;/&nbsp;{{ $t('monthlyPeriod') }}</sup>
+                                        <sup class="s-9 validity color--grey">&nbsp;{{ plan.currency?.find(t => t._key === locale).value }}&nbsp;/&nbsp;{{ $t('monthlyPeriod') }}</sup>
                                         <p class="s-12 w-700 btn-txt text-center color--grey">{{ $t('pricePeriodDescription', (showMonthly ? 2 : 1)).toUpperCase() }}</p>
                                     </div>
                                     <div v-else>
