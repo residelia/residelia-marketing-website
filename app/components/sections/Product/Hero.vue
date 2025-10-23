@@ -17,11 +17,11 @@
                                 <NuxtLink v-if="button.button.linkType === 'anchor'" :to="button.button.anchor" class="btn r-04  hover--theme" :class="{'btn--theme': index === 0, 'btn--theme-secondary': index !== 0}">{{ button.button.linkText.filter(l => l._key === locale.slice(0,2))[0]?.value }}</NuxtLink>
                                 <a v-else-if="button.button.linkType === 'external'" :href="button.button.externalUrl" class="btn r-04 hover--theme" :class="{'btn--theme': index === 0, 'btn--theme-secondary': index !== 0}">{{ button.button.linkText.filter(l => l._key === locale.slice(0,2))[0]?.value }}</a>
                                 <NuxtLink v-else-if="button.button.linkType === 'internal'" :to="$localePath(button.button.link.slug.find(l => l._key === locale).value.current+(button.button.queryString ? button.button.queryString : ''))" class="btn r-04 hover--theme" :class="{'btn--theme': index === 0, 'btn--theme-secondary': index !== 0}">{{ button.button.linkText.filter(l => l._key === locale.slice(0,2))[0]?.value }}</NuxtLink>
-                                <ElementsVideoModal v-else-if="button.button.linkType === 'video'" :link="button.button.externalUrl">
+                                <!-- <ElementsVideoModal v-else-if="button.button.linkType === 'video'" :link="button.button.externalUrl">
                                     <template v-slot:button>
                                         <span class="video-popup2 btn r-04 hover--theme ico-20 ico-right" :class="{'btn--theme': index === 0, 'btn--theme-secondary': index !== 0}">{{ button.button.linkText.filter(l => l._key === locale.slice(0,2))[0]?.value }}</span>
                                     </template>
-                                </ElementsVideoModal>
+                                </ElementsVideoModal> -->
                             </div>
                         </div>
                     </div>
@@ -33,13 +33,13 @@
                 <div class="col">
                     <div class="hero-product-img video-preview" :class="{'wow fadeInUp': mounted}">
                         <!-- Play Icon -->
-                        <!-- <ElementsVideoModal :link="'https://www.youtube.com/embed/GcMiYI1gWD4'">
+                        <ElementsVideoModal v-if="hero.buttons.find(b => b.button.linkType === 'video')" :link="hero.buttons.find(b => b.button.linkType === 'video').button.videoUrl">
                             <template v-slot:button>
                                 <div class="video-btn video-btn-xl btn--theme hover--theme ico-90" @click="handleClick('Hero Video Launched','hero-video-button')">
                                     <div class="video-block-wrapper"><span class="flaticon-play-button"></span></div>
                                 </div>
                             </template>
-                        </ElementsVideoModal> -->
+                        </ElementsVideoModal>
                         <!-- Preview Image -->
                         <img class="img-fluid"  :src="hero.image.url+'?fm=webp'" :alt="hero.imageAlt" />
                     </div>
