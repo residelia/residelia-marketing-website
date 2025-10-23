@@ -9,9 +9,9 @@
                         <div class="col">
                             <div class="banner-1-txt color" :class="textColor">
                                 <!-- Title -->
-                                <h2 class="s-45 w-700">{{ message.heading.find(t => t._key === locale).value }}</h2>
+                                <h2 class="s-45 w-700">{{ message?.heading.find(t => t._key === locale).value }}</h2>
                                 <!-- Text -->
-                                <p class="p-xl">{{ message.subHeading.find(t => t._key === locale).value }}</p>
+                                <p class="p-xl">{{ message?.subHeading.find(t => t._key === locale).value }}</p>
                                 <!-- Button -->
                                 <NuxtLink
                                     :to="message.link.slug.find(t => t._key === locale).value.current"

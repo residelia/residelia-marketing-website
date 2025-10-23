@@ -14,10 +14,16 @@
                                 <h2 class="s-36 w-700 color--white" v-html="balanceString(message?.heading?.find(t => t._key === locale).value,5)"></h2>
                                 <!-- Buttons -->
                                 <div class="btns-group">
-                                    <NuxtLink
+                                    <NuxtLink v-if="message.button.linkType === 'internal'"
                                         :to="$localePath(message.link.slug.find(t => t._key === locale).value.current + (message.button.queryString ? message.button.queryString : '') )"
                                         class="btn r-04 btn--theme-secondary hover--theme" data-bs-toggle="modal" data-bs-target="#modal-3"
                                         @click="handleClick(message.button.id,'product-cta-button')"
+                                    >{{ message.button.linkText.find(t => t._key === locale).value }}</NuxtLink>
+                                    <NuxtLink v-if="message.button.linkType === 'external'"
+                                        :to="message.button.externalUrl + (message.button.queryString ? message.button.queryString : '')"
+                                        class="btn r-04 btn--theme-secondary hover--theme" data-bs-toggle="modal" data-bs-target="#modal-3"
+                                        @click="handleClick(message.button.id,'product-cta-button')"
+                                        target="__blank"
                                     >{{ message.button.linkText.find(t => t._key === locale).value }}</NuxtLink>
                                 </div>
                                 <!-- Button Text -->

@@ -1,8 +1,18 @@
 <template>
+  <!-- SECTION TITLE -->
+  <div v-if="workflow.heading !== null" class="pt-100 row justify-content-center">
+      <div class="col-md-10 col-lg-9">
+          <div class="section-title mb-70">
+              <h2 class="s-36 w-700" v-html="balanceString(workflow?.heading.find(t => t._key === locale).value,6)"></h2>
+              <p class="s-20 color--grey" v-if="workflow.subHeading" v-html="balanceString(workflow?.subHeading.find(t => t._key === locale).value, 10)"></p>
+          </div>
+      </div>
+  </div>
   <template v-if="workflow" v-for="step in workflow.wfSteps">
     <section
       v-if="step.step % 2 !== 0"
-      class="py-100 ct-02 content-section division"
+      class="ct-02 content-section division"
+      :class="[!workflow.heading ? 'py-100' : 'pt-20 pb-100']"
     >
       <div class="container">
         <div class="row d-flex align-items-center">
