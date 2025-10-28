@@ -1,10 +1,10 @@
 <template>
   <!-- SECTION TITLE -->
-  <div v-if="workflow.heading !== null" class="pt-100 row justify-content-center">
+  <div v-if="workflow.heading" class="pt-100 row justify-content-center">
       <div class="col-md-10 col-lg-9">
           <div class="section-title mb-70">
-              <h2 class="s-36 w-700" v-html="balanceString(workflow?.heading.find(t => t._key === locale).value,6)"></h2>
-              <p class="s-20 color--grey" v-if="workflow.subHeading" v-html="balanceString(workflow?.subHeading.find(t => t._key === locale).value, 10)"></p>
+              <h2 class="s-36 w-700" v-html="balanceString(workflow?.heading?.find(t => t._key === locale).value,6)"></h2>
+              <p class="s-20 color--grey" v-if="workflow.subHeading" v-html="balanceString(workflow?.subHeading?.find(t => t._key === locale).value, 10)"></p>
           </div>
       </div>
   </div>

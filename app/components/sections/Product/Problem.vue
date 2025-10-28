@@ -17,7 +17,7 @@
                 <!-- IMAGE BLOCK -->
                 <div class="col-md-6">
                     <div class="img-block left-column">
-                        <img class="img-fluid" :src="problem.pic.url+'?fm=webp'" :alt="problem.image.alt" />
+                        <img class="img-fluid" :src="problem.pic.url" style="max-height:600px;" :alt="problem.image.alt" />
                     </div>
                 </div>
                 <!-- TEXT BLOCK -->
