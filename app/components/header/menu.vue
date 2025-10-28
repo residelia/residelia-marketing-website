@@ -72,7 +72,12 @@
 
                     <!-- PRECIOS -->
                     <li class="nl-simple" aria-haspopup="true">
-                        <NuxtLink :to="$localePath(mainStore.menu.pricing.menuLink.link.slug.find(l => l._key === locale).value.current)" class="h-link">{{ mainStore.menu.pricing.title.find(l => l._key === locale).value }}</NuxtLink>
+                        <template v-if="route.path.includes('/estate-leads')">
+                            <NuxtLink to="https://estateleads.residelia.com/precios" class="btn btn--theme-secondary hover--theme" target='_blank' external>{{ mainStore.menu.accessAction.linkText.find(l => l._key === locale).value }}</NuxtLink>
+                        </template>
+                        <template v-else>
+                            <NuxtLink :to="$localePath(mainStore.menu.pricing.menuLink.link.slug.find(l => l._key === locale).value.current)" class="h-link">{{ mainStore.menu.pricing.title.find(l => l._key === locale).value }}</NuxtLink>
+                        </template>
                     </li>
 
                     <!-- RECURSOS -->
