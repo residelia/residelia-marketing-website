@@ -111,17 +111,22 @@
                         aria-haspopup="true"
                         @click="handleClick('Log-in Started', 'header-login-button')"
                     >
-                        <NuxtLink :to="mainStore.menu.accessAction.slug" class="btn btn--theme-secondary hover--theme" v-if="mainStore.menu.accessAction.linkType === 'external' || mainStore.menu.accessAction.linkType === 'video' || mainStore.menu.accessAction.linkType === 'anchor'" :target="mainStore.menu.accessAction.newWindow ? '_blank' : '_self'" external>{{ mainStore.menu.accessAction.linkText.find(l => l._key === locale).value }}</NuxtLink>
-                        <NuxtLink :to="$localePath(mainStore.menu.accessAction.slug)" class="h-link" v-else>{{ mainStore.menu.accessAction.linkText }}</NuxtLink>
+                        <template v-if="route.path.includes('/estate-leads')">
+                            <NuxtLink to="https://estateleads.residelia.com/login" class="btn btn--theme-secondary hover--theme" target='_blank' external>{{ mainStore.menu.accessAction.linkText.find(l => l._key === locale).value }}</NuxtLink>
+                        </template>
+                        <template v-else>
+                            <NuxtLink :to="mainStore.menu.accessAction.slug" class="btn btn--theme-secondary hover--theme" v-if="mainStore.menu.accessAction.linkType === 'external' || mainStore.menu.accessAction.linkType === 'video' || mainStore.menu.accessAction.linkType === 'anchor'" :target="mainStore.menu.accessAction.newWindow ? '_blank' : '_self'" external>{{ mainStore.menu.accessAction.linkText.find(l => l._key === locale).value }}</NuxtLink>
+                            <NuxtLink :to="$localePath(mainStore.menu.accessAction.slug)" class="h-link" v-else>{{ mainStore.menu.accessAction.linkText }}</NuxtLink>
+                        </template>
                     </li>
                     <!-- SIGN UP LINK -->
                     <li class="nl-simple" aria-haspopup="true" @click="handleClick('Sign Up Started','header-signup-button')">
-                        <NuxtLink
-                        id="header-demo-button"
-                        :to="mainStore.menu.callToAction.slug"
-                        class="btn w-100 r-04 btn--theme hover--theme last-link"
-                        >{{ mainStore.menu.callToAction.linkText.find(l => l._key === locale).value }}</NuxtLink
-                        >
+                        <template v-if="route.path.includes('/estate-leads')">
+                            <NuxtLink to="https://estateleads.residelia.com/register" class="btn w-100 r-04 btn--theme hover--theme last-link" target='_blank' external>{{ mainStore.menu.callToAction.linkText.find(l => l._key === locale).value }}</NuxtLink>
+                        </template>
+                        <template v-else>
+                            <NuxtLink id="header-sign_up-button" :to="mainStore.menu.callToAction.slug" class="btn w-100 r-04 btn--theme hover--theme last-link">{{ mainStore.menu.callToAction.linkText.find(l => l._key === locale).value }}</NuxtLink>
+                        </template>
                     </li>
                 </ul>
             </nav>
