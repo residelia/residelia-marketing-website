@@ -121,10 +121,10 @@
               />
               <a style="text-decoration:none;" target="_blank"  href="https://aplicaciones.ciencia.gob.es/pyiINFO/buscarPyi.mec?&nif=B88421920"  title="Ir a 'Sello Pyme Innovadora con validez 17/04/2026 ' en ventana nueva" >
                   <div>
-                      <img width="50" alt="Sello PYME INNOVADORA 17/04/2026" src="https://aplicaciones.ciencia.gob.es/pyiINFO/imagenes/sello.jpg" />
+                      <img width="100" alt="Sello PYME INNOVADORA 17/04/2026" src="/assets/images/pyme-innovadora.jpg" />
                   </div>
               </a>
-              <img height="37" class="ml-2" alt="escudo de MEIC 17/04/2026" src="https://aplicaciones.ciencia.gob.es/pyiINFO/imagenes/escudo.jpg"/>
+              <!-- <img height="37" class="ml-2" alt="escudo de MEIC 17/04/2026" src="https://aplicaciones.ciencia.gob.es/pyiINFO/imagenes/escudo.jpg"/> -->
             </div>
           </div>
         <!-- End row -->
