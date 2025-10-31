@@ -1,3 +1,5 @@
+import { on } from "events";
+
 export default defineI18nConfig(() => ({
     legacy: true,
     // locale: mainStore.defaultLocale?.localeCode,
@@ -37,6 +39,7 @@ export default defineI18nConfig(() => ({
             pricePeriodDescription: 'Facturado Anualmente | Facturado Mensualmente',
             comparePlans: 'Compara nuestros planes',
             legalTerms: 'nuestros términos de uso',
+            onePayment: 'Pago único anual',
             onboardingWizard: {
                 buttons: {
                     next: "Siguiente",
@@ -168,6 +171,7 @@ export default defineI18nConfig(() => ({
             pricePeriodDescription: 'Billed yearly | Billed monthly',
             comparePlans: 'Compare plans',
             legalTerms: 'our use terms',
+            onePayment: 'One annual payment',
             onboardingWizard: {
                 buttons: {
                     next: "Next",
