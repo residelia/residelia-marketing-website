@@ -421,7 +421,7 @@ export default defineNuxtConfig({
       googleRecaptchaKey: process.env.RECAPTCHA_SITE_KEY, // for example
       formWebhook: process.env.FORM_WEBHOOK,
       signUpWebhook: process.env.SIGNUP_WEBHOOK,
-      baseUrl: process.env.BASE_URL,
+      baseUrl: process.env.BASE_URL || 'https://residelia.com',
       consent: {
         cookieName: 'cc_cookie', // 🔹 Especificamos la cookie de consentimiento
       },
