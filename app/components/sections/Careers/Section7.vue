@@ -13,7 +13,7 @@
                                 <!-- Text -->
                                 <p class="p-lg">We're constantly looking for talented people to join our team. Don't hesitate to get in touch with us</p>
                                 <!-- Button -->
-                                <NuxtLink :to="$localePath('/contactar?reason=application')" class="btn r-04 btn--theme hover--tra-white">Cuéntanos tu experiencia</NuxtLink>
+                                <NuxtLink :to="$localePath('/contactar?reason=application')" class="btn r-04 btn--theme hover--tra-white" v-follow >Cuéntanos tu experiencia</NuxtLink>
                             </div>
                         </div>
                         <!-- END BANNER-12 TEXT -->

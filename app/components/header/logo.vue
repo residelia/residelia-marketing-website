@@ -3,11 +3,11 @@
 
       <!-- HEADER BLACK LOGO -->
       <div class="smllogo">
-        <NuxtLink :to="localePath('/')" class="logo-black"><img src="/assets/images/residelia-logo-black.svg" alt="residelia-logo" /></NuxtLink>
+        <NuxtLink :to="localePath('/')" class="logo-black" v-follow ><img src="/assets/images/residelia-logo-black.svg" alt="residelia-logo" /></NuxtLink>
       </div>
       <!-- HEADER WHITE LOGO -->
       <div class="smllogo">
-        <NuxtLink :to="localePath('/')" class="logo-white"><img src="/assets/images/residelia-logo-white.svg" alt="residelia-logo" /></NuxtLink>
+        <NuxtLink :to="localePath('/')" class="logo-white" v-follow ><img src="/assets/images/residelia-logo-white.svg" alt="residelia-logo" /></NuxtLink>
       </div>
 
       <div class="color--theme">
@@ -16,6 +16,7 @@
           class="s-14 w-600 wsanimated-arrow color--primary"
           style="padding: 0px 50px 0 0"
           @click="handleClick('Demo Request Started','header-mobile-demo-button')"
+          v-follow 
         >
           {{ mainStore.menu.demoAction.linkText.find(l => l._key === locale).value }}
         </NuxtLink>

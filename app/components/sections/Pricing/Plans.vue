@@ -74,7 +74,7 @@
                                 </div>
                                 <!-- End Price -->
                                 <!-- Button -->
-                                <NuxtLink v-if="plan.callToAction.linkType === 'internal'" :to="$localePath(plan.callToAction.link.slug.find(l => l._key === locale).value.current+(plan.callToAction.queryString ? plan.callToAction.queryString : ''))" class="pt-btn btn--theme btn r-04 hover--theme">{{ plan.callToAction.linkText.filter(l => l._key === locale.slice(0,2))[0]?.value }}</NuxtLink>
+                                <NuxtLink v-if="plan.callToAction.linkType === 'internal'" :to="$localePath(plan.callToAction.link.slug.find(l => l._key === locale).value.current+(plan.callToAction.queryString ? plan.callToAction.queryString : ''))" class="pt-btn btn--theme btn r-04 hover--theme" v-follow >{{ plan.callToAction.linkText.filter(l => l._key === locale.slice(0,2))[0]?.value }}</NuxtLink>
                                 <NuxtLink v-if="plan.callToAction.linkType === 'external'" :to="plan.callToAction.externalUrl" class="pt-btn btn--theme btn r-04 hover--theme" external>{{ plan.callToAction.linkText.filter(l => l._key === locale.slice(0,2))[0]?.value }}</NuxtLink>
                             </div>
                             <!-- END TABLE HEADER -->

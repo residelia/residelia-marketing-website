@@ -8,7 +8,7 @@
                     <div class="row">
                         <div v-for="topic in readings" :key="topic._id" class="col-md-6 col-12 version-release mb-0">
                             <!-- Release Data -->
-                            <NuxtLink :to="topic.slug">
+                            <NuxtLink :to="topic.slug" v-follow >
                                 <div class="release-data pb-2">
                                     <!-- Version Data -->
                                     <span>

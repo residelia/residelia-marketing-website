@@ -28,8 +28,18 @@ import { useBlogStore } from "../../../stores/blogStore";
 import { pageQuery } from "../../../queries/contentQueries";
 
 const route = useRoute();
-const { locale } = useI18n();
-const blogStore = useBlogStore();
+const { locale } = useI18n()
+const blogStore = useBlogStore()
+const headerColor = 'navbar-light'
+const textColor = 'color--dark'
+
+defineI18nRoute({
+    paths: {
+      en: '/blog',
+      es: '/blog'
+    }
+})
+
 const data = await useSanityData({
   query: pageQuery,
   params: {
@@ -37,38 +47,41 @@ const data = await useSanityData({
     language: locale.value
   }
 })
+
 // console.log(
 //   "%cAllPosts!",
 //   "color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold"
 // );
 // console.log(blogStore.posts?.filter(p => p.featured))
-console.log(data)
-console.log(blogStore)
+// console.log(data)
+// console.log(blogStore)
 
 // SEO
+const dateModified = new Date(data[0].updatedAt).toISOString();
+const datePublished = new Date(data[0].createdAt).toISOString();
 useHead({
-  title: `${data.value[0].title.find(l => l._key === locale._value).value}`,
-  description: `${data.value[0].description.find(l => l._key === locale._value).value}`,
+  title: `${data[0].title.find(l => l._key === locale._value).value}`,
+  description: `${data[0].description.find(l => l._key === locale._value).value}`,
   bodyAttrs: {
       class: "navbar-dark scheme-residelia"
   },
 })
 
-useServerSeoMeta({
-  title: `${data.value[0].title.find(l => l._key === locale._value).value}`,
-  ogTitle: `${data.value[0].title.find(l => l._key === locale._value).value}`,
-  description: `${data.value[0].description.find(l => l._key === locale._value).value}`,
-  ogDescription: `${data.value[0].description.find(l => l._key === locale._value).value}`,
-  ogImage: `${data.value[0]?.hero?.image}`,
-  twitterCard: 'summary_large_image',
-})
+// useServerSeoMeta({
+//   title: `${data.value[0].title.find(l => l._key === locale._value).value}`,
+//   ogTitle: `${data.value[0].title.find(l => l._key === locale._value).value}`,
+//   description: `${data.value[0].description.find(l => l._key === locale._value).value}`,
+//   ogDescription: `${data.value[0].description.find(l => l._key === locale._value).value}`,
+//   ogImage: `${data.value[0]?.hero?.image}`,
+//   twitterCard: 'summary_large_image',
+// })
 
-// Schema.org
-defineWebPage({
-  '@type': 'WebPage',
-  url: `${process.env.BASE_URL}/${route.fullPath}`,
-  name: `${data.value[0].title.find(l => l._key === locale._value).value}`,
-  description: `${data.value[0].description.find(l => l._key === locale._value).value}`,
-});
+// // Schema.org
+// defineWebPage({
+//   '@type': 'WebPage',
+//   url: `${process.env.BASE_URL}/${route.fullPath}`,
+//   name: `${data.value[0].title.find(l => l._key === locale._value).value}`,
+//   description: `${data.value[0].description.find(l => l._key === locale._value).value}`,
+// });
 
 </script>

@@ -17,7 +17,7 @@
                 <!-- OPEN ROLE #1 -->
                 <div v-for="job in jobs" class="col" :key="job._id">
                     <div class="role-box bg--white-300 r-10">
-                        <NuxtLink :to="job.slug.find(t => t._key === locale).value.current">
+                        <NuxtLink :to="job.slug.find(t => t._key === locale).value.current" v-follow >
                             <span>{{job.department.name}}</span>
                             <h6 class="s-20 w-700">{{ job.name.find(t => t._key === locale).value }}</h6>
                             <p>{{ job.location}} / {{ job.mode }}</p>

@@ -40,6 +40,7 @@
                         <NuxtLink
                             :to="$localePath(`${people.callToAction.link.slug.find(t => t._key === locale).value.current}${people.callToAction.button.queryString ? people.callToAction.button.queryString : ''}`)"
                             @click="handleClick('Job Application Started','blind-team-member-button')"
+                            v-follow 
                         >
                         <div class="team-member mb-50">
                             <!-- Team Member Photo -->

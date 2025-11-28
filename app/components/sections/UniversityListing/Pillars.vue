@@ -26,7 +26,7 @@
                 <span class="s-12 color--grey-400 pt-4">{{ pillar.subTitle }}</span>
               </v-card-text >
               <template v-slot:actions>
-                <NuxtLink :to="pillar.slug" class="s-14 w-600 ml-2">{{ $t('viewContent') }}<v-icon size="18" class="ml-2">ri-go-to</v-icon></NuxtLink>
+                <NuxtLink :to="pillar.slug" class="s-14 w-600 ml-2" v-follow >{{ $t('viewContent') }}<v-icon size="18" class="ml-2">ri-go-to</v-icon></NuxtLink>
               </template>
             </v-card>
           </div>

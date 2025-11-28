@@ -13,7 +13,7 @@
                 <span v-if="category" class="post-tag color--pink-400">{{ category }}</span>
                 <!-- Post Link -->
                 <h4 class="s-34 w-700 mb-20">
-                  <NuxtLink :to="slug">{{ title }}</NuxtLink>
+                  <NuxtLink :to="slug" v-follow >{{ title }}</NuxtLink>
                 </h4>
                 <!-- Text -->
                 <p>{{ excerpt }}</p>

@@ -14,7 +14,7 @@
       <span v-if="category" class="post-tag color--pink-400">{{ category.name ? category.name.find(l => l._key === locale).value : category.find(l => l._key === locale).value }}</span>
       <!-- Post Link -->
       <h6 class="s-20 w-700">
-        <NuxtLink :to="slug">{{ title }}</NuxtLink>
+        <NuxtLink :to="slug" v-follow >{{ title }}</NuxtLink>
       </h6>
       <!-- Excerpt -->
       <p>{{ excerpt}}</p>

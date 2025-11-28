@@ -7,7 +7,7 @@
                     <div class="post-content">
                         <!--  SINGLE POST TITLE -->
                         <div class="single-post-title">
-                            <NuxtLink :to="$localePath('/blog')" class="s-12"><span><v-icon>mdi-chevron-left</v-icon>{{ $t('backToBlog') }}</span></NuxtLink>  
+                            <NuxtLink :to="$localePath('/blog')" class="s-12" v-follow ><span><v-icon>mdi-chevron-left</v-icon>{{ $t('backToBlog') }}</span></NuxtLink>  
                             <!-- Post Tag -->
                             <span class="post-tag color--green-400 mt-4 mb-2">{{ post[0].category?.name.find(l => l._key === locale).value }}</span>
                             <!-- Title -->

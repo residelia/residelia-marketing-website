@@ -3,6 +3,7 @@
     <!-- <NuxtLink to="#" :key="key" class="h-link"> -->
     <NuxtLink :to="slug ? $localePath(routeObject) : ''"
       class="h-link"
+      v-follow
     >        
       <div class="col">
         <div class="fbox-11 fb-1 align-items-start">

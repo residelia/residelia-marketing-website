@@ -10,86 +10,78 @@ import { reactive, defineComponent, onUnmounted } from "vue";
 import { useBlogStore } from "../../../stores/blogStore";
 import { singlePostQuery, keepReadingQuery } from "../../../queries/contentQueries"
 
+defineI18nRoute({
+    paths: {
+      en: '/blog/[slug]',
+      es: '/blog/[slug]'
+    }
+})
 
 const blogStore = useBlogStore();
 const route = useRoute();
+const { locale } = useI18n()
 
 
-// console.log(
-//         "%cStop!",
-//         "color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold"
-//       );
-// console.log(route)
+console.log(
+        "%cStop!",
+        "color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold"
+      );
+console.log(route)
 
 const data = await useSanityData({
   query: singlePostQuery,
-  params: { slug: route.path },
+  params: { 
+    slug: route.path.startsWith(`/${locale.value}`) ? route.path.slice(`/${locale.value}`.length) || '/' : route.path,
+    language: locale.value
+  },
 })
+
 const keepReadingData = await useSanityData({
   query: keepReadingQuery,
   params: { type: 'latests' }
 })
 
-onMounted( () =>{
-  window.addEventListener("scroll", handleScroll);
-})
-onUnmounted( () => {
-  window.removeEventListener("scroll", handleScroll);
-})
-
-function handleScroll() {
-  const menu = document.getElementById("main-menu");
-  const header = document.getElementById("header");
-  if (window.pageYOffset > 100) {
-    menu.classList.add("scroll");
-    header.classList.add("scroll");
-  } else {
-    menu.classList.remove("scroll");
-    header.classList.remove("scroll");
-  }
-}
-
 // SEO
+console.log(data)
+const dateModified = new Date(data[0].updatedAt).toISOString();
+const datePublished = new Date(data[0].publishedDate).toISOString();
 useHead({
-    title: `${data.value[0].title}`,
-    description: `${data.value[0].description}`,
-    bodyAttrs: {
-        class: "navbar-dark scheme-residelia"
-    },
+  title: `${data[0].title}`,
+  description: `${data[0].metaDescription}`,
+  bodyAttrs: {
+      class: "navbar-dark scheme-residelia"
+  },
 })
 
 useServerSeoMeta({
-  title: `${data.value[0].title}`,
-  ogTitle: `${data.value[0].title}`,
-  description: `${data.value[0].description}`,
-  ogDescription: `${data.value[0].description}`,
-  ogImage: `${data.value[0]?.hero?.image}`,
+  title: `${data[0].title}`,
+  ogTitle: `${data[0].title}`,
+  description: `${data[0].metaDescription}`,
+  ogDescription: `${data[0].metaDescription}`,
+  ogImage: `${data[0]?.image.url}`,
   twitterCard: 'summary_large_image',
 })
 
 // Schema.org
-const dateModified = new Date(data.value[0].updatedAt).toISOString()
-const datePublished = new Date(data.value[0].publishedDate).toISOString()
-
 defineWebPage({
-  '@type': 'WebPage',
+  '@type': 'Article',
   url: `${process.env.BASE_URL}/${route.fullPath}`,
-  name: `${data.value[0].title}`,
-  description: `${data.value[0].description}`,
-  image: `${data.value[0].image}`,
+  name: `${data[0].title}`,
+  description: `${data[0].description}`,
+  image: `${data[0].image}`,
   datePublished,
   dateModified,
 });
 
-const author = data.value[0].author ? {
+const author = data[0].author ? {
   '@type': 'Person',
-  name: `${data.value[0].author.name}`,
+  name: `${data[0].author.name}`,
 } : null;
 defineArticle({
   '@type': 'Article',
-  headline: `${data.value[0].title}`,
-  description: `${data.value[0].description}`,
-  image: `${data.value[0].image}`,
+  headline: `${data[0].title}`,
+  description: `${data[0].description}`,
+  image: `${data[0].image}`,
   author,
   datePublished,
   dateModified,
