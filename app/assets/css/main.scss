@@ -8456,9 +8456,11 @@ span.release-date span {
 /*------------------------------------------*/
 /*  Single Post Text
 /*------------------------------------------*/
+.single-post-txt h2,
+.single-post-txt h3,
 .single-post-txt h5,
 .single-post-txt h4 {
-    margin-top: 30px;
+    margin-top: 60px;
     margin-bottom: 30px;
 }
 .single-post-txt h5 span {
