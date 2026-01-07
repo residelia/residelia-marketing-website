@@ -66,11 +66,6 @@
                   <NuxtLink v-else :to="$localePath(menu.link.slug?.find(l => l._key === locale).value.current)" v-follow >{{ menu.title?.find(l => l._key === locale).value }}</NuxtLink>
                 </p>
               </li>
-              <li>
-                <p>
-                  <NuxtLink :to="$localePath('/blog')" v-follow >Blog</NuxtLink>
-                </p>
-              </li>
             </ul>
           </div>
         </div>

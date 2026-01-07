@@ -27,7 +27,7 @@
                         <!-- END SINGLE POST TITLE -->
                         <!-- SINGLE POST IMAGE -->
                         <div class="blog-post-img py-50 text-center">
-                            <img class="img-fluid r-16" :src="post[0].image?.url" alt="post.image.alt" />
+                            <img v-if="post[0].image" class="img-fluid r-16" :src="post[0].image?.url" alt="post.image.alt" />
                         </div>
                         <!-- SINGLE POST TEXT -->
                         <div class="single-post-txt">

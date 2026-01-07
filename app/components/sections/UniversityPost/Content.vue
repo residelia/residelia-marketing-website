@@ -227,19 +227,19 @@ const handleTocClick = (active) => {
     font-size: 1.5rem !important;
     font-weight: 500 !important;
     letter-spacing: 0.001rem !important;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 }
 .single-post-txt h3 {
     margin-top: 1.75rem !important;
     font-size: 1.2rem !important;
     font-weight: 400 !important;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 }
 .single-post-txt h4 {
     margin-top: 1.75rem !important;
     font-size: 1.075rem !important;
     font-weight: 300 !important;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 }
 .single-post-txt p {
     font-size: .8rem !important;

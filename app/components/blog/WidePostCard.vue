@@ -6,7 +6,7 @@
         <div class="blog-post-img">
           <img
             class="img-fluid r-16"
-            :src="image.url ? image.url+'?fm=webp' : image"
+            :src="image?.url ? image.url+'?fm=webp' : image"
             :alt="imageAlt"
           />
         </div>
@@ -43,11 +43,11 @@
 <script lang="ts" setup>
 const { locale } = useI18n()
 
-defineProps<{
+const props = defineProps<{
   slug: string,
   title: string,
   excerpt: string,
-  image: Object,
+  image?: Object,
   imageAlt: string,
   publishedDate: string,
   author?: Object,
