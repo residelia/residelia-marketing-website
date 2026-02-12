@@ -55,7 +55,7 @@
     </section>
 </template>
 <script setup lang="ts">
-import { formSectionQuery } from '../queries/helperQueries';
+import { formSectionQuery } from '../../../../queries/helperQueries';
 
 const route = useRoute();
 const { locale } = useI18n()

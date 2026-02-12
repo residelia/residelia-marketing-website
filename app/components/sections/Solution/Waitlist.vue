@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="js">
-import { formSectionQuery } from '../queries/helperQueries';
+import { formSectionQuery } from '../../../../queries/helperQueries';
 const {locale} = useI18n()
 const data = await useSanityData({
     query: formSectionQuery,
