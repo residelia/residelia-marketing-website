@@ -441,11 +441,5 @@ export default defineNuxtConfig({
   //   logo: 'https://s3.eu-west-1.amazonaws.com/residelia.resources/logos/residelia_logo_full.png'
   // },
 
-  devtools: {
-    timeline: {
-      enabled: true,
-    },
-  },
-
   compatibilityDate: '2025-05-09'
 });

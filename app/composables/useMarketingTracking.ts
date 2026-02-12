@@ -6,13 +6,13 @@ export const useMarketingTracking = () => {
   const trackMarketingEvent = (eventName: string, properties = {}) => {
     // Google Ads (Google Tag Manager)
     if (window.dataLayer) {
-      window.dataLayer.push({ event: eventName, ...properties });
+      window.dataLayer.push({ event: eventName, ...properties, origin: 'website' });
       console.log(`📢 Evento "${eventName}" enviado a Google Ads`);
     }
 
     // Meta Pixel
     if (window.fbq) {
-      window.fbq('track', eventName, properties);
+      window.fbq('track', eventName, { event: eventName, ...properties, origin: 'website' });
       console.log(`📢 Evento "${eventName}" enviado a Meta Pixel`);
     }
 

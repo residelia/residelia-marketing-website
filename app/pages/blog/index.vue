@@ -67,6 +67,15 @@ useHead({
   },
 })
 
+// tracking
+const { trackPage } = useTracking();
+const trackPageView = () => {
+  trackPage('Page View', {
+    title: `${data[0].title.find(l => l._key === locale._value).value}`,
+    path: route.fullPath,
+  })
+};
+
 // useServerSeoMeta({
 //   title: `${data.value[0].title.find(l => l._key === locale._value).value}`,
 //   ogTitle: `${data.value[0].title.find(l => l._key === locale._value).value}`,

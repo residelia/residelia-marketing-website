@@ -41,6 +41,15 @@ const keepReadingData = await useSanityData({
   params: { type: 'latests' }
 })
 
+// tracking
+const { trackPage } = useTracking();
+const trackPageView = () => {
+  trackPage('Page View', {
+    title: `${data[0].title.find(l => l._key === locale._value).value}`,
+    path: route.fullPath,
+  })
+};
+
 // SEO
 console.log(data)
 const dateModified = new Date(data[0].updatedAt).toISOString();
