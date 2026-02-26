@@ -2,89 +2,69 @@
     <section v-if="post" id="single-post" class="inner-page-hero blog-page-section">
         <div class="container">
             <div class="row">
-                <!-- SINGLE POST CONTENT -->
-                <div class="col-md-9 col-12">
-                    <div class="post-content">
-                        <!--  SINGLE POST TITLE -->
-                        <div class="single-post-title">
-                            <NuxtLink :to="$localePath('/university')"><v-icon>mdi-school-outline</v-icon></NuxtLink>
-                            <NuxtLink v-if="pillar" :to="$localePath(`${pillar.slug}`)" class="s-12"><span><v-icon>mdi-chevron-right</v-icon>{{ pillar.shortTitle }}</span></NuxtLink>  
-                            <NuxtLink v-else :to="$localePath(`#`)" class="s-12"><span><v-icon>mdi-chevron-right</v-icon>{{ post[0].shortTitle }}</span></NuxtLink>  
-                            <!-- Title -->
-                            <h1 class="s-26 w-700 mt-2 p-0">{{ post[0].title }}</h1>
-                            <!-- Post Meta -->
-                            <div class="blog-post-meta color--grey-400">
-                                <span class="s-12">{{ $t('updated')}} {{ $dayjs(post[0].updatedAt).locale(locale).fromNow() }}</span>
-                            </div>
-                            <div class="blog-post-meta color--grey-800 mt-10">
-                                <span class="s-15 w-500">{{ post[0].subTitle }}</span>
-                            </div>
-                        </div>
-                        <hr class="mt-2 mb-3"></hr>
-                        <!-- END SINGLE POST TITLE -->
-                        <!-- SINGLE POST IMAGE -->
-                        <!-- <div class="blog-post-img py-50 text-center">
-                            <img class="img-fluid r-16" :src="post[0].image?.url" alt="post.image.alt" />
-                        </div> -->
-                        <!-- SINGLE POST TEXT -->
-                        <div class="single-post-txt">
-                            <PortableText :value="post[0].body" :components="serializers"/>
-                        </div>
-                        <!-- END SINGLE POST TEXT -->
-                    </div>
+                <!-- OUTLINE SIDEBAR — izquierda en desktop, abajo en mobile -->
+                <div class="col-12 col-md-3 order-2 order-md-1 pr-md-4">
+                    <SectionsUniversityOutline
+                        v-if="pillars?.length"
+                        :pillars="pillars"
+                        :currentSlug="post[0]?.slug"
+                    />
                 </div>
-                <div class="col-md-3 col-12 pl-md-10">
-                    <div class="sidebar mt-50">
-                        <div v-if="tocItems.length > 0 && !$vuetify.display.xs" class="sidebar-widget table-of-contents">
-                            <h5 class="s-14 w-700 mb-2">{{ $t('tableOfContents') }}</h5>
-                            <ul class="toc">
-                                <li v-for="item in tocItems.filter(i => i.title && i.title.trim())" :key="item.id">
-                                    <NuxtLink :to="'#' + item.id" class="s-13 w-500">{{ item.title }}</NuxtLink>
-                                    <ul v-if="item.children.length">
-                                        <li v-for="child in item.children" :key="child.id">
-                                        <NuxtLink :to="'#' + child.id" class="s-13 w-500">{{ child.title }}</NuxtLink>
-                                        <!-- <ul v-if="child.children.length">
-                                            <li v-for="subChild in child.children" :key="subChild.id">
-                                            <NuxtLink :to="'#' + subChild.id" class="s-13 w-500">{{ subChild.title }}</NuxtLink>
-                                            </li>
-                                        </ul> -->
+                <!-- SINGLE POST CONTENT + TOC — primero en DOM (mobile), derecha en desktop -->
+                <div class="col-12 col-md-9 order-1 order-md-2">
+                    <div class="row">
+                        <!-- Article -->
+                        <div class="col-12 col-md-8">
+                            <div class="post-content">
+                                <!--  SINGLE POST TITLE -->
+                                <div class="single-post-title">
+                                    <NuxtLink :to="$localePath('/university')"><v-icon>mdi-school-outline</v-icon></NuxtLink>
+                                    <NuxtLink v-if="pillar" :to="$localePath(`${pillar.slug}`)" class="s-12"><span><v-icon>mdi-chevron-right</v-icon>{{ pillar.shortTitle }}</span></NuxtLink>
+                                    <NuxtLink v-else :to="$localePath(`#`)" class="s-12"><span><v-icon>mdi-chevron-right</v-icon>{{ post[0].shortTitle }}</span></NuxtLink>
+                                    <!-- Title -->
+                                    <h1 class="s-26 w-700 mt-2 p-0">{{ post[0].title }}</h1>
+                                    <!-- Post Meta -->
+                                    <div class="blog-post-meta color--grey-400">
+                                        <span class="s-12">{{ $t('updated')}} {{ $dayjs(post[0].updatedAt).locale(locale).fromNow() }}</span>
+                                    </div>
+                                    <div class="blog-post-meta color--grey-800 mt-10">
+                                        <span class="s-15 w-500">{{ post[0].subTitle }}</span>
+                                    </div>
+                                </div>
+                                <hr class="mt-2 mb-3"></hr>
+                                <!-- END SINGLE POST TITLE -->
+                                <!-- SINGLE POST TEXT -->
+                                <div class="single-post-txt">
+                                    <PortableText :value="post[0].body" :components="serializers"/>
+                                </div>
+                                <!-- END SINGLE POST TEXT -->
+                            </div>
+                        </div>
+                        <!-- TOC sidebar — solo desktop -->
+                        <div v-if="tocItems.length > 0" class="col-md-4 d-none d-md-block pl-md-4">
+                            <div class="sidebar mt-50">
+                                <div class="sidebar-widget table-of-contents">
+                                    <h5 class="s-14 w-700 mb-2">{{ $t('tableOfContents') }}</h5>
+                                    <ul class="toc">
+                                        <li v-for="item in tocItems.filter(i => i.title && i.title.trim())" :key="item.id">
+                                            <NuxtLink :to="'#' + item.id" class="s-13 w-500">{{ item.title }}</NuxtLink>
+                                            <ul v-if="item.children.length">
+                                                <li v-for="child in item.children" :key="child.id">
+                                                    <NuxtLink :to="'#' + child.id" class="s-13 w-500">{{ child.title }}</NuxtLink>
+                                                </li>
+                                            </ul>
                                         </li>
                                     </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <div v-if="pillar || post[0].clusters?.length > 0" class="sidebar-widget other-readings mt-10">
-                            <h5 class="s-14 w-700 mt-5 mb-2">{{ $t('otherReadings') }}</h5>
-                            <ul v-if="pillar" >
-                                <!-- Mostrar el pilar asociado si está disponible -->
-                                <li v-if="pillar">
-                                <NuxtLink :to="pillar.slug" class="s-13 w-500">
-                                    {{ pillar.shortTitle }}
-                                </NuxtLink>
-                                </li>
-                                <!-- Mostrar los clusters asociados -->
-                                <li v-for="(item, index) in otherReadings" :key="index">
-                                <NuxtLink :to="item.slug.current" class="s-13 w-500">
-                                    {{ item.shortTitle }}
-                                </NuxtLink>
-                                </li>
-                            </ul>
-                            <ul v-else>
-                                <!-- Mostrar los clusters asociados -->
-                                <li v-for="(item, index) in post[0].clusters" :key="index">
-                                <NuxtLink :to="item.slug.current" class="s-13 w-500">
-                                    {{ item.shortTitle }}
-                                </NuxtLink>
-                                </li>
-                            </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- END  SINGLE POST CONTENT -->
+                <!-- END SINGLE POST CONTENT -->
             </div>
             <!-- End row -->
         </div>
-            <hr class="mt-100"></hr>
+        <hr class="mt-100"></hr>
         <!-- End container -->
     </section>
 </template>
@@ -111,6 +91,7 @@ const props = defineProps<{
   post?: Object
   otherReadings?: Object[]
   pillar?: Object
+  pillars?: Array<any>
 }>()
 
 const serializers = {

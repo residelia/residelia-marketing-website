@@ -1,12 +1,12 @@
 <template>
   <div>
-    <SectionsUniversityPostContent :post="data" />
+    <SectionsUniversityPostContent :post="data" :pillars="pillars" />
   </div>
 </template>
 
 <script setup>
 import { useMainStore } from '../../../../stores/mainStore';
-import { singlePillarQuery } from '../../../../queries/contentQueries'
+import { pillarsQuery, singlePillarQuery } from '../../../../queries/contentQueries'
 // [pillar]
 // -- [pillar-page]
 // -- ...
@@ -30,6 +30,11 @@ const data = await useSanityData({
     slug: route.path.startsWith(`/${locale.value}`) ? route.path.slice(`/${locale.value}`.length) || '/' : route.path,
     language: locale.value
   }
+})
+
+const pillars = await useSanityData({
+  query: pillarsQuery,
+  params: { language: locale.value }
 })
 
 console.log(

@@ -1,12 +1,12 @@
 <template>
   <div>
-    <SectionsUniversityPostContent :post="data" :otherReadings="pillar[0]?.clusters" :pillar="pillar[0]"/>
+    <SectionsUniversityPostContent :post="data" :otherReadings="pillar[0]?.clusters" :pillar="pillar[0]" :pillars="pillars"/>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue";
-import { singleClusterQuery, singlePillarQuery } from '../../../../queries/contentQueries'
+import { pillarsQuery, singleClusterQuery, singlePillarQuery } from '../../../../queries/contentQueries'
 
 
 const route = useRoute();
@@ -27,6 +27,10 @@ const pillar = await useSanityData({
     slug: `/university/${route.params.pillar}`,
     language: locale.value
   }
+})
+const pillars = await useSanityData({
+  query: pillarsQuery,
+  params: { language: locale.value }
 })
 
 defineI18nRoute({

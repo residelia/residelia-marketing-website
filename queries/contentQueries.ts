@@ -162,6 +162,7 @@ export const navQuery = groq`
             },
 			menu[]->{
 				order,
+				category,
 				description,
 				isTextIcon,
 				icon,
