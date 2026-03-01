@@ -80,13 +80,6 @@
                         </template>
                     </li>
 
-                    <!-- Blog -->
-                    <!-- <li class="nl-simple" aria-haspopup="true">
-                        <template>
-                            <NuxtLink :to="$localePath(mainStore.menu.blog.menuLink.link.slug.find(l => l._key === locale).value.current)" class="h-link" v-follow >{{ mainStore.menu.blog.title.find(l => l._key === locale).value }}</NuxtLink>
-                        </template>
-                    </li> -->
-
                     <!-- RECURSOS -->
                     <li v-if="mainStore.menu.resources.menu" aria-haspopup="true" class="mg_link" :class="{ open: state.isOpen[2] }" @mouseenter="mainStore.toggleMenu('resources')" @mouseleave="mainStore.toggleMenu('resources')">
                         <span class="wsmenu-click" @click="toggle(2)"><i class="wsmenu-arrow"></i></span>

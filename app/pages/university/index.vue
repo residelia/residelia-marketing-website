@@ -155,16 +155,17 @@ defineWebPage({
 });
 
 // tracking events
-const { trackEvent } = useTracking()
+const { trackPage } = useTracking()
+const trackPageView = () => {
+  trackPage('Page View', {
+    title: `${data[0].title.find(l => l._key === locale._value).value}`,
+    path: route.fullPath,
+  })
+};
 
-function handleClick(eventName, buttonId) {
-  const params = {
-    clickedOnPage: route.path,
-    buttonId
-  }
-
-  trackEvent(eventName, params)
-}
+// Detecta cambios en la ruta y envía evento `page`
+onMounted(trackPageView);
+watch(() => route.fullPath, trackPageView);
 </script>
 
 <style scoped>

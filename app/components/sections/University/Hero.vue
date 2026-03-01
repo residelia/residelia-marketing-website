@@ -1,5 +1,5 @@
 <template>
-    <section v-if="hero" id="hero-solution" class="bg--scroll hero-section gr--primary-50">
+    <section v-if="hero" id="hero-solution" class="bg--scroll hero-section gr--surface-200">
         <div class="container pb-100 mb-100">
             <div class="row d-flex align-items-center">
                 <!-- HERO TEXT -->

@@ -383,7 +383,7 @@ async function doSubmit() {
   }
 
   // tracking event
-  trackEvent(`${props.form} Completed`,{ ...suspectData, ...formResult, clickedOnPage: route.path})
+  trackEvent(`${props.formData.title.find(l => l._key === 'es').value} Completed`,{ ...suspectData, ...formResult, clickedOnPage: route.path})
   identifyUser(suspectData.email, { ...suspectData, ...formResult, clickedOnPage: route.path })
 }
 

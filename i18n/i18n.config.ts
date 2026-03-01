@@ -44,6 +44,8 @@ export default defineI18nConfig(() => ({
             comparePlans: 'Compara nuestros planes',
             legalTerms: 'nuestros términos de uso',
             onePayment: 'Pago único anual',
+            comingSoon: '¡Muy pronto!',
+            comingSoonDescription: 'Estamos trabajando para traerte esta sección lo antes posible.',
             onboardingWizard: {
                 buttons: {
                     next: "Siguiente",
@@ -180,6 +182,8 @@ export default defineI18nConfig(() => ({
             comparePlans: 'Compare plans',
             legalTerms: 'our use terms',
             onePayment: 'One annual payment',
+            comingSoon: 'Coming soon!',
+            comingSoonDescription: 'We are working to bring you this section as soon as possible.',
             onboardingWizard: {
                 buttons: {
                     next: "Next",

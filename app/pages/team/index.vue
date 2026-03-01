@@ -59,7 +59,7 @@ useServerSeoMeta({
 const { trackPage } = useTracking();
 const trackPageView = () => {
   trackPage('Page View', {
-    title: `${data.value[0].title.find(l => l._key === locale._value).value}`,
+    title: `${data[0].title.find(l => l._key === locale._value).value}`,
     path: route.fullPath,
   })
 };

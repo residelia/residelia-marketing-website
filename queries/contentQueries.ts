@@ -641,6 +641,16 @@ export const resourceQuery = groq`
 	}
 `;
 
+export const resourcesListQuery = groq`
+  *[_type == "resource" && type == $resourceType] | order(_createdAt desc) {
+    title,
+    description,
+    slug,
+    "image": hero->heroImage.asset->{url, metadata{lqip, dimensions}},
+    "imageAlt": hero->heroImage.alt
+  }
+`;
+
 export const projectsQuery = groq`
 *[(_type == "pageProjects")] | order(_updatedAt desc) [0]{
 	...,
