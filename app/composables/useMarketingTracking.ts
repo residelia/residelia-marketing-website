@@ -16,14 +16,15 @@ export const useMarketingTracking = () => {
       console.log(`📢 Evento "${eventName}" enviado a Meta Pixel`);
     }
 
-    // LinkedIn Pixel
-    if (window._linkedin_data_partner_ids) {
+    // LinkedIn Pixel — lintrk para eventos de conversión custom (Insight Tag auto-trackea page views)
+    if ((window as any).lintrk && (properties as any).conversion_id) {
+      (window as any).lintrk('track', { conversion_id: (properties as any).conversion_id });
       console.log(`📢 Evento "${eventName}" enviado a LinkedIn Pixel`);
     }
 
-    // Twitter/X Pixel
+    // Twitter/X Pixel (API actual: twq('event', conversionId, props))
     if (window.twq) {
-      window.twq('track', eventName, properties);
+      window.twq('event', eventName, properties);
       console.log(`📢 Evento "${eventName}" enviado a Twitter/X Pixel`);
     }
   };

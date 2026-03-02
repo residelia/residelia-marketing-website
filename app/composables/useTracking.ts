@@ -1,8 +1,10 @@
 import { useNuxtApp } from "#app";
+import { useMarketingTracking } from './useMarketingTracking';
 
 export const useTracking = () => {
   const nuxtApp = useNuxtApp();
   const { locale } = useI18n()
+  const { trackMarketingEvent } = useMarketingTracking()
 
   // 🔹 Verifica si Segment está listo
   const isSegmentReady = () => !!nuxtApp.$segment;
@@ -43,22 +45,17 @@ export const useTracking = () => {
   };
 
   const handleClick = (link, isVideo) => {
-    console.log("Click performed")
-    console.log(link)
-    let eventName = isVideo ? 'Video Clicked' : 'Link Clicked'
-    let trackingData = {
-        // url: link.link.slug.find(l => l._key === locale).value.current,
+    const eventName = isVideo ? 'Video Clicked' : 'Link Clicked'
+    const trackingData = {
         category: 'Navigation',
         id: link.id,
-        refererrer: location.window.refererrer,
-        language: locale,
+        referrer: document.referrer,
+        language: locale.value,
     };
 
     trackEvent(eventName, trackingData);
     trackMarketingEvent(eventName, trackingData);
-
-    console.log(`🎯 Tracking: ${props.eventName} - ${props.url}`);
-};
+  };
 
 
   return { handleClick, trackPage, trackEvent, identifyUser, groupUser };

@@ -3,25 +3,26 @@ import * as CookieConsent from 'vanilla-cookieconsent';
 import type { CookieConsentConfig } from 'vanilla-cookieconsent';
 import { useMainStore } from '../../stores/mainStore';
 import { cookieBannerQuery, cookieSettingsModalQuery } from '../../queries/helperQueries';
-import { createClient } from '@sanity/client';
-
 export default defineNuxtPlugin(async (nuxtApp) => {
   if (process.server) return;
 
   const mainStore = useMainStore()
   const runtimeConfig = useRuntimeConfig();
 
-  // Configuración del cliente de Sanity
+  // Configuración del cliente de Sanity usando runtimeConfig (sin tokens hardcodeados)
+  const { createClient } = await import('@sanity/client');
   const sanityClient = createClient({
-    projectId: "asqz10j2",
-    dataset: 'production',
-    token: 'skHqzduJvPr2TrtA3ugj1NEBAWvZkqY1jJgQWdZewbnyaJKuy5KGFECZLFNcVat0JD4xeWOpXDnzPzC0GDGgCb0JiKWJ2cIt0FplMbZJxLYicS3FNRwGwXEWlmWs4z1WRBrG6UinrlVgx9ehOJH8pVfkhIc3o90zcQQgpJ1c4DUzM61mmxWh',
+    projectId: runtimeConfig.public.sanityProjectId,
+    dataset: runtimeConfig.public.sanityDataset,
+    token: runtimeConfig.public.sanityToken,
     useCdn: true,
   })
 
   const euCountries = ['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'DE', 'FR', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI',  'ES', 'SE'];
-  const userCountry = navigator.language;
-  const dynamicMode = euCountries.includes(userCountry.toUpperCase()) ? 'opt-in' : 'opt-out';
+  // navigator.language devuelve 'es-ES', 'de-DE', etc. — extraer solo el código de país
+  const langTag = navigator.language;
+  const countryCode = (langTag.split('-')[1] ?? langTag).toUpperCase();
+  const dynamicMode = euCountries.includes(countryCode) ? 'opt-in' : 'opt-out';
 
   const cookieBannerData = await sanityClient.fetch(cookieBannerQuery);
   const cookieSettingsData = await sanityClient.fetch(cookieSettingsModalQuery);
@@ -131,11 +132,11 @@ export default defineNuxtPlugin(async (nuxtApp) => {
       if (acceptedCategories) {
         // console.log('✅ Nuevo consentimiento aceptado:', CookieConsent.getUserPreferences().acceptedCategories)
         if (acceptedCategories.includes('analytics')) nuxtApp.$loadSegment?.();
-        // if (acceptedCategories.includes('marketing')) nuxtApp.$loadMarketing?.();
+        if (acceptedCategories.includes('marketing')) nuxtApp.$loadMarketingPixels?.();
       } else {
         // console.log('✅ Contamos con los consentimientos:', CookieConsent.getUserPreferences().acceptedCategories);
         if(CookieConsent.getUserPreferences().acceptedCategories.includes('analytics')) nuxtApp.$loadSegment?.();
-        // if(CookieConsent.getUserPreferences().acceptedCategories.includes('marketing')) nuxtApp.$loadMarketing?.();
+        if(CookieConsent.getUserPreferences().acceptedCategories.includes('marketing')) nuxtApp.$loadMarketingPixels?.();
       }
     },
 
@@ -149,8 +150,8 @@ export default defineNuxtPlugin(async (nuxtApp) => {
       }
 
       if (changedCategories.includes('marketing')) {
-        // if (CookieConsent.getUserPreferences().acceptedCategories.includes('marketing')) nuxtApp.$loadMarketing?.();
-        // else nuxtApp.$disableMarketing?.();
+        if (CookieConsent.getUserPreferences().acceptedCategories.includes('marketing')) nuxtApp.$loadMarketingPixels?.();
+        else nuxtApp.$disableMarketingPixels?.();
       }
       reloadNuxtApp({force: true, persistState: true});
     },
