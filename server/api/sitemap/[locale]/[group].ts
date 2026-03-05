@@ -55,31 +55,31 @@ export default defineEventHandler(async (event) => {
   switch (group) {
     case 'pages': {
       const docs = await client.fetch(
-        `*[_type == "page" && !(pageType in ["product", "solution", "legal"])] { slug, _updatedAt }`
+        `*[_type == "page" && !(_id in path('drafts.**')) && !(pageType in ["product", "solution", "legal"])] { slug, _updatedAt }`
       )
       return fromMulti(docs)
     }
     case 'products': {
       const docs = await client.fetch(
-        `*[_type == "page" && pageType == "product"] { slug, _updatedAt }`
+        `*[_type == "page" && !(_id in path('drafts.**')) && pageType == "product"] { slug, _updatedAt }`
       )
       return fromMulti(docs)
     }
     case 'solutions': {
       const docs = await client.fetch(
-        `*[_type == "page" && pageType == "solution"] { slug, _updatedAt }`
+        `*[_type == "page" && !(_id in path('drafts.**')) && pageType == "solution"] { slug, _updatedAt }`
       )
       return fromMulti(docs)
     }
     case 'terms': {
       const docs = await client.fetch(
-        `*[_type == "page" && pageType == "legal"] { slug, _updatedAt }`
+        `*[_type == "page" && !(_id in path('drafts.**')) && pageType == "legal"] { slug, _updatedAt }`
       )
       return fromMulti(docs)
     }
     case 'blog': {
       try {
-        const docs: any[] = await client.fetch(`*[_type == "post"] { slug, language, _updatedAt }`)
+        const docs: any[] = await client.fetch(`*[_type == "post" && !(_id in path('drafts.**'))] { slug, language, _updatedAt }`)
         return docs
           .filter((d) => d.slug?.current && d.language === localeKey)
           .map((d) => ({
@@ -94,7 +94,7 @@ export default defineEventHandler(async (event) => {
     case 'university': {
       try {
         const pillars: any[] = await client.fetch(`
-          *[_type == "pillar"] {
+          *[_type == "pillar" && !(_id in path('drafts.**'))] {
             slug, language, _updatedAt,
             clusters[]->{ slug, language, _updatedAt }
           }
@@ -123,13 +123,13 @@ export default defineEventHandler(async (event) => {
     }
     case 'resources': {
       const docs = await client.fetch(
-        `*[_type == "resource"] { slug, _updatedAt }`
+        `*[_type == "resource" && !(_id in path('drafts.**'))] { slug, _updatedAt }`
       )
       return fromMulti(docs)
     }
     case 'jobs': {
       const docs = await client.fetch(
-        `*[_type == "position" && active == true] { slug, _updatedAt }`
+        `*[_type == "position" && !(_id in path('drafts.**')) && active == true] { slug, _updatedAt }`
       )
       return fromMulti(docs)
     }

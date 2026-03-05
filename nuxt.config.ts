@@ -20,20 +20,20 @@ const fetchRoutesWithLocales = async () => {
 
   // Consulta para obtener las páginas y los posts
   const pages = await sanityClient.fetch(`
-    *[_type == "page"] {
+    *[_type == "page" && !(_id in path('drafts.**'))] {
       slug
     }
   `);
 
   const posts = await sanityClient.fetch(`
-    *[_type == "post"] {
+    *[_type == "post" && !(_id in path('drafts.**'))] {
       slug,
       language
     }
   `);
-  
+
   const pillars = await sanityClient.fetch(`
-    *[_type == "pillar"] {
+    *[_type == "pillar" && !(_id in path('drafts.**'))] {
       slug,
       language,
       clusters[]->{
@@ -44,13 +44,13 @@ const fetchRoutesWithLocales = async () => {
   `);
 
   const resources = await sanityClient.fetch(`
-    *[_type == "resource"] {
+    *[_type == "resource" && !(_id in path('drafts.**'))] {
       slug
     }
   `);
 
   const jobs = await sanityClient.fetch(`
-    *[_type == "position" && active == true] {
+    *[_type == "position" && !(_id in path('drafts.**')) && active == true] {
       slug
     }
   `);
