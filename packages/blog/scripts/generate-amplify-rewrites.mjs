@@ -50,17 +50,8 @@ function findIndexHtmlRoutes(dir, base = '') {
 const routes = findIndexHtmlRoutes(staticDir)
 console.log(`📄 ${routes.length} rutas encontradas en ${staticDir}`)
 
-// 301 redirects: blog -> blog.residelia.com (FASE 2 migración - deben ir PRIMERO)
-const blogRedirects = [
-  { source: '/blog',        target: 'https://blog.residelia.com/',       status: '301', condition: null },
-  { source: '/blog/<*>',    target: 'https://blog.residelia.com/<*>',    status: '301', condition: null },
-  { source: '/en/blog',     target: 'https://blog.residelia.com/en/',    status: '301', condition: null },
-  { source: '/en/blog/<*>', target: 'https://blog.residelia.com/en/<*>', status: '301', condition: null },
-]
-
-// Generar reglas Amplify: 301 blog primero, luego rutas explícitas + catch-all al final
+// Generar reglas Amplify: una por ruta explícita + catch-all al final
 const rules = [
-  ...blogRedirects,
   ...routes.map(route => ({
     source: route,
     target: `${route}/index.html`,

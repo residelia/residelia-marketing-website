@@ -1,0 +1,19 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - rm -rf .nuxt .output node_modules yarn.lock
+        - yarn cache clean
+        - yarn install
+    build:
+      commands:
+        - yarn generate
+        - node scripts/generate-amplify-rewrites.mjs
+  artifacts:
+    baseDirectory: .amplify-hosting/static
+    files:
+      - "**/*"
+  cache:
+    paths:
+      - node_modules/**/*
