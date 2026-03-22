@@ -21,10 +21,14 @@ const blogStore = useBlogStore();
 const route = useRoute();
 const { locale } = useI18n()
 
+// URL is /mi-post but Sanity slugs have /blog/ prefix (/blog/mi-post)
+const rawPath = route.path.startsWith(`/${locale.value}`) ? route.path.slice(`/${locale.value}`.length) || '/' : route.path;
+const sanitySlug = rawPath.startsWith('/blog') ? rawPath : `/blog${rawPath}`;
+
 const data = await useSanityData({
   query: singlePostQuery,
   params: {
-    slug: route.path.startsWith(`/${locale.value}`) ? route.path.slice(`/${locale.value}`.length) || '/' : route.path,
+    slug: sanitySlug,
     language: locale.value
   },
 })

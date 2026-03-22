@@ -28,10 +28,13 @@ const fetchPostRoutes = async () => {
 
   posts.forEach((post: any) => {
     if (post.slug?.current && post.language) {
+      // Sanity slugs have /blog/ prefix (e.g. /blog/mi-post).
+      // In blog.residelia.com the URL is /mi-post, so we strip the /blog prefix.
+      const strippedSlug = post.slug.current.replace(/^\/blog/, '') || '/';
       const route =
         post.language === defaultLocale
-          ? post.slug.current
-          : `/${post.language}${post.slug.current}`;
+          ? strippedSlug
+          : `/${post.language}${strippedSlug}`;
       routes.push(route);
     }
   });
@@ -58,6 +61,7 @@ export default defineNuxtConfig({
           name: "og:type",
           content: "website",
         },
+        { name: 'robots', content: 'noindex, nofollow' },  // TEMPORAL
       ],
       title: "Blog de RESIDELIA - Gestión inmobiliaria",
       script: [],

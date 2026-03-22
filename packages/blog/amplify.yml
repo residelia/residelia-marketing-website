@@ -3,17 +3,19 @@ frontend:
   phases:
     preBuild:
       commands:
+        - cd packages/blog
         - rm -rf .nuxt .output node_modules yarn.lock
         - yarn cache clean
         - yarn install
     build:
       commands:
+        - cd packages/blog
         - yarn generate
         - node scripts/generate-amplify-rewrites.mjs
   artifacts:
-    baseDirectory: .amplify-hosting/static
+    baseDirectory: packages/blog/.amplify-hosting/static
     files:
       - "**/*"
   cache:
     paths:
-      - node_modules/**/*
+      - packages/blog/node_modules/**/*

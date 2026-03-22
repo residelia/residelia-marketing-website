@@ -7,16 +7,6 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   if (process.server) return;
 
   const mainStore = useMainStore()
-  const runtimeConfig = useRuntimeConfig();
-
-  // Configuración del cliente de Sanity usando runtimeConfig (sin tokens hardcodeados)
-  const { createClient } = await import('@sanity/client');
-  const sanityClient = createClient({
-    projectId: runtimeConfig.public.sanityProjectId,
-    dataset: runtimeConfig.public.sanityDataset,
-    token: runtimeConfig.public.sanityToken,
-    useCdn: true,
-  })
 
   const euCountries = ['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'DE', 'FR', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI',  'ES', 'SE'];
   // navigator.language devuelve 'es-ES', 'de-DE', etc. — extraer solo el código de país
@@ -24,8 +14,10 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   const countryCode = (langTag.split('-')[1] ?? langTag).toUpperCase();
   const dynamicMode = euCountries.includes(countryCode) ? 'opt-in' : 'opt-out';
 
-  const cookieBannerData = await sanityClient.fetch(cookieBannerQuery);
-  const cookieSettingsData = await sanityClient.fetch(cookieSettingsModalQuery);
+  const [cookieBannerData, cookieSettingsData] = await Promise.all([
+    useSanityData({ query: cookieBannerQuery }),
+    useSanityData({ query: cookieSettingsModalQuery }),
+  ]);
 
   if (!cookieBannerData || !cookieSettingsData) {
     console.error('❌ No se pudo obtener la configuración de cookies desde Sanity');

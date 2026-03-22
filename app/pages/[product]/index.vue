@@ -6,7 +6,7 @@
       <SectionsProductProblem :problem="data[0].problem"/>
       <SectionsProductBenefits :benefits="data[0].benefits"/>
       <SectionsProductUseCases v-if="data[0].useCases" :useCases="data[0].useCases"/>
-      <SectionsProductWorkflow :workflow="data[0].workflow"/>
+      <SectionsProductWorkflow v-if="data[0].workflow" :workflow="data[0].workflow"/>
       <SectionsProductSuite :suite="data[0].fullSuite"/> <!-- la suite completa -->
       <SectionsProductEnterprise :enterprise="data[0].enterprise"/>
       <SectionsProductCustomers :customers="data[0].customers"/>

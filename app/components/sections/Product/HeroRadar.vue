@@ -199,11 +199,13 @@ const props = defineProps<{
     stats: Object
 }>()
 
-// Cargar formBlock tipo 'radar' desde Sanity (mismo patrón que Simple.vue y Signup.vue)
-const formData = await useSanityData({
-    query: formBlockQuery,
-    params: { formType: 'radar' },
-})
+// Cargar formBlock tipo 'radar' desde Sanity
+// Usamos useAsyncData (en lugar de await useSanityData directo) para que Nuxt maneje
+// correctamente la hidratación y la navegación client-side sin conflictos de Suspense anidado.
+const { data: _fd } = await useAsyncData('radar-form', () =>
+    useSanityData({ query: formBlockQuery, params: { formType: 'radar' } })
+)
+const formData = _fd.value ?? []
 
 // Helpers localizados para acceder a campos del formBlock de Sanity
 const label = (name: string) =>
