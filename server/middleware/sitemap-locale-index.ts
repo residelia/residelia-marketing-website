@@ -5,7 +5,7 @@
 import { setHeader } from 'h3'
 
 const LOCALES = ['es-ES', 'en-US']
-const GROUPS = ['pages', 'products', 'solutions', 'blog', 'university', 'resources', 'jobs', 'terms']
+const GROUPS = ['pages', 'products', 'solutions', 'resources', 'jobs', 'terms']
 
 export default defineEventHandler((event) => {
   const path = event.path
