@@ -3,6 +3,7 @@ frontend:
   phases:
     preBuild:
       commands:
+        - nvm install 22 && nvm use 22
         - rm -rf .nuxt .output node_modules yarn.lock
         - yarn cache clean
         - yarn install
