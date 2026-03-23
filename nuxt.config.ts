@@ -248,6 +248,12 @@ export default defineNuxtConfig({
         Inter: {
           wght: [400, 500, 600, 700, 800],
         },
+        Montserrat: {
+          wght: [400, 500, 600, 700, 800],
+        },
+        Rubik: {
+          wght: [400, 500, 600, 700, 800],
+        },
         download: true,
         inject: true,
       },
@@ -268,8 +274,6 @@ export default defineNuxtConfig({
           { name: 'pages',      changefreq: 'monthly', priority: 0.8 },
           { name: 'products',   changefreq: 'monthly', priority: 0.9 },
           { name: 'solutions',  changefreq: 'monthly', priority: 0.9 },
-          { name: 'blog',       changefreq: 'weekly',  priority: 0.7 },
-          { name: 'university', changefreq: 'weekly',  priority: 0.7 },
           { name: 'resources',  changefreq: 'monthly', priority: 0.6 },
           { name: 'jobs',       changefreq: 'weekly',  priority: 0.5 },
           { name: 'terms',      changefreq: 'yearly',  priority: 0.3 },
