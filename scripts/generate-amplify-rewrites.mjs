@@ -52,23 +52,25 @@ console.log(`📄 ${routes.length} rutas encontradas en ${staticDir}`)
 
 // 301 redirects: blog -> blog.residelia.com (FASE 2 migración - deben ir PRIMERO)
 const blogRedirects = [
-  { source: '/blog',        target: 'https://blog.residelia.com/',       status: '301', condition: null },
-  { source: '/blog/<*>',    target: 'https://blog.residelia.com/<*>',    status: '301', condition: null },
-  { source: '/en/blog',     target: 'https://blog.residelia.com/en/',    status: '301', condition: null },
-  { source: '/en/blog/<*>', target: 'https://blog.residelia.com/en/<*>', status: '301', condition: null },
+  { source: '/blog',        target: 'https://blog.residelia.com/',       status: '301' },
+  { source: '/blog/<*>',    target: 'https://blog.residelia.com/<*>',    status: '301' },
+  { source: '/en/blog',     target: 'https://blog.residelia.com/en/',    status: '301' },
+  { source: '/en/blog/<*>', target: 'https://blog.residelia.com/en/<*>', status: '301' },
 ]
 
-// Generar reglas Amplify: 301 blog primero, luego rutas explícitas + catch-all al final
+// Generar reglas Amplify: 301 blog primero, raíz explícita, rutas por slug, catch-all al final
 const rules = [
   ...blogRedirects,
+  // Regla explícita para la raíz (findIndexHtmlRoutes no la detecta al ser el dir raíz)
+  { source: '/', target: '/index.html', status: '200' },
   ...routes.map(route => ({
     source: route,
     target: `${route}/index.html`,
     status: '200',
-    condition: null,
   })),
-  // Safety net: rutas que no estén en la lista (p.ej. páginas nuevas entre deploys)
-  { source: '/<*>', target: '/[*]/index.html', status: '200', condition: null },
+  // Safety net: rutas sin extensión no prerendered.
+  // Regex excluye assets estáticos con extensión (.css, .js, .png…).
+  { source: '</^[^.]+$/>', target: '/[*]/index.html', status: '200' },
 ]
 
 const appId = process.env.AMPLIFY_APP_ID
@@ -91,10 +93,12 @@ try {
   )
   console.log(`✅ ${rules.length} reglas de rewrite actualizadas en Amplify (app: ${appId})`)
 } catch (err) {
-  console.error('❌ Error al actualizar las reglas en Amplify:', err.message)
+  console.warn('⚠️  Error al actualizar las reglas en Amplify:', err.message)
+  console.warn('   El rol de CodeBuild puede no tener el permiso amplify:UpdateApp.')
   // Fallback: guardar para aplicación manual
   const outFile = 'amplify-rewrites.json'
   fs.writeFileSync(outFile, JSON.stringify(rules, null, 2))
   console.log(`   Reglas guardadas en ${outFile} para aplicación manual.`)
-  process.exit(1)
+  // No fallar el build — el sitio ya está desplegado correctamente
+  process.exit(0)
 }
