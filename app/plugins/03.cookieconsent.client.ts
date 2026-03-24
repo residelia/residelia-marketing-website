@@ -30,19 +30,22 @@ export default defineNuxtPlugin(async (nuxtApp) => {
 
   // console.log(cookieSettingsData[0].categories[2].cookiesTable.find(t => t._key === 'es').value.rows.slice(1).map(r => (r.cells.map((c, index) => ({ [tableKeys[index]]: c })).reduce((acc, current) => ({ ...acc, ...current }), {}))))
   mainStore.locales.forEach(locale => {
+    const bannerTitle = cookieBannerData[0].title?.find(t => t._key === locale.localeCode)?.value
+    if (!bannerTitle) return
+
     translations[locale.localeCode] = {
       consentModal: {
-        title: cookieBannerData[0].title.find(t => t._key === locale.localeCode).value,
-        description: cookieBannerData[0].description.find(t => t._key === locale.localeCode).value,
-        acceptAllBtn: cookieBannerData[0].acceptButton.find(t => t._key === locale.localeCode).value,
-        acceptNecessaryBtn: cookieBannerData[0].rejectButton.find(t => t._key === locale.localeCode).value,
-        showPreferencesBtn: cookieBannerData[0].settingsButton.find(t => t._key === locale.localeCode).value,
+        title: bannerTitle,
+        description: cookieBannerData[0].description?.find(t => t._key === locale.localeCode)?.value ?? '',
+        acceptAllBtn: cookieBannerData[0].acceptButton?.find(t => t._key === locale.localeCode)?.value ?? '',
+        acceptNecessaryBtn: cookieBannerData[0].rejectButton?.find(t => t._key === locale.localeCode)?.value ?? '',
+        showPreferencesBtn: cookieBannerData[0].settingsButton?.find(t => t._key === locale.localeCode)?.value ?? '',
       },
       preferencesModal: {
-        title: cookieSettingsData[0].title.find(t => t._key === locale.localeCode).value,
-        acceptAllBtn: cookieSettingsData[0].acceptButton.find(t => t._key === locale.localeCode).value,
-        acceptNecessaryBtn: cookieSettingsData[0].rejectButton.find(t => t._key === locale.localeCode).value,
-        savePreferencesBtn: cookieSettingsData[0].saveButton.find(t => t._key === locale.localeCode).value,
+        title: cookieSettingsData[0].title?.find(t => t._key === locale.localeCode)?.value ?? '',
+        acceptAllBtn: cookieSettingsData[0].acceptButton?.find(t => t._key === locale.localeCode)?.value ?? '',
+        acceptNecessaryBtn: cookieSettingsData[0].rejectButton?.find(t => t._key === locale.localeCode)?.value ?? '',
+        savePreferencesBtn: cookieSettingsData[0].saveButton?.find(t => t._key === locale.localeCode)?.value ?? '',
         sections: cookieSettingsData[0].categories.map(s => ({
           title: s.title.find(t => t._key === locale.localeCode)?.value,
           description: s?.description?.find(t => t._key === locale.localeCode)?.value,
