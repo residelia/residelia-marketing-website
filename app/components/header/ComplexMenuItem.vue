@@ -1,7 +1,10 @@
 <template>
   <li :key="binder">
     <!-- <NuxtLink to="#" :key="key" class="h-link"> -->
-    <NuxtLink :to="slug ? $localePath(routeObject) : ''"
+    <NuxtLink
+      :to="slug ? (isExternal ? routeObject : $localePath(routeObject)) : ''"
+      :target="isExternal ? '_blank' : undefined"
+      :external="isExternal || undefined"
       class="h-link"
       v-follow
     >        
@@ -61,8 +64,13 @@ const props = defineProps<{
 
 const { getLocalizedString } = useLocalizedString()
 
+const isExternal = computed(() => typeof props.slug === 'string')
+
 const routeObject = computed(() => {
-  const lastSegment = props.slug.find(l => l._key === locale.value).value.current.split('/').filter(Boolean).pop()
+  if (isExternal.value) return props.slug as string
+  const lastSegment = (props.slug as Array<any>)
+    .find(l => l._key === locale.value)?.value?.current
+    ?.split('/').filter(Boolean).pop() ?? ''
   switch (props.name) {
     case 'solutions-segment':
       return { name: 'solutions-segment', params: { segment: lastSegment } }
@@ -71,7 +79,6 @@ const routeObject = computed(() => {
     case 'terms-item':
       return { name: 'terms-item', params: { item: lastSegment } }
     default:
-      // Si no es una ruta dinámica, puedes devolver la cadena literal o un objeto vacío
       return lastSegment
   }
 })

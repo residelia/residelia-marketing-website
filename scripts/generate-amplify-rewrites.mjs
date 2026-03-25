@@ -50,7 +50,7 @@ function findIndexHtmlRoutes(dir, base = '') {
 const routes = findIndexHtmlRoutes(staticDir)
 console.log(`📄 ${routes.length} rutas encontradas en ${staticDir}`)
 
-// 301 redirects: blog -> blog.residelia.com (FASE 2 migración - deben ir PRIMERO)
+// 301 redirects: blog -> blog.residelia.com (deben ir PRIMERO)
 const blogRedirects = [
   { source: '/blog',        target: 'https://blog.residelia.com/',       status: '301' },
   { source: '/blog/<*>',    target: 'https://blog.residelia.com/<*>',    status: '301' },
@@ -58,9 +58,18 @@ const blogRedirects = [
   { source: '/en/blog/<*>', target: 'https://blog.residelia.com/en/<*>', status: '301' },
 ]
 
-// Generar reglas Amplify: 301 blog primero, raíz explícita, rutas por slug, catch-all al final
+// 301 redirects: university -> academy.residelia.com
+const universityRedirects = [
+  { source: '/university',        target: 'https://academy.residelia.com',        status: '301' },
+  { source: '/university/<*>',    target: 'https://academy.residelia.com/<*>',    status: '301' },
+  { source: '/en/university',     target: 'https://academy.residelia.com/en/',    status: '301' },
+  { source: '/en/university/<*>', target: 'https://academy.residelia.com/en/<*>', status: '301' },
+]
+
+// Generar reglas Amplify: 301 redirects primero, raíz explícita, rutas por slug, catch-all al final
 const rules = [
   ...blogRedirects,
+  ...universityRedirects,
   // Regla explícita para la raíz (findIndexHtmlRoutes no la detecta al ser el dir raíz)
   { source: '/', target: '/index.html', status: '200' },
   ...routes.map(route => ({

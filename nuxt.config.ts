@@ -25,24 +25,6 @@ const fetchRoutesWithLocales = async () => {
     }
   `);
 
-  const posts = await sanityClient.fetch(`
-    *[_type == "post" && !(_id in path('drafts.**'))] {
-      slug,
-      language
-    }
-  `);
-
-  const pillars = await sanityClient.fetch(`
-    *[_type == "pillar" && !(_id in path('drafts.**'))] {
-      slug,
-      language,
-      clusters[]->{
-        slug,
-        language
-      }
-    }
-  `);
-
   const resources = await sanityClient.fetch(`
     *[_type == "resource" && !(_id in path('drafts.**'))] {
       slug
@@ -72,45 +54,6 @@ const fetchRoutesWithLocales = async () => {
       });
     } else {
       console.warn("Página sin slugs válidos:", page);
-    }
-  });
-
-  // Procesar los posts
-  posts.forEach((post) => {
-    if (post.slug?.current && post.language) {
-      // Excluir el prefijo del idioma por defecto y evitar el doble '/'
-      const route =
-        post.language === defaultLocale
-          ? `${post.slug.current}` // Sin prefijo para el idioma por defecto
-          : `/${post.language}${post.slug.current}`; // Con prefijo para otros idiomas
-      routes.push(route);
-    } else {
-      console.warn("Post sin slug válido o idioma:", post);
-    }
-  });
-
-  // Procesar los pilares y clusters
-  pillars.forEach((pillar) => {
-    if (pillar.slug && pillar.language) {
-      // URL del pilar
-      const pillarRoute =
-        pillar.language === defaultLocale
-          ? `${pillar.slug.current}` // Sin prefijo para el idioma por defecto
-          : `/${pillar.language}${pillar.slug.current}`; // Con prefijo para otros idiomas
-      routes.push(pillarRoute);
-
-      // URLs de los clusters asociados
-      if (pillar.clusters) {
-        pillar.clusters.forEach((cluster) => {
-          if (cluster.slug && cluster.language === pillar.language) {
-            const clusterRoute =
-              cluster.language === defaultLocale
-                ? `${cluster.slug.current}` // Sin prefijo para el idioma por defecto
-                : `/${cluster.language}${cluster.slug.current}`; // Con prefijo para otros idiomas
-            routes.push(clusterRoute);
-          }
-        });
-      }
     }
   });
 
