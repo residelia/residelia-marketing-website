@@ -6,8 +6,8 @@
                 <div class="col-md-11 col-lg-10 col-xl-9">
                     <div class="hero-17-txt wow fadeInUp">
                         <!-- Title -->
-                        <!-- <h1 class="s-60 w-700" :class="textColor" v-html="balanceString('Encuentra, analiza y gestiona tu siguiente inversión inmobiliaria')"></h1> -->
-                        <h1 class="s-60 w-700" :class="textColor" v-html="balanceString(hero.heading.find(t => t._key === locale).value,5)"></h1>
+                        <h1 class="s-60 w-700" :class="textColor" >{{ hero.heading.find(t => t._key === locale).value }}</h1>
+                        <!-- <h1 class="s-60 w-700" :class="textColor" v-html="balanceString(hero.heading.find(t => t._key === locale).value,100)"></h1> -->
                         <!-- Text -->
                         <p class="p-xl pt-4" :class="textColor">{{ hero.subHeading.find(t => t._key === locale).value }}</p>
                         
