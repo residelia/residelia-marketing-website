@@ -6,7 +6,7 @@
                 <div class="col-md-10 col-lg-9">
                     <div class="section-title mb-80">
                         <!-- Title -->
-                        <h2 class="s-52 w-700">{{ data[0].title.find(l => l._key === locale).value }}</h2>
+                        <h2 class="s-52 w-700">{{ data[0]?.title?.find(l => l._key === locale)?.value }}</h2>
                         <!-- Text -->
                         <p class="s-21 color--grey">{{ data[0]?.description?.find(l => l._key === locale)?.value }}</p>
                     </div>

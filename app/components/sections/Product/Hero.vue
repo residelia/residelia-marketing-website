@@ -43,7 +43,7 @@
                             </template>
                         </ElementsVideoModal>
                         <!-- Preview Image -->
-                        <img class="img-fluid"  :src="hero.image.url+'?fm=webp'" :alt="hero.imageAlt" />
+                        <img v-if="hero.image?.url" class="img-fluid"  :src="hero.image.url+'?fm=webp'" :alt="hero.imageAlt" />
                     </div>
                 </div>
             </div>

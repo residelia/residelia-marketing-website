@@ -33,11 +33,13 @@
                                     <tr v-for="(row, index) in matrixGeneral.rows.slice(1)">
                                         <th scope="row" class="text-start main-cell">
                                             <span v-html="getInfoText(row.cells[0])[0]"></span>
-                                            <v-tooltip v-if="getInfoText(row.cells[0]).length > 1" :text="getInfoText(row.cells[0])[1]" class="s-8">
-                                                <template v-slot:activator="{ props }">
-                                                    <v-icon v-bind="props" class="ml-1" color="ligthgrey" size="x-small">mdi-information-outline</v-icon>
-                                                </template>
-                                            </v-tooltip>
+                                            <ClientOnly>
+                                                <v-tooltip v-if="getInfoText(row.cells[0]).length > 1" :text="getInfoText(row.cells[0])[1]" class="s-8">
+                                                    <template v-slot:activator="{ props }">
+                                                        <v-icon v-bind="props" class="ml-1" color="ligthgrey" size="x-small">mdi-information-outline</v-icon>
+                                                    </template>
+                                                </v-tooltip>
+                                            </ClientOnly>
                                         </th>
                                         <td v-for="cell in row.cells.slice(1)" class="color--black cell">
                                             <span v-if="cell === 'N'" class="flaticon-cancel color--red-500 s-14"></span>
@@ -67,11 +69,13 @@
                                     <tr v-for="(row, index) in matrixExplorer.rows.slice(1)">
                                         <th scope="row" class="text-start main-cell">
                                             <span v-html="getInfoText(row.cells[0])[0]"></span>
-                                            <v-tooltip v-if="getInfoText(row.cells[0]).length > 1" :text="getInfoText(row.cells[0])[1]" class="s-8">
-                                                <template v-slot:activator="{ props }">
-                                                    <v-icon v-bind="props" class="ml-1" color="ligthgrey" size="x-small">mdi-information-outline</v-icon>
-                                                </template>
-                                            </v-tooltip>
+                                            <ClientOnly>
+                                                <v-tooltip v-if="getInfoText(row.cells[0]).length > 1" :text="getInfoText(row.cells[0])[1]" class="s-8">
+                                                    <template v-slot:activator="{ props }">
+                                                        <v-icon v-bind="props" class="ml-1" color="ligthgrey" size="x-small">mdi-information-outline</v-icon>
+                                                    </template>
+                                                </v-tooltip>
+                                            </ClientOnly>
                                         </th>
                                         <td v-for="cell in row.cells.slice(1)" class="color--black cell">
                                             <span v-if="cell === 'N'" class="flaticon-cancel color--red-500 s-14"></span>
@@ -101,11 +105,13 @@
                                     <tr v-for="(row, index) in matrixValuation.rows.slice(1)">
                                         <th scope="row" class="text-start main-cell">
                                             <span v-html="getInfoText(row.cells[0])[0]"></span>
-                                            <v-tooltip v-if="getInfoText(row.cells[0]).length > 1" :text="getInfoText(row.cells[0])[1]" class="s-8">
-                                                <template v-slot:activator="{ props }">
-                                                    <v-icon v-bind="props" class="ml-1" color="ligthgrey" size="x-small">mdi-information-outline</v-icon>
-                                                </template>
-                                            </v-tooltip>
+                                            <ClientOnly>
+                                                <v-tooltip v-if="getInfoText(row.cells[0]).length > 1" :text="getInfoText(row.cells[0])[1]" class="s-8">
+                                                    <template v-slot:activator="{ props }">
+                                                        <v-icon v-bind="props" class="ml-1" color="ligthgrey" size="x-small">mdi-information-outline</v-icon>
+                                                    </template>
+                                                </v-tooltip>
+                                            </ClientOnly>
                                         </th>
                                         <td v-for="cell in row.cells.slice(1)" class="color--black cell">
                                             <span v-if="cell === 'N'" class="flaticon-cancel color--red-500 s-14"></span>
@@ -135,11 +141,13 @@
                                     <tr v-for="(row, index) in matrixLegal.rows.slice(1)">
                                         <th scope="row" class="text-start main-cell">
                                             <span v-html="getInfoText(row.cells[0])[0]"></span>
-                                            <v-tooltip v-if="getInfoText(row.cells[0]).length > 1" :text="getInfoText(row.cells[0])[1]" class="s-8">
-                                                <template v-slot:activator="{ props }">
-                                                    <v-icon v-bind="props" class="ml-1" color="ligthgrey" size="x-small">mdi-information-outline</v-icon>
-                                                </template>
-                                            </v-tooltip>
+                                            <ClientOnly>
+                                                <v-tooltip v-if="getInfoText(row.cells[0]).length > 1" :text="getInfoText(row.cells[0])[1]" class="s-8">
+                                                    <template v-slot:activator="{ props }">
+                                                        <v-icon v-bind="props" class="ml-1" color="ligthgrey" size="x-small">mdi-information-outline</v-icon>
+                                                    </template>
+                                                </v-tooltip>
+                                            </ClientOnly>
                                         </th>
                                         <td v-for="cell in row.cells.slice(1)" class="color--black cell">
                                             <span v-if="cell === 'N'" class="flaticon-cancel color--red-500 s-14"></span>
@@ -204,11 +212,13 @@
                                     <tr v-for="(row, index) in matrixManagement.rows.slice(1)">
                                         <th scope="row" class="text-start main-cell">
                                             <span v-html="getInfoText(row.cells[0])[0]"></span>
-                                            <v-tooltip v-if="getInfoText(row.cells[0]).length > 1" :text="getInfoText(row.cells[0])[1]" class="s-8">
-                                                <template v-slot:activator="{ props }">
-                                                    <v-icon v-bind="props" class="ml-1" color="ligthgrey" size="x-small">mdi-information-outline</v-icon>
-                                                </template>
-                                            </v-tooltip>
+                                            <ClientOnly>
+                                                <v-tooltip v-if="getInfoText(row.cells[0]).length > 1" :text="getInfoText(row.cells[0])[1]" class="s-8">
+                                                    <template v-slot:activator="{ props }">
+                                                        <v-icon v-bind="props" class="ml-1" color="ligthgrey" size="x-small">mdi-information-outline</v-icon>
+                                                    </template>
+                                                </v-tooltip>
+                                            </ClientOnly>
                                         </th>
                                         <td v-for="cell in row.cells.slice(1)" class="color--black cell">
                                             <span v-if="cell === 'N'" class="flaticon-cancel color--red-500 s-14"></span>

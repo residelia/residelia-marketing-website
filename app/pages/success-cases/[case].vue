@@ -23,32 +23,24 @@ const mainStore = useMainStore()
 const data = await useSanityData({
     query: pageQuery,
     params: {
-        slug: route.fullPath,
+        slug: route.fullPath.startsWith(`/${locale.value}`) ? route.fullPath.slice(`/${locale.value}`.length) || '/' : route.fullPath,
         language: locale.value
     }
 })
 
-// console.log(
-//     "%cStop!",
-//     "color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold"
-// );
-// console.log(route)
-// console.log(locale)
-// console.log(data)
-
 useHead({
-    title: `${data.value[0].title.find(l => l._key === locale._value).value}`,
-    description: `${data.value[0].description.find(l => l._key === locale._value).value}`,
+    title: `${data[0].title.find(l => l._key === locale._value).value}`,
+    description: `${data[0].description.find(l => l._key === locale._value).value}`,
     bodyAttrs: {
         class: "navbar-dark"
     }
 });
 useServerSeoMeta({
-  title: `${data.value[0].title.find(l => l._key === locale.value).value}`,
-  ogTitle: `${data.value[0].title.find(l => l._key === locale.value).value}`,
-  description: `${data.value[0].description.find(l => l._key === locale.value).value}`,
-  ogDescription: `${data.value[0].description.find(l => l._key === locale.value).value}`,
-  ogImage: `${data.value[0]?.hero?.image}`,
+  title: `${data[0].title.find(l => l._key === locale.value).value}`,
+  ogTitle: `${data[0].title.find(l => l._key === locale.value).value}`,
+  description: `${data[0].description.find(l => l._key === locale.value).value}`,
+  ogDescription: `${data[0].description.find(l => l._key === locale.value).value}`,
+  ogImage: `${data[0]?.hero?.image}`,
   twitterCard: 'summary_large_image',
 })
 
