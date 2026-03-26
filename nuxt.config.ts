@@ -180,26 +180,28 @@ export default defineNuxtConfig({
     {
       families: {
         "DM+Sans": {
-          wght: [100, 200, 300, 400, 500, 600, 700, 800, 900],
+          wght: [400, 500, 600, 700],
         },
         Roboto: {
-          wght: [100, 200, 300, 400, 500, 600, 700, 800, 900],
+          wght: [400, 500, 700],
         },
         "Plus+Jakarta+Sans": {
           wght: [400, 500, 600, 700],
         },
         Inter: {
-          wght: [400, 500, 600, 700, 800],
+          wght: [400, 500, 600, 700],
         },
         Montserrat: {
-          wght: [400, 500, 600, 700, 800],
+          wght: [400, 500, 600, 700],
         },
         Rubik: {
-          wght: [400, 500, 600, 700, 800],
+          wght: [400, 500, 600, 700],
         },
-        download: true,
-        inject: true,
       },
+      download: true,
+      inject: true,
+      preload: true,
+      display: 'optional',
     },
   ], "@pinia/nuxt", "dayjs-nuxt", "@nuxtjs/i18n", '@nuxtjs/sitemap', '@nuxtjs/robots', 'nuxt-schema-org'],
 
