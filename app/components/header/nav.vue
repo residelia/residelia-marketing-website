@@ -25,8 +25,10 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  window.removeEventListener("scroll", handleScroll);
-  document.removeEventListener("touchmove", handleScroll);
+  if (import.meta.client) {
+    window.removeEventListener("scroll", handleScroll);
+    document.removeEventListener("touchmove", handleScroll);
+  }
 });
 
 function handleScroll(event) {

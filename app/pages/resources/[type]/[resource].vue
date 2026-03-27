@@ -50,27 +50,27 @@ const data = await useSanityData({
 // console.log(data)
 
 useServerSeoMeta({
-  title: `${data.value[0].title.find(l => l._key === locale.value).value} | RESIDELIA`,
-  ogTitle: `${data.value[0].title.find(l => l._key === locale.value).value} | RESIDELIA`,
-  description: `${data.value[0].description.find(l => l._key === locale.value).value}`,
-  ogDescription: `${data.value[0].description.find(l => l._key === locale.value).value}`,
-  ogImage: `${data.value[0]?.hero?.image}`,
+  title: `${data[0].title.find(l => l._key === locale.value).value} | RESIDELIA`,
+  ogTitle: `${data[0].title.find(l => l._key === locale.value).value} | RESIDELIA`,
+  description: `${data[0].description.find(l => l._key === locale.value).value}`,
+  ogDescription: `${data[0].description.find(l => l._key === locale.value).value}`,
+  ogImage: `${data[0]?.hero?.image}`,
   twitterCard: 'summary_large_image',
 })
-// defineWebPage({
-//   // will resolve to ISO 8601 format
-//   '@type': 'ItemPage',
-//   url: `${process.env.BASE_URL}/${route.fullPath}`,
-//   name: `${data.value[0].title.find(l => l._key === locale.value).value}`,
-//   image: `${data.value[0]?.hero?.image}`,
-//   datePublished: new Date(2024, 10, 1)
-// })
+defineWebPage({
+  // will resolve to ISO 8601 format
+  '@type': 'ItemPage',
+  url: `${process.env.BASE_URL}/${route.fullPath}`,
+  name: `${data[0].title.find(l => l._key === locale.value).value}`,
+  image: `${data[0]?.hero?.image}`,
+  datePublished: new Date(2024, 10, 1)
+})
 
 // tracking
 const { trackPage } = useTracking();
 const trackPageView = () => {
   trackPage('Page View', {
-    title: `${data.value[0].title.find(l => l._key === locale._value).value}`,
+    title: `${data[0].title.find(l => l._key === locale._value).value}`,
     path: route.fullPath,
   })
 };

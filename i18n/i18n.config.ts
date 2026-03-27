@@ -14,6 +14,10 @@ export default defineI18nConfig(() => ({
             updated: 'Actualizado',
             tableOfContents: 'En este artículo',
             otherReadings: 'Lecturas destacadas',
+            courseOutline: 'Índice del curso',
+            learn: 'Aprende',
+            discover: 'Descubre',
+            lessons: 'lecciones',
             viewContent: 'Ir al contenido',
             soon: '¡Muy Pronto!',
             next: 'Proximamente',
@@ -40,6 +44,8 @@ export default defineI18nConfig(() => ({
             comparePlans: 'Compara nuestros planes',
             legalTerms: 'nuestros términos de uso',
             onePayment: 'Pago único anual',
+            comingSoon: '¡Muy pronto!',
+            comingSoonDescription: 'Estamos trabajando para traerte esta sección lo antes posible.',
             onboardingWizard: {
                 buttons: {
                     next: "Siguiente",
@@ -146,6 +152,10 @@ export default defineI18nConfig(() => ({
             updated: 'Updated',
             tableOfContents: 'In this article',
             otherReadings: 'Highlighted readings',
+            courseOutline: 'Course outline',
+            learn: 'Learn',
+            discover: 'Discover',
+            lessons: 'lessons',
             viewContent: 'View content',
             soon: 'Coming Soon!',
             next: 'Coming Next',
@@ -172,6 +182,8 @@ export default defineI18nConfig(() => ({
             comparePlans: 'Compare plans',
             legalTerms: 'our use terms',
             onePayment: 'One annual payment',
+            comingSoon: 'Coming soon!',
+            comingSoonDescription: 'We are working to bring you this section as soon as possible.',
             onboardingWizard: {
                 buttons: {
                     next: "Next",

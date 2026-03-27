@@ -5,12 +5,12 @@
                 <div class="col-xl-10">
                     <!-- INNER PAGE TITLE -->
                     <div class="inner-page-title">
-                        <span>{{ job?.department.name}}</span>
-                        <h2 class="s-52 w-700">{{ job.name.find(t => t._key === locale).value }}</h2>
-                        <p class="p-lg">{{ job.location }} / {{ job.mode }}</p>
+                        <span>{{ job?.department?.name}}</span>
+                        <h2 class="s-52 w-700">{{ job?.name?.find(t => t._key === locale)?.value }}</h2>
+                        <p class="p-lg">{{ job?.location }} / {{ job?.mode }}</p>
                     </div>
                     <!-- TEXT BLOCK -->
-                    <div class="txt-block role-info">
+                    <div v-if="job" class="txt-block role-info">
                         <!-- JOB DESCRIPTION -->
                         <PortableText :value="job.jobDescription" :components="serializers"/>
 
@@ -19,7 +19,7 @@
                         <!-- Title -->
                         <div v-for="benefit in data">
                             <!-- WORK BENEFITS (BENEFIT SECTION) -->
-                            <h5 class="s-24 w-700">{{ benefit.heading.find(t => t._key === locale).value }}</h5>
+                            <h5 class="s-24 w-700">{{ benefit.heading?.find(t => t._key === locale)?.value }}</h5>
 
                             <PortableText :value="benefit.content" :components="serializers"/>
                             <div v-if="benefit.benefitsGroup" class="cbox-6-wrapper bg--white-400 r-16">
@@ -28,9 +28,9 @@
                                     <div v-for="bnf in benefit.benefitsGroup" class="col">
                                         <div id="cb-6-1" class="cbox-6">
                                             <!-- Title -->
-                                            <h6 class="s-20 w-700">{{ bnf.heading.find(t => t._key === locale).value }}</h6>
+                                            <h6 class="s-20 w-700">{{ bnf.heading?.find(t => t._key === locale)?.value }}</h6>
                                             <!-- Text -->
-                                            <PortableText :value="bnf.content.find(t => t._key === locale)?.value.content" :components="serializers"/>
+                                            <PortableText :value="bnf.content?.find(t => t._key === locale)?.value?.content" :components="serializers"/>
                                         </div>
                                     </div>
                                 </div>

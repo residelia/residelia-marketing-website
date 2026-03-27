@@ -23,6 +23,14 @@ const renderedLatex = computed(() =>
 <style scoped>
 .latex-formula {
   margin: 1em 0;
-  font-size: 1.1em;
+  font-size: 0.8em;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+  .latex-formula {
+    font-size: 0.85em;
+  }
 }
 </style>

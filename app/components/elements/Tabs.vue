@@ -70,7 +70,9 @@ export default defineComponent({
             document.addEventListener("keydown", onTabKeyDown);
         });
         onBeforeUnmount(() => {
+          if (import.meta.client) {
             document.removeEventListener("keydown", onTabKeyDown);
+          }
         });
         watch(defaultIndex, (newValue, oldValue) => {
             if (newValue !== selectedIndex.value) {

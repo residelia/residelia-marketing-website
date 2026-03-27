@@ -66,7 +66,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       console.log('✅ LinkedIn Pixel cargado');
     }
 
-    // ✅ Twitter/X Pixel
+    // ✅ Twitter/X Pixel (API actual: 'config' en lugar de 'init')
     if (TWITTER_PIXEL_ID) {
       const script = document.createElement('script');
       script.innerHTML = `
@@ -74,8 +74,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         },s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,
         u.src='https://static.ads-twitter.com/uwt.js',
         a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
-        twq('init','${TWITTER_PIXEL_ID}');
-        twq('track','PageView');
+        twq('config','${TWITTER_PIXEL_ID}');
       `;
       document.head.appendChild(script);
       console.log('✅ Twitter/X Pixel cargado');

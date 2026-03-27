@@ -1,5 +1,5 @@
 <template>
-    <section v-if="painAndSolution" id="features-2" class="py-100 features-section division bg--surface-200">
+    <section v-if="painAndSolution" id="features-2" class="py-100 features-section division">
         <div class="container">
             <!-- 1x2 WRAPPER -->
             <div class="fbox-wrapper text-center">

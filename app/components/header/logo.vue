@@ -59,8 +59,10 @@ onMounted(() => {
   window.addEventListener("scroll", handleScroll);
 });
 onUnmounted(() => {
+  if (import.meta.client) {
     window.removeEventListener("touchmove", handleScroll);
     window.removeEventListener("scroll", handleScroll);
+  }
 });
 
 const route = useRoute()

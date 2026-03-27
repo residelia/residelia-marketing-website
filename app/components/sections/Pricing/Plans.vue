@@ -19,11 +19,13 @@
                                 </span>
                             </label>
                             <span class="toggler-txt">{{ plans.yearlyBilling?.find(t => t._key === locale).value}}</span>
-                                <v-tooltip :text="$t('onePayment')">
-                                <template v-slot:activator="{ props }">
-                                    <span class="ri-circle-info" v-bind="props"></span>
-                                </template>
-                                </v-tooltip>
+                                <ClientOnly>
+                                    <v-tooltip :text="$t('onePayment')">
+                                        <template v-slot:activator="{ props }">
+                                            <span class="ri-circle-info" v-bind="props"></span>
+                                        </template>
+                                    </v-tooltip>
+                                </ClientOnly>
                             <p v-if="!showMonthly" class="mt-1 color--theme">{{ plans.discount?.find(t => t._key === locale).value}}</p>
                         </div>
                     </div>

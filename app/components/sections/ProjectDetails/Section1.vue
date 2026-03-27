@@ -8,9 +8,9 @@
                         <!-- PROJECT TITLE -->
                         <div class="project-title">
                             <!-- Title -->
-                            <h2 class="s-52 w-700">Online shopping concept for mobile app templates</h2>
+                            <h2 class="s-52 w-700">{{ data[0].title.find(l => l._key === locale).value }}</h2>
                             <!-- Project Data -->
-                            <div class="project-data">
+                            <!-- <div class="project-data">
                                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
                                     <div class="col">
                                         <p class="p-lg"><span>Category:</span> Development</p>
@@ -28,7 +28,7 @@
                                         <p class="p-lg"><a href="#" class="color--theme">www.website.com</a></p>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <!-- END PROJECT TITLE -->
                         <!-- PROJECT PREVIEW IMAGE  -->
@@ -181,3 +181,14 @@
         <!-- End container -->
     </section>
 </template>
+<script lang="js" setup>
+const props = defineProps({
+    data: {
+        type: Array,
+        required: true
+    }
+});
+
+const route = useRoute();
+const { locale } = useI18n();
+</script>

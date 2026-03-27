@@ -20,26 +20,20 @@ const fetchRoutesWithLocales = async () => {
 
   // Consulta para obtener las páginas y los posts
   const pages = await sanityClient.fetch(`
-    *[_type == "page"] {
+    *[_type == "page" && !(_id in path('drafts.**'))] {
       slug
     }
   `);
 
-  const posts = await sanityClient.fetch(`
-    *[_type == "post"] {
-      slug,
-      language
+  const resources = await sanityClient.fetch(`
+    *[_type == "resource" && !(_id in path('drafts.**'))] {
+      slug
     }
   `);
-  
-  const pillars = await sanityClient.fetch(`
-    *[_type == "pillar"] {
-      slug,
-      language,
-      clusters[]->{
-        slug,
-        language
-      }
+
+  const jobs = await sanityClient.fetch(`
+    *[_type == "position" && !(_id in path('drafts.**')) && active == true] {
+      slug
     }
   `);
 
@@ -63,42 +57,33 @@ const fetchRoutesWithLocales = async () => {
     }
   });
 
-  // Procesar los posts
-  posts.forEach((post) => {
-    if (post.slug?.current && post.language) {
-      // Excluir el prefijo del idioma por defecto y evitar el doble '/'
-      const route =
-        post.language === defaultLocale
-          ? `${post.slug.current}` // Sin prefijo para el idioma por defecto
-          : `/${post.language}${post.slug.current}`; // Con prefijo para otros idiomas
-      routes.push(route);
-    } else {
-      console.warn("Post sin slug válido o idioma:", post);
+  // Procesar los resources (slug multilingüe como array)
+  resources.forEach((resource) => {
+    if (resource.slug && Array.isArray(resource.slug)) {
+      resource.slug.forEach((slug) => {
+        if (slug && locales.includes(slug._key) && slug.value?.current) {
+          const route =
+            slug._key === defaultLocale
+              ? `${slug.value.current}`
+              : `/${slug._key}${slug.value.current}`;
+          routes.push(route);
+        }
+      });
     }
   });
 
-  // Procesar los pilares y clusters
-  pillars.forEach((pillar) => {
-    if (pillar.slug && pillar.language) {
-      // URL del pilar
-      const pillarRoute =
-        pillar.language === defaultLocale
-          ? `${pillar.slug.current}` // Sin prefijo para el idioma por defecto
-          : `/${pillar.language}${pillar.slug.current}`; // Con prefijo para otros idiomas
-      routes.push(pillarRoute);
-
-      // URLs de los clusters asociados
-      if (pillar.clusters) {
-        pillar.clusters.forEach((cluster) => {
-          if (cluster.slug && cluster.language === pillar.language) {
-            const clusterRoute =
-              cluster.language === defaultLocale
-                ? `${cluster.slug.current}` // Sin prefijo para el idioma por defecto
-                : `/${cluster.language}${cluster.slug.current}`; // Con prefijo para otros idiomas
-            routes.push(clusterRoute);
-          }
-        });
-      }
+  // Procesar los jobs (slug multilingüe como array)
+  jobs.forEach((job) => {
+    if (job.slug && Array.isArray(job.slug)) {
+      job.slug.forEach((slug) => {
+        if (slug && locales.includes(slug._key) && slug.value?.current) {
+          const route =
+            slug._key === defaultLocale
+              ? `${slug.value.current}`
+              : `/${slug._key}${slug.value.current}`;
+          routes.push(route);
+        }
+      });
     }
   });
 
@@ -106,122 +91,8 @@ const fetchRoutesWithLocales = async () => {
 };
 
 
-// Función para obtener las rutas para el sitemap
-const fetchSitemapUrlsWithLocales = async () => {
-  const sanityClient = createClient({
-    projectId: "asqz10j2",
-    dataset: "production",
-    token: "skHqzduJvPr2TrtA3ugj1NEBAWvZkqY1jJgQWdZewbnyaJKuy5KGFECZLFNcVat0JD4xeWOpXDnzPzC0GDGgCb0JiKWJ2cIt0FplMbZJxLYicS3FNRwGwXEWlmWs4z1WRBrG6UinrlVgx9ehOJH8pVfkhIc3o90zcQQgpJ1c4DUzM61mmxWh", // Necesario para acceder a los slugs
-    apiVersion: "2022-04-26",
-    useCdn: false,
-  });
-
-  // Consulta para obtener las páginas y los posts
-  const pages = await sanityClient.fetch(`
-    *[_type == "page"] {
-      slug,
-      _updatedAt
-    }
-  `);
-
-  const posts = await sanityClient.fetch(`
-    *[_type == "post"] {
-      slug,
-      language,
-      _updatedAt
-    }
-  `);
-
-  const pillars = await sanityClient.fetch(`
-    *[_type == "pillar"] {
-      slug,
-      language,
-      _updatedAt,
-      clusters[]->{
-        slug,
-        language,
-        _updatedAt
-      }
-    }
-  `);
-
-  const urls = [];
-
-  // Procesar las páginas
-  pages.forEach((page) => {
-    if (page.slug && Array.isArray(page.slug)) {
-      page.slug.forEach((slug) => {
-        if (slug && locales.includes(slug._key) && slug.value?.current) {
-          // Excluir el prefijo del locale por defecto y evitar el doble '/'
-          const url =
-            slug._key === defaultLocale
-              ? `${slug.value.current}` // Sin prefijo para el idioma por defecto
-              : `/${slug._key}${slug.value.current}`; // Con prefijo para otros idiomas
-          urls.push({
-            url,
-            lastmod: page._updatedAt,
-          });
-        }
-      });
-    } else {
-      console.warn("Página sin slugs válidos:", page);
-    }
-  });
-
-  // Procesar los posts
-  posts.forEach((post) => {
-    if (post.slug?.current && post.language) {
-      // Excluir el prefijo del idioma por defecto y evitar el doble '/'
-      const url =
-        post.language === defaultLocale
-          ? `${post.slug.current}` // Sin prefijo para el idioma por defecto
-          : `/${post.language}${post.slug.current}`; // Con prefijo para otros idiomas
-      urls.push({
-        url,
-        lastmod: post._updatedAt,
-      });
-    } else {
-      console.warn("Post sin slug válido o idioma:", post);
-    }
-  });
-
-  // Procesar los pilares y clusters
-  pillars.forEach((pillar) => {
-    if (pillar.slug && pillar.language) {
-      // URL del pilar
-      const pillarUrl =
-        pillar.language === defaultLocale
-          ? `${pillar.slug.current}` // Sin prefijo para el idioma por defecto
-          : `/${pillar.language}${pillar.slug.current}`; // Con prefijo para otros idiomas
-      urls.push({
-        url: pillarUrl,
-        lastmod: pillar._updatedAt,
-      });
-
-      // URLs de los clusters asociados
-      if (pillar.clusters) {
-        pillar.clusters.forEach((cluster) => {
-          if (cluster.slug && cluster.language === pillar.language) {
-            const clusterUrl =
-              cluster.language === defaultLocale
-                ? `${cluster.slug.current}` // Sin prefijo para el idioma por defecto
-                : `/${cluster.language}${cluster.slug.current}`; // Con prefijo para otros idiomas
-            urls.push({
-              url: clusterUrl,
-              lastmod: cluster._updatedAt,
-            });
-          }
-        });
-      }
-    }
-  });
-
-  return urls;
-};
-
 // Ejecutar las funciones para obtener las rutas y URLs antes de exportar la configuración
 const nitroRoutes = await fetchRoutesWithLocales();
-const sitemapUrls = await fetchSitemapUrlsWithLocales();
 
 export default defineNuxtConfig({
   target: "static",
@@ -309,35 +180,57 @@ export default defineNuxtConfig({
     {
       families: {
         "DM+Sans": {
-          wght: [100, 200, 300, 400, 500, 600, 700, 800, 900],
+          wght: [400, 500, 600, 700],
         },
         Roboto: {
-          wght: [100, 200, 300, 400, 500, 600, 700, 800, 900],
+          wght: [400, 500, 700],
         },
         "Plus+Jakarta+Sans": {
           wght: [400, 500, 600, 700],
         },
         Inter: {
-          wght: [400, 500, 600, 700, 800],
+          wght: [400, 500, 600, 700],
         },
-        download: true,
-        inject: true,
+        Montserrat: {
+          wght: [400, 500, 600, 700],
+        },
+        Rubik: {
+          wght: [400, 500, 600, 700],
+        },
       },
+      download: true,
+      inject: true,
+      preload: true,
+      display: 'optional',
     },
   ], "@pinia/nuxt", "dayjs-nuxt", "@nuxtjs/i18n", '@nuxtjs/sitemap', '@nuxtjs/robots', 'nuxt-schema-org'],
 
   site: {
-    url: process.env.BASE_URL,
+    url: process.env.BASE_URL || 'https://residelia.com',
     name: "RESIDELIA - La plataforma de gestión de propiedades para profesionales",
   },
   sitemap: {
-    hostname: process.env.BASE_URL,
-    name: "RESIDELIA - La plataforma de gestión de propiedades para profesionales",
-    lastmod: new Date("YYYY-MM-DD"),
-    path: "/sitemap.xml",
-    i18n: true,
-    gzip: true,
-    urls: sitemapUrls,
+    sitemaps: Object.fromEntries(
+      [
+        { locale: 'es-ES' },
+        { locale: 'en-US' },
+      ].flatMap(({ locale }) =>
+        ([
+          { name: 'pages',      changefreq: 'monthly', priority: 0.8 },
+          { name: 'products',   changefreq: 'monthly', priority: 0.9 },
+          { name: 'solutions',  changefreq: 'monthly', priority: 0.9 },
+          { name: 'resources',  changefreq: 'monthly', priority: 0.6 },
+          { name: 'jobs',       changefreq: 'weekly',  priority: 0.5 },
+          { name: 'terms',      changefreq: 'yearly',  priority: 0.3 },
+        ] as const).map(({ name, changefreq, priority }) => [
+          `${locale}/${name}`,
+          {
+            sources: [`/api/sitemap/${locale}/${name}`],
+            defaults: { changefreq, priority },
+          },
+        ])
+      )
+    ),
   },
 
   sanity: {
@@ -421,6 +314,10 @@ export default defineNuxtConfig({
       googleRecaptchaKey: process.env.RECAPTCHA_SITE_KEY, // for example
       formWebhook: process.env.FORM_WEBHOOK,
       signUpWebhook: process.env.SIGNUP_WEBHOOK,
+      newsletterWebhook: process.env.NEWSLETTER_WEBHOOK,
+      // Futuro: supabaseCheckUrl y supabaseAnonKey cuando la Edge Function esté disponible
+      // supabaseCheckUrl: process.env.SUPABASE_CHECK_USER_URL,
+      // supabaseAnonKey: process.env.SUPABASE_ANON_KEY,
       baseUrl: process.env.BASE_URL || 'https://residelia.com',
       consent: {
         cookieName: 'cc_cookie', // 🔹 Especificamos la cookie de consentimiento

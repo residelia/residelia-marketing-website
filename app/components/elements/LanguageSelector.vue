@@ -7,25 +7,27 @@
       size="x-small"
     >
     </v-avatar>
-    <v-menu activator="#language-selector">
-      <v-list>
-        <v-list-item
-          v-for="language in mainStore.locales"
-          :key="language._id"
-          :title="language.language"
-          @click="changeLanguage(language.localeCode)"
-        >
-          <template v-slot:prepend>
-            <v-avatar
-              :image="language.icon"
-              size="x-small"
-              color="grey-lighten-1"
-            >
-            </v-avatar>
-          </template>
-        </v-list-item>
-      </v-list>
-    </v-menu>
+    <ClientOnly>
+      <v-menu activator="#language-selector">
+        <v-list>
+          <v-list-item
+            v-for="language in mainStore.locales"
+            :key="language._id"
+            :title="language.language"
+            @click="changeLanguage(language.localeCode)"
+          >
+            <template v-slot:prepend>
+              <v-avatar
+                :image="language.icon"
+                size="x-small"
+                color="grey-lighten-1"
+              >
+              </v-avatar>
+            </template>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+    </ClientOnly>
   </div>
 </template>
 

@@ -1,10 +1,8 @@
 import { useMainStore } from "../../stores/mainStore";
-import { useBlogStore } from "../../stores/blogStore";
 import { useJobsStore } from "../../stores/jobsStore";
 
 export default defineNuxtPlugin(async (nuxtApp) => {
 	const mainStore = useMainStore()
-	const blogStore = useBlogStore()
 	const jobsStore = useJobsStore()
 	const route = useRoute()
 
@@ -12,7 +10,6 @@ export default defineNuxtPlugin(async (nuxtApp) => {
 	await mainStore.fetchLocales()
 	await mainStore.fetchNavigationContent()
 	await mainStore.fetchFooterContent()
-	await blogStore.fetchPosts()
 	await jobsStore.fetchJobs()
 
 	// await mainStore.fetchSiteContent()
