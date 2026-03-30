@@ -80,13 +80,6 @@
                         </template>
                     </li>
 
-                    <!-- Blog -->
-                    <!-- <li class="nl-simple" aria-haspopup="true">
-                        <template>
-                            <NuxtLink :to="$localePath(mainStore.menu.blog.menuLink.link.slug.find(l => l._key === locale).value.current)" class="h-link" v-follow >{{ mainStore.menu.blog.title.find(l => l._key === locale).value }}</NuxtLink>
-                        </template>
-                    </li> -->
-
                     <!-- RECURSOS -->
                     <li v-if="mainStore.menu.resources.menu" aria-haspopup="true" class="mg_link" :class="{ open: state.isOpen[2] }" @mouseenter="mainStore.toggleMenu('resources')" @mouseleave="mainStore.toggleMenu('resources')">
                         <span class="wsmenu-click" @click="toggle(2)"><i class="wsmenu-arrow"></i></span>
@@ -94,11 +87,41 @@
                         <div class="wsmegamenu w-75 clearfix">
                         <div class="container">
                             <div class="row">
+                            <!-- Columna Aprende -->
                             <ul class="col-md-12 col-lg-6 link-list">
-                                <HeaderComplexMenuItem v-for="item in mainStore.menu.resources.menu?.slice(0,3)" :slug="item.link.slug" :icon="item.libIcon" icon-color="black" :title="item.title" :description="item.description" :binder="item._id" :soon="item?.soon" :next="item.next"/>
+                                <li class="px-3 pt-2 pb-1">
+                                    <span class="s-10 w-700 text-uppercase" style="color:#6C7A86;letter-spacing:0.06em;">{{ $t('learn') }}</span>
+                                </li>
+                                <HeaderComplexMenuItem
+                                    v-for="item in [...(mainStore.menu.resources.menu ?? [])].filter(i => i.category === 'learn').sort((a, b) => (a.order ?? 0) - (b.order ?? 0))"
+                                    :key="item._id"
+                                    :slug="item.link.slug"
+                                    :icon="item.libIcon"
+                                    icon-color="black"
+                                    :title="item.title"
+                                    :description="item.description"
+                                    :binder="item._id"
+                                    :soon="item?.soon"
+                                    :next="item.next"
+                                />
                             </ul>
+                            <!-- Columna Descubre -->
                             <ul class="col-md-12 col-lg-6 link-list">
-                                <HeaderComplexMenuItem v-for="item in mainStore.menu.resources.menu?.slice(3,6)" :slug="item.link.slug" :icon="item.libIcon" icon-color="black" :title="item.title" :description="item.description" :binder="item._id" :soon="item?.soon" :next="item.next"/>
+                                <li class="px-3 pt-2 pb-1">
+                                    <span class="s-10 w-700 text-uppercase" style="color:#6C7A86;letter-spacing:0.06em;">{{ $t('discover') }}</span>
+                                </li>
+                                <HeaderComplexMenuItem
+                                    v-for="item in [...(mainStore.menu.resources.menu ?? [])].filter(i => i.category === 'discover').sort((a, b) => (a.order ?? 0) - (b.order ?? 0))"
+                                    :key="item._id"
+                                    :slug="item.link.slug"
+                                    :icon="item.libIcon"
+                                    icon-color="black"
+                                    :title="item.title"
+                                    :description="item.description"
+                                    :binder="item._id"
+                                    :soon="item?.soon"
+                                    :next="item.next"
+                                />
                             </ul>
                             </div>
                         </div>
@@ -192,7 +215,9 @@ onMounted(() => {
     window.addEventListener("scroll", handleScroll);
 });
 onUnmounted(() => {
+  if (import.meta.client) {
     window.removeEventListener("scroll", handleScroll);
+  }
 });
 
 </script>

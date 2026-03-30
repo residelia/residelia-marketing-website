@@ -76,7 +76,7 @@ export const localesQuery = groq`
 `;
 
 export const footQuery = groq`
-	*[_type == "footer"]{
+	*[_type == "footer" && !(_id in path('drafts.**'))]{
 		"logo": logo.asset->url,
 		title,
 		socials,
@@ -104,7 +104,7 @@ export const footQuery = groq`
 `;
 
 export const navQuery = groq`
-	*[_type == "navigation"]{
+	*[_type == "navigation" && !(_id in path('drafts.**'))]{
         ...,
 		title,
 		"slugs": {
@@ -162,6 +162,7 @@ export const navQuery = groq`
             },
 			menu[]->{
 				order,
+				category,
 				description,
 				isTextIcon,
 				icon,
@@ -181,7 +182,7 @@ export const navQuery = groq`
 `;
 
 export const homeQuery = groq`
-    *[_type == "page" && (_id=="homePage" || title=="Home Page")] {
+    *[_type == "page" && !(_id in path('drafts.**')) && (_id=="homePage" || title=="Home Page")] {
 	  title,
 	  description,
       "hero": hero->{
@@ -212,140 +213,9 @@ export const homeQuery = groq`
 	}
 `;
 
-export const featuredPostsQuery = groq`
-	*[_type == "post" && featured] {
-      _id,
-      featured,
-      excerpt,
-      "slug": slug.current,
-      title,
-      author->{
-        "slug": slug.current,
-        name
-      },
-	  "imageAlt": mainImage.alt,
-      "image": mainImage.asset->{url},
-      category->{
-        "slug": slug.current,
-        name
-      },
-	  "publishedDate": publishedAt
-    }
-`;
-export const postsQuery = groq`
-	*[_type == "post" && language == $language] {
-		_id,
-		featured,
-		excerpt,
-		"slug": slug.current,
-		title,
-		author->{
-			"slug": slug.current,
-			name,
-			"picture": picture.asset->{url},
-			bio
-		},
-		"imageAlt": mainImage.alt,
-		"image": mainImage.asset->{url},
-		category->{
-			slug,
-			name
-		},
-		tag->{
-			slug,
-			name
-		},
-		"publishedDate": publishedAt,
-		body[]{
-			...,
-			markDefs[]{
-				...,
-				_type == "internalLink" => {
-					"slug": @.reference->slug
-				}
-			}
-		}
-    }
-`;
-
-export const pillarsQuery = groq`
-	*[_type == "pillar" && language == $language] {
-		_id,
-		excerpt,
-		"slug": slug.current,
-		title,
-		subTitle,
-		shortTitle,
-		icon,
-		isMDI,
-		"image": mainImage.asset->{url},
-  		clusters[]->{
-			"updatedAt": _updatedAt,
-			...
-		},
-		"updatedAt": _updatedAt,
-		"createdAt": _createdAt,
-    }
-`;
-
-export const singlePillarQuery = groq`
-	*[_type == "pillar" && slug.current == $slug] {
-		_id,
-		excerpt,
-		"slug": slug.current,
-		title,
-		subTitle,
-		shortTitle,
-		icon,
-		isMDI,
-		"image": mainImage.asset->{url},
-  		clusters[]->{
-			"updatedAt": _updatedAt,
-			...
-		},
-		"updatedAt": _updatedAt,
-		"createdAt": _createdAt,
-		"headings": body[length(style) == 2 && string::startsWith(style, "h")],
-		body[]{
-			...,
-			markDefs[]{
-				...,
-				_type == "internalLink" => {
-					"slug": @.reference->slug
-				}
-			}
-		}
-	}
-`;
-
-export const singleClusterQuery = groq`
-	*[_type == "clusterContent" && slug.current == $slug] {
-		_id,
-		excerpt,
-		"slug": slug.current,
-		title,
-		subTitle,
-		shortTitle,
-		icon,
-		isMDI,
-		"image": mainImage.asset->{url},
-		"updatedAt": _updatedAt,
-		"createdAt": _createdAt,
-		"headings": body[length(style) == 2 && string::startsWith(style, "h")],
-		body[]{
-			...,
-			markDefs[]{
-				...,
-				_type == "internalLink" => {
-					"slug": @.reference->slug
-				}
-			}
-		}
-	}
-`;
 
 export const jobsQuery = groq`
-	*[_type == "position" && active == true] {
+	*[_type == "position" && !(_id in path('drafts.**')) && active == true] {
 		_id,
 		name,
 		role,
@@ -360,7 +230,7 @@ export const jobsQuery = groq`
 `;
 
 export const singleJobQuery = groq`
-	*[_type == "position" && slug[_key == $language][0].value.current == $slug] {
+	*[_type == "position" && !(_id in path('drafts.**')) && slug[_key == $language][0].value.current == $slug] {
 		_id,
 		name,
 		role,
@@ -374,70 +244,23 @@ export const singleJobQuery = groq`
 	}
 `;
 
-export const singlePostQuery = groq`
-	*[_type == "post" && slug.current == $slug] {
-		_id,
-		excerpt,
-		"slug": slug.current,
-		title,
-		author->{
-			"slug": slug.current,
-			name,
-			"picture": picture.asset->{url},
-			bio
-		},
-		"imageAlt": mainImage.alt,
-		"image": mainImage.asset->{url},
-		category->{
-			"slug": slug.current,
-			name
-		},
-		"publishedDate": publishedAt,
-		"updatedAt": _updatedAt,
-		metaDescription,
-		"tags": tags[]->{
-			name,
-			"slug": slug.current
-		},
-		body[]{
-			...,
-			markDefs[]{
-				...,
-				_type == "internalLink" => {
-					"slug": @.reference->slug
-				}
-			}
-		}
-    }
-`;
-
-export const keepReadingQuery = groq`
-	*[_type == "keepReading" && postsType == $type] {
-      _id,
-      heading,
-      subHeading,
-      "slug": slug.current,
-      "image": image.asset->{url},
-      postsType
-    }
-`;
 
 export const siteQuery = groq`
 {
 	"slugs": {
 		"pages": {
-          "product": *[_type == "page" && pageType == "product"].slug.current,
-          "solution": *[_type == "page" && pageType == "solution"].slug.current,
-          "about": *[_type == "page" && pageType == "about"].slug.current,
-          "legal": *[_type == "page" && pageType == "legal"].slug.current,
+          "product": *[_type == "page" && !(_id in path('drafts.**')) && pageType == "product"].slug.current,
+          "solution": *[_type == "page" && !(_id in path('drafts.**')) && pageType == "solution"].slug.current,
+          "about": *[_type == "page" && !(_id in path('drafts.**')) && pageType == "about"].slug.current,
+          "legal": *[_type == "page" && !(_id in path('drafts.**')) && pageType == "legal"].slug.current,
         },
-		"posts": *[_type == "post"].slug.current,
+		"posts": *[_type == "post" && !(_id in path('drafts.**'))].slug.current,
 	},
 }
 `;
 
 export const pageQuery = groq`
-    *[_type == "page" && slug[_key == $language][0].value.current == $slug] {
+    *[_type == "page" && !(_id in path('drafts.**')) && slug[_key == $language][0].value.current == $slug] {
 		title,
 		description,
 		slug,
@@ -611,7 +434,7 @@ export const pageQuery = groq`
 `;
 
 export const resourceQuery = groq`
-    *[_type == "resource" && slug[_key == $language][0].value.current == $slug] {
+    *[_type == "resource" && !(_id in path('drafts.**')) && slug[_key == $language][0].value.current == $slug] {
 	  title,
 	  description,
 	  slug,
@@ -640,10 +463,20 @@ export const resourceQuery = groq`
 	}
 `;
 
+export const resourcesListQuery = groq`
+  *[_type == "resource" && !(_id in path('drafts.**')) && type == $resourceType] | order(_createdAt desc) {
+    title,
+    description,
+    slug,
+    "image": hero->heroImage.asset->{url, metadata{lqip, dimensions}},
+    "imageAlt": hero->heroImage.alt
+  }
+`;
+
 export const projectsQuery = groq`
-*[(_type == "pageProjects")] | order(_updatedAt desc) [0]{
+*[(_type == "pageProjects") && !(_id in path('drafts.**'))] | order(_updatedAt desc) [0]{
 	...,
-	"projects": *[_type == "project"] | order(title asc, _updatedAt desc) {
+	"projects": *[_type == "project" && !(_id in path('drafts.**'))] | order(title asc, _updatedAt desc) {
 		title, slug, subtitle, titleImage{..., asset->}
 	},
 	${seoQuery}
@@ -651,7 +484,7 @@ export const projectsQuery = groq`
 `;
 
 export const singleProjectQuery = groq`
-*[_type == 'project' && slug.current == $slug] | order(_updatedAt desc) [0]{
+*[_type == 'project' && !(_id in path('drafts.**')) && slug.current == $slug] | order(_updatedAt desc) [0]{
 	...,
 	content[] {
 		${contentBlockQuery}

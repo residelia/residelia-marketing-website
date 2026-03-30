@@ -1,7 +1,7 @@
 /* ==========================================================================
   01. GENERAL & BASIC STYLES
   =========================================================================== */
-$font-family: "DM Sans", "Rubik", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
 html {
     -webkit-font-smoothing: antialiased;
     font-size: 16px;
@@ -763,8 +763,26 @@ section,
     background-image: linear-gradient(180deg, rgba(236, 234, 253, 0.8) 50%, rgba(236, 234, 253, 0.05) 100%);
 }
 /* specific residelia */
+.gr--surface-50 {
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.05) 100%);
+}
 .gr--surface-100 {
     background-image: linear-gradient(180deg, rgba(247, 249, 253, 0.8) 50%, rgba(247, 249, 253, 0.05) 100%);
+}
+.gr--surface-200 {
+    background-image: linear-gradient(180deg, rgba(238, 242, 247, 0.8) 50%, rgba(238, 242, 247, 0.05) 100%);
+}
+.gr--surface-300 {
+    background-image: linear-gradient(180deg, rgba(215, 221, 231, 0.8) 50%, rgba(215, 221, 231, 0.05) 100%);
+}
+.gr--surface-400 {
+    background-image: linear-gradient(180deg, rgba(180, 185, 196, 0.8) 50%, rgba(180, 185, 196, 0.05) 100%);
+}
+.gr--surface-500 {
+    background-image: linear-gradient(180deg, rgba(146, 151, 162, 0.8) 50%, rgba(146, 151, 162, 0.05) 100%);
+}
+.gr--surface-600 {
+    background-image: linear-gradient(180deg, rgba(108, 122, 134, 0.8) 50%, rgba(108, 122, 134, 0.05) 100%);
 }
 .gr--primary-50 {
     background-image: linear-gradient(180deg, rgba(228, 243, 255, 0.8) 50%, rgba(228, 243, 255, 0.05) 100%);
@@ -4150,7 +4168,7 @@ span.sm-info {
 #hero-solution {
     position: relative;
     // background-image: url(../images/hero-5.jpg);
-    background-image: url(../images/hero-solutions-primary.svg);
+    // background-image: url(../images/hero-solutions-primary.svg);
     padding-top: 170px;
     padding-bottom: 100px;
 
@@ -4545,7 +4563,7 @@ span.sm-info {
 #hero-17 {
     text-align: center;
     padding-top: 170px;
-    background-image: url(../images/hero-17.jpg);
+    // background-image: url(../images/hero-17.jpg);
     background-position: top center;
 }
 #hero-17 #brands-1 {

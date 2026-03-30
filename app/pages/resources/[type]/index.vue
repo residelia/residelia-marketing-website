@@ -1,10 +1,10 @@
 <template>
     <div>
-      <SectionsProjectsSection1 :data="data"/>
-      <SectionsProjectsSection2 />
-      <SectionsProjectsSection3 />
-      <SectionsProjectsSection4 />
-      <SectionsProjectsSection5 />
+      <SectionsProjectsSection1 :data="data" :resources="resources" />
+      <BlogNewsletter />
+      <!-- <SectionsProjectsSection3 /> -->
+      <SectionsProjectsTestimonials :testimonials="data[0].testimonials" />
+      <SectionsProjectsCallToAction :message="data[0].callToAction" />
   </div>
 </template>
 
@@ -23,9 +23,8 @@ defineI18nRoute({
     }
 })
 
-
 import { useMainStore } from '../../../../stores/mainStore';
-import { pageQuery } from '../../../../queries/contentQueries'
+import { pageQuery, resourcesListQuery } from '../../../../queries/contentQueries'
 
 const route = useRoute();
 const { locale } = useI18n()
@@ -38,61 +37,73 @@ const data = await useSanityData({
     language: locale.value
   }
 })
-// console.log(route.path)
-// console.log(data)
-// console.log(data)
-const setI18nParams = useSetI18nParams()
-setI18nParams({
-  en: { type: data.value[0].slug.find(t => t._key === 'en').value.current.split('/').filter(Boolean).pop() },
-  es: { type: data.value[0].slug.find(t => t._key === 'es').value.current.split('/').filter(Boolean).pop() }
+
+// Mapping URL [type] slug → Sanity resource type field value
+// El segmento [type] es el mismo en EN y ES (solo cambia el prefijo resources/recursos)
+const TYPE_MAP = {
+  'reports-whitepapers': 'reports',
+  'infomes-whitepapers':  'reports',   // typo en slug ES de Sanity (informes → infomes)
+  'investment-tips':     'tips',
+  'tips-inversion':     'tips',
+  'templates':           'template',
+  'plantillas':           'template',
+  'market-trends':              'trends',
+  'tendencias-mercado':              'trends',
+  'videos-webinars':     'video',    // EN y ES usan el mismo slug en Sanity
+  'use-cases':           'useCase',
+  'casos-de-uso':           'useCase',
+}
+
+const resources = await useSanityData({
+  query: resourcesListQuery,
+  params: {
+    resourceType: TYPE_MAP[route.params.type] ?? null
+  }
 })
 
-// console.log(
-//   "%cStop!",
-//   "color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold"
-// );
-// console.log(route)
-// console.log(locale)
-// console.log(data)
+
+const setI18nParams = useSetI18nParams()
+setI18nParams({
+  en: { type: data[0].slug.find(t => t._key === 'en').value.current.split('/').filter(Boolean).pop() },
+  es: { type: data[0].slug.find(t => t._key === 'es').value.current.split('/').filter(Boolean).pop() }
+})
 
 // SEO
-const datePublished = new Date(data.value[0].createdAt).toISOString()
+const datePublished = new Date(data[0].createdAt).toISOString()
 useHead({
-  title: `${data.value[0].title.find(l => l._key === locale._value).value}`,
-  description: `${data.value[0].description.find(l => l._key === locale._value).value}`,
+  title: `${data[0].title.find(l => l._key === locale._value).value}`,
+  description: `${data[0].description.find(l => l._key === locale._value).value}`,
   bodyAttrs: {
       class: "navbar-dark scheme-residelia"
   },
 })
 useServerSeoMeta({
-  title: `${data?.value[0].title.find(l => l._key === locale.value).value} | RESIDELIA`,
-  ogTitle: `${data?.value[0].title.find(l => l._key === locale.value).value} | RESIDELIA`,
-  description: `${data?.value[0].description.find(l => l._key === locale.value).value}`,
-  ogDescription: `${data?.value[0].description.find(l => l._key === locale.value).value}`,
-  ogImage: `${data?.value[0]?.hero?.image}`,
+  title: `${data[0].title.find(l => l._key === locale.value).value} | RESIDELIA`,
+  ogTitle: `${data[0].title.find(l => l._key === locale.value).value} | RESIDELIA`,
+  description: `${data[0].description.find(l => l._key === locale.value).value}`,
+  ogDescription: `${data[0].description.find(l => l._key === locale.value).value}`,
+  ogImage: `${data[0]?.hero?.image}`,
   twitterCard: 'summary_large_image',
 })
 
-// Schema.org
-defineWebPage({
-  // will resolve to ISO 8601 format
-  '@type': 'WebPage',
-  url: `${process.env.BASE_URL}/${route.fullPath}`,
-  name: `${data.value[0].title.find(l => l._key === locale.value).value}`,
-  image: `${data.value[0]?.hero?.image}`,
-  datePublished,
-})
+// // Schema.org
+// defineWebPage({
+//   '@type': 'WebPage',
+//   url: `${process.env.BASE_URL}/${route.fullPath}`,
+//   name: `${data[0].title.find(l => l._key === locale.value).value}`,
+//   image: `${data[0]?.hero?.image}`,
+//   datePublished,
+// })
 
 // tracking
 const { trackPage } = useTracking();
 const trackPageView = () => {
   trackPage('Page View', {
-    title: `${data.value[0].title.find(l => l._key === locale._value).value}`,
+    title: `${data[0].title.find(l => l._key === locale._value).value}`,
     path: route.fullPath,
   })
 };
 
-// Detecta cambios en la ruta y envía evento `page`
 onMounted(trackPageView);
 watch(() => route.fullPath, trackPageView);
 

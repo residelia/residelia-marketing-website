@@ -4,11 +4,12 @@
             <!-- HERO TEXT -->
             <div class="row justify-content-center">
                 <div class="col-md-10 col-lg-9 col-xl-10">
-                    <div class="hero-product-txt" :class="{'wow fadeInUp': mounted}">
+                    <!-- <div class="hero-product-txt" :class="{'wow fadeInUp': mounted}"> -->
+                    <div class="hero-product-txt">
                         <!-- Title -->
-                        <h1 class="s-44 w-700" :class="textColor" v-html="balanceString(hero.heading.find(t => t._key === locale).value,5)"></h1>
+                        <h1 class="s-56 w-700" :class="textColor" v-html="balanceString(hero.heading.find(t => t._key === locale).value,5)"></h1>
                         <!-- Text -->
-                        <p class="p-xl pt-4" :class="textColor" v-html="balanceString(hero.subHeading.find(t => t._key === locale).value, 10)"></p>
+                        <p class="p-xl pt-4" :class="textColor" v-html="balanceString(hero.subHeading.find(t => t._key === locale).value, 12)"></p>
                         <!-- HERO QUICK FORM -->
                         <FormsSimple v-if="hero?.soon" :color="textColor" :textColor="textColor" form="waitlist" location="hero"/>
                         <!-- Buttons -->
@@ -33,7 +34,8 @@
                 <div class="col">
                     <div class="hero-product-img video-preview" :class="{'wow fadeInUp': mounted}">
                         <!-- Play Icon -->
-                        <ElementsVideoModal v-if="hero.buttons.find(b => b.button.linkType === 'video')" :link="hero.buttons.find(b => b.button.linkType === 'video').button.videoUrl">
+                        <ElementsVideoModal v-if="false">
+                        <!-- <ElementsVideoModal v-if="hero.buttons.find(b => b.button.linkType === 'video')" :link="hero.buttons.find(b => b.button.linkType === 'video').button.videoUrl"> -->
                             <template v-slot:button>
                                 <div class="video-btn video-btn-xl btn--theme hover--theme ico-90" @click="handleClick('Hero Video Launched','hero-video-button')">
                                     <div class="video-block-wrapper"><span class="flaticon-play-button"></span></div>
@@ -41,7 +43,7 @@
                             </template>
                         </ElementsVideoModal>
                         <!-- Preview Image -->
-                        <img class="img-fluid"  :src="hero.image.url+'?fm=webp'" :alt="hero.imageAlt" />
+                        <img v-if="hero.image?.url" class="img-fluid"  :src="hero.image.url+'?fm=webp'" :alt="hero.imageAlt" />
                     </div>
                 </div>
             </div>

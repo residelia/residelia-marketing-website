@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { siteQuery, homeQuery, navQuery, footQuery, postsQuery, localesQuery } from "../queries/contentQueries"
+import { siteQuery, homeQuery, navQuery, footQuery, localesQuery } from "../queries/contentQueries"
 
 export const useMainStore = defineStore('main', {
 	state: () => ({
@@ -82,9 +82,7 @@ export const useMainStore = defineStore('main', {
 			this.menu.products = { open: false, ...this.siteNav.menuesGroup[0] }
 			this.menu.solutions = { open: false, ...this.siteNav.menuesGroup[1] }
 			this.menu.pricing = { open: false, ...this.siteNav.menuesGroup[2] }
-			this.menu.blog = { open: false, ...this.siteNav.menuesGroup[3] }
-			// TODO: Update when resources menu is available
-			// this.menu.resources = { open: false, ...this.siteNav.menuesGroup[3] }
+			this.menu.resources = { open: false, ...this.siteNav.menuesGroup[3] }
 			this.menu.demoAction = { open: false, ...this.siteNav.demoAction }
 			this.menu.accessAction = { open: false, ...this.siteNav.accessAction }
 			this.menu.callToAction = { open: false, ...this.siteNav.callToAction }

@@ -1,10 +1,10 @@
 <template>
   <div>
-    <SectionsHomeHero :hero="data[0].hero" :textColor="textColor"/>
-    <SectionsHomeCustomers :customers="data[0].customers" />
+    <SectionsHomeHero :hero="data[0].hero" :textColor="textColor" :customers="data[0].customers"/>
+    <!-- <SectionsHomeCustomers :customers="data[0].customers" /> -->
     <!-- <SectionsHomeRatings /> -->
-    <SectionsHomePain :painAndSolution="data[0].painAndSolution"/>
     <SectionsHomeHighlights :features="data[0].features"/>
+    <SectionsHomePain :painAndSolution="data[0].painAndSolution"/>
     <!-- <SectionsHomeAllInOne /> -->
     <SectionsHomeProblem :problem="data[0].problem"/>
     <SectionsHomeWorkflow :workflow="data[0].workflow" />

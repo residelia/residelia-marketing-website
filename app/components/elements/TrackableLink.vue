@@ -27,6 +27,7 @@ const { trackMarketingEvent } = useMarketingTracking();
 
 
 const isExternal = computed(() => {
+  if (!import.meta.client) return /^(https?:)?\/\//.test(props.url);
   return /^(https?:)?\/\//.test(props.url) && !props.url.includes(window.location.hostname);
 });
 

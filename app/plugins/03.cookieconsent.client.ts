@@ -3,28 +3,21 @@ import * as CookieConsent from 'vanilla-cookieconsent';
 import type { CookieConsentConfig } from 'vanilla-cookieconsent';
 import { useMainStore } from '../../stores/mainStore';
 import { cookieBannerQuery, cookieSettingsModalQuery } from '../../queries/helperQueries';
-import { createClient } from '@sanity/client';
-
 export default defineNuxtPlugin(async (nuxtApp) => {
   if (process.server) return;
 
   const mainStore = useMainStore()
-  const runtimeConfig = useRuntimeConfig();
-
-  // Configuración del cliente de Sanity
-  const sanityClient = createClient({
-    projectId: "asqz10j2",
-    dataset: 'production',
-    token: 'skHqzduJvPr2TrtA3ugj1NEBAWvZkqY1jJgQWdZewbnyaJKuy5KGFECZLFNcVat0JD4xeWOpXDnzPzC0GDGgCb0JiKWJ2cIt0FplMbZJxLYicS3FNRwGwXEWlmWs4z1WRBrG6UinrlVgx9ehOJH8pVfkhIc3o90zcQQgpJ1c4DUzM61mmxWh',
-    useCdn: true,
-  })
 
   const euCountries = ['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'DE', 'FR', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI',  'ES', 'SE'];
-  const userCountry = navigator.language;
-  const dynamicMode = euCountries.includes(userCountry.toUpperCase()) ? 'opt-in' : 'opt-out';
+  // navigator.language devuelve 'es-ES', 'de-DE', etc. — extraer solo el código de país
+  const langTag = navigator.language;
+  const countryCode = (langTag.split('-')[1] ?? langTag).toUpperCase();
+  const dynamicMode = euCountries.includes(countryCode) ? 'opt-in' : 'opt-out';
 
-  const cookieBannerData = await sanityClient.fetch(cookieBannerQuery);
-  const cookieSettingsData = await sanityClient.fetch(cookieSettingsModalQuery);
+  const [cookieBannerData, cookieSettingsData] = await Promise.all([
+    useSanityData({ query: cookieBannerQuery }),
+    useSanityData({ query: cookieSettingsModalQuery }),
+  ]);
 
   if (!cookieBannerData || !cookieSettingsData) {
     console.error('❌ No se pudo obtener la configuración de cookies desde Sanity');
@@ -37,19 +30,22 @@ export default defineNuxtPlugin(async (nuxtApp) => {
 
   // console.log(cookieSettingsData[0].categories[2].cookiesTable.find(t => t._key === 'es').value.rows.slice(1).map(r => (r.cells.map((c, index) => ({ [tableKeys[index]]: c })).reduce((acc, current) => ({ ...acc, ...current }), {}))))
   mainStore.locales.forEach(locale => {
+    const bannerTitle = cookieBannerData[0].title?.find(t => t._key === locale.localeCode)?.value
+    if (!bannerTitle) return
+
     translations[locale.localeCode] = {
       consentModal: {
-        title: cookieBannerData[0].title.find(t => t._key === locale.localeCode).value,
-        description: cookieBannerData[0].description.find(t => t._key === locale.localeCode).value,
-        acceptAllBtn: cookieBannerData[0].acceptButton.find(t => t._key === locale.localeCode).value,
-        acceptNecessaryBtn: cookieBannerData[0].rejectButton.find(t => t._key === locale.localeCode).value,
-        showPreferencesBtn: cookieBannerData[0].settingsButton.find(t => t._key === locale.localeCode).value,
+        title: bannerTitle,
+        description: cookieBannerData[0].description?.find(t => t._key === locale.localeCode)?.value ?? '',
+        acceptAllBtn: cookieBannerData[0].acceptButton?.find(t => t._key === locale.localeCode)?.value ?? '',
+        acceptNecessaryBtn: cookieBannerData[0].rejectButton?.find(t => t._key === locale.localeCode)?.value ?? '',
+        showPreferencesBtn: cookieBannerData[0].settingsButton?.find(t => t._key === locale.localeCode)?.value ?? '',
       },
       preferencesModal: {
-        title: cookieSettingsData[0].title.find(t => t._key === locale.localeCode).value,
-        acceptAllBtn: cookieSettingsData[0].acceptButton.find(t => t._key === locale.localeCode).value,
-        acceptNecessaryBtn: cookieSettingsData[0].rejectButton.find(t => t._key === locale.localeCode).value,
-        savePreferencesBtn: cookieSettingsData[0].saveButton.find(t => t._key === locale.localeCode).value,
+        title: cookieSettingsData[0].title?.find(t => t._key === locale.localeCode)?.value ?? '',
+        acceptAllBtn: cookieSettingsData[0].acceptButton?.find(t => t._key === locale.localeCode)?.value ?? '',
+        acceptNecessaryBtn: cookieSettingsData[0].rejectButton?.find(t => t._key === locale.localeCode)?.value ?? '',
+        savePreferencesBtn: cookieSettingsData[0].saveButton?.find(t => t._key === locale.localeCode)?.value ?? '',
         sections: cookieSettingsData[0].categories.map(s => ({
           title: s.title.find(t => t._key === locale.localeCode)?.value,
           description: s?.description?.find(t => t._key === locale.localeCode)?.value,
@@ -131,11 +127,11 @@ export default defineNuxtPlugin(async (nuxtApp) => {
       if (acceptedCategories) {
         // console.log('✅ Nuevo consentimiento aceptado:', CookieConsent.getUserPreferences().acceptedCategories)
         if (acceptedCategories.includes('analytics')) nuxtApp.$loadSegment?.();
-        // if (acceptedCategories.includes('marketing')) nuxtApp.$loadMarketing?.();
+        if (acceptedCategories.includes('marketing')) nuxtApp.$loadMarketingPixels?.();
       } else {
         // console.log('✅ Contamos con los consentimientos:', CookieConsent.getUserPreferences().acceptedCategories);
         if(CookieConsent.getUserPreferences().acceptedCategories.includes('analytics')) nuxtApp.$loadSegment?.();
-        // if(CookieConsent.getUserPreferences().acceptedCategories.includes('marketing')) nuxtApp.$loadMarketing?.();
+        if(CookieConsent.getUserPreferences().acceptedCategories.includes('marketing')) nuxtApp.$loadMarketingPixels?.();
       }
     },
 
@@ -149,8 +145,8 @@ export default defineNuxtPlugin(async (nuxtApp) => {
       }
 
       if (changedCategories.includes('marketing')) {
-        // if (CookieConsent.getUserPreferences().acceptedCategories.includes('marketing')) nuxtApp.$loadMarketing?.();
-        // else nuxtApp.$disableMarketing?.();
+        if (CookieConsent.getUserPreferences().acceptedCategories.includes('marketing')) nuxtApp.$loadMarketingPixels?.();
+        else nuxtApp.$disableMarketingPixels?.();
       }
       reloadNuxtApp({force: true, persistState: true});
     },

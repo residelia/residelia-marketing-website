@@ -5,34 +5,29 @@ composable for loading and previewing data from sanity
 import { createClient } from "@sanity/client";
 import { useMainStore } from "../../stores/mainStore";
 
-// Puedes mover estos valores a variables de entorno para mayor seguridad
-const projectId = "asqz10j2";
-const dataset = "production";
-const apiVersion = "2023-08-01";
-const token = 'skHqzduJvPr2TrtA3ugj1NEBAWvZkqY1jJgQWdZewbnyaJKuy5KGFECZLFNcVat0JD4xeWOpXDnzPzC0GDGgCb0JiKWJ2cIt0FplMbZJxLYicS3FNRwGwXEWlmWs4z1WRBrG6UinrlVgx9ehOJH8pVfkhIc3o90zcQQgpJ1c4DUzM61mmxWh';
-const previewToken = undefined; // O usa process.env.SANITY_PREVIEW_TOKEN si lo tienes
-
-export default async function ({ query, params = {}, livePreview = false }) {
+export default async function ({ query, params = {}, livePreview = false }: { query: string; params?: Record<string, unknown>; livePreview?: boolean }) {
   const mainStore = useMainStore();
+  const config = useRuntimeConfig();
 
-  // Configuración básica del cliente
   const client = createClient({
-    projectId,
-    dataset,
-    apiVersion,
-    useCdn: !mainStore.previewIsActive, // CDN solo para producción
-    token
+    projectId: config.public.sanityProjectId,
+    dataset: config.public.sanityDataset,
+    apiVersion: config.public.apiVersion,
+    useCdn: !mainStore.previewIsActive,
+    token: config.public.sanityToken,
   });
 
-  // Si necesitas soporte para live preview, puedes agregar lógica aquí
-  // pero @sanity/client no soporta listen en edge/SSG, solo en cliente
+  // Stable cache key so useAsyncData can deduplicate and serialize into page payload
+  const key = `sanity:${query}:${JSON.stringify(params)}`;
 
-  // Ejecutar la consulta
-  try {
-    const data = await client.fetch(query, params);
-    return data;
-  } catch (err) {
-    // Siempre lanza un Error estándar
-    throw new Error(err?.message || JSON.stringify(err) || 'Sanity fetch error');
+  const { data, error } = await useAsyncData(key, () =>
+    client.fetch(query, params)
+  );
+
+  if (error.value) {
+    throw new Error((error.value as Error)?.message || 'Sanity fetch error');
   }
+
+  // Return raw data (not a ref) to preserve backward compatibility with callers using data[0]
+  return data.value;
 }

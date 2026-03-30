@@ -26,32 +26,27 @@ const mainStore = useMainStore()
 const data = await useSanityData({
     query: pageQuery,
     params: {
-        slug: route.fullPath,
+        slug: route.fullPath.startsWith(`/${locale.value}`) ? route.fullPath.slice(`/${locale.value}`.length) || '/' : route.fullPath,
         language: locale.value
     }
 })
 
-// console.log(
-//     "%cStop!",
-//     "color:red;font-family:system-ui;font-size:4rem;-webkit-text-stroke: 1px black;font-weight:bold"
-// );
-// console.log(route)
-// console.log(locale)
-// console.log(data)
+const pageTitle = data[0]?.title?.find(l => l._key === locale.value)?.value ?? 'Equipo - RESIDELIA'
+const pageDesc = data[0]?.description?.find(l => l._key === locale.value)?.value ?? ''
 
 useHead({
-    title: `${data.value[0].title.find(l => l._key === locale._value).value}`,
-    description: `${data.value[0].description.find(l => l._key === locale._value).value}`,
+    title: pageTitle,
+    description: pageDesc,
     bodyAttrs: {
         class: "navbar-dark"
     },
 })
 useServerSeoMeta({
-  title: `${data.value[0].title.find(l => l._key === locale.value).value}`,
-  ogTitle: `${data.value[0].title.find(l => l._key === locale.value).value}`,
-  description: `${data.value[0].description.find(l => l._key === locale.value).value}`,
-  ogDescription: `${data.value[0].description.find(l => l._key === locale.value).value}`,
-  ogImage: `${data.value[0]?.hero?.image}`,
+  title: pageTitle,
+  ogTitle: pageTitle,
+  description: pageDesc,
+  ogDescription: pageDesc,
+  ogImage: `${data[0]?.hero?.image ?? ''}`,
   twitterCard: 'summary_large_image',
 })
 
@@ -59,7 +54,7 @@ useServerSeoMeta({
 const { trackPage } = useTracking();
 const trackPageView = () => {
   trackPage('Page View', {
-    title: `${data.value[0].title.find(l => l._key === locale._value).value}`,
+    title: pageTitle,
     path: route.fullPath,
   })
 };

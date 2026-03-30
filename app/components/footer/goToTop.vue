@@ -14,7 +14,9 @@ export default {
         window.addEventListener("scroll", this.handleScroll);
     },
     beforeDestroy() {
-        window.removeEventListener("scroll", this.handleScroll);
+        if (process.client) {
+            window.removeEventListener("scroll", this.handleScroll);
+        }
     },
     methods: {
         handleScroll() {
