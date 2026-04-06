@@ -15,10 +15,10 @@
             <nav class="wsmenu clearfix">
                 <ul class="wsmenu-list nav-theme">
                     <!-- PRODUCTOS -->
-                    <li class="mg_link" aria-haspopup="true" :class="{ open: state.isOpen[0] }">
+                    <li class="mg_link" aria-haspopup="true" :class="{ open: state.isOpen[0] }" @mouseenter="state.isOpen[0] = true" @mouseleave="state.isOpen[0] = false">
                         <span class="wsmenu-click" @click="toggle(0)"><i class="wsmenu-arrow"></i></span>
                         <NuxtLink to="#" class="h-link" v-follow >{{ mainStore.menu.products.title.find(l => l._key === locale).value }} <span class="wsarrow"></span></NuxtLink>
-                        <div class="wsmegamenu w-75 clearfix">
+                        <div v-show="state.isOpen[0]" class="wsmegamenu w-75 clearfix">
                             <div class="container">
                                 <div class="row">
                                 <!-- MEGAMENU LINKS -->
@@ -42,10 +42,10 @@
                     <!-- END PRODUCTOS -->
 
                     <!-- SOLUCIONES -->
-                    <li aria-haspopup="true" class="mg_link" :class="{ open: state.isOpen[1] }">
+                    <li aria-haspopup="true" class="mg_link" :class="{ open: state.isOpen[1] }" @mouseenter="state.isOpen[1] = true" @mouseleave="state.isOpen[1] = false">
                         <span class="wsmenu-click" @click="toggle(1)"><i class="wsmenu-arrow"></i></span>
                         <NuxtLink to="#" class="h-link" v-follow >{{ mainStore.menu.solutions.title.find(l => l._key === locale).value }} <span class="wsarrow"></span></NuxtLink>
-                        <div class="wsmegamenu w-75 clearfix">
+                        <div v-show="state.isOpen[1]" class="wsmegamenu w-75 clearfix">
                         <div class="container">
                             <div class="row">
                             <!-- MEGAMENU LINKS -->
@@ -81,10 +81,10 @@
                     </li>
 
                     <!-- RECURSOS -->
-                    <li v-if="mainStore.menu.resources.menu" aria-haspopup="true" class="mg_link" :class="{ open: state.isOpen[2] }" @mouseenter="mainStore.toggleMenu('resources')" @mouseleave="mainStore.toggleMenu('resources')">
+                    <li v-if="mainStore.menu.resources.menu" aria-haspopup="true" class="mg_link" :class="{ open: state.isOpen[2] }" @mouseenter="state.isOpen[2] = true" @mouseleave="state.isOpen[2] = false">
                         <span class="wsmenu-click" @click="toggle(2)"><i class="wsmenu-arrow"></i></span>
                         <NuxtLink to="#" class="h-link" v-follow >{{ mainStore.menu.resources.title.find(l => l._key === locale).value }} <span class="wsarrow"></span></NuxtLink>
-                        <div class="wsmegamenu w-75 clearfix">
+                        <div v-show="state.isOpen[2]" class="wsmegamenu w-75 clearfix">
                         <div class="container">
                             <div class="row">
                             <!-- Columna Aprende -->
@@ -220,6 +220,12 @@ onUnmounted(() => {
   if (import.meta.client) {
     window.removeEventListener("scroll", handleScroll);
   }
+});
+
+watch(() => route.path, () => {
+    state.isOpen = [false, false, false];
+    document.body.classList.remove('wsactive');
+    mainStore.menu.mobile.open = false;
 });
 
 </script>
