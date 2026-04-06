@@ -104,7 +104,7 @@ export const footQuery = groq`
 `;
 
 export const navQuery = groq`
-	*[_type == "navigation" && !(_id in path('drafts.**'))]{
+	*[_type == "navigation" && site == "website" && !(_id in path('drafts.**'))]{
         ...,
 		title,
 		"slugs": {
