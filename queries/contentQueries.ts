@@ -435,32 +435,85 @@ export const pageQuery = groq`
 
 export const resourceQuery = groq`
     *[_type == "resource" && !(_id in path('drafts.**')) && slug[_key == $language][0].value.current == $slug] {
-	  title,
-	  description,
-	  slug,
-      "hero": hero->{
+      title,
+      description,
+      slug,
+      type,
+      hasForm,
+      "heroOverline": heroOverline,
+      "heroImage": heroImage.asset->{ url, metadata{ lqip, dimensions } },
+      "heroImageAlt": heroImage.alt,
+      "whatWillYouFind": whatWillYouFind{
+        heading,
+        showCta,
+        ctaText,
+        "bullets": bullets[]{
+          "text": text
+        },
+        "previewImages": previewImages[]{
+          "url": asset->url,
+          "alt": alt
+        }
+      },
+      "whyItMatters": whyItMatters{
+        overline,
+        heading,
+        showCta,
+        ctaText,
+        "body": body[_key == $language][0].value.content[]{
+          ...,
+          markDefs[]{
+            ...,
+            _type == "internalLink" => {
+              "slug": @.reference->slug
+            }
+          }
+        },
+        "image": image.asset->{ url },
+        "imageAlt": image.alt
+      },
+      "keyPoints": keyPoints{
+        overline,
         heading,
         subHeading,
-        slug,
-        "buttons": callToActions[]->{
-          button
-        },
-		heroImage,
-		"imageAlt": heroImage.alt,
-        "image": heroImage.asset->
+        showCta,
+        ctaText,
+        "points": points[]{
+          icon,
+          isMDI,
+          heading,
+          subHeading
+        }
       },
-      customers[]->{
+      "customers": customers->{
         title,
-        "alt": logo.alt,
-        "logoBlack": logo.asset->{
-          url
-        },
-        "logoWhite": logoWhite.asset->{
-          url
-        },
+        "customers": customers[]->{
+          title,
+          "alt": logo.alt,
+          "logoBlack": logo.asset->{ url },
+          "logoWhite": logoWhite.asset->{ url }
+        }
       },
-	  mainText
-	}
+      "testimonials": testimonials->{
+        heading,
+        subHeading,
+		"testimonials": testimonialsGroup[]->{
+			"pic": image.asset->,
+			...
+		}
+      },
+      "callToAction": callToAction->{
+        upperHeading,
+        heading,
+        button{
+          linkType,
+          linkText,
+          queryString,
+          "slug": coalesce(internalLink->slug, externalUrl)
+        }
+      },
+      mainText
+    }
 `;
 
 export const resourcesListQuery = groq`
@@ -468,8 +521,8 @@ export const resourcesListQuery = groq`
     title,
     description,
     slug,
-    "image": hero->heroImage.asset->{url, metadata{lqip, dimensions}},
-    "imageAlt": hero->heroImage.alt
+    "image": heroImage.asset->{url, metadata{lqip, dimensions}},
+    "imageAlt": heroImage.alt
   }
 `;
 

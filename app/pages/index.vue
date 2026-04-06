@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SectionsHomeHero :hero="data[0].hero" :textColor="textColor" :customers="data[0].customers"/>
+    <SectionsHomeHero3 :hero="data[0].hero" :textColor="textColor" :customers="data[0].customers"/>
     <!-- <SectionsHomeCustomers :customers="data[0].customers" /> -->
     <!-- <SectionsHomeRatings /> -->
     <SectionsHomeHighlights :features="data[0].features"/>
@@ -40,12 +40,10 @@ const data = await useSanityData({
 // console.log(locale)
 // console.log(data)
 
+definePageMeta({ bodyClass: 'navbar-dark scheme-residelia theme--light' })
 useHead({
   title: `${data[0].title.find(l => l._key === locale._value).value}`,
   description: `${data[0].description.find(l => l._key === locale._value).value}`,
-  bodyAttrs: {
-    class: "navbar-dark scheme-residelia theme--light",
-  },
 });
 useServerSeoMeta({
   title: `RESIDELIA - ${data[0].title.find(l => l._key === locale.value).value}`,

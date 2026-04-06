@@ -95,6 +95,7 @@
                                 <HeaderComplexMenuItem
                                     v-for="item in [...(mainStore.menu.resources.menu ?? [])].filter(i => i.category === 'learn').sort((a, b) => (a.order ?? 0) - (b.order ?? 0))"
                                     :key="item._id"
+                                    name="resources-type"
                                     :slug="item.link.slug"
                                     :icon="item.libIcon"
                                     icon-color="black"
@@ -113,6 +114,7 @@
                                 <HeaderComplexMenuItem
                                     v-for="item in [...(mainStore.menu.resources.menu ?? [])].filter(i => i.category === 'discover').sort((a, b) => (a.order ?? 0) - (b.order ?? 0))"
                                     :key="item._id"
+                                    name="resources-type"
                                     :slug="item.link.slug"
                                     :icon="item.libIcon"
                                     icon-color="black"

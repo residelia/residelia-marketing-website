@@ -49,12 +49,10 @@ const data = await useSanityData({
 
 // SEO
 const datePublished = new Date(data[0].createdAt).toISOString()
+definePageMeta({ bodyClass: 'navbar-dark scheme-residelia' })
 useHead({
   title: `${data[0].title.find(l => l._key === locale._value).value}`,
   description: `${data[0].description.find(l => l._key === locale._value).value}`,
-  bodyAttrs: {
-    class: "navbar-dark scheme-residelia",
-  },
 });
 useServerSeoMeta({
   title: `${data[0].title.find(l => l._key === locale.value).value}`,

@@ -43,6 +43,7 @@ const data = await useSanityData({
 // setting header and hero colors
 const headerColor = data[0].headerColor === 'dark' ? 'navbar-light' : 'navbar-dark'
 const textColor = data[0].headerColor === 'dark' ? 'color--white' : 'color--dark'
+useBodyClass().value = `${headerColor} scheme-residelia`
 
 defineI18nRoute({
     paths: {
@@ -63,9 +64,6 @@ const datePublished = new Date(data[0].createdAt).toISOString()
 useHead({
     title: `${data[0].title.find(l => l._key === locale.value).value}`,
     description: `${data[0].description.find(l => l._key === locale.value).value}`,
-    bodyAttrs: {
-        class: `${headerColor} scheme-residelia`
-    },
 })
 useServerSeoMeta({
   title: `${data[0].title.find(l => l._key === locale.value).value}`,

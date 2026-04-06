@@ -30,6 +30,7 @@ export default defineI18nConfig(() => ({
             allPosts: 'Todos los posts',
             backToBlog: 'Regresar al blog',
             backToUniversity: 'Regresar a university',
+            backToResources: 'Regresar a recursos',
             waitlist: '¡Únete a la lista de espera!',
             youremail: 'Introduce tu email',
             pageNotFound: 'No hemos encontrado lo que buscas',
@@ -46,6 +47,7 @@ export default defineI18nConfig(() => ({
             onePayment: 'Pago único anual',
             comingSoon: '¡Muy pronto!',
             comingSoonDescription: 'Estamos trabajando para traerte esta sección lo antes posible.',
+            whatWillYouFind: '¿Qué encontrarás aquí?',
             onboardingWizard: {
                 buttons: {
                     next: "Siguiente",
@@ -168,6 +170,7 @@ export default defineI18nConfig(() => ({
             allPosts: 'All our posts',
             backToBlog: 'Back to blog',
             backToUniversity: 'Back to university',
+            backToResources: 'Back to resources',
             waitlist: 'Join the waitlist!',
             youremail: 'Your email address',
             pageNotFound: 'Page Not Found',
@@ -184,6 +187,7 @@ export default defineI18nConfig(() => ({
             onePayment: 'One annual payment',
             comingSoon: 'Coming soon!',
             comingSoonDescription: 'We are working to bring you this section as soon as possible.',
+            whatWillYouFind: 'What will you find here?',
             onboardingWizard: {
                 buttons: {
                     next: "Next",

@@ -45,12 +45,10 @@ const data = await useSanityData({
 // console.log(locale)
 // console.log(data)
 
+definePageMeta({ bodyClass: 'navbar-dark scheme-residelia' })
 useHead({
     title: `${data[0].title.find(l => l._key === locale._value).value}`,
     description: `${data[0].description.find(l => l._key === locale._value).value}`,
-    bodyAttrs: {
-        class: "navbar-dark scheme-residelia"
-    },
 })
 
 useServerSeoMeta({

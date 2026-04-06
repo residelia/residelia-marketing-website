@@ -25,6 +25,7 @@ const { locale } = useI18n()
 const mainStore = useMainStore()
 const headerColor = !["legal", "broker","explorer","valuation","management","maintenance","estate-leads","radar"].includes(route.params.product) ? 'navbar-dark' : 'navbar-light'
 const textColor = ["legal", "broker","explorer","valuation","management","maintenance","estate-leads","radar"].includes(route.params.product) ? 'color--white' : 'color--dark'
+useBodyClass().value = `${headerColor} scheme-residelia`
 
 
 const data = await useSanityData({
@@ -49,15 +50,10 @@ setI18nParams({
 // console.log(locale.value)
 // console.log(data)
 
-definePageMeta({
-  layout: 'default'
-})
+definePageMeta({ layout: 'default' })
 useHead({
   title: `${data[0].title.find(l => l._key === locale.value).value}`,
   description: `${data[0].description.find(l => l._key === locale.value).value}`,
-  bodyAttrs: {
-      class: `${headerColor} scheme-residelia`
-  },
 })
 useServerSeoMeta({
   title: `${data[0].title.find(l => l._key === locale.value).value}`,
