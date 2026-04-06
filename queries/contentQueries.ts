@@ -76,7 +76,7 @@ export const localesQuery = groq`
 `;
 
 export const footQuery = groq`
-	*[_type == "footer" && !(_id in path('drafts.**'))]{
+	*[_type == "footer" && site == "website" && !(_id in path('drafts.**'))]{
 		"logo": logo.asset->url,
 		title,
 		socials,
