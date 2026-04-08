@@ -23,10 +23,10 @@
                                 <div class="row">
                                 <!-- MEGAMENU LINKS -->
                                 <ul class="col-md-12 col-lg-6 link-list">
-                                    <HeaderComplexMenuItem v-for="item in mainStore.menu.products?.menu?.slice(0,(mainStore.menu.products.menu.length/2))" name="product" :slug="item.link?.slug" :icon="item.libIcon" icon-color="black" :title="item.title" :description="item.description" :binder="item._id" :soon="item?.soon" :next="item.next"/>
+                                    <HeaderComplexMenuItem v-for="item in mainStore.menu.products?.menu?.slice(0, Math.ceil(mainStore.menu.products.menu.length/2))" name="product" :slug="item.link?.slug" :icon="item.libIcon" icon-color="black" :title="item.title" :description="item.description" :binder="item._id" :soon="item?.soon" :next="item.next"/>
                                 </ul>
                                 <ul class="col-md-12 col-lg-6 link-list">
-                                    <HeaderComplexMenuItem v-for="item in mainStore.menu.products?.menu?.slice((mainStore.menu.products.menu.length/2),mainStore.menu.products.menu.length)" name="product" :slug="item.link?.slug" :icon="item.libIcon" icon-color="black" :title="item.title" :description="item.description" :binder="item._id" :soon="item?.soon" :next="item.next"/>
+                                    <HeaderComplexMenuItem v-for="item in mainStore.menu.products?.menu?.slice(Math.ceil(mainStore.menu.products.menu.length/2))" name="product" :slug="item.link?.slug" :icon="item.libIcon" icon-color="black" :title="item.title" :description="item.description" :binder="item._id" :soon="item?.soon" :next="item.next"/>
                                 </ul>
                                 </div>
                                 <hr v-if="!$vuetify.display.xs" class="divider" />

@@ -17,12 +17,12 @@
       <div class="container">
         <div class="row d-flex align-items-center">
           <!-- IMAGE BLOCK -->
-          <div class="col-md-6">
+          <div v-if="step.pic?.url" class="col-md-6">
             <div class="img-block left-column">
               <img
                 class="img-fluid"
                 :src="step.pic.url+'?fm=webp'"
-                :alt="step.image.alt"
+                :alt="step.image?.alt"
               />
             </div>
           </div>
@@ -30,12 +30,12 @@
           <div class="col-md-6">
             <div class="txt-block right-column">
               <!-- Section ID -->
-              <span class="section-id">{{step?.upperHeading.find(t => t._key === locale).value}} <v-chip v-if="step?.soon" class="ma-2 text-capitalize" color="primary" size="x-small" label>{{ $t('soon') }}</v-chip><v-chip v-if="step.next" class="ma-2 text-capitalize" color="primary" size="x-small" label>{{ $t('next') }}</v-chip></span>
+              <span v-if="step.upperHeading?.length" class="section-id">{{step.upperHeading?.find(t => t._key === locale)?.value}} <v-chip v-if="step?.soon" class="ma-2 text-capitalize" color="primary" size="x-small" label>{{ $t('soon') }}</v-chip><v-chip v-if="step.next" class="ma-2 text-capitalize" color="primary" size="x-small" label>{{ $t('next') }}</v-chip></span>
               <!-- Title -->
-              <h2 class="s-32 w-700">{{step.heading.find(t => t._key === locale).value}}</h2>
+              <h2 class="s-32 w-700">{{step.heading?.find(t => t._key === locale)?.value}}</h2>
               <!-- Text -->
-              <p>{{step?.subHeading?.find(t => t._key === locale).value}}</p>
-              <PortableText :value="step.content.find(t => t._key === locale).value.content" :components="serializers"/>
+              <p>{{step?.subHeading?.find(t => t._key === locale)?.value}}</p>
+              <PortableText v-if="step.content?.find(t => t._key === locale)?.value?.content" :value="step.content.find(t => t._key === locale).value.content" :components="serializers"/>
             </div>
           </div>
           <!-- END TEXT BLOCK -->
@@ -53,22 +53,22 @@
           <div class="col-md-6 order-last order-md-2">
             <div class="txt-block left-column">
               <!-- Section ID -->
-              <span class="section-id">{{step?.upperHeading.find(t => t._key === locale).value}} <v-chip v-if="step?.soon" class="ma-2 text-capitalize" color="primary" size="x-small" label>{{ $t('soon') }}</v-chip><v-chip v-if="step.next" class="ma-2 text-capitalize" color="primary" size="x-small" label>{{ $t('next') }}</v-chip></span>
+              <span v-if="step.upperHeading?.length" class="section-id">{{step.upperHeading?.find(t => t._key === locale)?.value}} <v-chip v-if="step?.soon" class="ma-2 text-capitalize" color="primary" size="x-small" label>{{ $t('soon') }}</v-chip><v-chip v-if="step.next" class="ma-2 text-capitalize" color="primary" size="x-small" label>{{ $t('next') }}</v-chip></span>
               <!-- Title -->
-              <h2 class="s-32 w-700">{{step.heading.find(t => t._key === locale).value}}</h2>
+              <h2 class="s-32 w-700">{{step.heading?.find(t => t._key === locale)?.value}}</h2>
               <!-- List -->
-              <p>{{step?.subHeading?.find(t => t._key === locale).value}}</p>
-              <PortableText :value="step.content.find(t => t._key === locale).value.content" :components="serializers"/>
+              <p>{{step?.subHeading?.find(t => t._key === locale)?.value}}</p>
+              <PortableText v-if="step.content?.find(t => t._key === locale)?.value?.content" :value="step.content.find(t => t._key === locale).value.content" :components="serializers"/>
             </div>
           </div>
           <!-- END TEXT BLOCK -->
           <!-- IMAGE BLOCK -->
-          <div class="col-md-6 order-first order-md-2">
+          <div v-if="step.pic?.url" class="col-md-6 order-first order-md-2">
             <div class="img-block right-column">
               <img
                 class="img-fluid"
                 :src="step.pic.url+'?fm=webp'"
-                :alt="step.image.alt"
+                :alt="step.image?.alt"
               />
             </div>
           </div>

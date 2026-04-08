@@ -15,7 +15,7 @@
             <div class="fbox-ico ico-30">
               <div class="shape-ico color--darkgrey">
                 <!-- Vector Icon -->
-                <v-icon v-if="icon.startsWith('ri-')" size="32" :icon="icon" class="w-100"></v-icon>
+                <v-icon v-if="icon.startsWith('ri-') || icon.startsWith('mdi-')" size="32" :icon="icon" class="w-100"></v-icon>
                 <span v-else :class="`flaticon-${icon}`"></span>
 
                 <!-- <NuxtSvgIcon class="svg" :name="icon" font-size="5" fill="black" /> -->

@@ -790,6 +790,12 @@ section,
 .gr--primary-50-reverse {
     background-image: linear-gradient(0deg, rgba(228, 243, 255, 0.8) 50%, rgba(228, 243, 255, 0.05) 100%);
 }
+.gr--primary-400 {
+    background-image: linear-gradient(180deg, rgba(0, 57, 134, 0.8) 50%, rgba(0, 57, 134, 0.05) 100%);
+}
+.gr--primary-400-reverse {
+    background-image: linear-gradient(0deg, rgba(0, 57, 134, 0.8) 50%, rgba(0, 57, 134, 0.05) 100%);
+}
 .gr--secondary-50{
     background-image: linear-gradient(180deg, rgba(255, 229, 214, 0.8) 50%, rgba(255, 229, 214, 0.05) 100%);
 }
@@ -4149,6 +4155,9 @@ span.sm-info {
         background-image: url(../images/hero-product.svg);
     }
     &.market-intelligence {
+        background-image: url(../images/hero-product.svg);
+    }
+    &.radar {
         background-image: url(../images/hero-product.svg);
     }
 }

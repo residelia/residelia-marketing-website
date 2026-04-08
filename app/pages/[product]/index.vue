@@ -2,7 +2,7 @@
     <div>
       <SectionsProductHeroRadar v-if="route.params.product === 'radar'" :product="route.params.product" :hero="data[0].hero" :textColor="textColor" :stats="data[0].stats"/>
       <SectionsProductHero v-else :product="route.params.product" :hero="data[0].hero" :textColor="textColor"/>
-      <SectionsProductStats v-if="data[0].stats" :stats="data[0].stats" />
+      <SectionsProductStats v-if="data[0].stats && route.params.product !== 'radar'" :stats="data[0].stats" />
       <SectionsProductProblem :problem="data[0].problem"/>
       <SectionsProductBenefits :benefits="data[0].benefits"/>
       <SectionsProductUseCases v-if="data[0].useCases" :useCases="data[0].useCases"/>
