@@ -42,12 +42,11 @@ const data = await useSanityData({
 // El segmento [type] es el mismo en EN y ES (solo cambia el prefijo resources/recursos)
 const TYPE_MAP = {
   'reports-whitepapers': 'reports',
-  'infomes-whitepapers':  'reports',   // typo en slug ES de Sanity (informes → infomes)
   'informes-whitepapers': 'reports',   // slug correcto
   'investment-tips':     'tips',
   'tips-inversion':     'tips',
-  'templates':           'template',
-  'plantillas':           'template',
+  'tools':           'template',
+  'herramientas':           'template',
   'market-trends':              'trends',
   'tendencias-mercado':              'trends',
   'videos-webinars':     'video',    // EN y ES usan el mismo slug en Sanity

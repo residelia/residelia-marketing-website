@@ -1,26 +1,53 @@
 <template>
     <div>
         <SectionsProjectDetailsSection1 :data="data" />
+
+        <!-- Widget embed (recurso funcional: calculadora, etc.) -->
+        <SectionsProjectDetailsWidgetEmbed
+            v-if="data[0].isFunctional && data[0].snippetCode"
+            :snippet-code="data[0].snippetCode"
+        />
+
+        <!-- Cómo usarlo (pasos HowTo) -->
+        <SectionsProjectDetailsHowToSteps
+            v-if="data[0].howToSteps?.length"
+            :how-to-steps="data[0].howToSteps"
+            :hero-image="data[0].heroImage"
+            :hero-image-alt="data[0].heroImageAlt"
+        />
+
+        <!-- Why it matters (visible en todos los tipos de recurso) -->
         <SectionsProjectDetailsWhyItMatters
-            v-if="data[0].whyItMatters"
+            v-if="data[0].whyItMatters?.heading?.length"
             :why-it-matters="data[0].whyItMatters"
         />
-        <SectionsProjectDetailsKeyTakeaways
-            v-if="data[0].whatWillYouFind"
-            :what-will-you-find="data[0].whatWillYouFind"
-        />
+
+        <!-- Key points / beneficios (visible en todos los tipos de recurso) -->
         <SectionsProjectDetailsKeyPoints
-            v-if="data[0].keyPoints"
+            v-if="data[0].keyPoints?.points?.length"
             :key-points="data[0].keyPoints"
         />
-        <SectionsProjectDetailsMainText
-            :data="data[0].mainText.find((l: any) => l._key === locale)?.value.content"
-            :components="serializers"
+
+        <!-- Secciones de contenido (sólo si no es recurso funcional) -->
+        <template v-if="!data[0].isFunctional">
+            <SectionsProjectDetailsKeyTakeaways
+                v-if="data[0].whatWillYouFind"
+                :what-will-you-find="data[0].whatWillYouFind"
+            />
+            <SectionsProjectDetailsMainText
+                v-if="data[0].mainText?.find((l: any) => l._key === locale)?.value.content"
+                :data="data[0].mainText.find((l: any) => l._key === locale)?.value.content"
+                :components="serializers"
+            />
+        </template>
+
+        <!-- FAQ (SEO/GEO: FAQPage schema) -->
+        <SectionsProjectDetailsFaq
+            v-if="data[0].faq?.length"
+            :faq="data[0].faq"
         />
-        <!-- <PortableText :value="data[0].mainText.find((l: any) => l._key === locale)?.value.content" :components="serializers"/> -->
 
-
-        <SectionsProjectsTestimonials v-if="data[0].testimonials" :testimonials="data[0].testimonials" />
+        <SectionsProjectsTestimonials v-if="data[0].testimonials?.testimonials?.length" :testimonials="data[0].testimonials" />
         <SectionsProjectsCallToAction v-if="data[0].callToAction" :message="data[0].callToAction" />
         <SectionsProjectDetailsSection2 v-if="!data[0].callToAction" />
     </div>
@@ -94,26 +121,110 @@ const serializers = {
     }
 }
 
+const resourceTitle = data[0].title.find(l => l._key === locale.value).value
+const resourceDescription = data[0].description.find(l => l._key === locale.value).value
+
 useServerSeoMeta({
-  title: `${data[0].title.find(l => l._key === locale.value).value} | RESIDELIA`,
-  ogTitle: `${data[0].title.find(l => l._key === locale.value).value} | RESIDELIA`,
-  description: `${data[0].description.find(l => l._key === locale.value).value}`,
-  ogDescription: `${data[0].description.find(l => l._key === locale.value).value}`,
+  title: `${resourceTitle} | RESIDELIA`,
+  ogTitle: `${resourceTitle} | RESIDELIA`,
+  description: resourceDescription,
+  ogDescription: resourceDescription,
   ogImage: `${data[0]?.heroImage?.url}`,
   twitterCard: 'summary_large_image',
 })
+
 defineWebPage({
-  '@type': 'ItemPage',
-  url: `${process.env.BASE_URL}/${route.fullPath}`,
-  name: `${data[0].title.find(l => l._key === locale.value).value}`,
+  '@type': data[0].isFunctional ? 'WebPage' : 'ItemPage',
+  url: `${process.env.BASE_URL}${route.fullPath}`,
+  name: resourceTitle,
   image: `${data[0]?.heroImage?.url}`,
-  datePublished: new Date(2024, 10, 1)
+  datePublished: data[0].publishedAt,
+  dateModified: data[0].updatedAt,
+})
+
+// WebApplication schema for functional resources (calculators, widgets)
+if (data[0].isFunctional) {
+  useHead({
+    script: [{
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebApplication',
+        name: resourceTitle,
+        description: resourceDescription,
+        url: `${process.env.BASE_URL}${route.fullPath}`,
+        applicationCategory: data[0].applicationCategory ?? 'WebApplication',
+        inLanguage: locale.value,
+        image: data[0]?.heroImage?.url,
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+        provider: { '@type': 'Organization', name: 'RESIDELIA' },
+      })
+    }]
+  })
+}
+
+// FAQPage schema
+if (data[0].faq?.length) {
+  useHead({
+    script: [{
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: data[0].faq.map(item => ({
+          '@type': 'Question',
+          name: item.question?.find(l => l._key === locale.value)?.value,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.answer?.find(l => l._key === locale.value)?.value,
+          }
+        }))
+      })
+    }]
+  })
+}
+
+// HowTo schema
+if (data[0].howToSteps?.length) {
+  useHead({
+    script: [{
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'HowTo',
+        name: resourceTitle,
+        step: data[0].howToSteps.map((s, i) => ({
+          '@type': 'HowToStep',
+          position: i + 1,
+          name: s.name?.find(l => l._key === locale.value)?.value,
+          text: s.text?.find(l => l._key === locale.value)?.value,
+          ...(s.imageUrl ? { image: s.imageUrl } : {}),
+        }))
+      })
+    }]
+  })
+}
+
+// BreadcrumbList schema
+useHead({
+  script: [{
+    type: 'application/ld+json',
+    innerHTML: JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: `${process.env.BASE_URL}/` },
+        { '@type': 'ListItem', position: 2, name: data[0].type, item: `${process.env.BASE_URL}/${locale.value === 'es' ? 'recursos' : 'resources'}/${route.params.type}` },
+        { '@type': 'ListItem', position: 3, name: resourceTitle },
+      ]
+    })
+  }]
 })
 
 const { trackPage } = useTracking();
 const trackPageView = () => {
   trackPage('Page View', {
-    title: `${data[0].title.find(l => l._key === locale.value).value}`,
+    title: resourceTitle,
     path: route.fullPath,
   })
 };

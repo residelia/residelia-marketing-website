@@ -1,6 +1,7 @@
 <template>
+    <template v-if="keyPoints">
     <hr class="divider" />
-    <section v-if="keyPoints" id="features-12" class="shape--bg shape--white-500 bg--fixed pt-100 features-section division mb-100">
+    <section id="features-12" class="shape--bg shape--white-500 bg--fixed pt-100 features-section division mb-100">
         <div class="container">
             <div class="row d-flex align-items-center">
                 <!-- TEXT BLOCK -->
@@ -54,26 +55,27 @@
             </div>
         </div>
     </section>
+    </template>
 </template>
 
 <script setup lang="ts">
 const { locale } = useI18n()
 
-defineProps<{
-    keyPoints: {
+withDefaults(defineProps<{
+    keyPoints?: {
         overline?: Array<{ _key: string; value: string }>
-        heading: Array<{ _key: string; value: string }>
+        heading?: Array<{ _key: string; value: string }>
         subHeading?: Array<{ _key: string; value: string }>
         showCta?: boolean
         ctaText?: Array<{ _key: string; value: string }>
-        points: Array<{
+        points?: Array<{
             icon?: string
             isMDI?: boolean
             heading: Array<{ _key: string; value: string }>
             subHeading?: Array<{ _key: string; value: string }>
         }>
     } | null
-}>()
+}>(), { keyPoints: null })
 
 const t = (arr?: Array<{ _key: string; value: string }>) =>
     arr?.find(l => l._key === locale.value)?.value ?? ''

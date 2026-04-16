@@ -1,5 +1,3 @@
-import { on } from "events";
-
 export default defineI18nConfig(() => ({
     legacy: true,
     // locale: mainStore.defaultLocale?.localeCode,
@@ -48,6 +46,12 @@ export default defineI18nConfig(() => ({
             comingSoon: '¡Muy pronto!',
             comingSoonDescription: 'Estamos trabajando para traerte esta sección lo antes posible.',
             whatWillYouFind: '¿Qué encontrarás aquí?',
+            faqHeading: 'Preguntas frecuentes',
+            howToHeading: 'Cómo usarlo',
+            ctaDefaultHeading: '¡Pruébalo gratis!',
+            ctaDefaultSubheading: 'Solo unos clics para empezar',
+            ctaDefaultButton: 'Empieza gratis',
+            ctaDefaultNote: 'Gratis 14 días, sin tarjeta de crédito.',
             onboardingWizard: {
                 buttons: {
                     next: "Siguiente",
@@ -188,6 +192,12 @@ export default defineI18nConfig(() => ({
             comingSoon: 'Coming soon!',
             comingSoonDescription: 'We are working to bring you this section as soon as possible.',
             whatWillYouFind: 'What will you find here?',
+            faqHeading: 'Frequently asked questions',
+            howToHeading: 'How to use it',
+            ctaDefaultHeading: 'Give it a try, it\'s free!',
+            ctaDefaultSubheading: 'It only takes a few clicks to get started',
+            ctaDefaultButton: 'Get started - it\'s free',
+            ctaDefaultNote: 'Free for 14 days, no credit card required.',
             onboardingWizard: {
                 buttons: {
                     next: "Next",

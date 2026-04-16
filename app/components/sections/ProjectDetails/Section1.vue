@@ -6,12 +6,12 @@
                     <div class="project-description">
 
                         <!-- BACK LINK -->
-                        <NuxtLink 
+                        <NuxtLink
                             :to="$localePath({ name: 'resources-type', params: { type: route.params.type } })"
                             class="s-12 project-title px-0" v-follow
                         >
-                            <span class="mb-20"><v-icon>mdi-chevron-left</v-icon>{{ $t('backToResources') }}</span>
-                        </NuxtLink>  
+                            <span class="mb-20"><v-icon>mdi-chevron-left</v-icon>{{ typeLabel }}</span>
+                        </NuxtLink>
 
                         <!-- HERO TEXT -->
                         <div class="project-title mb-20">
@@ -28,8 +28,8 @@
 
                         <!-- COVER IMAGE + FORM -->
                         <div class="row align-items-start mb-50">
-                            <!-- Cover image -->
-                            <div :class="resource.hasForm ? 'col-lg-7' : 'col-lg-12'">
+                            <!-- Cover image (oculta en recursos funcionales) -->
+                            <div v-if="!resource.isFunctional" :class="resource.hasForm ? 'col-lg-7' : 'col-lg-12'">
                                 <div v-if="resource.heroImage?.url" class="project-priview-img">
                                     <img
                                         class="img-fluid r-16"
@@ -48,7 +48,7 @@
                                             <div class="s-14 w-500 mb-1">{{ label('email') }}</div>
                                             <v-text-field
                                                 v-model="suspectData.email"
-                                                :error-messages="v$.email.$errors.map(e => e.$message)"
+                                                :error-messages="v$.email.$errors.map(e => String(e.$message))"
                                                 :placeholder="placeholder('email')"
                                                 variant="outlined" density="compact" class="mb-0"
                                                 @input="v$.email.$touch" @blur="v$.email.$touch"
@@ -59,7 +59,7 @@
                                             <div class="s-14 w-500 mb-1">{{ label('firstName') }}</div>
                                             <v-text-field
                                                 v-model="suspectData.firstName"
-                                                :error-messages="v$.firstName.$errors.map(e => e.$message)"
+                                                :error-messages="v$.firstName.$errors.map(e => String(e.$message))"
                                                 :placeholder="placeholder('firstName')"
                                                 variant="outlined" density="compact" class="mb-0"
                                                 @input="v$.firstName.$touch" @blur="v$.firstName.$touch"
@@ -70,7 +70,7 @@
                                             <div class="s-14 w-500 mb-1">{{ label('lastName') }}</div>
                                             <v-text-field
                                                 v-model="suspectData.lastName"
-                                                :error-messages="v$.lastName.$errors.map(e => e.$message)"
+                                                :error-messages="v$.lastName.$errors.map(e => String(e.$message))"
                                                 :placeholder="placeholder('lastName')"
                                                 variant="outlined" density="compact" class="mb-0"
                                                 @input="v$.lastName.$touch" @blur="v$.lastName.$touch"
@@ -81,7 +81,7 @@
                                             <div class="s-14 w-500 mb-1">{{ label('company') }}</div>
                                             <v-text-field
                                                 v-model="suspectData.company"
-                                                :error-messages="v$.company.$errors.map(e => e.$message)"
+                                                :error-messages="v$.company.$errors.map(e => String(e.$message))"
                                                 :placeholder="placeholder('company')"
                                                 variant="outlined" density="compact" class="mb-0"
                                                 @input="v$.company.$touch" @blur="v$.company.$touch"
@@ -92,7 +92,7 @@
                                             <div class="s-14 w-500 mb-1">{{ label('phone') }}</div>
                                             <v-text-field
                                                 v-model="suspectData.phone"
-                                                :error-messages="v$.phone.$errors.map(e => e.$message)"
+                                                :error-messages="v$.phone.$errors.map(e => String(e.$message))"
                                                 :placeholder="placeholder('phone')"
                                                 variant="outlined" density="compact" class="mb-0"
                                                 @input="v$.phone.$touch" @blur="v$.phone.$touch"
@@ -148,21 +148,16 @@ import useVuelidate from "@vuelidate/core"
 import { required, email, minLength, helpers } from "@vuelidate/validators"
 import useGoogleRecaptcha, { RecaptchaAction } from "~/composables/useGoogleRecaptcha"
 import { formBlockQuery } from '../../../../queries/helperQueries'
-import Code from '../../elements/Code.vue'
-import Callout from '../../elements/Callout.vue'
-import SeoImage from '../../elements/SeoImage.vue'
-import VideoImage from '../../elements/VideoImage.vue'
-import Link from '../../elements/Link.vue'
-import InternalLink from '../../elements/InternalLink.vue'
-import List from '../../elements/List.vue'
-import NumberedList from '../../elements/NumberedList.vue'
-import ListItem from '../../elements/ListItem.vue'
-import { PortableText } from '@portabletext/vue'
 
 const props = defineProps<{ data: Array<any> }>()
 
 const { locale } = useI18n()
 const route = useRoute()
+
+const typeLabel = computed(() => {
+    const slug = String(route.params.type ?? '')
+    return slug.charAt(0).toUpperCase() + slug.slice(1).replace(/-/g, ' ')
+})
 const runtimeConfig = useRuntimeConfig()
 const { trackEvent, identifyUser } = useTracking()
 const { executeRecaptcha } = useGoogleRecaptcha()

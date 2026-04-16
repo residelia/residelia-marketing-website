@@ -440,6 +440,8 @@ export const resourceQuery = groq`
       slug,
       type,
       hasForm,
+      isFunctional,
+      snippetCode,
       "heroOverline": heroOverline,
       "heroImage": heroImage.asset->{ url, metadata{ lqip, dimensions } },
       "heroImageAlt": heroImage.alt,
@@ -512,7 +514,19 @@ export const resourceQuery = groq`
           "slug": coalesce(internalLink->slug, externalUrl)
         }
       },
-      mainText
+      mainText,
+      applicationCategory,
+      "publishedAt": _createdAt,
+      "updatedAt": _updatedAt,
+      "faq": faq[]{
+        "question": question,
+        "answer": answer
+      },
+      "howToSteps": howToSteps[]{
+        "name": name,
+        "text": text,
+        imageUrl
+      }
     }
 `;
 
