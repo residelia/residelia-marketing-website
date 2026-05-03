@@ -271,6 +271,7 @@ export const pageQuery = groq`
 		"hero": hero->{
 			overline,
 			heading,
+			headingHighlight,
 			subHeading,
 			slug,
 			quote->,
@@ -318,6 +319,18 @@ export const pageQuery = groq`
           },
         },
 		problem->{
+			upperHeading,
+			heading,
+			headingHighlight,
+			subHeading,
+			fragmentedTitle,
+			fragmentedDesc,
+			structuredTitle,
+			structuredDesc,
+			dataCategories[]{
+				label,
+				missingInFragmented
+			},
 			"pic": image.asset->,
 			"buttons": callToActions[]->{
 				...,
@@ -327,6 +340,36 @@ export const pageQuery = groq`
 				},
 			},
 			...
+		},
+		audiences->{
+			upperHeading,
+			heading,
+			headingHighlight,
+			subHeading,
+			"profiles": profilesGroup[]->{
+				title,
+				headline,
+				body,
+				useCases[]{
+					text
+				},
+				cta{
+					linkText,
+					linkType,
+					"slug": coalesce(internalLink->slug, externalUrl),
+					queryString
+				}
+			}
+		},
+		competitivePositioning->{
+			subtitle,
+			heading,
+			headingHighlight,
+			badge,
+			quadrants[]{
+				label,
+				sub
+			}
 		},
 		stats->{
 			"statGroup": statsGroup[]->,
@@ -346,7 +389,17 @@ export const pageQuery = groq`
 			...
 		},
 		workflow->{
+			upperHeading,
+			heading,
+			headingHighlight,
+			subHeading,
 			"wfSteps": workflowSteps[]->{
+				step,
+				icon,
+				isMDI,
+				upperHeading,
+				heading,
+				subHeading,
 				"pic": image.asset->,
 				"cta": action2[]{
 					...,

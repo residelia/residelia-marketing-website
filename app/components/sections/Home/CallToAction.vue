@@ -1,5 +1,6 @@
 <template>
-    <section v-if="message" id="banner-7" class="banner-section bg--primary-300">
+    {{ message.button }}
+    <section v-if="false" id="banner-7" class="banner-section bg--primary-300">
         <div class="banner-overlay py-100">
             <div class="container">
                 <!-- BANNER-7 WRAPPER -->
