@@ -368,7 +368,7 @@ const ay = computed(() => dotPos.value.y)
 .hlc-grid {
   display: grid;
   grid-template-columns: repeat(5, 152px);
-  gap: 20px;
+  gap: 26px;
   position: relative;
   z-index: 2;
 }
@@ -378,7 +378,7 @@ const ay = computed(() => dotPos.value.y)
   border: 1px solid #EEF2F7;
   border-radius: 14px;
   padding: 16px 15px;
-  height: 104px;
+  height: 114px;
   box-shadow: 0 2px 6px rgba(32,37,42,0.05);
   transition: box-shadow 260ms ease-out, border-color 260ms ease-out, transform 260ms ease-out;
   text-align: left;
