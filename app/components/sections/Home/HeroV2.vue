@@ -1,13 +1,13 @@
 <template>
   <section id="hero-v2" class="hero-v2">
     <!-- Decorative background blob -->
-    <svg class="hero-v2__blob" viewBox="0 0 600 600" aria-hidden="true">
+    <!-- <svg class="hero-v2__blob" viewBox="0 0 600 600" aria-hidden="true">
       <path
         d="M69.8,-23C76.3,-2.7,57.6,25.4,32.9,42.8C8.1,60.3,-22.7,67,-39.1,54.8C-55.5,42.7,-57.5,11.7,-48.6,-11.9C-39.7,-35.5,-19.8,-51.7,5.9,-53.6C31.7,-55.6,63.3,-43.2,69.8,-23Z"
         transform="translate(300 300) scale(3)"
         fill="#E4F3FF"
       />
-    </svg>
+    </svg> -->
 
     <div class="container hero-v2__inner">
       <!-- Main heading -->
