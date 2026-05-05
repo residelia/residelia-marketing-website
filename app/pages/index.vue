@@ -1,20 +1,15 @@
 <template>
   <div>
-    <SectionsHomeHeroV2
+    <SectionsHomeHeroSearch
       :hero="data[0].hero"
-      :wf-steps="data[0].workflow?.wfSteps"
-    />
-    <SectionsHomeHighlights :features="data[0].features"/>
-    <SectionsHomeProblemSectionV2 :problem="data[0].problem"/>
-    <SectionsHomeCompetitivePosition :cp="data[0].competitivePositioning"/>
-    <SectionsHomeAudienceSection :audiences="data[0].audiences"/>
-    <!-- <SectionsHomeTractionSection
       :stats="data[0].stats"
-      :customers="data[0].customers"
-    /> -->
+    />
+    <SectionsHomePropertyListings />
+    <SectionsHomeProductModules :wf-steps="data[0].workflow?.wfSteps" />
+    <SectionsHomePlatformShowcase />
     <SectionsHomeStats :stats="data[0].stats" />
+    <SectionsHomeAudienceSection :audiences="data[0].audiences"/>
     <SectionsHomeCustomers :customers="data[0].customers" />
-    <SectionsHomeLifecycleSectionV2 :workflow="data[0].workflow"/>
     <SectionsHomeTestimonials :testimonials="data[0].testimonials" />
     <SectionsHomeFinalCTADark :message="data[0].callToAction" />
   </div>
@@ -44,14 +39,14 @@ useServerSeoMeta({
   ogTitle: `${data[0].title.find(l => l._key === locale.value).value}`,
   description: `${data[0].description.find(l => l._key === locale.value).value}`,
   ogDescription: `${data[0].description.find(l => l._key === locale.value).value}`,
-  ogImage: `${data[0]?.hero?.image}`,
+  ogImage: `${data[0]?.hero?.image?.url}`,
   twitterCard: 'summary_large_image',
 })
 defineWebPage({
   '@type': 'WebPage',
   url: `${process.env.BASE_URL}/${route.fullPath}`,
   name: `${data[0].title.find(l => l._key === locale._value).value}`,
-  image: `${data[0]?.hero?.image}`,
+  image: `${data[0]?.hero?.image?.url}`,
   datePublished: new Date()
 })
 
