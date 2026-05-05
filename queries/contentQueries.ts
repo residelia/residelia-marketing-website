@@ -272,6 +272,7 @@ export const pageQuery = groq`
 			overline,
 			heading,
 			headingHighlight,
+			headingWords,
 			subHeading,
 			slug,
 			quote->,

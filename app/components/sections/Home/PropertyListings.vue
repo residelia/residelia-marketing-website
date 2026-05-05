@@ -10,7 +10,7 @@
           target="_blank"
           rel="noopener"
           class="pl__see-all"
-        >Ver toda la oferta RESIDELIA <i class="bi bi-arrow-right"></i></a>
+        >Ver toda la oferta RESIDELIA <i class="ri-arrow-right"></i></a>
       </div>
 
       <!-- Rows -->
@@ -36,18 +36,18 @@
                 </span>
               </div>
               <button class="pl__fav" @click.stop>
-                <i class="bi bi-star"></i>
+                <i class="ri-favorite-off"></i>
               </button>
             </div>
             <div class="pl__card-info">
               <div class="pl__price-row">
                 <span class="pl__price">{{ card.price }}</span>
-                <button class="pl__kebab" @click.stop><i class="bi bi-three-dots-vertical"></i></button>
+                <button class="pl__kebab" @click.stop><i class="ri-kebab-menu-vertical"></i></button>
               </div>
               <p class="pl__address">{{ card.address }}</p>
               <div class="pl__specs">
-                <span class="pl__spec">{{ card.rooms }} <i class="bi bi-door-open"></i></span>
-                <span class="pl__spec">{{ card.baths }} <i class="bi bi-droplet"></i></span>
+                <span class="pl__spec">{{ card.rooms }} <i class="ri-bedroom"></i></span>
+                <span class="pl__spec">{{ card.baths }} <i class="ri-bath"></i></span>
                 <span class="pl__spec">{{ card.sqm }}m<sup>2</sup></span>
                 <span class="pl__spec">{{ card.ppm }}€/m<sup>2</sup></span>
               </div>
@@ -75,18 +75,18 @@
                 </span>
               </div>
               <button class="pl__fav" @click.stop>
-                <i class="bi bi-star"></i>
+                <i class="ri-favorite-off"></i>
               </button>
             </div>
             <div class="pl__card-info">
               <div class="pl__price-row">
                 <span class="pl__price">{{ card.price }}</span>
-                <button class="pl__kebab" @click.stop><i class="bi bi-three-dots-vertical"></i></button>
+                <button class="pl__kebab" @click.stop><i class="ri-kebab-menu-vertical"></i></button>
               </div>
               <p class="pl__address">{{ card.address }}</p>
               <div class="pl__specs">
-                <span class="pl__spec">{{ card.rooms }} <i class="bi bi-door-open"></i></span>
-                <span class="pl__spec">{{ card.baths }} <i class="bi bi-droplet"></i></span>
+                <span class="pl__spec">{{ card.rooms }} <i class="ri-bedroom"></i></span>
+                <span class="pl__spec">{{ card.baths }} <i class="ri-bath"></i></span>
                 <span class="pl__spec">{{ card.sqm }}m<sup>2</sup></span>
                 <span class="pl__spec">{{ card.ppm }}€/m<sup>2</sup></span>
               </div>
@@ -98,7 +98,7 @@
             <div class="pl__broker-logo">broker<span class="pl__broker-sub">·RESIDELIA</span></div>
             <p class="pl__broker-q">¿Quieres publicar tus propios activos?</p>
             <p class="pl__broker-desc">Accede a la sección Comercial de RESIDELIA y crea anuncios de tus activos para publicarlos en Explorer</p>
-            <span class="pl__broker-cta">Más información <i class="bi bi-arrow-right"></i></span>
+            <span class="pl__broker-cta">Más información <i class="ri-arrow-right"></i></span>
           </a>
         </div>
 
@@ -221,15 +221,13 @@ function open(url: string) {
 }
 
 .pl__row {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
-  align-items: stretch;
 }
 
 /* ── Property card ────────────────────────────────────────────── */
 .pl__card {
-  flex: 1 0 0;
-  min-width: 0;
   height: 215px;
   border: 1px solid #D7DDE7;
   border-radius: 8px;
@@ -399,8 +397,6 @@ function open(url: string) {
 
 /* ── Broker card ──────────────────────────────────────────────── */
 .pl__broker {
-  flex: 1 0 0;
-  min-width: 0;
   height: 215px;
   background: #1778FB;
   border-radius: 8px;
@@ -453,8 +449,6 @@ function open(url: string) {
   line-height: 13px;
   color: #fff;
   margin: 8px 0 0;
-  width: 263px;
-  max-width: 100%;
 }
 
 .pl__broker-cta {
@@ -473,12 +467,11 @@ function open(url: string) {
 
 /* ── Responsive ───────────────────────────────────────────────── */
 @media (max-width: 1023px) {
-  .pl__row { flex-wrap: wrap; }
-  .pl__card, .pl__broker { flex: 1 1 calc(50% - 8px); }
+  .pl__row { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 575px) {
-  .pl__card, .pl__broker { flex: 1 1 100%; }
+  .pl__row { grid-template-columns: 1fr; }
   .pl__header { flex-direction: column; align-items: flex-start; gap: 8px; }
 }
 </style>

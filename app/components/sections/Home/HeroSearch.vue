@@ -3,11 +3,15 @@
     <div class="container">
       <div class="hs__inner">
 
-        <!-- LEFT COLUMN -->
+        <!-- LEFT BLOCK: search content -->
         <div class="hs__left">
           <span class="hs__overline">LA SOLUCIÓN TODO EN UNO</span>
 
-          <h1 class="hs__h1" v-html="headingHtml" />
+          <!-- Cycling heading -->
+          <h1 v-if="isCycling" class="hs__h1">
+            {{ headingParts[0] }}<Transition name="hw" mode="out-in"><span :key="currentWord" class="color--theme">{{ currentWord }}</span></Transition>{{ headingParts[1] }}
+          </h1>
+          <h1 v-else class="hs__h1" v-html="headingHtml" />
 
           <p class="hs__sub">{{ subHeading }}</p>
 
@@ -54,17 +58,17 @@
 
             <div class="hs__bar-sep" />
 
-            <div class="hs__bar-select-wrap">
+            <label class="hs__bar-select-wrap">
               <svg class="hs__bar-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path d="M8 1L2 6v8h4v-4h4v4h4V6L8 1z" stroke="#9CA3AF" stroke-width="1.5" stroke-linejoin="round"/>
               </svg>
               <select v-model="propType" class="hs__bar-select">
                 <option v-for="pt in PROP_TYPES" :key="pt.value" :value="pt.value">{{ pt.label }}</option>
               </select>
-              <svg class="hs__bar-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <svg class="hs__bar-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
                 <path d="M3 4.5L6 7.5L9 4.5" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round"/>
               </svg>
-            </div>
+            </label>
 
             <button type="submit" class="hs__bar-btn">
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
@@ -76,7 +80,7 @@
           </form>
         </div>
 
-        <!-- RIGHT COLUMN: image -->
+        <!-- RIGHT BLOCK: hero image -->
         <div class="hs__right">
           <img
             v-if="heroImage"
@@ -104,6 +108,7 @@ const loc = (arr: any[]) =>
   ?? arr?.find((t: any) => t._key === locale.value.slice(0, 2))?.value
   ?? ''
 
+// ── Static heading fallback (highlight via headingHighlight) ────
 const headingHtml = computed(() => {
   const full = loc(props.hero?.heading)
   const accent = loc(props.hero?.headingHighlight)
@@ -111,6 +116,39 @@ const headingHtml = computed(() => {
   return full.replace(accent, `<span class="color--theme">${accent}</span>`)
 })
 
+// ── Cycling heading ─────────────────────────────────────────────
+const cycleWords = computed<string[]>(() => {
+  const raw = loc(props.hero?.headingWords)
+  if (!raw) return []
+  return raw.split(',').map((w: string) => w.trim()).filter(Boolean)
+})
+
+const heading = computed(() => loc(props.hero?.heading))
+
+// Split heading on {{cycling}} placeholder → [before, after]
+const headingParts = computed<[string, string]>(() => {
+  const parts = heading.value.split('{{cycling}}')
+  return [parts[0] ?? '', parts[1] ?? '']
+})
+
+const isCycling = computed(
+  () => cycleWords.value.length > 0 && heading.value.includes('{{cycling}}')
+)
+
+const currentWordIndex = ref(0)
+const currentWord = computed(() => cycleWords.value[currentWordIndex.value] ?? '')
+
+let timer: ReturnType<typeof setInterval>
+onMounted(() => {
+  if (isCycling.value && cycleWords.value.length > 1) {
+    timer = setInterval(() => {
+      currentWordIndex.value = (currentWordIndex.value + 1) % cycleWords.value.length
+    }, 2500)
+  }
+})
+onUnmounted(() => clearInterval(timer))
+
+// ────────────────────────────────────────────────────────────────
 const subHeading = computed(() => loc(props.hero?.subHeading))
 const heroImage = computed(() => props.hero?.image?.url)
 
@@ -149,23 +187,24 @@ function doSearch() {
 <style scoped>
 /* ─── Section ──────────────────────────────────────────────────── */
 .hs {
-  background: #F5F7FA;
-  padding: 48px 0 0;
+  background: #fff;
+  padding: 90px 0 24px;
 }
 
 .hs__inner {
   display: grid;
-  grid-template-columns: 1fr 440px;
-  gap: 48px;
-  align-items: flex-end;
+  grid-template-columns: 1fr 400px;
+  gap: 16px;
+  align-items: stretch;
 }
 
-/* ─── Left column ──────────────────────────────────────────────── */
+/* ─── Left block ───────────────────────────────────────────────── */
 .hs__left {
-  padding-bottom: 48px;
+  background: #F5F7FA;
+  border-radius: 16px;
+  padding: 48px 40px 40px;
   display: flex;
   flex-direction: column;
-  gap: 0;
 }
 
 .hs__overline {
@@ -181,7 +220,7 @@ function doSearch() {
 
 .hs__h1 {
   font-family: 'DM Sans', sans-serif;
-  font-size: clamp(36px, 4.5vw, 52px);
+  font-size: clamp(32px, 4vw, 48px);
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.1;
@@ -196,7 +235,6 @@ function doSearch() {
   line-height: 1.55;
   color: #9297A2;
   margin: 0 0 28px;
-  max-width: 520px;
 }
 
 /* ─── Stats ────────────────────────────────────────────────────── */
@@ -264,7 +302,7 @@ function doSearch() {
 }
 
 .hs__tab:not(.hs__tab--active):hover {
-  background: rgba(0,0,0,0.04);
+  background: rgba(0,0,0,0.06);
 }
 
 /* ─── Search bar ───────────────────────────────────────────────── */
@@ -274,13 +312,11 @@ function doSearch() {
   background: #fff;
   border: 1px solid #E5E7EB;
   border-radius: 8px;
-  overflow: hidden;
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  max-width: 580px;
 }
 
 .hs__bar-input {
-  flex: 1;
+  flex: 1 1 0;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -299,6 +335,7 @@ function doSearch() {
   background: transparent;
   padding: 14px 0;
   min-width: 0;
+  width: 100%;
 }
 .hs__bar-text::placeholder { color: #9297A2; }
 
@@ -312,13 +349,15 @@ function doSearch() {
 .hs__bar-select-wrap {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 0 14px;
-  position: relative;
+  gap: 6px;
+  padding: 0 12px;
   flex-shrink: 0;
+  cursor: pointer;
 }
 
 .hs__bar-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
   appearance: none;
   border: none;
   outline: none;
@@ -329,12 +368,13 @@ function doSearch() {
   color: #343E48;
   cursor: pointer;
   padding: 14px 0;
-  padding-right: 4px;
+  min-width: 150px;
   white-space: nowrap;
 }
 
 .hs__bar-chevron {
   flex-shrink: 0;
+  pointer-events: none;
 }
 
 .hs__bar-icon {
@@ -362,31 +402,40 @@ function doSearch() {
 }
 .hs__bar-btn:hover { background: #0f63d4; }
 
-/* ─── Right column ─────────────────────────────────────────────── */
+/* ─── Right block ──────────────────────────────────────────────── */
 .hs__right {
-  align-self: stretch;
   display: flex;
-  align-items: flex-end;
+  align-items: stretch;
 }
 
 .hs__img {
   width: 100%;
   height: 100%;
-  min-height: 360px;
+  min-height: 440px;
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: 16px;
   display: block;
 }
+
+/* ─── Cycling word transition ──────────────────────────────────── */
+.hw-enter-active,
+.hw-leave-active {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  display: inline-block;
+}
+.hw-enter-from { opacity: 0; transform: translateY(-6px); }
+.hw-leave-to   { opacity: 0; transform: translateY(6px); }
 
 /* ─── Responsive ───────────────────────────────────────────────── */
 @media (max-width: 1023px) {
   .hs__inner { grid-template-columns: 1fr; }
   .hs__right { display: none; }
-  .hs__left { padding-bottom: 40px; }
+  .hs__left { padding: 36px 28px 32px; }
 }
 
 @media (max-width: 575px) {
-  .hs { padding-top: 32px; }
+  .hs { padding-bottom: 16px; }
+  .hs__left { padding: 28px 20px 24px; border-radius: 12px; }
   .hs__bar {
     flex-direction: column;
     align-items: stretch;
@@ -395,6 +444,7 @@ function doSearch() {
   .hs__bar-input { padding: 0 14px; }
   .hs__bar-sep { width: 100%; height: 1px; margin: 0; }
   .hs__bar-select-wrap { padding: 0 14px; }
+  .hs__bar-select { min-width: 0; width: 100%; }
   .hs__bar-btn { margin: 8px; }
 }
 </style>
