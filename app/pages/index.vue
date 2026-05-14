@@ -5,9 +5,10 @@
       :stats="data[0].stats"
     />
     <SectionsHomePropertyListings />
-    <SectionsHomeProductModules :wf-steps="data[0].workflow?.wfSteps" />
+    <SectionsHomeProblemSectionV2 :problem="data[0].problem" />
+    <SectionsHomeProductModules :workflow="data[0].workflow" />
     <SectionsHomePlatformShowcase />
-    <SectionsHomeStats :stats="data[0].stats" />
+    <!-- <SectionsHomeStats :stats="data[0].stats" /> -->
     <SectionsHomeAudienceSection :audiences="data[0].audiences"/>
     <SectionsHomeCustomers :customers="data[0].customers" />
     <SectionsHomeTestimonials :testimonials="data[0].testimonials" />

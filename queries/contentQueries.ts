@@ -347,13 +347,25 @@ export const pageQuery = groq`
 			heading,
 			headingHighlight,
 			subHeading,
+			teamSectionLabel,
 			"profiles": profilesGroup[]->{
 				title,
 				headline,
 				body,
+				detailLabel,
 				useCases[]{
 					text
 				},
+				cta{
+					linkText,
+					linkType,
+					"slug": coalesce(internalLink->slug, externalUrl),
+					queryString
+				}
+			},
+			"teams": teamsGroup[]->{
+				title,
+				body,
 				cta{
 					linkText,
 					linkType,
@@ -493,6 +505,9 @@ export const resourceQuery = groq`
       description,
       slug,
       type,
+      layoutType,
+      widgetLayout,
+      coverColor,
       hasForm,
       isFunctional,
       snippetCode,

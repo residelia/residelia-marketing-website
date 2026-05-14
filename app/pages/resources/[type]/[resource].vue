@@ -1,12 +1,9 @@
 <template>
     <div>
-        <SectionsProjectDetailsSection1 :data="data" />
-
-        <!-- Widget embed (recurso funcional: calculadora, etc.) -->
-        <SectionsProjectDetailsWidgetEmbed
-            v-if="data[0].isFunctional && data[0].snippetCode"
-            :snippet-code="data[0].snippetCode"
-        />
+        <!-- Hero section según layoutType -->
+        <SectionsResourceHeroDownloadable v-if="layoutType === 'downloadable'" :data="data" />
+        <SectionsResourceHeroHalfInteractive v-else-if="layoutType === 'halfInteractive'" :data="data" />
+        <SectionsResourceHeroFullInteractive v-else-if="layoutType === 'fullInteractive'" :data="data" />
 
         <!-- Cómo usarlo (pasos HowTo) -->
         <SectionsProjectDetailsHowToSteps
@@ -28,8 +25,8 @@
             :key-points="data[0].keyPoints"
         />
 
-        <!-- Secciones de contenido (sólo si no es recurso funcional) -->
-        <template v-if="!data[0].isFunctional">
+        <!-- Secciones de contenido (sólo para descargables) -->
+        <template v-if="layoutType === 'downloadable'">
             <SectionsProjectDetailsKeyTakeaways
                 v-if="data[0].whatWillYouFind"
                 :what-will-you-find="data[0].whatWillYouFind"
@@ -121,6 +118,15 @@ const serializers = {
     }
 }
 
+// Determina el layout del hero con fallback para recursos sin layoutType
+const layoutType = computed(() => {
+    const r = data[0]
+    if (r.layoutType) return r.layoutType
+    if (r.isFunctional && r.widgetLayout === 'fullScreen') return 'fullInteractive'
+    if (r.isFunctional) return 'halfInteractive'
+    return 'downloadable'
+})
+
 const resourceTitle = data[0].title.find(l => l._key === locale.value).value
 const resourceDescription = data[0].description.find(l => l._key === locale.value).value
 
@@ -134,7 +140,7 @@ useServerSeoMeta({
 })
 
 defineWebPage({
-  '@type': data[0].isFunctional ? 'WebPage' : 'ItemPage',
+  '@type': layoutType.value !== 'downloadable' ? 'WebPage' : 'ItemPage',
   url: `${process.env.BASE_URL}${route.fullPath}`,
   name: resourceTitle,
   image: `${data[0]?.heroImage?.url}`,
@@ -142,8 +148,8 @@ defineWebPage({
   dateModified: data[0].updatedAt,
 })
 
-// WebApplication schema for functional resources (calculators, widgets)
-if (data[0].isFunctional) {
+// WebApplication schema for interactive resources (calculators, widgets)
+if (layoutType.value !== 'downloadable') {
   useHead({
     script: [{
       type: 'application/ld+json',

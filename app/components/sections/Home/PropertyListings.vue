@@ -4,101 +4,103 @@
 
       <!-- Header -->
       <div class="pl__header">
-        <p class="pl__title">Últimos anuncios publicados por RESIDELIA</p>
+        <p class="pl__title">{{ $t('propertyListings.title') }}</p>
         <a
           href="https://app.residelia.com/explorer?utm_source=website&utm_content=listings_link"
           target="_blank"
           rel="noopener"
           class="pl__see-all"
-        >Ver toda la oferta RESIDELIA <i class="ri-arrow-right"></i></a>
+        >{{ $t('propertyListings.seeAll') }} <i class="ri-arrow-right"></i></a>
       </div>
 
       <!-- Rows -->
       <div class="pl__rows">
 
-        <!-- Row 1: 4 property cards -->
+        <!-- Row 1 -->
         <div class="pl__row">
-          <div
-            v-for="card in ROW1"
-            :key="card.id"
-            class="pl__card"
-            @click="open(card.url)"
-          >
-            <img :src="card.image" :alt="card.address" class="pl__card-bg" />
-            <div class="pl__card-head">
-              <div class="pl__chips">
-                <span class="pl__chip pl__chip--gray">Listado por {{ card.source }}</span>
-                <span class="pl__chip pl__chip--gray">{{ card.date }}</span>
-                <span v-if="card.status" class="pl__chip pl__chip--gray">{{ card.status }}</span>
-                <span v-if="card.fastTrack" class="pl__chip pl__chip--blue">
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M7 1L3 7h4l-2 4 6-6H7L9 1z" fill="#003986"/></svg>
-                  Fast track
-                </span>
+          <template v-if="pending">
+            <div v-for="n in 4" :key="n" class="pl__card pl__card--skeleton" />
+          </template>
+          <template v-else>
+            <div
+              v-for="card in ROW1"
+              :key="card.id"
+              class="pl__card"
+              @click="open(card.url)"
+            >
+              <img :src="card.image" :alt="card.address" class="pl__card-bg" />
+              <div class="pl__card-head">
+                <div class="pl__chips">
+                  <span class="pl__chip pl__chip--gray">{{ $t('propertyListings.listedBy', { source: card.source }) }}</span>
+                  <span class="pl__chip pl__chip--gray">{{ card.date }}</span>
+                  <span v-if="card.status" class="pl__chip pl__chip--gray">{{ card.status }}</span>
+                </div>
+                <button class="pl__fav" @click.stop>
+                  <i class="ri-favorite-off"></i>
+                </button>
               </div>
-              <button class="pl__fav" @click.stop>
-                <i class="ri-favorite-off"></i>
-              </button>
+              <div class="pl__card-info">
+                <div class="pl__price-row">
+                  <span class="pl__price">{{ card.price }}</span>
+                  <button class="pl__kebab" @click.stop><i class="ri-kebab-menu-vertical"></i></button>
+                </div>
+                <p class="pl__address">{{ card.address }}</p>
+                <div class="pl__specs">
+                  <span class="pl__spec">{{ card.rooms }} <i class="ri-bedroom"></i></span>
+                  <span class="pl__spec">{{ card.baths }} <i class="ri-bath"></i></span>
+                  <span class="pl__spec">{{ card.sqm }}m<sup>2</sup></span>
+                  <span class="pl__spec">{{ card.ppm }}€/m<sup>2</sup></span>
+                </div>
+              </div>
             </div>
-            <div class="pl__card-info">
-              <div class="pl__price-row">
-                <span class="pl__price">{{ card.price }}</span>
-                <button class="pl__kebab" @click.stop><i class="ri-kebab-menu-vertical"></i></button>
-              </div>
-              <p class="pl__address">{{ card.address }}</p>
-              <div class="pl__specs">
-                <span class="pl__spec">{{ card.rooms }} <i class="ri-bedroom"></i></span>
-                <span class="pl__spec">{{ card.baths }} <i class="ri-bath"></i></span>
-                <span class="pl__spec">{{ card.sqm }}m<sup>2</sup></span>
-                <span class="pl__spec">{{ card.ppm }}€/m<sup>2</sup></span>
-              </div>
-            </div>
-          </div>
+          </template>
         </div>
 
         <!-- Row 2: 3 property cards + broker card -->
         <div class="pl__row">
-          <div
-            v-for="card in ROW2"
-            :key="card.id"
-            class="pl__card"
-            @click="open(card.url)"
-          >
-            <img :src="card.image" :alt="card.address" class="pl__card-bg" />
-            <div class="pl__card-head">
-              <div class="pl__chips">
-                <span class="pl__chip pl__chip--gray">Listado por {{ card.source }}</span>
-                <span class="pl__chip pl__chip--gray">{{ card.date }}</span>
-                <span v-if="card.status" class="pl__chip pl__chip--gray">{{ card.status }}</span>
-                <span v-if="card.fastTrack" class="pl__chip pl__chip--blue">
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M7 1L3 7h4l-2 4 6-6H7L9 1z" fill="#003986"/></svg>
-                  Fast track
-                </span>
+          <template v-if="pending">
+            <div v-for="n in 3" :key="n" class="pl__card pl__card--skeleton" />
+          </template>
+          <template v-else>
+            <div
+              v-for="card in ROW2"
+              :key="card.id"
+              class="pl__card"
+              @click="open(card.url)"
+            >
+              <img :src="card.image" :alt="card.address" class="pl__card-bg" />
+              <div class="pl__card-head">
+                <div class="pl__chips">
+                  <span class="pl__chip pl__chip--gray">{{ $t('propertyListings.listedBy', { source: card.source }) }}</span>
+                  <span class="pl__chip pl__chip--gray">{{ card.date }}</span>
+                  <span v-if="card.status" class="pl__chip pl__chip--gray">{{ card.status }}</span>
+                </div>
+                <button class="pl__fav" @click.stop>
+                  <i class="ri-favorite-off"></i>
+                </button>
               </div>
-              <button class="pl__fav" @click.stop>
-                <i class="ri-favorite-off"></i>
-              </button>
+              <div class="pl__card-info">
+                <div class="pl__price-row">
+                  <span class="pl__price">{{ card.price }}</span>
+                  <button class="pl__kebab" @click.stop><i class="ri-kebab-menu-vertical"></i></button>
+                </div>
+                <p class="pl__address">{{ card.address }}</p>
+                <div class="pl__specs">
+                  <span class="pl__spec">{{ card.rooms }} <i class="ri-bedroom"></i></span>
+                  <span class="pl__spec">{{ card.baths }} <i class="ri-bath"></i></span>
+                  <span class="pl__spec">{{ card.sqm }}m<sup>2</sup></span>
+                  <span class="pl__spec">{{ card.ppm }}€/m<sup>2</sup></span>
+                </div>
+              </div>
             </div>
-            <div class="pl__card-info">
-              <div class="pl__price-row">
-                <span class="pl__price">{{ card.price }}</span>
-                <button class="pl__kebab" @click.stop><i class="ri-kebab-menu-vertical"></i></button>
-              </div>
-              <p class="pl__address">{{ card.address }}</p>
-              <div class="pl__specs">
-                <span class="pl__spec">{{ card.rooms }} <i class="ri-bedroom"></i></span>
-                <span class="pl__spec">{{ card.baths }} <i class="ri-bath"></i></span>
-                <span class="pl__spec">{{ card.sqm }}m<sup>2</sup></span>
-                <span class="pl__spec">{{ card.ppm }}€/m<sup>2</sup></span>
-              </div>
-            </div>
-          </div>
+          </template>
 
           <!-- Broker promo card -->
           <a href="/broker" class="pl__broker" target="_blank" rel="noopener">
             <div class="pl__broker-logo">broker<span class="pl__broker-sub">·RESIDELIA</span></div>
-            <p class="pl__broker-q">¿Quieres publicar tus propios activos?</p>
-            <p class="pl__broker-desc">Accede a la sección Comercial de RESIDELIA y crea anuncios de tus activos para publicarlos en Explorer</p>
-            <span class="pl__broker-cta">Más información <i class="ri-arrow-right"></i></span>
+            <p class="pl__broker-q">{{ $t('propertyListings.brokerQuestion') }}</p>
+            <p class="pl__broker-desc">{{ $t('propertyListings.brokerDesc') }}</p>
+            <span class="pl__broker-cta">{{ $t('propertyListings.brokerCta') }} <i class="ri-arrow-right"></i></span>
           </a>
         </div>
 
@@ -108,67 +110,67 @@
 </template>
 
 <script setup lang="ts">
+interface Advertisement {
+  uuid: string
+  address: string
+  price: number | null
+  size: number
+  sqmPrice: number | null
+  rooms: number | null
+  bathrooms: number | null
+  legalSituation: string | null
+  images: { url: string }[]
+  publishedOn: string
+  url: string
+}
+
 interface Card {
   id: string; image: string; source: string; date: string
-  status?: string; fastTrack?: boolean
+  status?: string
   price: string; address: string; rooms: number; baths: number
   sqm: number; ppm: string; url: string
 }
 
-const ROW1: Card[] = [
-  {
-    id: '1', source: 'FOTOCASA', date: '12/08/2024', status: 'NPL', fastTrack: true,
-    price: '298.000 €', address: 'Avenida de bruselas, 78,28028, Madrid.',
-    rooms: 4, baths: 2, sqm: 123, ppm: '2.276',
-    image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80',
-    url: 'https://app.residelia.com/explorer',
-  },
-  {
-    id: '2', source: 'FOTOCASA', date: '12/08/2024', status: 'Cesión de remate',
-    price: '650.000 €', address: 'Calle del sol, 45, 28015, Madrid.',
-    rooms: 3, baths: 1, sqm: 90, ppm: '2.777',
-    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80',
-    url: 'https://app.residelia.com/explorer',
-  },
-  {
-    id: '3', source: 'FOTOCASA', date: '11/08/2024', status: 'NPL', fastTrack: true,
-    price: '980.000 €', address: 'Paseo de la reforma, 20, 28001, Madrid.',
-    rooms: 5, baths: 3, sqm: 150, ppm: '6.533',
-    image: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80',
-    url: 'https://app.residelia.com/explorer',
-  },
-  {
-    id: '4', source: 'FOTOCASA', date: '13/08/2024', status: 'NPL',
-    price: '500.000 €', address: 'Calle de la luna, 10, 28004, Madrid.',
-    rooms: 6, baths: 4, sqm: 200, ppm: '12.500',
-    image: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=600&q=80',
-    url: 'https://app.residelia.com/explorer',
-  },
-]
+function formatDate(iso: string): string {
+  const d = new Date(iso)
+  return `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`
+}
 
-const ROW2: Card[] = [
-  {
-    id: '5', source: 'FOTOCASA', date: '12/08/2024', status: 'NPL', fastTrack: true,
-    price: '750.000 €', address: 'Calle de la esperanza, 15, 28020, Madrid.',
-    rooms: 3, baths: 2, sqm: 70, ppm: '10.714',
-    image: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=600&q=80',
-    url: 'https://app.residelia.com/explorer',
-  },
-  {
-    id: '6', source: 'FOTOCASA', date: '12/08/2024', status: 'Derecho de uso de larga duración',
-    price: '450.000 €', address: 'Avenida de la paz, 12, 28019, Madrid.',
-    rooms: 4, baths: 3, sqm: 120, ppm: '12.083',
-    image: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=600&q=80',
-    url: 'https://app.residelia.com/explorer',
-  },
-  {
-    id: '7', source: 'FOTOCASA', date: '13/08/2024', status: 'Nuda propiedad', fastTrack: true,
-    price: '850.000 €', address: 'Calle de las flores, 27, 28008, Madrid.',
-    rooms: 5, baths: 3, sqm: 180, ppm: '10.277',
-    image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&q=80',
-    url: 'https://app.residelia.com/explorer',
-  },
-]
+function formatPrice(price: number | null): string {
+  if (!price) return 'Precio a consultar'
+  return price.toLocaleString('es-ES', { maximumFractionDigits: 0 }) + ' €'
+}
+
+function formatSqmPrice(sqm: number | null): string {
+  if (!sqm) return '-'
+  return sqm.toLocaleString('es-ES', { maximumFractionDigits: 0 })
+}
+
+function mapAd(ad: Advertisement): Card {
+  return {
+    id: ad.uuid,
+    image: ad.images[0]?.url ?? '',
+    source: 'RESIDELIA',
+    date: formatDate(ad.publishedOn),
+    status: ad.legalSituation && ad.legalSituation !== 'OTHER' ? ad.legalSituation : undefined,
+    price: formatPrice(ad.price),
+    address: ad.address,
+    rooms: ad.rooms ?? 0,
+    baths: ad.bathrooms ?? 0,
+    sqm: ad.size,
+    ppm: formatSqmPrice(ad.sqmPrice),
+    url: ad.url,
+  }
+}
+
+const { data, pending } = useFetch<{ advertisements: Advertisement[] }>(
+  'https://public-api.residelia.com/dev/advertisements',
+  { server: false }
+)
+
+const listings = computed(() => (data.value?.advertisements ?? []).map(mapAd))
+const ROW1 = computed(() => listings.value.slice(0, 4))
+const ROW2 = computed(() => listings.value.slice(4, 7))
 
 function open(url: string) {
   window.open(url, '_blank', 'noopener')
@@ -463,6 +465,18 @@ function open(url: string) {
   position: absolute;
   bottom: 16px;
   left: 23px;
+}
+
+/* ── Skeleton ─────────────────────────────────────────────────── */
+@keyframes pl-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.pl__card--skeleton {
+  background: #E5E9EE;
+  animation: pl-pulse 1.4s ease-in-out infinite;
+  cursor: default;
 }
 
 /* ── Responsive ───────────────────────────────────────────────── */

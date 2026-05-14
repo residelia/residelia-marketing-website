@@ -5,11 +5,11 @@
 
         <!-- LEFT BLOCK: search content -->
         <div class="hs__left">
-          <span class="hs__overline">LA SOLUCIÓN TODO EN UNO</span>
+          <!-- <span class="hs__overline">LA SOLUCIÓN TODO EN UNO</span> -->
 
           <!-- Cycling heading -->
           <h1 v-if="isCycling" class="hs__h1">
-            {{ headingParts[0] }}<Transition name="hw" mode="out-in"><span :key="currentWord" class="color--theme">{{ currentWord }}</span></Transition>{{ headingParts[1] }}
+            {{ headingParts[0] }}<span ref="cycleWrapRef" class="hs__cycle-wrap" :style="cycleWrapWidth ? { width: cycleWrapWidth } : {}"><span class="hs__cycle-col" :style="{ transform: `translateY(-${currentWordIndex * wordHeight}px)` }"><span v-for="word in cycleWords" :key="word" class="hs__cycle-word">{{ word }}</span></span></span>{{ headingParts[1] }}
           </h1>
           <h1 v-else class="hs__h1" v-html="headingHtml" />
 
@@ -17,7 +17,7 @@
 
           <!-- Stats row -->
           <div v-if="stats?.statGroup?.length" class="hs__stats">
-            <template v-for="(stat, i) in stats.statGroup.slice(0, 3)" :key="i">
+            <template v-for="(stat, i) in stats.statGroup.slice(0, 4)" :key="i">
               <div v-if="i > 0" class="hs__stat-sep" />
               <div class="hs__stat">
                 <span class="hs__stat-num">{{ stat.value }}{{ stat.unit }}</span>
@@ -26,31 +26,32 @@
             </template>
           </div>
 
-          <!-- Venta / Alquiler tabs -->
+          <!-- Comprar / Alquilar / Vender tabs -->
           <div class="hs__tabs">
             <button
               class="hs__tab"
               :class="{ 'hs__tab--active': opType === 'sale' }"
               @click="opType = 'sale'"
-            >Venta</button>
+            >{{ $t('heroSearch.tabBuy') }}</button>
             <button
               class="hs__tab"
               :class="{ 'hs__tab--active': opType === 'rent' }"
               @click="opType = 'rent'"
-            >Alquiler</button>
+            >{{ $t('heroSearch.tabRent') }}</button>
+            <button
+              class="hs__tab"
+              @click="navigateTo('/broker')"
+            >{{ $t('heroSearch.tabSell') }}</button>
           </div>
 
           <!-- Search bar -->
           <form class="hs__bar" @submit.prevent="doSearch">
             <div class="hs__bar-input">
-              <svg class="hs__bar-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <circle cx="6.5" cy="6.5" r="5" stroke="#9CA3AF" stroke-width="1.5"/>
-                <path d="M10 10L14 14" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round"/>
-              </svg>
+              <i class="ri-search hs__bar-icon" aria-hidden="true" />
               <input
                 v-model="address"
                 type="text"
-                placeholder="Dirección del inmueble"
+                :placeholder="$t('heroSearch.searchPlaceholder')"
                 class="hs__bar-text"
                 autocomplete="off"
               />
@@ -59,23 +60,16 @@
             <div class="hs__bar-sep" />
 
             <label class="hs__bar-select-wrap">
-              <svg class="hs__bar-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M8 1L2 6v8h4v-4h4v4h4V6L8 1z" stroke="#9CA3AF" stroke-width="1.5" stroke-linejoin="round"/>
-              </svg>
-              <select v-model="propType" class="hs__bar-select">
-                <option v-for="pt in PROP_TYPES" :key="pt.value" :value="pt.value">{{ pt.label }}</option>
+              <i class="ri-briefcase hs__bar-icon" aria-hidden="true" />
+              <select v-model="prodType" class="hs__bar-select">
+                <option v-for="pt in PROD_TYPES" :key="pt.value" :value="pt.value">{{ pt.label }}</option>
               </select>
-              <svg class="hs__bar-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                <path d="M3 4.5L6 7.5L9 4.5" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round"/>
-              </svg>
+              <i class="ri-chevron-simple-down hs__bar-chevron" aria-hidden="true" />
             </label>
 
             <button type="submit" class="hs__bar-btn">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                <circle cx="6.5" cy="6.5" r="5" stroke="#fff" stroke-width="1.5"/>
-                <path d="M10 10L14 14" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
-              </svg>
-              Buscar inmuebles
+              <i class="ri-search" aria-hidden="true" />
+              {{ $t('heroSearch.searchBtn') }}
             </button>
           </form>
         </div>
@@ -96,7 +90,7 @@
 </template>
 
 <script setup lang="ts">
-const { locale } = useI18n()
+const { locale, t } = useI18n()
 
 const props = defineProps<{
   hero: Record<string, any>
@@ -136,13 +130,28 @@ const isCycling = computed(
 )
 
 const currentWordIndex = ref(0)
-const currentWord = computed(() => cycleWords.value[currentWordIndex.value] ?? '')
+
+const cycleWrapRef = ref<HTMLElement | null>(null)
+const cycleWrapWidth = ref('')
+const wordHeight = ref(0)
+
+function measure() {
+  const wordEls = cycleWrapRef.value?.querySelectorAll<HTMLElement>('.hs__cycle-word')
+  if (!wordEls?.length) return
+  const el = wordEls[currentWordIndex.value]
+  if (el?.offsetWidth) cycleWrapWidth.value = `${el.offsetWidth}px`
+  // Capture word height once (all words share the same line-height)
+  if (!wordHeight.value) wordHeight.value = wordEls[0]?.offsetHeight ?? 0
+}
 
 let timer: ReturnType<typeof setInterval>
 onMounted(() => {
-  if (isCycling.value && cycleWords.value.length > 1) {
+  if (!isCycling.value) return
+  nextTick(measure)
+  if (cycleWords.value.length > 1) {
     timer = setInterval(() => {
       currentWordIndex.value = (currentWordIndex.value + 1) % cycleWords.value.length
+      nextTick(measure)
     }, 2500)
   }
 })
@@ -152,25 +161,18 @@ onUnmounted(() => clearInterval(timer))
 const subHeading = computed(() => loc(props.hero?.subHeading))
 const heroImage = computed(() => props.hero?.image?.url)
 
-const PROP_TYPES = [
-  { label: 'Todas las viviendas', value: '' },
-  { label: 'Solo pisos',          value: 'flat' },
-  { label: 'Solo chalets',        value: 'house' },
-  { label: 'Edificio singular',   value: 'building' },
-  { label: 'Garaje',              value: 'garage' },
-  { label: 'Local',               value: 'retail' },
-  { label: 'Nave',                value: 'warehouse' },
-  { label: 'Oficina',             value: 'office' },
-  { label: 'Rural',               value: 'rural' },
-  { label: 'Suelo rústico',       value: 'rustic_land' },
-  { label: 'Suelo urbanizable',   value: 'developable_land' },
-  { label: 'Suelo urbano',        value: 'urban_land' },
-  { label: 'Trastero',            value: 'storage' },
-]
+const PROD_TYPES = computed(() => [
+  { label: t('heroSearch.allProducts'), value: '' },
+  { label: t('heroSearch.prodNpl'),     value: 'npl' },
+  { label: t('heroSearch.prodAuction'), value: 'auction' },
+  { label: t('heroSearch.prodCdr'),     value: 'cdr' },
+  { label: t('heroSearch.prodNuda'),    value: 'nuda' },
+  { label: t('heroSearch.prodReo'),     value: 'reo' },
+])
 
 const address = ref('')
 const opType = ref<'sale' | 'rent'>('sale')
-const propType = ref('')
+const prodType = ref('')
 
 function doSearch() {
   const params = new URLSearchParams({
@@ -179,7 +181,7 @@ function doSearch() {
     address: address.value,
     type: opType.value,
   })
-  if (propType.value) params.set('propertyType', propType.value)
+  if (prodType.value) params.set('productType', prodType.value)
   window.location.href = `https://app.residelia.com/explorer?${params}`
 }
 </script>
@@ -347,6 +349,7 @@ function doSearch() {
 }
 
 .hs__bar-select-wrap {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -367,18 +370,23 @@ function doSearch() {
   font-weight: 500;
   color: #343E48;
   cursor: pointer;
-  padding: 14px 0;
+  padding: 14px 20px 14px 0;
   min-width: 150px;
   white-space: nowrap;
 }
 
 .hs__bar-chevron {
-  flex-shrink: 0;
+  position: absolute;
+  right: 12px;
   pointer-events: none;
+  font-size: 12px;
+  color: #9CA3AF;
 }
 
 .hs__bar-icon {
   flex-shrink: 0;
+  font-size: 16px;
+  color: #9CA3AF;
 }
 
 .hs__bar-btn {
@@ -417,14 +425,26 @@ function doSearch() {
   display: block;
 }
 
-/* ─── Cycling word transition ──────────────────────────────────── */
-.hw-enter-active,
-.hw-leave-active {
-  transition: opacity 0.2s ease, transform 0.2s ease;
+/* ─── Cycling word: slot machine + JS-measured width ───────────── */
+.hs__cycle-wrap {
   display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  height: 1.1em;
+  transition: width 0.3s ease;
+  color: #1778FB; /* evita flash de color en hidratación */
 }
-.hw-enter-from { opacity: 0; transform: translateY(-6px); }
-.hw-leave-to   { opacity: 0; transform: translateY(6px); }
+.hs__cycle-col {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hs__cycle-word {
+  display: block;
+  flex-shrink: 0;
+  line-height: 1.1;
+  white-space: nowrap;
+}
 
 /* ─── Responsive ───────────────────────────────────────────────── */
 @media (max-width: 1023px) {

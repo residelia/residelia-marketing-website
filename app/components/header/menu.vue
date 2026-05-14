@@ -134,36 +134,57 @@
                     <!-- END RECURSOS -->
 
                     <!-- DEMO BUTTON -->
-                    <li class="nl-simple" aria-haspopup="true" @click="handleClick('Demo Request Started','header-demo-button')">
+                    <li v-if="mainStore.menu.showDemoAction && mainStore.menu.demoAction?.slug" class="nl-simple" aria-haspopup="true" @click="handleClick('Demo Request Started','header-demo-button')">
                         <NuxtLink
                         id="header-demo-button"
-                        :to="$localePath(mainStore.menu.demoAction.slug.find(l => l._key === locale).value.current+mainStore.menu.demoAction.queryString)"
+                        :to="Array.isArray(mainStore.menu.demoAction.slug)
+                          ? $localePath((mainStore.menu.demoAction.slug.find(l => l._key === locale)?.value?.current ?? '') + (mainStore.menu.demoAction?.queryString ?? ''))
+                          : mainStore.menu.demoAction.slug"
                         class="btn w-100 r-04 btn--theme-tertiary last-link"
-                        v-follow 
-                        >{{ mainStore.menu.demoAction.linkText.find(l => l._key === locale).value }}</NuxtLink
+                        v-follow
+                        >{{ mainStore.menu.demoAction?.linkText?.find(l => l._key === locale)?.value }}</NuxtLink
                         >
                     </li>
                     <!-- SIGN IN LINK -->
                     <li
+                        v-if="mainStore.menu.showAccessAction && mainStore.menu.accessAction?.slug"
                         class="nl-simple reg-fst-link mobile-last-link"
                         aria-haspopup="true"
                         @click="handleClick('Log-in Started', 'header-login-button')"
                     >
                         <template v-if="route.path.includes('/estate-leads')">
-                            <NuxtLink to="https://estateleads.residelia.com/login" class="btn btn--theme-secondary hover--theme" target='_blank' external v-follow >{{ mainStore.menu.accessAction.linkText.find(l => l._key === locale).value }}</NuxtLink>
+                            <NuxtLink to="https://estateleads.residelia.com/login" class="btn btn--theme-secondary hover--theme" target='_blank' external v-follow >{{ mainStore.menu.accessAction?.linkText?.find(l => l._key === locale)?.value }}</NuxtLink>
                         </template>
                         <template v-else>
-                            <NuxtLink :to="mainStore.menu.accessAction.slug" class="btn btn--theme-secondary hover--theme" v-if="mainStore.menu.accessAction.linkType === 'external' || mainStore.menu.accessAction.linkType === 'video' || mainStore.menu.accessAction.linkType === 'anchor'" :target="mainStore.menu.accessAction.newWindow ? '_blank' : '_self'" external v-follow >{{ mainStore.menu.accessAction.linkText.find(l => l._key === locale).value }}</NuxtLink>
-                            <NuxtLink :to="$localePath(mainStore.menu.accessAction.slug)" class="h-link" v-else v-follow >{{ mainStore.menu.accessAction.linkText }}</NuxtLink>
+                            <NuxtLink
+                              v-if="!Array.isArray(mainStore.menu.accessAction.slug)"
+                              :to="mainStore.menu.accessAction.slug"
+                              :target="mainStore.menu.accessAction?.newWindow ? '_blank' : '_self'"
+                              class="btn btn--theme-secondary hover--theme"
+                              external v-follow
+                            >{{ mainStore.menu.accessAction?.linkText?.find(l => l._key === locale)?.value }}</NuxtLink>
+                            <NuxtLink
+                              v-else
+                              :to="$localePath(mainStore.menu.accessAction.slug.find(l => l._key === locale)?.value?.current ?? '')"
+                              class="btn btn--theme-secondary hover--theme"
+                              v-follow
+                            >{{ mainStore.menu.accessAction?.linkText?.find(l => l._key === locale)?.value }}</NuxtLink>
                         </template>
                     </li>
                     <!-- SIGN UP LINK -->
-                    <li class="nl-simple" aria-haspopup="true" @click="handleClick('Sign Up Started','header-signup-button')">
+                    <li v-if="mainStore.menu.showCallToAction && mainStore.menu.callToAction?.slug" class="nl-simple" aria-haspopup="true" @click="handleClick('Sign Up Started','header-signup-button')">
                         <template v-if="route.path.includes('/estate-leads')">
-                            <NuxtLink to="https://estateleads.residelia.com/register" class="btn w-100 r-04 btn--theme hover--theme last-link" target='_blank' external v-follow >{{ mainStore.menu.callToAction.linkText.find(l => l._key === locale).value }}</NuxtLink>
+                            <NuxtLink to="https://estateleads.residelia.com/register" class="btn w-100 r-04 btn--theme hover--theme last-link" target='_blank' external v-follow >{{ mainStore.menu.callToAction?.linkText?.find(l => l._key === locale)?.value }}</NuxtLink>
                         </template>
                         <template v-else>
-                            <NuxtLink id="header-sign_up-button" :to="mainStore.menu.callToAction.slug" class="btn w-100 r-04 btn--theme hover--theme last-link" v-follow >{{ mainStore.menu.callToAction.linkText.find(l => l._key === locale).value }}</NuxtLink>
+                            <NuxtLink
+                              id="header-sign_up-button"
+                              :to="Array.isArray(mainStore.menu.callToAction.slug)
+                                ? $localePath(mainStore.menu.callToAction.slug.find(l => l._key === locale)?.value?.current ?? '')
+                                : mainStore.menu.callToAction.slug"
+                              class="btn w-100 r-04 btn--theme hover--theme last-link"
+                              v-follow
+                            >{{ mainStore.menu.callToAction?.linkText?.find(l => l._key === locale)?.value }}</NuxtLink>
                         </template>
                     </li>
                 </ul>

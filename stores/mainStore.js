@@ -34,6 +34,9 @@ export const useMainStore = defineStore('main', {
 			},
 			company: {
 			},
+			showDemoAction: false,
+			showAccessAction: false,
+			showCallToAction: false,
 			demoAction: {
 			},
 			accessAction: {
@@ -83,6 +86,9 @@ export const useMainStore = defineStore('main', {
 			this.menu.solutions = { open: false, ...this.siteNav.menuesGroup[1] }
 			this.menu.pricing = { open: false, ...this.siteNav.menuesGroup[2] }
 			this.menu.resources = { open: false, ...this.siteNav.menuesGroup[3] }
+			this.menu.showDemoAction = this.siteNav.showDemoAction ?? false
+			this.menu.showAccessAction = this.siteNav.showAccessAction ?? false
+			this.menu.showCallToAction = this.siteNav.showCallToAction ?? false
 			this.menu.demoAction = { open: false, ...this.siteNav.demoAction }
 			this.menu.accessAction = { open: false, ...this.siteNav.accessAction }
 			this.menu.callToAction = { open: false, ...this.siteNav.callToAction }
