@@ -18,7 +18,7 @@
 
         <!-- Row 1 -->
         <div class="pl__row">
-          <template v-if="pending">
+          <template v-if="pending || error">
             <div v-for="n in 4" :key="n" class="pl__card pl__card--skeleton" />
           </template>
           <template v-else>
@@ -58,7 +58,7 @@
 
         <!-- Row 2: 3 property cards + broker card -->
         <div class="pl__row">
-          <template v-if="pending">
+          <template v-if="pending || error">
             <div v-for="n in 3" :key="n" class="pl__card pl__card--skeleton" />
           </template>
           <template v-else>
@@ -163,7 +163,7 @@ function mapAd(ad: Advertisement): Card {
   }
 }
 
-const { data, pending } = useFetch<{ advertisements: Advertisement[] }>(
+const { data, pending, error } = useFetch<{ advertisements: Advertisement[] }>(
   'https://public-api.residelia.com/dev/advertisements',
   { server: false }
 )
@@ -224,7 +224,7 @@ function open(url: string) {
 
 .pl__row {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 16px;
 }
 
@@ -481,7 +481,7 @@ function open(url: string) {
 
 /* ── Responsive ───────────────────────────────────────────────── */
 @media (max-width: 1023px) {
-  .pl__row { grid-template-columns: repeat(2, 1fr); }
+  .pl__row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 575px) {
