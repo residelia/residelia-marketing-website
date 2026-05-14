@@ -1,5 +1,5 @@
 <template>
-  <section v-if="problem" class="py-100" style="background: #fff;">
+  <section v-if="problem" class="pm py-100">
     <div class="container">
       <!-- HEADER -->
       <div class="row justify-content-center">
@@ -88,6 +88,10 @@ const dataCategories = computed(() => props.problem?.dataCategories ?? [])
 </script>
 
 <style scoped>
+.pm {
+  background: #F7F9FD;
+  overflow: hidden;
+}
 .problem-cards-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
