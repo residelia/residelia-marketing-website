@@ -132,6 +132,17 @@ function resourceLink(resource) {
     border-radius: 10px;
 }
 
+.hover-overlay {
+  aspect-ratio: 16 / 10;
+}
+
+.hover-overlay img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
 @keyframes shimmer {
     0%   { background-position: -200% 0; }
     100% { background-position:  200% 0; }
