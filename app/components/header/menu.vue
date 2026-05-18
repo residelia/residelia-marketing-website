@@ -182,7 +182,7 @@
                               :to="Array.isArray(mainStore.menu.callToAction.slug)
                                 ? $localePath(mainStore.menu.callToAction.slug.find(l => l._key === locale)?.value?.current ?? '')
                                 : mainStore.menu.callToAction.slug"
-                              class="btn w-100 r-04 btn--theme hover--theme last-link"
+                              class="btn w-100 r-04 btn--theme-secondary hover--theme last-link"
                               v-follow
                             >{{ mainStore.menu.callToAction?.linkText?.find(l => l._key === locale)?.value }}</NuxtLink>
                         </template>
