@@ -98,6 +98,8 @@ export default defineNuxtConfig({
   target: "static",
   ssr: true,
 
+  devtools: { enabled: false },
+
   alias: {
     "@": resolve(__dirname, "/"),
   },
@@ -312,6 +314,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       googleRecaptchaKey: process.env.RECAPTCHA_SITE_KEY, // for example
+      googleMapsPublicKey: process.env.GOOGLE_MAPS_PUBLIC_KEY,
       formWebhook: process.env.FORM_WEBHOOK,
       signUpWebhook: process.env.SIGNUP_WEBHOOK,
       newsletterWebhook: process.env.NEWSLETTER_WEBHOOK,
