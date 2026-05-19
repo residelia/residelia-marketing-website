@@ -78,7 +78,7 @@
                   @mousedown.prevent="selectPrediction(p)"
                   @mouseenter="highlightIndex = i"
                 >
-                  <i class="ri-map-pin hero-search__prediction-icon" aria-hidden="true"></i>
+                  <i class="ri-location hero-search__prediction-icon" aria-hidden="true"></i>
                   <span class="hero-search__prediction-text">
                     <template v-for="(seg, idx) in segments(p.mainText)" :key="`m-${idx}`">
                       <strong v-if="seg.matched" class="hero-search__prediction-match">{{ seg.text }}</strong>
@@ -118,7 +118,7 @@
               :disabled="!selectedPlace"
             >
               <i class="ri-search hero-search__bar-btn-icon" aria-hidden="true"></i>
-              <span class="hero-search__bar-btn-text">{{ $t('heroSearch.searchBtn') }}</span>
+              <!-- <span class="hero-search__bar-btn-text">{{ $t('heroSearch.searchBtn') }}</span> -->
             </button>
           </form>
         </div>
@@ -210,20 +210,21 @@ const subHeading = computed(() => loc(props.hero?.subHeading))
 const heroImage = computed(() => props.hero?.image?.url)
 
 // ── Tipologías (spec del explorer) ─────────────────────────────
+// El orden y los copies coinciden con el diseño del dropdown.
+// `residentialAll` es la selección por defecto = "Todas las viviendas".
 const PROPERTY_TYPES = computed(() => [
-  { value: '',                 label: t('heroSearch.allProperties') },
   { value: 'residentialAll',   label: t('heroSearch.type_residentialAll') },
   { value: 'multiFamily',      label: t('heroSearch.type_multiFamily') },
   { value: 'singleFamily',     label: t('heroSearch.type_singleFamily') },
-  { value: 'rural',            label: t('heroSearch.type_rural') },
   { value: 'parking',          label: t('heroSearch.type_parking') },
   { value: 'storage',          label: t('heroSearch.type_storage') },
+  { value: 'rural',            label: t('heroSearch.type_rural') },
   { value: 'retail',           label: t('heroSearch.type_retail') },
   { value: 'office',           label: t('heroSearch.type_office') },
   { value: 'warehouse',        label: t('heroSearch.type_warehouse') },
   { value: 'urban',            label: t('heroSearch.type_urban') },
-  { value: 'developable',      label: t('heroSearch.type_developable') },
   { value: 'rustic',           label: t('heroSearch.type_rustic') },
+  { value: 'developable',      label: t('heroSearch.type_developable') },
   { value: 'singularBuilding', label: t('heroSearch.type_singularBuilding') },
 ])
 
@@ -242,7 +243,7 @@ const LEGAL_SITUATIONS = computed(() => [
 
 // ── Estado del buscador ─────────────────────────────────────────
 const opType = ref<'sale' | 'rent'>('sale')
-const propertyType = ref('')
+const propertyType = ref<string>('residentialAll')
 const legalSituation = ref('')
 
 const addressQuery = ref('')
@@ -334,6 +335,7 @@ function doSearch() {
     params.set('legalSituation', legalSituation.value)
   }
   params.set('section', 'search')
+  params.set('source', 'residelia')
   params.set('lat', String(selectedPlace.value.lat))
   params.set('lng', String(selectedPlace.value.lng))
   params.set('zoom', String(selectedPlace.value.zoom))
