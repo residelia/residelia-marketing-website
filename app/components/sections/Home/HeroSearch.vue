@@ -319,12 +319,23 @@ function segments(t: PlaceText): Array<{ text: string; matched: boolean }> {
   return out
 }
 
+// Zoom heurístico según los `types` que devuelve Place Details. Se evalúa en
+// orden — el primer match gana. Ajusta los números aquí si quieres acercar o
+// alejar más algún nivel.
+const ZOOM_BY_TYPE: Array<{ types: string[]; zoom: number }> = [
+  { types: ['street_address', 'premise'],            zoom: 17 },  // dirección concreta
+  { types: ['route'],                                zoom: 16 },  // calle
+  { types: ['postal_code', 'sublocality'],           zoom: 15 },  // código postal / barrio
+  { types: ['locality'],                             zoom: 14 },  // municipio (más cerca que antes)
+  { types: ['administrative_area_level_2'],          zoom: 11 },  // provincia / comarca
+  { types: ['administrative_area_level_1'],          zoom: 9 },   // comunidad autónoma
+  { types: ['country'],                              zoom: 6 },   // país
+]
+
 function zoomForTypes(types: string[]): number {
-  if (types.includes('street_address') || types.includes('premise')) return 17
-  if (types.includes('route')) return 16
-  if (types.includes('postal_code') || types.includes('sublocality')) return 14
-  if (types.includes('locality') || types.includes('administrative_area_level_2')) return 12
-  if (types.includes('administrative_area_level_1') || types.includes('country')) return 8
+  for (const rule of ZOOM_BY_TYPE) {
+    if (rule.types.some(t => types.includes(t))) return rule.zoom
+  }
   return 13
 }
 
