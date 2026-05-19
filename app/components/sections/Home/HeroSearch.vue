@@ -342,7 +342,7 @@ function doSearch() {
   params.set('address', selectedPlace.value.address)
   params.set('utm_source', 'website')
   params.set('utm_content', 'searchbar')
-  params.set('operation, opType.value)
+  params.set('operation', opType.value)
   window.location.href = `https://app.residelia.com/explorer?${params}`
 }
 </script>
