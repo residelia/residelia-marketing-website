@@ -142,6 +142,8 @@
 import useGooglePlaces, { type PlacePrediction, type PlaceText } from '~/composables/useGooglePlaces'
 
 const { locale, t } = useI18n()
+const route = useRoute()
+const { trackEvent } = useTracking()
 
 const props = defineProps<{
   hero: Record<string, any>
@@ -343,6 +345,18 @@ function doSearch() {
   params.set('utm_source', 'website')
   params.set('utm_content', 'searchbar')
   params.set('operation', opType.value)
+
+  trackEvent('Hero Search Submitted', {
+    address: selectedPlace.value.address,
+    lat: selectedPlace.value.lat,
+    lng: selectedPlace.value.lng,
+    zoom: selectedPlace.value.zoom,
+    operation: opType.value,
+    propertyType: propertyType.value,
+    legalSituation: legalSituation.value || null,
+    clickedOnPage: route.path,
+  })
+
   window.location.href = `https://app.residelia.com/explorer?${params}`
 }
 </script>

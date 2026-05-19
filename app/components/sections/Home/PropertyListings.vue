@@ -26,7 +26,7 @@
               v-for="card in ROW1"
               :key="card.id"
               class="pl__card"
-              @click="open(card.url)"
+              @click="onCardClick(card)"
             >
               <img :src="card.image" :alt="card.address" class="pl__card-bg" />
               <div class="pl__card-head">
@@ -66,7 +66,7 @@
               v-for="card in ROW2"
               :key="card.id"
               class="pl__card"
-              @click="open(card.url)"
+              @click="onCardClick(card)"
             >
               <img :src="card.image" :alt="card.address" class="pl__card-bg" />
               <div class="pl__card-head">
@@ -172,8 +172,24 @@ const listings = computed(() => (data.value?.advertisements ?? []).map(mapAd))
 const ROW1 = computed(() => listings.value.slice(0, 4))
 const ROW2 = computed(() => listings.value.slice(4, 7))
 
-function open(url: string) {
-  window.open(url, '_blank', 'noopener')
+const route = useRoute()
+const { trackEvent } = useTracking()
+
+function onCardClick(card: Card) {
+  trackEvent('Property Card Clicked', {
+    id: card.id,
+    address: card.address,
+    price: card.price,
+    rooms: card.rooms,
+    baths: card.baths,
+    sqm: card.sqm,
+    ppm: card.ppm,
+    status: card.status ?? null,
+    source: card.source,
+    url: card.url,
+    clickedOnPage: route.path,
+  })
+  window.open(card.url, '_blank', 'noopener')
 }
 </script>
 
