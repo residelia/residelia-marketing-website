@@ -334,6 +334,10 @@
 .hero-search__cycle-col {
   display: flex;
   flex-direction: column;
+  /* Sin esto, align-items default = stretch hace que TODAS las palabras
+     se estiren al ancho de la más larga, y measure() lee el ancho estirado.
+     Con flex-start cada palabra toma su ancho intrínseco. */
+  align-items: flex-start;
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .hero-search__cycle-word {
@@ -371,6 +375,8 @@
   .hero-search__left {
     padding: 28px 20px 24px;
     border-radius: 12px;
+    /* Evita desbordes horizontales por descendientes anchos. */
+    min-width: 0;
   }
   .hero-search__bar {
     flex-direction: column;
@@ -395,5 +401,21 @@
   .hero-search__bar-btn {
     margin: 8px;
     justify-content: center;
+  }
+  /* Stats: 4 columnas + 3 separadores no caben en mobile. Reorganizamos
+     en grid 2×2 y ocultamos los separadores. */
+  .hero-search__stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 20px;
+  }
+  .hero-search__stat-sep {
+    display: none;
+  }
+  .hero-search__stat-num {
+    font-size: 22px;
+  }
+  .hero-search__stat-lbl {
+    max-width: none;
   }
 }

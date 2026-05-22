@@ -18,7 +18,7 @@
 
         <!-- Row 1 -->
         <div class="pl__row">
-          <template v-if="pending || error">
+          <template v-if="pending || error || listings.length === 0">
             <div v-for="n in 4" :key="n" class="pl__card pl__card--skeleton" />
           </template>
           <template v-else>
@@ -58,7 +58,7 @@
 
         <!-- Row 2: 3 property cards + broker card -->
         <div class="pl__row">
-          <template v-if="pending || error">
+          <template v-if="pending || error || listings.length === 0">
             <div v-for="n in 3" :key="n" class="pl__card pl__card--skeleton" />
           </template>
           <template v-else>
@@ -164,7 +164,7 @@ function mapAd(ad: Advertisement): Card {
 }
 
 const { data, pending, error } = useFetch<{ advertisements: Advertisement[] }>(
-  'https://public-api.residelia.com/dev/advertisements',
+  'https://public-api.residelia.com/advertisements',
   { server: false }
 )
 

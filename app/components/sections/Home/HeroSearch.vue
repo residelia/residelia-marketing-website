@@ -1,16 +1,21 @@
 <template>
-  <section class="hero-search">
+  <section class="hero-search mt-50">
     <div class="container">
       <div class="hero-search__inner">
 
         <!-- LEFT BLOCK: search content -->
         <div class="hero-search__left">
 
-          <!-- Cycling heading -->
-          <h1 v-if="isCycling" class="hero-search__h1">
-            {{ headingParts[0] }}<span ref="cycleWrapRef" class="hero-search__cycle-wrap" :style="cycleWrapWidth ? { width: cycleWrapWidth } : {}"><span class="hero-search__cycle-col" :style="{ transform: `translateY(-${currentWordIndex * wordHeight}px)` }"><span v-for="word in cycleWords" :key="word" class="hero-search__cycle-word">{{ word }}</span></span></span>{{ headingParts[1] }}
-          </h1>
-          <h1 v-else class="hero-search__h1" v-html="headingHtml" />
+          <!-- Heading con tokens:
+               · {{cycling}}  → palabra animada (slot machine).
+               · {{br}}       → salto de línea explícito (defínelo en Sanity).
+               · headingHighlight (si se define en Sanity) → resaltado en color theme. -->
+          <h1 class="hero-search__h1"><template v-for="(token, idx) in headingTokens" :key="idx"><span
+                v-if="token.type === 'cycling'"
+                :ref="setCycleWrapRef"
+                class="hero-search__cycle-wrap"
+                :style="cycleWrapWidth ? { width: cycleWrapWidth } : {}"
+              ><span class="hero-search__cycle-col" :style="{ transform: `translateY(-${currentWordIndex * wordHeight}px)` }"><span v-for="word in cycleWords" :key="word" class="hero-search__cycle-word">{{ word }}</span></span></span><br v-else-if="token.type === 'br'"><span v-else-if="token.highlighted" class="color--theme">{{ token.value }}</span><template v-else>{{ token.value }}</template></template></h1>
 
           <p class="hero-search__sub">{{ subHeading }}</p>
 
@@ -155,36 +160,62 @@ const loc = (arr: any[]) =>
   ?? arr?.find((t: any) => t._key === locale.value.slice(0, 2))?.value
   ?? ''
 
-// ── Static heading fallback (highlight via headingHighlight) ────
-const headingHtml = computed(() => {
-  const full = loc(props.hero?.heading)
-  const accent = loc(props.hero?.headingHighlight)
-  if (!accent || !full) return full
-  return full.replace(accent, `<span class="color--theme">${accent}</span>`)
-})
+// ── Heading: tokenización ───────────────────────────────────────
+// El campo `heading` en Sanity admite estos tokens:
+//   {{cycling}}  → la palabra animada (requiere `headingWords` definido).
+//   {{br}}       → salto de línea explícito.
+// El campo `headingHighlight` (opcional) marca un substring para resaltarlo
+// en color theme. Se aplica sobre los segmentos de texto, no atraviesa tokens.
+type HeadingToken =
+  | { type: 'text'; value: string; highlighted?: boolean }
+  | { type: 'cycling' }
+  | { type: 'br' }
 
-// ── Cycling heading ─────────────────────────────────────────────
 const cycleWords = computed<string[]>(() => {
   const raw = loc(props.hero?.headingWords)
   if (!raw) return []
   return raw.split(',').map((w: string) => w.trim()).filter(Boolean)
 })
 
-const heading = computed(() => loc(props.hero?.heading))
-
-const headingParts = computed<[string, string]>(() => {
-  const parts = heading.value.split('{{cycling}}')
-  return [parts[0] ?? '', parts[1] ?? '']
+const headingTokens = computed<HeadingToken[]>(() => {
+  const full = loc(props.hero?.heading) || ''
+  if (!full) return []
+  const accent = loc(props.hero?.headingHighlight) || ''
+  // Split conservando los delimitadores.
+  const parts = full.split(/(\{\{cycling\}\}|\{\{br\}\})/g).filter(Boolean)
+  const out: HeadingToken[] = []
+  for (const part of parts) {
+    if (part === '{{cycling}}') { out.push({ type: 'cycling' }); continue }
+    if (part === '{{br}}')      { out.push({ type: 'br' });      continue }
+    // Texto: si hay accent, partimos para resaltar.
+    if (accent && part.includes(accent)) {
+      const sub = part.split(accent)
+      for (let i = 0; i < sub.length; i++) {
+        if (sub[i]) out.push({ type: 'text', value: sub[i] })
+        if (i < sub.length - 1) out.push({ type: 'text', value: accent, highlighted: true })
+      }
+    } else {
+      out.push({ type: 'text', value: part })
+    }
+  }
+  return out
 })
 
 const isCycling = computed(
-  () => cycleWords.value.length > 0 && heading.value.includes('{{cycling}}')
+  () => cycleWords.value.length > 0
+    && headingTokens.value.some(t => t.type === 'cycling')
 )
 
 const currentWordIndex = ref(0)
 const cycleWrapRef = ref<HTMLElement | null>(null)
 const cycleWrapWidth = ref('')
 const wordHeight = ref(0)
+
+// Function ref: el span cycling vive dentro de un v-for, por lo que un `ref`
+// declarativo se convertiría en array. Lo asignamos a la variable directamente.
+function setCycleWrapRef(el: any) {
+  cycleWrapRef.value = (el ?? null) as HTMLElement | null
+}
 
 function measure() {
   const wordEls = cycleWrapRef.value?.querySelectorAll<HTMLElement>('.hero-search__cycle-word')

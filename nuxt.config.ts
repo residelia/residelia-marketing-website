@@ -266,10 +266,17 @@ export default defineNuxtConfig({
       "process.env.DEBUG": true,
     },
     ssr: {
-      noExternal: ["@vuelidate/core", "vuetify"],}
-    // optimizeDeps: {
-    //   include: ['@vuelidate/core']
-    // }
+      noExternal: ["@vuelidate/core", "vuetify"],
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          // main.scss usa @import (legacy). Silenciamos el warning hasta que se
+          // migre el archivo entero a @use (10k líneas, fuera de scope ahora).
+          silenceDeprecations: ['import', 'legacy-js-api'],
+        },
+      },
+    },
   },
 
   nitro: {
