@@ -96,12 +96,12 @@
           </template>
 
           <!-- Broker promo card -->
-          <a href="/broker" class="pl__broker" target="_blank" rel="noopener">
-            <div class="pl__broker-logo">broker<span class="pl__broker-sub">·RESIDELIA</span></div>
+          <NuxtLink to="https://app.residelia.com/register" class="pl__broker" target="_blank" rel="noopener">
+            <!-- <div class="pl__broker-logo">broker<span class="pl__broker-sub">·RESIDELIA</span></div> -->
             <p class="pl__broker-q">{{ $t('propertyListings.brokerQuestion') }}</p>
             <p class="pl__broker-desc">{{ $t('propertyListings.brokerDesc') }}</p>
             <span class="pl__broker-cta">{{ $t('propertyListings.brokerCta') }} <i class="ri-arrow-right"></i></span>
-          </a>
+          </NuxtLink>
         </div>
 
       </div>
