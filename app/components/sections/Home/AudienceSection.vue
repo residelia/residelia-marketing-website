@@ -343,8 +343,8 @@ onBeforeUnmount(() => {
   -webkit-appearance: none;
   background: #fff;
   border: 1px solid #D7DDE7;
-  border-radius: 999px;
-  padding: 16px 28px;
+  border-radius: 05px;
+  padding: 10px 28px;
   font-size: 16px;
   font-weight: 600;
   line-height: 1;
@@ -363,9 +363,11 @@ onBeforeUnmount(() => {
 }
 
 .as .as-tab[aria-selected="true"] {
-  background: #1778FB;
+  /* background: #1778FB; */
+  background: #F97316;
   color: #fff;
-  border-color: #1778FB;
+  border-color: #F97316;
+  /* border-color: #1778FB; */
 }
 
 .as .as-tab:focus-visible {
@@ -384,7 +386,7 @@ onBeforeUnmount(() => {
 
 .as-progress__fill {
   height: 100%;
-  background: #1778FB;
+  background: #F97316;
   width: 0%;
   transition: width 120ms linear;
 }
