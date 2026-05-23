@@ -33,7 +33,7 @@
                                 <div v-if="!$vuetify.display.xs" class="row my-2">
                                     <div v-if="!$vuetify.display.xs" class="d-flex flex-row justify-content-between align-items-center">
                                         <h6 class="s-16 w-600 align-self-center pt-3">{{ mainStore.menu.products?.action.link.linkText.find(l => l._key === locale).value }}</h6>
-                                        <NuxtLink class="btn r-04 btn--theme hover--theme last-link"  :to="$localePath(mainStore.menu.products?.action.link.slug.find(l => l._key === locale).value.current+(mainStore.menu.callToAction.queryString ? mainStore.menu.callToAction.queryString : '' ))" v-follow >{{ mainStore.menu.products?.action.link.actionText.find(l => l._key === locale).value }}</NuxtLink>
+                                        <NuxtLink class="btn r-04 btn--theme hover--theme last-link" :to="$localePath((mainStore.menu.products?.action.link.slug.find(l => l._key === locale)?.value?.current ?? '') + (mainStore.menu.products?.action.link?.queryString ?? ''))" :target="mainStore.menu.products?.action.link?.newWindow ? '_blank' : '_self'" v-follow >{{ mainStore.menu.products?.action.link.actionText.find(l => l._key === locale).value }}</NuxtLink>
                                     </div>
                                 </div>
                             </div>
@@ -140,6 +140,7 @@
                         :to="Array.isArray(mainStore.menu.demoAction.slug)
                           ? $localePath((mainStore.menu.demoAction.slug.find(l => l._key === locale)?.value?.current ?? '') + (mainStore.menu.demoAction?.queryString ?? ''))
                           : mainStore.menu.demoAction.slug"
+                        :target="mainStore.menu.demoAction?.newWindow ? '_blank' : '_self'"
                         class="btn w-100 r-04 btn--theme-tertiary last-link"
                         v-follow
                         >{{ mainStore.menu.demoAction?.linkText?.find(l => l._key === locale)?.value }}</NuxtLink
@@ -158,14 +159,15 @@
                         <template v-else>
                             <NuxtLink
                               v-if="!Array.isArray(mainStore.menu.accessAction.slug)"
-                              :to="mainStore.menu.accessAction.slug"
+                              :to="mainStore.menu.accessAction.slug + (mainStore.menu.accessAction?.queryString ?? '')"
                               :target="mainStore.menu.accessAction?.newWindow ? '_blank' : '_self'"
-                              class="btn btn--theme-secondary hover--theme"
+                              class="btn w-100 r-04 btn--theme-tertiary last-link"
                               external v-follow
                             >{{ mainStore.menu.accessAction?.linkText?.find(l => l._key === locale)?.value }}</NuxtLink>
                             <NuxtLink
                               v-else
-                              :to="$localePath(mainStore.menu.accessAction.slug.find(l => l._key === locale)?.value?.current ?? '')"
+                              :to="$localePath((mainStore.menu.accessAction.slug.find(l => l._key === locale)?.value?.current ?? '') + (mainStore.menu.accessAction?.queryString ?? ''))"
+                              :target="mainStore.menu.accessAction?.newWindow ? '_blank' : '_self'"
                               class="btn btn--theme-secondary hover--theme"
                               v-follow
                             >{{ mainStore.menu.accessAction?.linkText?.find(l => l._key === locale)?.value }}</NuxtLink>
@@ -180,9 +182,11 @@
                             <NuxtLink
                               id="header-sign_up-button"
                               :to="Array.isArray(mainStore.menu.callToAction.slug)
-                                ? $localePath(mainStore.menu.callToAction.slug.find(l => l._key === locale)?.value?.current ?? '')
-                                : mainStore.menu.callToAction.slug"
+                                ? $localePath((mainStore.menu.callToAction.slug.find(l => l._key === locale)?.value?.current ?? '') + (mainStore.menu.callToAction?.queryString ?? ''))
+                                : mainStore.menu.callToAction.slug + (mainStore.menu.callToAction?.queryString ?? '')"
+                              :target="mainStore.menu.callToAction?.newWindow ? '_blank' : '_self'"
                               class="btn w-100 r-04 btn--theme-secondary hover--theme last-link"
+                              external
                               v-follow
                             >{{ mainStore.menu.callToAction?.linkText?.find(l => l._key === locale)?.value }}</NuxtLink>
                         </template>

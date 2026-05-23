@@ -131,6 +131,7 @@ export const navQuery = groq`
 			isIconLink,
 			newWindow,
 			linkType,
+			queryString,
 			"slug": coalesce(internalLink->slug, externalUrl, anchor, videoUrl),
 			linkText
 		},
