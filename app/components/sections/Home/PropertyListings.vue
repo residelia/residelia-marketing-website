@@ -168,7 +168,16 @@ const { data, pending, error } = useFetch<{ advertisements: Advertisement[] }>(
   { server: false }
 )
 
-const listings = computed(() => (data.value?.advertisements ?? []).map(mapAd))
+const listings = computed(() => {
+  const cards = (data.value?.advertisements ?? []).map(mapAd)
+  if (cards.length > 7) {
+    for (let i = cards.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      const tmp = cards[i]; cards[i] = cards[j]!; cards[j] = tmp!
+    }
+  }
+  return cards
+})
 const ROW1 = computed(() => listings.value.slice(0, 4))
 const ROW2 = computed(() => listings.value.slice(4, 7))
 
