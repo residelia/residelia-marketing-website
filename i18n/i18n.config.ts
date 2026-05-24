@@ -83,6 +83,15 @@ export default defineI18nConfig(() => ({
                 legal_LONG_TERM_USE_RIGHT: 'Derecho de uso vitalicio',
                 legal_OTHER: 'Otra',
             },
+            legalSituations: {
+                NPL: 'NPL',
+                REO: 'REO',
+                AUCTION_TRANSFER: 'Cesión de remate',
+                AUCTION: 'Subasta',
+                FULL_OWNERSHIP: 'Pleno dominio',
+                BARE_OWNERSHIP: 'Nuda propiedad',
+                LONG_TERM_USE_RIGHT: 'Derecho de uso vitalicio',
+            },
             propertyListings: {
                 title: 'Últimos activos estructurados en RESIDELIA',
                 seeAll: 'Ver todos los activos',
@@ -268,6 +277,15 @@ export default defineI18nConfig(() => ({
                 legal_BARE_OWNERSHIP: 'Bare ownership',
                 legal_LONG_TERM_USE_RIGHT: 'Long-term use right',
                 legal_OTHER: 'Other',
+            },
+            legalSituations: {
+                NPL: 'NPL',
+                REO: 'REO',
+                AUCTION_TRANSFER: 'Transfer of Award',
+                AUCTION: 'Auction',
+                FULL_OWNERSHIP: 'Full Ownership',
+                BARE_OWNERSHIP: 'Bare Ownership',
+                LONG_TERM_USE_RIGHT: 'Long-term Use Right',
             },
             propertyListings: {
                 title: 'Latest assets structured by RESIDELIA',

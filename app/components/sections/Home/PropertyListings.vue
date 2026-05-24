@@ -33,7 +33,7 @@
                 <div class="pl__chips">
                   <span class="pl__chip pl__chip--gray">{{ $t('propertyListings.listedBy', { source: card.source }) }}</span>
                   <span class="pl__chip pl__chip--gray">{{ card.date }}</span>
-                  <span v-if="card.status" class="pl__chip pl__chip--gray">{{ card.status }}</span>
+                  <span v-if="card.status" class="pl__chip pl__chip--gray">{{ $t('legalSituations.' + card.status) }}</span>
                 </div>
                 <button class="pl__fav" @click.stop>
                   <i class="ri-favorite-off"></i>
@@ -73,7 +73,7 @@
                 <div class="pl__chips">
                   <span class="pl__chip pl__chip--gray">{{ $t('propertyListings.listedBy', { source: card.source }) }}</span>
                   <span class="pl__chip pl__chip--gray">{{ card.date }}</span>
-                  <span v-if="card.status" class="pl__chip pl__chip--gray">{{ card.status }}</span>
+                  <span v-if="card.status" class="pl__chip pl__chip--gray">{{ $t('legalSituations.' + card.status) }}</span>
                 </div>
                 <button class="pl__fav" @click.stop>
                   <i class="ri-favorite-off"></i>
