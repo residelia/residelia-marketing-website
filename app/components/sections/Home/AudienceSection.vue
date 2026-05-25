@@ -211,7 +211,7 @@ const onScroll = () => {
   updateProgress(pct)
 
   // eslint-disable-next-line no-console
-  console.log('[AudienceSection]', { past: past.toFixed(0), wrapperH: wrap.style.height, idx, activeTab: activeTab.value })
+  // console.log('[AudienceSection]', { past: past.toFixed(0), wrapperH: wrap.style.height, idx, activeTab: activeTab.value })
 }
 
 const onTabClick = (idx: number) => {

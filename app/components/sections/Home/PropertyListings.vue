@@ -15,7 +15,6 @@
 
       <!-- Rows -->
       <div class="pl__rows">
-
         <!-- Row 1 -->
         <div class="pl__row">
           <template v-if="pending || error || listings.length === 0">
@@ -28,7 +27,7 @@
               class="pl__card"
               @click="onCardClick(card)"
             >
-              <img :src="card.image" :alt="card.address" class="pl__card-bg" />
+              <img :src="card.image" :alt="card.title" class="pl__card-bg" />
               <div class="pl__card-head">
                 <div class="pl__chips">
                   <span class="pl__chip pl__chip--gray">{{ $t('propertyListings.listedBy', { source: card.source }) }}</span>
@@ -44,7 +43,7 @@
                   <span class="pl__price">{{ card.price }}</span>
                   <button class="pl__kebab" @click.stop><i class="ri-kebab-menu-vertical"></i></button>
                 </div>
-                <p class="pl__address">{{ card.address }}</p>
+                <p class="pl__address">{{ card.title }}</p>
                 <div class="pl__specs">
                   <span class="pl__spec">{{ card.rooms }} <i class="ri-bedroom"></i></span>
                   <span class="pl__spec">{{ card.baths }} <i class="ri-bath"></i></span>
@@ -68,7 +67,7 @@
               class="pl__card"
               @click="onCardClick(card)"
             >
-              <img :src="card.image" :alt="card.address" class="pl__card-bg" />
+              <img :src="card.image" :alt="card.title" class="pl__card-bg" />
               <div class="pl__card-head">
                 <div class="pl__chips">
                   <span class="pl__chip pl__chip--gray">{{ $t('propertyListings.listedBy', { source: card.source }) }}</span>
@@ -84,7 +83,7 @@
                   <span class="pl__price">{{ card.price }}</span>
                   <button class="pl__kebab" @click.stop><i class="ri-kebab-menu-vertical"></i></button>
                 </div>
-                <p class="pl__address">{{ card.address }}</p>
+                <p class="pl__address">{{ card.title }}</p>
                 <div class="pl__specs">
                   <span class="pl__spec">{{ card.rooms }} <i class="ri-bedroom"></i></span>
                   <span class="pl__spec">{{ card.baths }} <i class="ri-bath"></i></span>
@@ -113,6 +112,7 @@
 interface Advertisement {
   uuid: string
   address: string
+  title: string
   price: number | null
   size: number
   sqmPrice: number | null
@@ -129,6 +129,7 @@ interface Card {
   status?: string
   price: string; address: string; rooms: number; baths: number
   sqm: number; ppm: string; url: string
+  title: string
 }
 
 function formatDate(iso: string): string {
@@ -155,6 +156,7 @@ function mapAd(ad: Advertisement): Card {
     status: ad.legalSituation && ad.legalSituation !== 'OTHER' ? ad.legalSituation : undefined,
     price: formatPrice(ad.price),
     address: ad.address,
+    title: ad.title ?? ad.address,
     rooms: ad.rooms ?? 0,
     baths: ad.bathrooms ?? 0,
     sqm: ad.size,

@@ -4,6 +4,7 @@
       <SectionsProductHero v-else :product="route.params.product" :hero="data[0].hero" :textColor="textColor"/>
       <SectionsProductStats v-if="data[0].stats && route.params.product !== 'radar'" :stats="data[0].stats" />
       <SectionsProductProblem :problem="data[0].problem"/>
+      <SectionsProductSection3 v-if="data[0].useCases" :useCases="data[0].useCases"></SectionsProductSection3>
       <SectionsProductBenefits :benefits="data[0].benefits"/>
       <SectionsProductUseCases v-if="data[0].useCases" :useCases="data[0].useCases"/>
       <SectionsProductWorkflow v-if="data[0].workflow" :workflow="data[0].workflow"/>

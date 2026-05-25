@@ -1,5 +1,5 @@
 <template>
-  <section class="hero-search mt-50">
+  <section class="hero-search mt-5">
     <div class="container">
       <div class="hero-search__inner">
 
@@ -31,7 +31,7 @@
           </div>
 
           <!-- Comprar / Alquilar / Vender tabs (solo UTM, no afecta filtros) -->
-          <div class="hero-search__tabs">
+          <div class="hero-search__tabs mt-5">
             <button
               type="button"
               class="hero-search__tab"
