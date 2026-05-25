@@ -47,7 +47,7 @@
             <button
               type="button"
               class="hero-search__tab"
-              @click="navigateTo('/broker')"
+              @click="navigateTo('https://app.residelia.com/register?utm_source=website&utm_content=selltab', { external: true, open: { target: '_blank' } })"
             >{{ $t('heroSearch.tabSell') }}</button>
           </div>
 
