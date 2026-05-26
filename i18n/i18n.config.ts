@@ -93,7 +93,7 @@ export default defineI18nConfig(() => ({
                 LONG_TERM_USE_RIGHT: 'Derecho de uso vitalicio',
             },
             propertyListings: {
-                title: 'Últimos activos estructurados en RESIDELIA',
+                title: 'Últimos activos publicados en RESIDELIA',
                 seeAll: 'Ver todos los activos',
                 listedBy: 'Listado por {source}',
                 fastTrack: 'Fast track',
@@ -288,7 +288,7 @@ export default defineI18nConfig(() => ({
                 LONG_TERM_USE_RIGHT: 'Long-term Use Right',
             },
             propertyListings: {
-                title: 'Latest assets structured by RESIDELIA',
+                title: 'Latest assets listed by RESIDELIA',
                 seeAll: 'View all assets',
                 listedBy: 'Listed by {source}',
                 fastTrack: 'Fast track',
