@@ -15,7 +15,7 @@
             <div class="fbox-ico ico-30">
               <div class="shape-ico color--darkgrey">
                 <!-- Vector Icon -->
-                <v-icon v-if="icon.startsWith('ri-')" size="32" :icon="icon" class="w-100"></v-icon>
+                <v-icon v-if="icon.startsWith('ri-') || icon.startsWith('mdi-')" size="32" :icon="icon" class="w-100"></v-icon>
                 <span v-else :class="`flaticon-${icon}`"></span>
 
                 <!-- <NuxtSvgIcon class="svg" :name="icon" font-size="5" fill="black" /> -->
@@ -68,9 +68,9 @@ const isExternal = computed(() => typeof props.slug === 'string')
 
 const routeObject = computed(() => {
   if (isExternal.value) return props.slug as string
-  const lastSegment = (props.slug as Array<any>)
-    .find(l => l._key === locale.value)?.value?.current
-    ?.split('/').filter(Boolean).pop() ?? ''
+  const fullPath = (props.slug as Array<any>)
+    .find(l => l._key === locale.value)?.value?.current ?? ''
+  const lastSegment = fullPath.split('/').filter(Boolean).pop() ?? ''
   switch (props.name) {
     case 'solutions-segment':
       return { name: 'solutions-segment', params: { segment: lastSegment } }
@@ -78,8 +78,10 @@ const routeObject = computed(() => {
       return { name: 'product', params: { product: lastSegment } }
     case 'terms-item':
       return { name: 'terms-item', params: { item: lastSegment } }
+    case 'resources-type':
+      return { name: 'resources-type', params: { type: lastSegment } }
     default:
-      return lastSegment
+      return fullPath
   }
 })
 </script>

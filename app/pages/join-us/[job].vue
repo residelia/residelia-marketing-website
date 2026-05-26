@@ -38,11 +38,9 @@ if (data[0]) {
 
 const jobName = data[0]?.name?.find(l => l._key === locale.value)?.value ?? ''
 
+definePageMeta({ bodyClass: 'navbar-dark scheme-residelia' })
 useHead({
     title: jobName,
-    bodyAttrs: {
-        class: "navbar-dark scheme-residelia"
-    },
 })
 useServerSeoMeta({
   title: jobName,

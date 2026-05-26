@@ -15,25 +15,25 @@
             <nav class="wsmenu clearfix">
                 <ul class="wsmenu-list nav-theme">
                     <!-- PRODUCTOS -->
-                    <li class="mg_link" aria-haspopup="true" :class="{ open: state.isOpen[0] }">
+                    <li class="mg_link" aria-haspopup="true" :class="{ open: state.isOpen[0] }" @mouseenter="state.isOpen[0] = true" @mouseleave="state.isOpen[0] = false">
                         <span class="wsmenu-click" @click="toggle(0)"><i class="wsmenu-arrow"></i></span>
                         <NuxtLink to="#" class="h-link" v-follow >{{ mainStore.menu.products.title.find(l => l._key === locale).value }} <span class="wsarrow"></span></NuxtLink>
-                        <div class="wsmegamenu w-75 clearfix">
+                        <div v-show="state.isOpen[0]" class="wsmegamenu w-75 clearfix">
                             <div class="container">
                                 <div class="row">
                                 <!-- MEGAMENU LINKS -->
                                 <ul class="col-md-12 col-lg-6 link-list">
-                                    <HeaderComplexMenuItem v-for="item in mainStore.menu.products?.menu?.slice(0,(mainStore.menu.products.menu.length/2))" name="product" :slug="item.link?.slug" :icon="item.libIcon" icon-color="black" :title="item.title" :description="item.description" :binder="item._id" :soon="item?.soon" :next="item.next"/>
+                                    <HeaderComplexMenuItem v-for="item in mainStore.menu.products?.menu?.slice(0, Math.ceil(mainStore.menu.products.menu.length/2))" name="product" :slug="item.link?.slug" :icon="item.libIcon" icon-color="black" :title="item.title" :description="item.description" :binder="item._id" :soon="item?.soon" :next="item.next"/>
                                 </ul>
                                 <ul class="col-md-12 col-lg-6 link-list">
-                                    <HeaderComplexMenuItem v-for="item in mainStore.menu.products?.menu?.slice((mainStore.menu.products.menu.length/2),mainStore.menu.products.menu.length)" name="product" :slug="item.link?.slug" :icon="item.libIcon" icon-color="black" :title="item.title" :description="item.description" :binder="item._id" :soon="item?.soon" :next="item.next"/>
+                                    <HeaderComplexMenuItem v-for="item in mainStore.menu.products?.menu?.slice(Math.ceil(mainStore.menu.products.menu.length/2))" name="product" :slug="item.link?.slug" :icon="item.libIcon" icon-color="black" :title="item.title" :description="item.description" :binder="item._id" :soon="item?.soon" :next="item.next"/>
                                 </ul>
                                 </div>
                                 <hr v-if="!$vuetify.display.xs" class="divider" />
                                 <div v-if="!$vuetify.display.xs" class="row my-2">
                                     <div v-if="!$vuetify.display.xs" class="d-flex flex-row justify-content-between align-items-center">
                                         <h6 class="s-16 w-600 align-self-center pt-3">{{ mainStore.menu.products?.action.link.linkText.find(l => l._key === locale).value }}</h6>
-                                        <NuxtLink class="btn r-04 btn--theme hover--theme last-link"  :to="$localePath(mainStore.menu.products?.action.link.slug.find(l => l._key === locale).value.current+(mainStore.menu.callToAction.queryString ? mainStore.menu.callToAction.queryString : '' ))" v-follow >{{ mainStore.menu.products?.action.link.actionText.find(l => l._key === locale).value }}</NuxtLink>
+                                        <NuxtLink class="btn r-04 btn--theme hover--theme last-link" :to="$localePath((mainStore.menu.products?.action.link.slug.find(l => l._key === locale)?.value?.current ?? '') + (mainStore.menu.products?.action.link?.queryString ?? ''))" :target="mainStore.menu.products?.action.link?.newWindow ? '_blank' : '_self'" v-follow >{{ mainStore.menu.products?.action.link.actionText.find(l => l._key === locale).value }}</NuxtLink>
                                     </div>
                                 </div>
                             </div>
@@ -42,10 +42,10 @@
                     <!-- END PRODUCTOS -->
 
                     <!-- SOLUCIONES -->
-                    <li aria-haspopup="true" class="mg_link" :class="{ open: state.isOpen[1] }">
+                    <li aria-haspopup="true" class="mg_link" :class="{ open: state.isOpen[1] }" @mouseenter="state.isOpen[1] = true" @mouseleave="state.isOpen[1] = false">
                         <span class="wsmenu-click" @click="toggle(1)"><i class="wsmenu-arrow"></i></span>
                         <NuxtLink to="#" class="h-link" v-follow >{{ mainStore.menu.solutions.title.find(l => l._key === locale).value }} <span class="wsarrow"></span></NuxtLink>
-                        <div class="wsmegamenu w-75 clearfix">
+                        <div v-show="state.isOpen[1]" class="wsmegamenu w-75 clearfix">
                         <div class="container">
                             <div class="row">
                             <!-- MEGAMENU LINKS -->
@@ -81,10 +81,10 @@
                     </li>
 
                     <!-- RECURSOS -->
-                    <li v-if="mainStore.menu.resources.menu" aria-haspopup="true" class="mg_link" :class="{ open: state.isOpen[2] }" @mouseenter="mainStore.toggleMenu('resources')" @mouseleave="mainStore.toggleMenu('resources')">
+                    <li v-if="mainStore.menu.resources.menu" aria-haspopup="true" class="mg_link" :class="{ open: state.isOpen[2] }" @mouseenter="state.isOpen[2] = true" @mouseleave="state.isOpen[2] = false">
                         <span class="wsmenu-click" @click="toggle(2)"><i class="wsmenu-arrow"></i></span>
                         <NuxtLink to="#" class="h-link" v-follow >{{ mainStore.menu.resources.title.find(l => l._key === locale).value }} <span class="wsarrow"></span></NuxtLink>
-                        <div class="wsmegamenu w-75 clearfix">
+                        <div v-show="state.isOpen[2]" class="wsmegamenu w-75 clearfix">
                         <div class="container">
                             <div class="row">
                             <!-- Columna Aprende -->
@@ -95,6 +95,7 @@
                                 <HeaderComplexMenuItem
                                     v-for="item in [...(mainStore.menu.resources.menu ?? [])].filter(i => i.category === 'learn').sort((a, b) => (a.order ?? 0) - (b.order ?? 0))"
                                     :key="item._id"
+                                    name="resources-type"
                                     :slug="item.link.slug"
                                     :icon="item.libIcon"
                                     icon-color="black"
@@ -113,6 +114,7 @@
                                 <HeaderComplexMenuItem
                                     v-for="item in [...(mainStore.menu.resources.menu ?? [])].filter(i => i.category === 'discover').sort((a, b) => (a.order ?? 0) - (b.order ?? 0))"
                                     :key="item._id"
+                                    name="resources-type"
                                     :slug="item.link.slug"
                                     :icon="item.libIcon"
                                     icon-color="black"
@@ -132,36 +134,61 @@
                     <!-- END RECURSOS -->
 
                     <!-- DEMO BUTTON -->
-                    <li class="nl-simple" aria-haspopup="true" @click="handleClick('Demo Request Started','header-demo-button')">
+                    <li v-if="mainStore.menu.showDemoAction && mainStore.menu.demoAction?.slug" class="nl-simple" aria-haspopup="true" @click="handleClick('Demo Request Started','header-demo-button')">
                         <NuxtLink
                         id="header-demo-button"
-                        :to="$localePath(mainStore.menu.demoAction.slug.find(l => l._key === locale).value.current+mainStore.menu.demoAction.queryString)"
+                        :to="Array.isArray(mainStore.menu.demoAction.slug)
+                          ? $localePath((mainStore.menu.demoAction.slug.find(l => l._key === locale)?.value?.current ?? '') + (mainStore.menu.demoAction?.queryString ?? ''))
+                          : mainStore.menu.demoAction.slug"
+                        :target="mainStore.menu.demoAction?.newWindow ? '_blank' : '_self'"
                         class="btn w-100 r-04 btn--theme-tertiary last-link"
-                        v-follow 
-                        >{{ mainStore.menu.demoAction.linkText.find(l => l._key === locale).value }}</NuxtLink
+                        v-follow
+                        >{{ mainStore.menu.demoAction?.linkText?.find(l => l._key === locale)?.value }}</NuxtLink
                         >
                     </li>
                     <!-- SIGN IN LINK -->
                     <li
+                        v-if="mainStore.menu.showAccessAction && mainStore.menu.accessAction?.slug"
                         class="nl-simple reg-fst-link mobile-last-link"
                         aria-haspopup="true"
                         @click="handleClick('Log-in Started', 'header-login-button')"
                     >
                         <template v-if="route.path.includes('/estate-leads')">
-                            <NuxtLink to="https://estateleads.residelia.com/login" class="btn btn--theme-secondary hover--theme" target='_blank' external v-follow >{{ mainStore.menu.accessAction.linkText.find(l => l._key === locale).value }}</NuxtLink>
+                            <NuxtLink to="https://estateleads.residelia.com/login" class="btn btn--theme-secondary hover--theme" target='_blank' external v-follow >{{ mainStore.menu.accessAction?.linkText?.find(l => l._key === locale)?.value }}</NuxtLink>
                         </template>
                         <template v-else>
-                            <NuxtLink :to="mainStore.menu.accessAction.slug" class="btn btn--theme-secondary hover--theme" v-if="mainStore.menu.accessAction.linkType === 'external' || mainStore.menu.accessAction.linkType === 'video' || mainStore.menu.accessAction.linkType === 'anchor'" :target="mainStore.menu.accessAction.newWindow ? '_blank' : '_self'" external v-follow >{{ mainStore.menu.accessAction.linkText.find(l => l._key === locale).value }}</NuxtLink>
-                            <NuxtLink :to="$localePath(mainStore.menu.accessAction.slug)" class="h-link" v-else v-follow >{{ mainStore.menu.accessAction.linkText }}</NuxtLink>
+                            <NuxtLink
+                              v-if="!Array.isArray(mainStore.menu.accessAction.slug)"
+                              :to="mainStore.menu.accessAction.slug + (mainStore.menu.accessAction?.queryString ?? '')"
+                              :target="mainStore.menu.accessAction?.newWindow ? '_blank' : '_self'"
+                              class="btn w-100 r-04 btn--theme-tertiary last-link"
+                              external v-follow
+                            >{{ mainStore.menu.accessAction?.linkText?.find(l => l._key === locale)?.value }}</NuxtLink>
+                            <NuxtLink
+                              v-else
+                              :to="$localePath((mainStore.menu.accessAction.slug.find(l => l._key === locale)?.value?.current ?? '') + (mainStore.menu.accessAction?.queryString ?? ''))"
+                              :target="mainStore.menu.accessAction?.newWindow ? '_blank' : '_self'"
+                              class="btn btn--theme-secondary hover--theme"
+                              v-follow
+                            >{{ mainStore.menu.accessAction?.linkText?.find(l => l._key === locale)?.value }}</NuxtLink>
                         </template>
                     </li>
                     <!-- SIGN UP LINK -->
-                    <li class="nl-simple" aria-haspopup="true" @click="handleClick('Sign Up Started','header-signup-button')">
+                    <li v-if="mainStore.menu.showCallToAction && mainStore.menu.callToAction?.slug" class="nl-simple" aria-haspopup="true" @click="handleClick('Sign Up Started','header-signup-button')">
                         <template v-if="route.path.includes('/estate-leads')">
-                            <NuxtLink to="https://estateleads.residelia.com/register" class="btn w-100 r-04 btn--theme hover--theme last-link" target='_blank' external v-follow >{{ mainStore.menu.callToAction.linkText.find(l => l._key === locale).value }}</NuxtLink>
+                            <NuxtLink to="https://estateleads.residelia.com/register" class="btn w-100 r-04 btn--theme hover--theme last-link" target='_blank' external v-follow >{{ mainStore.menu.callToAction?.linkText?.find(l => l._key === locale)?.value }}</NuxtLink>
                         </template>
                         <template v-else>
-                            <NuxtLink id="header-sign_up-button" :to="mainStore.menu.callToAction.slug" class="btn w-100 r-04 btn--theme hover--theme last-link" v-follow >{{ mainStore.menu.callToAction.linkText.find(l => l._key === locale).value }}</NuxtLink>
+                            <NuxtLink
+                              id="header-sign_up-button"
+                              :to="Array.isArray(mainStore.menu.callToAction.slug)
+                                ? $localePath((mainStore.menu.callToAction.slug.find(l => l._key === locale)?.value?.current ?? '') + (mainStore.menu.callToAction?.queryString ?? ''))
+                                : mainStore.menu.callToAction.slug + (mainStore.menu.callToAction?.queryString ?? '')"
+                              :target="mainStore.menu.callToAction?.newWindow ? '_blank' : '_self'"
+                              class="btn w-100 r-04 btn--theme-secondary hover--theme last-link"
+                              external
+                              v-follow
+                            >{{ mainStore.menu.callToAction?.linkText?.find(l => l._key === locale)?.value }}</NuxtLink>
                         </template>
                     </li>
                 </ul>
@@ -218,6 +245,12 @@ onUnmounted(() => {
   if (import.meta.client) {
     window.removeEventListener("scroll", handleScroll);
   }
+});
+
+watch(() => route.path, () => {
+    state.isOpen = [false, false, false];
+    document.body.classList.remove('wsactive');
+    mainStore.menu.mobile.open = false;
 });
 
 </script>

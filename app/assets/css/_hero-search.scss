@@ -1,0 +1,416 @@
+/* ==========================================================================
+  HERO SEARCH (Home — sección 1)
+  Migrado desde HeroSearch.vue (<style scoped>) → estilos globales.
+  No usar selectores cortos que puedan colisionar: prefijo .hero-search__
+  =========================================================================== */
+
+.hero-search {
+  background: #fff;
+  padding: 90px 0 24px;
+  /* main.scss declara `section { z-index: 3 !important }`. Subimos esta sección
+     por encima de la siguiente (PropertyListings) para que el dropdown de
+     predicciones no quede tapado al desplegarse. */
+  z-index: 10 !important;
+}
+
+.hero-search__inner {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 16px;
+  align-items: stretch;
+}
+
+/* ─── Left block ───────────────────────────────────────────────── */
+.hero-search__left {
+  background: #F5F7FA;
+  border-radius: 16px;
+  padding: 48px 40px 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-search__overline {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9297A2;
+  margin-bottom: 12px;
+}
+
+.hero-search__h1 {
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: #343E48;
+  margin: 0 0 14px;
+  text-wrap: balance;
+}
+
+.hero-search__sub {
+  font-size: 16px;
+  line-height: 1.55;
+  color: #9297A2;
+  margin: 0 0 28px;
+}
+
+/* ─── Stats ────────────────────────────────────────────────────── */
+.hero-search__stats {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.hero-search__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.hero-search__stat-num {
+  font-size: 26px;
+  font-weight: 700;
+  color: #343E48;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+.hero-search__stat-lbl {
+  font-size: 11px;
+  line-height: 1.35;
+  color: #9297A2;
+  max-width: 100px;
+}
+
+.hero-search__stat-sep {
+  width: 1px;
+  height: 36px;
+  background: #D1D5DB;
+  flex-shrink: 0;
+}
+
+/* ─── Tabs ─────────────────────────────────────────────────────── */
+.hero-search__tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.hero-search__tab {
+  padding: 8px 20px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: transparent;
+  color: #9297A2;
+  transition: background 150ms, color 150ms;
+  line-height: 18px;
+}
+
+.hero-search__tab.is-active {
+  background: #F97316;
+  color: #fff;
+}
+
+.hero-search__tab:not(.is-active):hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* ─── Search bar ───────────────────────────────────────────────── */
+.hero-search__bar {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.hero-search__bar-input {
+  position: relative;        /* anchor del dropdown de predicciones */
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+  min-width: 0;
+}
+
+.hero-search__bar-text {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #343E48;
+  background: transparent;
+  padding: 14px 0;
+  min-width: 0;
+  width: 100%;
+}
+.hero-search__bar-text::placeholder {
+  color: #9297A2;
+}
+
+.hero-search__bar-sep {
+  width: 1px;
+  height: 28px;
+  background: #E5E7EB;
+  flex-shrink: 0;
+}
+
+.hero-search__bar-select-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.hero-search__bar-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #343E48;
+  cursor: pointer;
+  padding: 14px 24px 14px 0;
+  min-width: 140px;
+  white-space: nowrap;
+}
+
+.hero-search__bar-chevron {
+  position: absolute;
+  right: 12px;
+  pointer-events: none;
+  font-size: 12px;
+  color: #9CA3AF;
+}
+
+.hero-search__bar-icon {
+  flex-shrink: 0;
+  font-size: 16px;
+  color: #9CA3AF;
+}
+
+.hero-search__bar-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px;
+  padding: 10px 18px;
+  background: #1778FB;
+  border: none;
+  border-radius: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 150ms, opacity 150ms;
+
+  /* Color blanco forzado: main.scss tiene reglas globales sobre <button>
+     que pueden teñir el texto. */
+  &,
+  & * {
+    color: #fff !important;
+  }
+}
+.hero-search__bar-btn:hover:not(:disabled) {
+  background: #0f63d4;
+}
+.hero-search__bar-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.hero-search__bar-btn-icon {
+  font-size: 16px;
+}
+
+/* ─── Predicciones (autocomplete dropdown estilo Google) ───────── */
+.hero-search__predictions {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 8px 0;
+  list-style: none;
+  background: #fff;
+  border: 1px solid #E5E7EB;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  max-height: 360px;
+  overflow-y: auto;
+  z-index: 50;
+}
+
+.hero-search__prediction {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 18px;
+  cursor: pointer;
+  transition: background 120ms;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.3;
+  color: #5F6470;
+}
+.hero-search__prediction:hover,
+.hero-search__prediction.is-highlighted {
+  background: #F5F7FA;
+}
+
+.hero-search__prediction-icon {
+  flex-shrink: 0;
+  font-size: 18px;
+  color: #9CA3AF;
+}
+
+.hero-search__prediction-text {
+  min-width: 0;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hero-search__prediction-match {
+  font-weight: 700;
+  color: #343E48;
+}
+
+.hero-search__prediction-sub {
+  color: #9297A2;
+}
+
+/* ─── Right block ──────────────────────────────────────────────── */
+.hero-search__right {
+  display: flex;
+  align-items: stretch;
+}
+
+.hero-search__img {
+  width: 100%;
+  height: 100%;
+  min-height: 440px;
+  object-fit: cover;
+  border-radius: 16px;
+  display: block;
+}
+
+/* ─── Cycling word (slot machine + JS-measured width) ──────────── */
+.hero-search__cycle-wrap {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  height: 1.1em;
+  transition: width 0.3s ease;
+  color: #1778FB; /* evita flash de color en hidratación */
+}
+.hero-search__cycle-col {
+  display: flex;
+  flex-direction: column;
+  /* Sin esto, align-items default = stretch hace que TODAS las palabras
+     se estiren al ancho de la más larga, y measure() lee el ancho estirado.
+     Con flex-start cada palabra toma su ancho intrínseco. */
+  align-items: flex-start;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hero-search__cycle-word {
+  display: block;
+  flex-shrink: 0;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+/* ─── Responsive ───────────────────────────────────────────────── */
+@media (max-width: 1023px) {
+  .hero-search__inner {
+    grid-template-columns: 1fr;
+  }
+  .hero-search__right {
+    display: none;
+  }
+  .hero-search__left {
+    padding: 36px 28px 32px;
+  }
+  /* En pantallas pequeñas el texto del CTA roba sitio al input;
+     dejamos solo la lupa. */
+  .hero-search__bar-btn-text {
+    display: none;
+  }
+  .hero-search__bar-btn {
+    padding: 10px 14px;
+  }
+}
+
+@media (max-width: 575px) {
+  .hero-search {
+    padding-bottom: 16px;
+  }
+  .hero-search__left {
+    padding: 28px 20px 24px;
+    border-radius: 12px;
+    /* Evita desbordes horizontales por descendientes anchos. */
+    min-width: 0;
+  }
+  .hero-search__bar {
+    flex-direction: column;
+    align-items: stretch;
+    border-radius: 10px;
+  }
+  .hero-search__bar-input {
+    padding: 0 14px;
+  }
+  .hero-search__bar-sep {
+    width: 100%;
+    height: 1px;
+    margin: 0;
+  }
+  .hero-search__bar-select-wrap {
+    padding: 0 14px;
+  }
+  .hero-search__bar-select {
+    min-width: 0;
+    width: 100%;
+  }
+  .hero-search__bar-btn {
+    margin: 8px;
+    justify-content: center;
+  }
+  /* Stats: 4 columnas + 3 separadores no caben en mobile. Reorganizamos
+     en grid 2×2 y ocultamos los separadores. */
+  .hero-search__stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 20px;
+  }
+  .hero-search__stat-sep {
+    display: none;
+  }
+  .hero-search__stat-num {
+    font-size: 22px;
+  }
+  .hero-search__stat-lbl {
+    max-width: none;
+  }
+}

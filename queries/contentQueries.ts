@@ -76,7 +76,7 @@ export const localesQuery = groq`
 `;
 
 export const footQuery = groq`
-	*[_type == "footer" && !(_id in path('drafts.**'))]{
+	*[_type == "footer" && site == "website" && !(_id in path('drafts.**'))]{
 		"logo": logo.asset->url,
 		title,
 		socials,
@@ -104,7 +104,7 @@ export const footQuery = groq`
 `;
 
 export const navQuery = groq`
-	*[_type == "navigation" && !(_id in path('drafts.**'))]{
+	*[_type == "navigation" && site == "website" && !(_id in path('drafts.**'))]{
         ...,
 		title,
 		"slugs": {
@@ -131,6 +131,7 @@ export const navQuery = groq`
 			isIconLink,
 			newWindow,
 			linkType,
+			queryString,
 			"slug": coalesce(internalLink->slug, externalUrl, anchor, videoUrl),
 			linkText
 		},
@@ -271,6 +272,8 @@ export const pageQuery = groq`
 		"hero": hero->{
 			overline,
 			heading,
+			headingHighlight,
+			headingWords,
 			subHeading,
 			slug,
 			quote->,
@@ -318,6 +321,18 @@ export const pageQuery = groq`
           },
         },
 		problem->{
+			upperHeading,
+			heading,
+			headingHighlight,
+			subHeading,
+			fragmentedTitle,
+			fragmentedDesc,
+			structuredTitle,
+			structuredDesc,
+			dataCategories[]{
+				label,
+				missingInFragmented
+			},
 			"pic": image.asset->,
 			"buttons": callToActions[]->{
 				...,
@@ -327,6 +342,48 @@ export const pageQuery = groq`
 				},
 			},
 			...
+		},
+		audiences->{
+			upperHeading,
+			heading,
+			headingHighlight,
+			subHeading,
+			teamSectionLabel,
+			"profiles": profilesGroup[]->{
+				title,
+				headline,
+				body,
+				detailLabel,
+				useCases[]{
+					text
+				},
+				cta{
+					linkText,
+					linkType,
+					"slug": coalesce(internalLink->slug, externalUrl),
+					queryString
+				}
+			},
+			"teams": teamsGroup[]->{
+				title,
+				body,
+				cta{
+					linkText,
+					linkType,
+					"slug": coalesce(internalLink->slug, externalUrl),
+					queryString
+				}
+			}
+		},
+		competitivePositioning->{
+			subtitle,
+			heading,
+			headingHighlight,
+			badge,
+			quadrants[]{
+				label,
+				sub
+			}
 		},
 		stats->{
 			"statGroup": statsGroup[]->,
@@ -346,7 +403,17 @@ export const pageQuery = groq`
 			...
 		},
 		workflow->{
+			upperHeading,
+			heading,
+			headingHighlight,
+			subHeading,
 			"wfSteps": workflowSteps[]->{
+				step,
+				icon,
+				isMDI,
+				upperHeading,
+				heading,
+				subHeading,
 				"pic": image.asset->,
 				"cta": action2[]{
 					...,
@@ -435,32 +502,102 @@ export const pageQuery = groq`
 
 export const resourceQuery = groq`
     *[_type == "resource" && !(_id in path('drafts.**')) && slug[_key == $language][0].value.current == $slug] {
-	  title,
-	  description,
-	  slug,
-      "hero": hero->{
+      title,
+      description,
+      slug,
+      type,
+      layoutType,
+      widgetLayout,
+      coverColor,
+      hasForm,
+      isFunctional,
+      snippetCode,
+      "heroOverline": heroOverline,
+      "heroImage": heroImage.asset->{ url, metadata{ lqip, dimensions } },
+      "heroImageAlt": heroImage.alt,
+      "whatWillYouFind": whatWillYouFind{
+        heading,
+        showCta,
+        ctaText,
+        "bullets": bullets[]{
+          "text": text
+        },
+        "previewImages": previewImages[]{
+          "url": asset->url,
+          "alt": alt
+        }
+      },
+      "whyItMatters": whyItMatters{
+        overline,
+        heading,
+        showCta,
+        ctaText,
+        "body": body[_key == $language][0].value.content[]{
+          ...,
+          markDefs[]{
+            ...,
+            _type == "internalLink" => {
+              "slug": @.reference->slug
+            }
+          }
+        },
+        "image": image.asset->{ url },
+        "imageAlt": image.alt
+      },
+      "keyPoints": keyPoints{
+        overline,
         heading,
         subHeading,
-        slug,
-        "buttons": callToActions[]->{
-          button
-        },
-		heroImage,
-		"imageAlt": heroImage.alt,
-        "image": heroImage.asset->
+        showCta,
+        ctaText,
+        "points": points[]{
+          icon,
+          isMDI,
+          heading,
+          subHeading
+        }
       },
-      customers[]->{
+      "customers": customers->{
         title,
-        "alt": logo.alt,
-        "logoBlack": logo.asset->{
-          url
-        },
-        "logoWhite": logoWhite.asset->{
-          url
-        },
+        "customers": customers[]->{
+          title,
+          "alt": logo.alt,
+          "logoBlack": logo.asset->{ url },
+          "logoWhite": logoWhite.asset->{ url }
+        }
       },
-	  mainText
-	}
+      "testimonials": testimonials->{
+        heading,
+        subHeading,
+		"testimonials": testimonialsGroup[]->{
+			"pic": image.asset->,
+			...
+		}
+      },
+      "callToAction": callToAction->{
+        upperHeading,
+        heading,
+        button{
+          linkType,
+          linkText,
+          queryString,
+          "slug": coalesce(internalLink->slug, externalUrl)
+        }
+      },
+      mainText,
+      applicationCategory,
+      "publishedAt": _createdAt,
+      "updatedAt": _updatedAt,
+      "faq": faq[]{
+        "question": question,
+        "answer": answer
+      },
+      "howToSteps": howToSteps[]{
+        "name": name,
+        "text": text,
+        imageUrl
+      }
+    }
 `;
 
 export const resourcesListQuery = groq`
@@ -468,8 +605,8 @@ export const resourcesListQuery = groq`
     title,
     description,
     slug,
-    "image": hero->heroImage.asset->{url, metadata{lqip, dimensions}},
-    "imageAlt": hero->heroImage.alt
+    "image": heroImage.asset->{url, metadata{lqip, dimensions}},
+    "imageAlt": heroImage.alt
   }
 `;
 

@@ -12,13 +12,16 @@
 
       <div class="color--theme">
         <NuxtLink
-          :to="localePath(mainStore.menu.demoAction.slug.find(l => l._key === locale).value.current+mainStore.menu.demoAction.queryString)"
+          v-if="mainStore.menu.showDemoAction && mainStore.menu.demoAction?.slug"
+          :to="Array.isArray(mainStore.menu.demoAction.slug)
+            ? localePath((mainStore.menu.demoAction.slug.find(l => l._key === locale)?.value?.current ?? '') + (mainStore.menu.demoAction?.queryString ?? ''))
+            : mainStore.menu.demoAction.slug"
           class="s-14 w-600 wsanimated-arrow color--primary"
           style="padding: 0px 50px 0 0"
           @click="handleClick('Demo Request Started','header-mobile-demo-button')"
-          v-follow 
+          v-follow
         >
-          {{ mainStore.menu.demoAction.linkText.find(l => l._key === locale).value }}
+          {{ mainStore.menu.demoAction?.linkText?.find(l => l._key === locale)?.value }}
         </NuxtLink>
         <!-- <a :href="localePath('/contactar')" class="s-14 w-600 wsanimated-arrow color--secondary-200" style="padding: 6px 50px 0 0">Pide tu Demo</a> -->
         <a id="wsnavtoggle" class="wsanimated-arrow" @click="mainStore.toggleMobileMenu">

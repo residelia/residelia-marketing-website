@@ -28,6 +28,7 @@
     "vanilla-cookieconsent": "^3.1.0"
   },
   "dependencies": {
+    "@googlemaps/js-api-loader": "^2.0.2",
     "@iconify-json/circle-flags": "^1.2.6",
     "@mdi/font": "^7.4.47",
     "@nuxtjs/dotenv": "^1.4.2",

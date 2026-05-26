@@ -98,6 +98,8 @@ export default defineNuxtConfig({
   target: "static",
   ssr: true,
 
+  devtools: { enabled: false },
+
   alias: {
     "@": resolve(__dirname, "/"),
   },
@@ -179,29 +181,17 @@ export default defineNuxtConfig({
     "@nuxtjs/google-fonts",
     {
       families: {
-        "DM+Sans": {
-          wght: [400, 500, 600, 700],
-        },
-        Roboto: {
-          wght: [400, 500, 700],
-        },
-        "Plus+Jakarta+Sans": {
-          wght: [400, 500, 600, 700],
-        },
         Inter: {
           wght: [400, 500, 600, 700],
         },
-        Montserrat: {
-          wght: [400, 500, 600, 700],
-        },
-        Rubik: {
+        "DM+Sans": {
           wght: [400, 500, 600, 700],
         },
       },
       download: true,
       inject: true,
       preload: true,
-      display: 'optional',
+      display: 'swap',
     },
   ], "@pinia/nuxt", "dayjs-nuxt", "@nuxtjs/i18n", '@nuxtjs/sitemap', '@nuxtjs/robots', 'nuxt-schema-org'],
 
@@ -264,10 +254,17 @@ export default defineNuxtConfig({
       "process.env.DEBUG": true,
     },
     ssr: {
-      noExternal: ["@vuelidate/core", "vuetify"],}
-    // optimizeDeps: {
-    //   include: ['@vuelidate/core']
-    // }
+      noExternal: ["@vuelidate/core", "vuetify"],
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          // main.scss usa @import (legacy). Silenciamos el warning hasta que se
+          // migre el archivo entero a @use (10k líneas, fuera de scope ahora).
+          silenceDeprecations: ['import', 'legacy-js-api'],
+        },
+      },
+    },
   },
 
   nitro: {
@@ -312,6 +309,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       googleRecaptchaKey: process.env.RECAPTCHA_SITE_KEY, // for example
+      googleMapsPublicKey: process.env.GOOGLE_MAPS_PUBLIC_KEY,
       formWebhook: process.env.FORM_WEBHOOK,
       signUpWebhook: process.env.SIGNUP_WEBHOOK,
       newsletterWebhook: process.env.NEWSLETTER_WEBHOOK,

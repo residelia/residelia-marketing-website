@@ -1,5 +1,5 @@
 <template>
-    <section id="hero-8" class="bg--fixed hero-section">
+    <section id="hero-product" class="bg--scroll hero-section" :class="product">
         <div class="container">
             <div class="row d-flex align-items-center">
 
@@ -9,11 +9,11 @@
                         <h2 class="s-54 w-700">{{ hero.heading?.find(t => t._key === locale)?.value }}</h2>
                         <p class="p-lg">{{ hero.subHeading?.find(t => t._key === locale)?.value }}</p>
                         <!-- HERO DIGITS -->
-                        <div v-if="stats" class="hero-digits clearfix mt-3">
+                        <div v-if="stats" class="row hero-digits clearfix mt-3">
                             <div v-for="digit in stats.statGroup" :key="digit._key" class="hero-digits-block  col-md-6">
-                                <div class="block-digit">
+                                <div class="s-46 block-digit align-items-end d-flex">
                                     <h2 class="s-46 statistic-number">
-                                        {{ digit.value }}<span v-if="digit.unit">{{ digit.unit }}</span>
+                                        <span>+</span><span><ElementsCounterUp :start="0" :end="parseInt(digit.value)" :duration="2000" /></span><span v-if="digit.unit">{{ digit.unit }}</span>
                                     </h2>
                                 </div>
                                 <div class="block-txt">
@@ -21,6 +21,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         <!-- END HERO DIGITS -->
                     </div>
                 </div>
@@ -79,6 +80,27 @@
                                 />
                             </div>
 
+                            <!-- TIPO DE OPORTUNIDADES -->
+                            <div v-if="formData[0].inputs.find((x: any) => x.name === 'opportunities')" class="col-md-12 mt-1">
+                                <div class="s-14 w-500 mb-2">{{ label('opportunities') }}</div>
+                                <div class="row align-items-center">
+                                    <div
+                                        v-for="option in formData[0].inputs.find((x: any) => x.name === 'opportunities').list"
+                                        :key="option._key"
+                                        class="col-6 pt-0 mt-0"
+                                    >
+                                        <v-checkbox
+                                            v-model="suspectData.opportunities"
+                                            :label="option.label"
+                                            :value="option.value"
+                                            hide-details
+                                            density="compact"
+                                            class="pt-0 opportunity-checkbox"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- FRECUENCIA -->
                             <!-- <div class="col-md-12 mt-1">
                                 <div class="s-14 w-500 mb-1">{{ label('frequency') }}</div>
@@ -100,6 +122,8 @@
                                 </v-radio-group>
                             </div> -->
 
+                            <hr class="divider my-2"/>
+
                             <!-- RGPD (obligatorio) -->
                             <div v-if="formData[0].inputs.find(x => x.name === 'acceptRGPD')" class="col-md-12 pt-1">
                                 <div v-for="error of v$.acceptRGPD?.$errors" :key="error.$uid">
@@ -112,7 +136,7 @@
                                 >
                                     <template v-slot:label>
                                         <div class="contact-form-notice">
-                                            <p class="pt-2 mt-0 ml-1 text-left">
+                                            <p class="pt-2 my-0 ml-1 text-left">
                                                 {{ formData[0].inputs.find(x => x.name === 'acceptRGPD').description.find(t => t._key === locale).value }}
                                             </p>
                                         </div>
@@ -121,7 +145,7 @@
                             </div>
 
                             <!-- MARKETING (opt-in) -->
-                            <div v-if="formData[0].inputs.find(x => x.name === 'acceptMarketing')" class="col-md-12 pt-1">
+                            <div v-if="formData[0].inputs.find(x => x.name === 'acceptMarketing')" class="col-md-12">
                                 <v-checkbox
                                     v-model="suspectData.acceptMarketing"
                                     class="d-flex align-start"
@@ -221,10 +245,10 @@ const suspectData = reactive({
     firstName: '',
     lastName: '',
     frequency: 'weekly',
+    opportunities: [] as string[],
     origin: 'radarNewsletter@' + route.fullPath,
     acceptRGPD: false,
     acceptMarketing: false,
-    // Futuro: radarTypes: []  // ['flipping', 'rentabilidad', ...]
 })
 
 const formResult = reactive({
@@ -332,5 +356,8 @@ async function doSubmit() {
 #hero-8-form {
     background: #fff;
     padding: 2rem;
+}
+.opportunity-checkbox .v-checkbox-btn {
+    align-items: center !important;
 }
 </style>

@@ -28,12 +28,10 @@ const data = await useSanityData({
     }
 })
 
+definePageMeta({ bodyClass: 'navbar-dark' })
 useHead({
     title: `${data[0].title.find(l => l._key === locale._value).value}`,
     description: `${data[0].description.find(l => l._key === locale._value).value}`,
-    bodyAttrs: {
-        class: "navbar-dark"
-    }
 });
 useServerSeoMeta({
   title: `${data[0].title.find(l => l._key === locale.value).value}`,

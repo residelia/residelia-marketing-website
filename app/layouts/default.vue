@@ -1,7 +1,7 @@
 <template>
     <div id="page" class="page font--dmsans">
         <HeaderNav />
-        <slot />
+        <div style="min-height: 100vh"><slot /></div>
         <LazyFooter />
     </div>
 </template>
@@ -11,8 +11,14 @@ import { useCanonical } from '~/composables/useCanonical'
 import { useHtmlLang } from '~/composables/useHtmlLang'
 
 useCanonical()
-// call without pageLocales -> sets html lang and dir from current i18n locale
 useHtmlLang()
+
+const bodyClass = useBodyClass()
+useHead({
+    bodyAttrs: {
+        class: computed(() => bodyClass.value)
+    }
+})
 </script>
 
 <style src="~/assets/css/color-scheme/residelia.scss" lang="scss"></style>

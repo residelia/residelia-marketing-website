@@ -24,9 +24,9 @@
                 </div>
                 <!-- END TEXT BLOCK -->
                 <!-- IMAGE BLOCK -->
-                <div class="col-md-6 order-first order-md-2">
+                <div v-if="useCases.pic?.url" class="col-md-6 order-first order-md-2">
                     <div class="img-block">
-                        <img class="img-fluid" :src="useCases.pic.url+'?fm=webp'" :alt="useCases.image.alt" />
+                        <img class="img-fluid" :src="useCases.pic.url+'?fm=webp'" :alt="useCases.image?.alt" />
                     </div>
                 </div>
             </div>

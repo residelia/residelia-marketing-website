@@ -78,7 +78,12 @@
             <h6 class="s-17 w-700">{{ mainStore.footer.menuesGroup[3].title?.find(l => l._key === locale).value}}</h6>
             <!-- Links -->
             <ul class="foo-links clearfix">
-              <li v-for="menu in mainStore.footer.menuesGroup[3].menu"><p><NuxtLink :to="$localePath(menu.link.slug.find(l => l._key === locale).value.current)" v-follow >{{ menu.title.find(l => l._key === locale).value }}</NuxtLink></p></li>
+              <li v-for="menu in mainStore.footer.menuesGroup[3].menu">
+                <p>
+                  <NuxtLink v-if="Array.isArray(menu.link.slug)" :to="$localePath({ name: 'resources-type', params: { type: menu.link.slug.find(l => l._key === locale).value.current.split('/').filter(Boolean).pop() } })" v-follow>{{ menu.title.find(l => l._key === locale).value }}</NuxtLink>
+                  <NuxtLink v-else :to="menu.link.slug" external target="_blank" v-follow>{{ menu.title.find(l => l._key === locale).value }}</NuxtLink>
+                </p>
+              </li>
             </ul>
           </div>
         </div>

@@ -2,8 +2,9 @@
     <div>
       <SectionsProductHeroRadar v-if="route.params.product === 'radar'" :product="route.params.product" :hero="data[0].hero" :textColor="textColor" :stats="data[0].stats"/>
       <SectionsProductHero v-else :product="route.params.product" :hero="data[0].hero" :textColor="textColor"/>
-      <SectionsProductStats v-if="data[0].stats" :stats="data[0].stats" />
+      <SectionsProductStats v-if="data[0].stats && route.params.product !== 'radar'" :stats="data[0].stats" />
       <SectionsProductProblem :problem="data[0].problem"/>
+      <SectionsProductSection3 v-if="data[0].useCases" :useCases="data[0].useCases"></SectionsProductSection3>
       <SectionsProductBenefits :benefits="data[0].benefits"/>
       <SectionsProductUseCases v-if="data[0].useCases" :useCases="data[0].useCases"/>
       <SectionsProductWorkflow v-if="data[0].workflow" :workflow="data[0].workflow"/>
@@ -25,6 +26,7 @@ const { locale } = useI18n()
 const mainStore = useMainStore()
 const headerColor = !["legal", "broker","explorer","valuation","management","maintenance","estate-leads","radar"].includes(route.params.product) ? 'navbar-dark' : 'navbar-light'
 const textColor = ["legal", "broker","explorer","valuation","management","maintenance","estate-leads","radar"].includes(route.params.product) ? 'color--white' : 'color--dark'
+useBodyClass().value = `${headerColor} scheme-residelia`
 
 
 const data = await useSanityData({
@@ -49,15 +51,10 @@ setI18nParams({
 // console.log(locale.value)
 // console.log(data)
 
-definePageMeta({
-  layout: 'default'
-})
+definePageMeta({ layout: 'default' })
 useHead({
   title: `${data[0].title.find(l => l._key === locale.value).value}`,
   description: `${data[0].description.find(l => l._key === locale.value).value}`,
-  bodyAttrs: {
-      class: `${headerColor} scheme-residelia`
-  },
 })
 useServerSeoMeta({
   title: `${data[0].title.find(l => l._key === locale.value).value}`,

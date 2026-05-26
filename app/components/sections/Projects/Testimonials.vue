@@ -1,5 +1,6 @@
 <template>
-    <section v-if="testimonials" id="reviews-1" class="py-100 shape--06 shape--gr-surface-100 reviews-section">
+    <template v-if="testimonials">
+    <section id="reviews-1" class="py-100 shape--06 shape--gr-surface-100 reviews-section">
         <div class="container">
             <!-- SECTION TITLE -->
             <div class="row justify-content-center">
@@ -25,6 +26,7 @@
     <!-- END TESTIMONIALS-1 -->
     <!-- DIVIDER LINE -->
     <hr class="divider" />
+    </template>
 </template>
 
 <script setup lang="ts">

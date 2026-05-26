@@ -24,8 +24,9 @@
                             <div class="project-preview r-10">
                                 <div class="hover-overlay">
                                     <img
+                                        v-if="resource.image?.url"
                                         class="img-fluid"
-                                        :src="resource.image?.url || '/assets/images/resources/resource-default-cover.jpg'"
+                                        :src="resource.image.url"
                                         :alt="resource.imageAlt || ''"
                                     />
                                     <div class="item-overlay"></div>
@@ -53,7 +54,7 @@
             <!-- END RESOURCES GRID -->
 
             <!-- COMING SOON: skeleton grid + overlay -->
-            <div v-else class="projects-wrapper projects-wrapper--skeleton">
+            <div v-else class="projects-wrapper projects-wrapper--skeleton mb-100">
                 <!-- Skeleton grid: misma estructura 2 columnas que el grid real -->
                 <div class="row align-items-center row-cols-1 row-cols-md-2">
                     <div v-for="n in ($vuetify.display.xs ? 1: 2)" :key="n" class="col">
@@ -129,6 +130,17 @@ function resourceLink(resource) {
     width: 100%;
     aspect-ratio: 16 / 10;
     border-radius: 10px;
+}
+
+.hover-overlay {
+  aspect-ratio: 16 / 10;
+}
+
+.hover-overlay img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
 }
 
 @keyframes shimmer {
