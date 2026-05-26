@@ -181,29 +181,17 @@ export default defineNuxtConfig({
     "@nuxtjs/google-fonts",
     {
       families: {
-        "DM+Sans": {
-          wght: [400, 500, 600, 700],
-        },
-        Roboto: {
-          wght: [400, 500, 700],
-        },
-        "Plus+Jakarta+Sans": {
-          wght: [400, 500, 600, 700],
-        },
         Inter: {
           wght: [400, 500, 600, 700],
         },
-        Montserrat: {
-          wght: [400, 500, 600, 700],
-        },
-        Rubik: {
+        "DM+Sans": {
           wght: [400, 500, 600, 700],
         },
       },
       download: true,
       inject: true,
       preload: true,
-      display: 'optional',
+      display: 'swap',
     },
   ], "@pinia/nuxt", "dayjs-nuxt", "@nuxtjs/i18n", '@nuxtjs/sitemap', '@nuxtjs/robots', 'nuxt-schema-org'],
 
