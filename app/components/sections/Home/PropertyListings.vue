@@ -6,7 +6,7 @@
       <div class="pl__header">
         <p class="pl__title">{{ $t('propertyListings.title') }}</p>
         <a
-          href="https://app.residelia.com/explorer?utm_source=website&utm_content=listings_link"
+          href="https://app.residelia.com/explorer?source=residelia&utm_source=website&utm_content=listings_link"
           target="_blank"
           rel="noopener"
           class="pl__see-all"
