@@ -389,6 +389,17 @@ async function doSubmit() {
 
 onMounted(() => {
   clearForm();
+
+  // ── CAMPAÑA CHALLENGE (temporal) ── Eliminar tras la campaña ──────────────
+  // Autocompleta el mensaje cuando se accede con ?reason=challenge en la URL
+  if (route.query.reason === 'challenge') {
+    const challengeMessages: Record<string, string> = {
+      es: 'Me pongo en contacto para solicitar el challenge de valoraciones de mi cartera inmobiliaria con los datos del CG de Notariado. Me gustaría que el equipo de RESIDELIA evaluara el potencial de mejora en la precisión de los AVMs con datos de cierre. Quedo a disposición para cualquier detalle adicional que necesiten.',
+      en: 'I am reaching out to request the valuation challenge for my real estate portfolio using data from the General Council of Notaries. I would like the RESIDELIA team to evaluate the potential improvement in AVM accuracy using closing data. I am available to provide any additional details you may need.',
+    };
+    suspectData.message = challengeMessages[locale.value] ?? challengeMessages['es'];
+  }
+  // ── FIN CAMPAÑA CHALLENGE ─────────────────────────────────────────────────
 });
 </script>
 
