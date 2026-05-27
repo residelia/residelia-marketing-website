@@ -240,9 +240,12 @@ const CHALLENGE_MESSAGES: Record<string, string> = {
   es: 'Me pongo en contacto para solicitar el challenge de valoraciones de mi cartera inmobiliaria con los datos del CG de Notariado. Me gustaría que el equipo de RESIDELIA evaluara el potencial de mejora en la precisión de los AVMs con datos de cierre. Quedo a disposición para cualquier detalle adicional que necesiten.',
   en: 'I am reaching out to request the valuation challenge for my real estate portfolio using data from the General Council of Notaries. I would like the RESIDELIA team to evaluate the potential improvement in AVM accuracy using closing data. I am available to provide any additional details you may need.',
 };
-const challengeInitialMessage = route.query.reason === 'challenge'
-  ? (CHALLENGE_MESSAGES[locale.value] ?? CHALLENGE_MESSAGES['es'])
-  : '';
+function getChallengeMessage() {
+  if (props.reason === 'challenge') {
+    return CHALLENGE_MESSAGES[locale.value] ?? CHALLENGE_MESSAGES['es'];
+  }
+  return '';
+}
 // ── FIN CAMPAÑA CHALLENGE ─────────────────────────────────────────────────
 
 const suspectData = reactive({
@@ -253,10 +256,18 @@ const suspectData = reactive({
   phone: "",
   origin: "contactForm",
   reason: props.reason,
-  message: challengeInitialMessage, // ── CAMPAÑA CHALLENGE (temporal) ── Cambiar a "" al eliminar
+  message: getChallengeMessage(), // ── CAMPAÑA CHALLENGE (temporal) ── Cambiar a "" al eliminar
   acceptRGPD: false,
   acceptMarketing: false,
 });
+
+// ── CAMPAÑA CHALLENGE (temporal) ── watch de seguridad para hidratación SSR
+watch(() => props.reason, () => {
+  if (!suspectData.message) {
+    suspectData.message = getChallengeMessage();
+  }
+}, { immediate: true });
+// ── FIN CAMPAÑA CHALLENGE ─────────────────────────────────────────────────
 
 const formResult = reactive({
   sent: false,
@@ -321,7 +332,7 @@ function clearForm() {
   suspectData.phone = "";
   suspectData.origin = "contactForm";
   suspectData.reason = props.reason;
-  suspectData.message = challengeInitialMessage; // ── CAMPAÑA CHALLENGE (temporal) ── Cambiar a "" al eliminar
+  suspectData.message = getChallengeMessage(); // ── CAMPAÑA CHALLENGE (temporal) ── Cambiar a "" al eliminar
   suspectData.acceptRGPD = false;
   suspectData.acceptMarketing = false;
   formResult.sent = false;
