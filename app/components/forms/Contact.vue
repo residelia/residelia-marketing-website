@@ -26,10 +26,10 @@
             >
               <option
                 v-for="option in formData.inputs.find(x => x.name === 'type').options"
-                :key="option.type"
-                :value="option.type === 'default' ? '' : option.type"
-                :selected="option.type === 'default'"
-                :disabled="option.type === 'default'"
+                :key="option.value"
+                :value="option.value === 'default' ? '' : option.value"
+                :selected="option.value === 'default'"
+                :disabled="option.value === 'default'"
               >
                 {{ option.label.find(t => t._key === locale).value }}
               </option>
@@ -410,6 +410,13 @@ async function doSubmit() {
 }
 
 onMounted(() => {
+  // DEBUG TEMPORAL — borrar tras diagnóstico
+  console.log('[challenge-debug] props.reason:', props.reason);
+  console.log('[challenge-debug] opciones del selector:', JSON.stringify(
+    (props.formData as any)?.inputs?.find((x: any) => x.name === 'type')?.options?.map((o: any) => ({ value: o.value, type: o.type, _type: o._type }))
+  ));
+  console.log('[challenge-debug] suspectData.reason:', suspectData.reason);
+  // FIN DEBUG
   clearForm();
 });
 </script>
