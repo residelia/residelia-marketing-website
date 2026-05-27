@@ -262,10 +262,9 @@ const suspectData = reactive({
 });
 
 // ── CAMPAÑA CHALLENGE (temporal) ── watch de seguridad para hidratación SSR
-watch(() => props.reason, () => {
-  if (!suspectData.message) {
-    suspectData.message = getChallengeMessage();
-  }
+watch(() => props.reason, (reason) => {
+  if (reason) suspectData.reason = reason;
+  if (!suspectData.message) suspectData.message = getChallengeMessage();
 }, { immediate: true });
 // ── FIN CAMPAÑA CHALLENGE ─────────────────────────────────────────────────
 
@@ -410,13 +409,6 @@ async function doSubmit() {
 }
 
 onMounted(() => {
-  // DEBUG TEMPORAL — borrar tras diagnóstico
-  console.log('[challenge-debug] props.reason:', props.reason);
-  console.log('[challenge-debug] opciones del selector:', JSON.stringify(
-    (props.formData as any)?.inputs?.find((x: any) => x.name === 'type')?.options?.map((o: any) => ({ value: o.value, type: o.type, _type: o._type }))
-  ));
-  console.log('[challenge-debug] suspectData.reason:', suspectData.reason);
-  // FIN DEBUG
   clearForm();
 });
 </script>
