@@ -26,10 +26,10 @@
             >
               <option
                 v-for="option in formData.inputs.find(x => x.name === 'type').options"
-                :key="option.value"
-                :value="option.value === 'default' ? '' : option.value"
-                :selected="option.value === 'default'"
-                :disabled="option.value === 'default'"
+                :key="option.type"
+                :value="option.type === 'default' ? '' : option.type"
+                :selected="option.type === 'default'"
+                :disabled="option.type === 'default'"
               >
                 {{ option.label.find(t => t._key === locale).value }}
               </option>
