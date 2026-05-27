@@ -234,6 +234,17 @@ const props = defineProps<{
 // console.log(runtimeConfig.public.formWebhook);
 
 const { executeRecaptcha } = useGoogleRecaptcha();
+
+// ── CAMPAÑA CHALLENGE (temporal) ── Eliminar tras la campaña ──────────────
+const CHALLENGE_MESSAGES: Record<string, string> = {
+  es: 'Me pongo en contacto para solicitar el challenge de valoraciones de mi cartera inmobiliaria con los datos del CG de Notariado. Me gustaría que el equipo de RESIDELIA evaluara el potencial de mejora en la precisión de los AVMs con datos de cierre. Quedo a disposición para cualquier detalle adicional que necesiten.',
+  en: 'I am reaching out to request the valuation challenge for my real estate portfolio using data from the General Council of Notaries. I would like the RESIDELIA team to evaluate the potential improvement in AVM accuracy using closing data. I am available to provide any additional details you may need.',
+};
+const challengeInitialMessage = route.query.reason === 'challenge'
+  ? (CHALLENGE_MESSAGES[locale.value] ?? CHALLENGE_MESSAGES['es'])
+  : '';
+// ── FIN CAMPAÑA CHALLENGE ─────────────────────────────────────────────────
+
 const suspectData = reactive({
   firstName: "",
   lastName: "",
@@ -242,7 +253,7 @@ const suspectData = reactive({
   phone: "",
   origin: "contactForm",
   reason: props.reason,
-  message: "",
+  message: challengeInitialMessage, // ── CAMPAÑA CHALLENGE (temporal) ── Cambiar a "" al eliminar
   acceptRGPD: false,
   acceptMarketing: false,
 });
@@ -310,7 +321,7 @@ function clearForm() {
   suspectData.phone = "";
   suspectData.origin = "contactForm";
   suspectData.reason = props.reason;
-  suspectData.message = "";
+  suspectData.message = challengeInitialMessage; // ── CAMPAÑA CHALLENGE (temporal) ── Cambiar a "" al eliminar
   suspectData.acceptRGPD = false;
   suspectData.acceptMarketing = false;
   formResult.sent = false;
@@ -389,17 +400,6 @@ async function doSubmit() {
 
 onMounted(() => {
   clearForm();
-
-  // ── CAMPAÑA CHALLENGE (temporal) ── Eliminar tras la campaña ──────────────
-  // Autocompleta el mensaje cuando se accede con ?reason=challenge en la URL
-  if (route.query.reason === 'challenge') {
-    const challengeMessages: Record<string, string> = {
-      es: 'Me pongo en contacto para solicitar el challenge de valoraciones de mi cartera inmobiliaria con los datos del CG de Notariado. Me gustaría que el equipo de RESIDELIA evaluara el potencial de mejora en la precisión de los AVMs con datos de cierre. Quedo a disposición para cualquier detalle adicional que necesiten.',
-      en: 'I am reaching out to request the valuation challenge for my real estate portfolio using data from the General Council of Notaries. I would like the RESIDELIA team to evaluate the potential improvement in AVM accuracy using closing data. I am available to provide any additional details you may need.',
-    };
-    suspectData.message = challengeMessages[locale.value] ?? challengeMessages['es'];
-  }
-  // ── FIN CAMPAÑA CHALLENGE ─────────────────────────────────────────────────
 });
 </script>
 
