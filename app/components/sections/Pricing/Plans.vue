@@ -64,8 +64,8 @@
                                 <div class="price">
                                     <!-- Monthly/Yearly Price -->
                                     <div v-if="plan.noPrice" class="price">
-                                        <span v-if="plans.generalDiscount.generalDiscountApplied" class="discount color--grey">{{ showMonthly ? plan.monthlyPrice/(plans.generalDiscount.generalDiscount/100) : Math.round((plan.monthlyPrice/(plans.generalDiscount.generalDiscount/100))*(1-plan.yearlyDiscount/100)) }}</span>
-                                        <span class="color--black">{{ showMonthly ? plan.monthlyPrice : Math.round(plan.monthlyPrice*(1-plan.yearlyDiscount/100)) }}</span>
+                                        <span v-if="plans.generalDiscount.generalDiscountApplied" class="discount color--grey">{{ Math.round(totalPrice(plan, index, showMonthly) / (plans.generalDiscount.generalDiscount / 100)) }}</span>
+                                        <span class="color--black">{{ totalPrice(plan, index, showMonthly) }}</span>
                                         <sup class="s-9 validity color--grey">&nbsp;{{ plan.currency?.find(t => t._key === locale).value }}&nbsp;/&nbsp;{{ $t('monthlyPeriod') }}</sup>
                                         <p class="s-12 w-700 btn-txt text-center color--grey">{{ $t('pricePeriodDescription', (showMonthly ? 2 : 1)).toUpperCase() }}</p>
                                     </div>
@@ -80,6 +80,24 @@
                                 <NuxtLink v-if="plan.callToAction.linkType === 'external'" :to="plan.callToAction.externalUrl" class="pt-btn btn--theme btn r-04 hover--theme" external>{{ plan.callToAction.linkText.filter(l => l._key === locale.slice(0,2))[0]?.value }}</NuxtLink>
                             </div>
                             <!-- END TABLE HEADER -->
+                            <!-- CLOSINGS ADD-ON -->
+                            <div v-if="plan.closingsPrice && plan.noPrice" class="closings-addon-section">
+                                <div class="closings-addon-row">
+                                    <p class="s-11 w-500 color--grey text-uppercase ls-1 mb-2">{{ $t('addonLabel') }}</p>
+                                    <label :for="`closings-${index}`" class="closings-addon-label">
+                                        <input
+                                            :id="`closings-${index}`"
+                                            type="checkbox"
+                                            v-model="closingsSelected[index]"
+                                            class="closings-check"
+                                        />
+                                        <div>
+                                            <p class="s-12 w-600 mb-0 color--black">{{ $t('closingsAddonLabel') }}</p>
+                                            <!-- <p class="s-11 mb-0 color--grey">+{{ showMonthly ? plan.closingsPrice : plan.closingsYearlyPrice }} {{ plan.currency?.find(t => t._key === locale)?.value }}/{{ $t('monthlyPeriod') }}</p> -->
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
                             <!-- PRICING FEATURES -->
                             <div class="pricing-features color--black ico-10 mt-25 s-12">
                                 <PortableText :value="plan.includes.find(t => t._key === locale).value.content" :components="serializers"/>
@@ -109,9 +127,9 @@ import NumberedList from '../../elements/NumberedList.vue'
 import ListItemPricing from '../../elements/ListItemPricing.vue'
 import { PortableText } from '@portabletext/vue';
 
-const showMonthly = ref(true);
+const showMonthly = ref(false);
 const assets = ref(5);
-const yearly = ref(false);
+const yearly = ref(true);
 
 const starterInitialPrice = 0
 const minAssets = 5
@@ -147,6 +165,22 @@ const { locale } = useI18n()
 const props = defineProps<{
     plans?: Object
 }>();
+
+const closingsSelected = ref<boolean[]>([]);
+
+watch(() => (props.plans as any)?.pricingPlans, (plans) => {
+    if (plans) closingsSelected.value = (plans as any[]).map(() => true)
+}, { immediate: true })
+
+function totalPrice(plan: any, index: number, monthly: boolean): number {
+    const base = monthly
+        ? plan.monthlyPrice
+        : Math.round(plan.monthlyPrice * (1 - plan.yearlyDiscount / 100))
+    const closingsAddon = closingsSelected.value[index]
+        ? (monthly ? (plan.closingsPrice ?? 0) : (plan.closingsYearlyPrice ?? 0))
+        : 0
+    return base + closingsAddon
+}
 const serializers = {
     types: {
         code: Code,
@@ -204,5 +238,28 @@ function handleClick(eventName, buttonId) {
     line-height: 1rem;
     letter-spacing: -1px;
     color: #000;
+}
+.closings-addon-row {
+    margin-top: 15px;
+    padding: 10px 12px;
+    background: #f0f5ff;
+    border: 1px solid #d0e0ff;
+    border-radius: 8px;
+}
+.closings-addon-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    margin-bottom: 0;
+    width: 100%;
+}
+.closings-check {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    cursor: pointer;
+    margin-top: 3px;
+    accent-color: #1055B3;
 }
 </style>
