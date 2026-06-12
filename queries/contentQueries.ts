@@ -507,6 +507,7 @@ export const resourceQuery = groq`
       slug,
       type,
       layoutType,
+      formType,
       widgetLayout,
       coverColor,
       hasForm,

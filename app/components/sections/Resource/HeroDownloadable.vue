@@ -36,8 +36,15 @@
                     </ul>
                 </div>
 
-                <!-- RIGHT: form card (sticky) -->
-                <div v-if="resource.hasForm && formData?.[0]" class="resource-hero__form-col">
+                <!-- RIGHT: snippet de terceros -->
+                <div v-if="formType === 'snippet' && resource.snippetCode" class="resource-hero__form-col">
+                    <div class="resource-form-card">
+                        <div class="resource-form-card__inner lead-snippet-container" />
+                    </div>
+                </div>
+
+                <!-- RIGHT: formulario nativo -->
+                <div v-else-if="formType === 'native' && formData?.[0]" class="resource-hero__form-col">
                     <div class="resource-form-card">
                         <v-form @submit.prevent="doSubmit" class="resource-form-card__inner">
 
@@ -150,6 +157,29 @@ const { trackEvent, identifyUser } = useTracking()
 const { executeRecaptcha } = useGoogleRecaptcha()
 
 const resource = computed(() => props.data?.[0] ?? {})
+
+// formType explícito tiene prioridad; fallback a hasForm para recursos legacy sin formType
+const formType = computed(() => {
+    if (resource.value.formType) return resource.value.formType
+    if (resource.value.hasForm) return 'native'
+    return 'none'
+})
+
+// Inject third-party snippet script via useHead when snippetCode is set in Sanity.
+// v-html strips <script> tags, so we parse the snippet string and inject via Nuxt head.
+if (props.data?.[0]?.snippetCode) {
+    const code: string = props.data[0].snippetCode
+    const src = code.match(/src="([^"]+)"/)?.[1]
+    if (src) {
+        const attrs: Record<string, string | boolean> = { src, defer: true, tagPosition: 'bodyClose' }
+        const dataRegex = /(data-[a-zA-Z-]+)="([^"]+)"/g
+        let m
+        while ((m = dataRegex.exec(code)) !== null) {
+            attrs[m[1]] = m[2]
+        }
+        useHead({ script: [attrs as any] })
+    }
+}
 const t = (arr?: Array<{ _key: string; value: string }>) =>
     arr?.find(l => l._key === locale.value)?.value ?? ''
 
@@ -417,6 +447,41 @@ async function doSubmit() {
     display: flex;
     flex-direction: column;
     gap: 4px;
+}
+
+/* Estilos para el formulario inyectado por el snippet de terceros */
+.resource-form-card :deep(.lead-input) {
+    width: 100%;
+    height: auto;
+    padding: 10px 14px;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.38);
+    border-radius: 4px;
+    font-size: 0.875rem;
+    color: #20252a;
+    margin-bottom: 12px;
+    transition: border-color 0.15s;
+    display: block;
+    box-sizing: border-box;
+}
+.resource-form-card :deep(.lead-input:focus) {
+    outline: none;
+    border-color: #1680fb;
+    border-width: 2px;
+}
+.resource-form-card :deep(.lead-form-msg) {
+    font-size: 0.875rem;
+    margin-top: 8px;
+    padding: 10px 14px;
+    border-radius: 6px;
+}
+.resource-form-card :deep(.lead-form-msg.success) {
+    color: #16a175;
+    background: #f0fdf8;
+}
+.resource-form-card :deep(.lead-form-msg.error) {
+    color: #e73d3d;
+    background: #fff5f5;
 }
 
 /* Responsive */
