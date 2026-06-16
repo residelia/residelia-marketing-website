@@ -37,10 +37,9 @@
                 </div>
 
                 <!-- RIGHT: contenedor para el embed script de terceros -->
-                <div v-if="formType === 'snippet' && snippetConfig"
-                     class="resource-hero__form-col resource-form-card">
-                    <div v-once id="snippet-form-target"></div>
-                </div>
+                <div v-if="formType === 'snippet' && resource.snippetCode"
+                     class="resource-hero__form-col resource-form-card"
+                     v-html="snippetHtmlWithoutScripts" />
 
                 <!-- RIGHT: formulario nativo -->
                 <div v-else-if="formType === 'native' && formData?.[0]" class="resource-hero__form-col">
@@ -164,65 +163,26 @@ const formType = computed(() => {
     return 'none'
 })
 
-function parseSnippet(code: string) {
-    const src = code.match(/src="([^"]+)"/)?.[1]
-    if (!src) return null
-    const dataAttrs: Record<string, string> = {}
-    for (const match of code.matchAll(/data-([\w-]+)="([^"]*)"/g)) {
-        const [, name, value] = match
-        if (name) dataAttrs[name] = value ?? ''
-    }
-    const rawFields = dataAttrs['fields'] || 'email'
-    const fields = rawFields.split(',').map((f: string) => f.trim()).filter(Boolean)
-    if (!fields.includes('email')) fields.unshift('email')
-    dataAttrs['fields'] = fields.join(',')
-    dataAttrs['target'] = '#snippet-form-target'
-    return { src, dataAttrs }
-}
-
-const snippetConfig = computed(() =>
-    formType.value === 'snippet' && resource.value.snippetCode
-        ? parseSnippet(resource.value.snippetCode)
-        : null
+const snippetHtmlWithoutScripts = computed(() =>
+    (resource.value.snippetCode ?? '').replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
 )
 
-useHead(() => {
-    if (formType.value !== 'snippet' || !resource.value.snippetCode) return {}
-    const config = parseSnippet(resource.value.snippetCode)
-    if (!config) return {}
-    const attrs: Record<string, string | boolean> = { src: config.src, defer: true }
-    for (const [k, v] of Object.entries(config.dataAttrs)) {
-        attrs[`data-${k}`] = v
-    }
-    return { script: [attrs] }
-})
-
-// Registrar el callback lo antes posible (en setup, client-side) para que esté disponible
-// cuando el embed script complete su init async — antes de que onMounted haya corrido.
-// El nombre viene de data-captcha-callback del snippet; fallback al nombre configurado server-side.
-if (import.meta.client && formType.value === 'snippet') {
-    const callbackName = snippetConfig.value?.dataAttrs?.['captcha-callback'] ?? 'getRecaptchaToken'
-    ;(window as any)[callbackName] = async (): Promise<string> => {
-        try {
-            const { token } = await executeRecaptcha(RecaptchaAction.login)
-            console.log('[snippet] reCAPTCHA token:', token ? token.slice(0, 30) + '…' : 'NULL')
-            return token ?? ''
-        } catch (e) {
-            console.error('[snippet] reCAPTCHA error:', e)
-            return ''
-        }
-    }
-    console.log('[snippet] reCAPTCHA callback registered (setup):', callbackName)
-}
-
-const nuxtApp = useNuxtApp()
-const wasSSR = nuxtApp.isHydrating
-
 onMounted(() => {
-    if (formType.value !== 'snippet' || !snippetConfig.value) return
-    if (!wasSSR) {
-        window.location.reload()
+    if (formType.value !== 'snippet' || !resource.value.snippetCode) return
+
+    if ((window as any).ResideliaForms) {
+        (window as any).ResideliaForms.mount()
+        return
     }
+
+    const tmp = document.createElement('div')
+    tmp.innerHTML = resource.value.snippetCode
+    tmp.querySelectorAll('script').forEach(orig => {
+        const s = document.createElement('script')
+        Array.from(orig.attributes).forEach(attr => s.setAttribute(attr.name, attr.value))
+        if (!orig.src) s.textContent = orig.textContent ?? ''
+        document.head.appendChild(s)
+    })
 })
 const t = (arr?: Array<{ _key: string; value: string }>) =>
     arr?.find(l => l._key === locale.value)?.value ?? ''

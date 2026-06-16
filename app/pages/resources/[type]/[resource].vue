@@ -69,7 +69,7 @@ import { PortableText } from '@portabletext/vue';
 
 definePageMeta({
     bodyClass: 'navbar-dark scheme-residelia',
-    key: (route) => route.fullPath,
+    key: (route) => route.path,
 })
 defineI18nRoute({
     paths: {
