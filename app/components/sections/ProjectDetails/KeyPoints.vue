@@ -1,7 +1,7 @@
 <template>
     <template v-if="keyPoints">
     <hr class="divider" />
-    <section id="features-12" class="shape--bg shape--white-500 bg--fixed pt-100 features-section division mb-100">
+    <section id="features-12" class="shape--bg shape--gr-surface-100 bg--fixed pt-100 features-section division mb-100">
         <div class="container">
             <div class="row d-flex align-items-center">
                 <!-- TEXT BLOCK -->

@@ -1,5 +1,5 @@
 <template>
-    <section class="resource-hero resource-hero--downloadable">
+    <section class="resource-hero  resource-hero--downloadable">
         <div class="container">
 
             <div class="resource-hero__grid">
@@ -36,11 +36,10 @@
                     </ul>
                 </div>
 
-                <!-- RIGHT: snippet de terceros -->
-                <div v-if="formType === 'snippet' && resource.snippetCode" class="resource-hero__form-col">
-                    <div class="resource-form-card">
-                        <div class="resource-form-card__inner lead-snippet-container" />
-                    </div>
+                <!-- RIGHT: contenedor para el embed script de terceros -->
+                <div v-if="formType === 'snippet' && snippetConfig"
+                     class="resource-hero__form-col resource-form-card">
+                    <div v-once id="snippet-form-target"></div>
                 </div>
 
                 <!-- RIGHT: formulario nativo -->
@@ -165,21 +164,66 @@ const formType = computed(() => {
     return 'none'
 })
 
-// Inject third-party snippet script via useHead when snippetCode is set in Sanity.
-// v-html strips <script> tags, so we parse the snippet string and inject via Nuxt head.
-if (props.data?.[0]?.snippetCode) {
-    const code: string = props.data[0].snippetCode
+function parseSnippet(code: string) {
     const src = code.match(/src="([^"]+)"/)?.[1]
-    if (src) {
-        const attrs: Record<string, string | boolean> = { src, defer: true, tagPosition: 'bodyClose' }
-        const dataRegex = /(data-[a-zA-Z-]+)="([^"]+)"/g
-        let m
-        while ((m = dataRegex.exec(code)) !== null) {
-            attrs[m[1]] = m[2]
-        }
-        useHead({ script: [attrs as any] })
+    if (!src) return null
+    const dataAttrs: Record<string, string> = {}
+    for (const match of code.matchAll(/data-([\w-]+)="([^"]*)"/g)) {
+        const [, name, value] = match
+        if (name) dataAttrs[name] = value ?? ''
     }
+    const rawFields = dataAttrs['fields'] || 'email'
+    const fields = rawFields.split(',').map((f: string) => f.trim()).filter(Boolean)
+    if (!fields.includes('email')) fields.unshift('email')
+    dataAttrs['fields'] = fields.join(',')
+    dataAttrs['target'] = '#snippet-form-target'
+    return { src, dataAttrs }
 }
+
+const snippetConfig = computed(() =>
+    formType.value === 'snippet' && resource.value.snippetCode
+        ? parseSnippet(resource.value.snippetCode)
+        : null
+)
+
+useHead(() => {
+    if (formType.value !== 'snippet' || !resource.value.snippetCode) return {}
+    const config = parseSnippet(resource.value.snippetCode)
+    if (!config) return {}
+    const attrs: Record<string, string | boolean> = { src: config.src, defer: true }
+    for (const [k, v] of Object.entries(config.dataAttrs)) {
+        attrs[`data-${k}`] = v
+    }
+    return { script: [attrs] }
+})
+
+// Registrar el callback lo antes posible (en setup, client-side) para que esté disponible
+// cuando el embed script complete su init async — antes de que onMounted haya corrido.
+// El nombre viene de data-captcha-callback del snippet; fallback al nombre configurado server-side.
+if (import.meta.client && formType.value === 'snippet') {
+    const callbackName = snippetConfig.value?.dataAttrs?.['captcha-callback'] ?? 'getRecaptchaToken'
+    ;(window as any)[callbackName] = async (): Promise<string> => {
+        try {
+            const { token } = await executeRecaptcha(RecaptchaAction.login)
+            console.log('[snippet] reCAPTCHA token:', token ? token.slice(0, 30) + '…' : 'NULL')
+            return token ?? ''
+        } catch (e) {
+            console.error('[snippet] reCAPTCHA error:', e)
+            return ''
+        }
+    }
+    console.log('[snippet] reCAPTCHA callback registered (setup):', callbackName)
+}
+
+const nuxtApp = useNuxtApp()
+const wasSSR = nuxtApp.isHydrating
+
+onMounted(() => {
+    if (formType.value !== 'snippet' || !snippetConfig.value) return
+    if (!wasSSR) {
+        window.location.reload()
+    }
+})
 const t = (arr?: Array<{ _key: string; value: string }>) =>
     arr?.find(l => l._key === locale.value)?.value ?? ''
 

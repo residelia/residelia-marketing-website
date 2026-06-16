@@ -135,19 +135,19 @@ function resourceLink(resource) {
 
 .skeleton-image {
     width: 100%;
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 16 / 9;
     border-radius: 10px;
 }
 
 .hover-overlay {
-  aspect-ratio: 16 / 10;
+    aspect-ratio: 16 / 9;
 }
 
 .hover-overlay img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
 }
 
 @keyframes shimmer {

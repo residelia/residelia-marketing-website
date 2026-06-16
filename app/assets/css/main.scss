@@ -551,6 +551,23 @@ section,
 .bg--secondary-400 {
     background-color: #D44C00;
 }
+/* Marketing palette — crudo (primary-mkt) & navy (secondary-mkt) */
+.bg--primary-mkt    { background-color: #F2EFE8; }
+.bg--primary-mkt-50 { background-color: #FDFCFA; }
+.bg--primary-mkt-100{ background-color: #F8F5F0; }
+.bg--primary-mkt-200{ background-color: #F2EFE8; }
+.bg--primary-mkt-300{ background-color: #E0DDD6; }
+.bg--primary-mkt-400{ background-color: #C9C6BF; }
+.bg--primary-mkt-gradient { background: linear-gradient(135deg, #FDFCFA 0%, #E0DDD6 100%); }
+
+.bg--secondary-mkt    { background-color: #0D1E33; }
+.bg--secondary-mkt-50 { background-color: #E6EBF0; }
+.bg--secondary-mkt-100{ background-color: #8A9BAD; }
+.bg--secondary-mkt-200{ background-color: #0D1E33; }
+.bg--secondary-mkt-300{ background-color: #0A1828; }
+.bg--secondary-mkt-400{ background-color: #06101C; }
+.bg--secondary-mkt-gradient { background: linear-gradient(135deg, #1A3A5C 0%, #06101C 100%); }
+
 .bg--surface {
     background-color: #FFFFFF;
 }
@@ -986,6 +1003,12 @@ section,
 }
 .shape--violet-100:after {
     background-color: #f7e4f1;
+}
+.shape--primary-mkt-200:after {
+    background-color: #F2EFE8;
+}
+.shape--secondary-mkt-200:after {
+    background-color: #0D1E33;
 }
 .shape--gr-ghost:after {
     background-image: linear-gradient(180deg, rgba(247, 248, 249, 0.8) 50%, rgba(247, 248, 249, 0.05) 100%);
