@@ -1,7 +1,7 @@
 <template>
     <section v-if="whyItMatters" id="lnk-why-it-matters" class="pt-100 ws-wrapper content-section">
         <div class="container">
-            <div class="bc-1-wrapper bg--white-400 bg--fixed r-16">
+            <div class="bc-1-wrapper bg--surface-100 bg--fixed r-16" >
                 <div class="section-overlay">
                     <div class="row d-flex align-items-center">
                         <!-- TEXT BLOCK -->

@@ -1,5 +1,5 @@
 <template>
-    <section class="resource-hero resource-hero--downloadable">
+    <section class="resource-hero  resource-hero--downloadable">
         <div class="container">
 
             <div class="resource-hero__grid">
@@ -36,8 +36,14 @@
                     </ul>
                 </div>
 
-                <!-- RIGHT: form card (sticky) -->
-                <div v-if="resource.hasForm && formData?.[0]" class="resource-hero__form-col">
+                <!-- RIGHT: contenedor para el embed script de terceros -->
+                <div v-if="formType === 'snippet' && snippetConfig"
+                     class="resource-hero__form-col resource-form-card">
+                    <div v-once id="snippet-form-target"></div>
+                </div>
+
+                <!-- RIGHT: formulario nativo -->
+                <div v-else-if="formType === 'native' && formData?.[0]" class="resource-hero__form-col">
                     <div class="resource-form-card">
                         <v-form @submit.prevent="doSubmit" class="resource-form-card__inner">
 
@@ -150,6 +156,74 @@ const { trackEvent, identifyUser } = useTracking()
 const { executeRecaptcha } = useGoogleRecaptcha()
 
 const resource = computed(() => props.data?.[0] ?? {})
+
+// formType explícito tiene prioridad; fallback a hasForm para recursos legacy sin formType
+const formType = computed(() => {
+    if (resource.value.formType) return resource.value.formType
+    if (resource.value.hasForm) return 'native'
+    return 'none'
+})
+
+function parseSnippet(code: string) {
+    const src = code.match(/src="([^"]+)"/)?.[1]
+    if (!src) return null
+    const dataAttrs: Record<string, string> = {}
+    for (const match of code.matchAll(/data-([\w-]+)="([^"]*)"/g)) {
+        const [, name, value] = match
+        if (name) dataAttrs[name] = value ?? ''
+    }
+    const rawFields = dataAttrs['fields'] || 'email'
+    const fields = rawFields.split(',').map((f: string) => f.trim()).filter(Boolean)
+    if (!fields.includes('email')) fields.unshift('email')
+    dataAttrs['fields'] = fields.join(',')
+    dataAttrs['target'] = '#snippet-form-target'
+    return { src, dataAttrs }
+}
+
+const snippetConfig = computed(() =>
+    formType.value === 'snippet' && resource.value.snippetCode
+        ? parseSnippet(resource.value.snippetCode)
+        : null
+)
+
+useHead(() => {
+    if (formType.value !== 'snippet' || !resource.value.snippetCode) return {}
+    const config = parseSnippet(resource.value.snippetCode)
+    if (!config) return {}
+    const attrs: Record<string, string | boolean> = { src: config.src, defer: true }
+    for (const [k, v] of Object.entries(config.dataAttrs)) {
+        attrs[`data-${k}`] = v
+    }
+    return { script: [attrs] }
+})
+
+// Registrar el callback lo antes posible (en setup, client-side) para que esté disponible
+// cuando el embed script complete su init async — antes de que onMounted haya corrido.
+// El nombre viene de data-captcha-callback del snippet; fallback al nombre configurado server-side.
+if (import.meta.client && formType.value === 'snippet') {
+    const callbackName = snippetConfig.value?.dataAttrs?.['captcha-callback'] ?? 'getRecaptchaToken'
+    ;(window as any)[callbackName] = async (): Promise<string> => {
+        try {
+            const { token } = await executeRecaptcha(RecaptchaAction.login)
+            console.log('[snippet] reCAPTCHA token:', token ? token.slice(0, 30) + '…' : 'NULL')
+            return token ?? ''
+        } catch (e) {
+            console.error('[snippet] reCAPTCHA error:', e)
+            return ''
+        }
+    }
+    console.log('[snippet] reCAPTCHA callback registered (setup):', callbackName)
+}
+
+const nuxtApp = useNuxtApp()
+const wasSSR = nuxtApp.isHydrating
+
+onMounted(() => {
+    if (formType.value !== 'snippet' || !snippetConfig.value) return
+    if (!wasSSR) {
+        window.location.reload()
+    }
+})
 const t = (arr?: Array<{ _key: string; value: string }>) =>
     arr?.find(l => l._key === locale.value)?.value ?? ''
 
@@ -417,6 +491,41 @@ async function doSubmit() {
     display: flex;
     flex-direction: column;
     gap: 4px;
+}
+
+/* Estilos para el formulario inyectado por el snippet de terceros */
+.resource-form-card :deep(.lead-input) {
+    width: 100%;
+    height: auto;
+    padding: 10px 14px;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.38);
+    border-radius: 4px;
+    font-size: 0.875rem;
+    color: #20252a;
+    margin-bottom: 12px;
+    transition: border-color 0.15s;
+    display: block;
+    box-sizing: border-box;
+}
+.resource-form-card :deep(.lead-input:focus) {
+    outline: none;
+    border-color: #1680fb;
+    border-width: 2px;
+}
+.resource-form-card :deep(.lead-form-msg) {
+    font-size: 0.875rem;
+    margin-top: 8px;
+    padding: 10px 14px;
+    border-radius: 6px;
+}
+.resource-form-card :deep(.lead-form-msg.success) {
+    color: #16a175;
+    background: #f0fdf8;
+}
+.resource-form-card :deep(.lead-form-msg.error) {
+    color: #e73d3d;
+    background: #fff5f5;
 }
 
 /* Responsive */

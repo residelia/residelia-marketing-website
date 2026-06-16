@@ -96,6 +96,8 @@ const props = defineProps({
 })
 
 const { locale } = useI18n()
+const route = useRoute()
+const localePath = useLocalePath()
 
 const ITEMS_PER_PAGE = 6
 const currentPage = ref(1)
@@ -108,7 +110,12 @@ const paginatedResources = computed(() => {
 
 function resourceLink(resource) {
     const slugEntry = resource.slug.find(s => s._key === locale.value)
-    return slugEntry?.value?.current || '#'
+    const rawSlug = slugEntry?.value?.current || ''
+    // Extract the final path segment to build a correct localized URL via the router,
+    // avoiding breakage when the slug stored in Sanity is missing the /recursos/ prefix.
+    const resourceSlug = rawSlug.split('/').filter(Boolean).pop()
+    if (!resourceSlug) return '#'
+    return localePath({ name: 'resources-type-resource', params: { type: route.params.type, resource: resourceSlug } })
 }
 </script>
 
@@ -128,19 +135,19 @@ function resourceLink(resource) {
 
 .skeleton-image {
     width: 100%;
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 16 / 9;
     border-radius: 10px;
 }
 
 .hover-overlay {
-  aspect-ratio: 16 / 10;
+    aspect-ratio: 16 / 9;
 }
 
 .hover-overlay img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
 }
 
 @keyframes shimmer {
