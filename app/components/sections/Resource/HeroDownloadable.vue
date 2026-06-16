@@ -215,14 +215,42 @@ if (import.meta.client && formType.value === 'snippet') {
     console.log('[snippet] reCAPTCHA callback registered (setup):', callbackName)
 }
 
-const nuxtApp = useNuxtApp()
-const wasSSR = nuxtApp.isHydrating
-
-onMounted(() => {
+onMounted(async () => {
     if (formType.value !== 'snippet' || !snippetConfig.value) return
-    if (!wasSSR) {
-        window.location.reload()
-    }
+
+    // If the embed script already rendered the form (SSR + defer path), nothing to do
+    const target = document.getElementById('snippet-form-target')
+    if (target && target.children.length > 0) return
+
+    const { src, dataAttrs } = snippetConfig.value
+
+    // Remove any script with the same src injected by useHead — it ran without
+    // document.currentScript (dynamically injected) so the embed script bailed silently.
+    document.head.querySelector(`script[src="${src}"]`)?.remove()
+
+    // Build a fake <script> element with the correct data-* attributes.
+    // The embed script reads document.currentScript.dataset at the top of its IIFE;
+    // we temporarily shadow the prototype getter with this fake element.
+    const fakeScript = document.createElement('script')
+    Object.entries(dataAttrs).forEach(([k, v]) => {
+        fakeScript.setAttribute(`data-${k}`, String(v))
+    })
+
+    Object.defineProperty(document, 'currentScript', {
+        get: () => fakeScript,
+        configurable: true,
+    })
+
+    await new Promise<void>(resolve => {
+        const s = document.createElement('script')
+        s.src = src
+        s.onload = () => resolve()
+        s.onerror = () => resolve()
+        document.head.appendChild(s)
+    })
+
+    // Remove the own-property override so the prototype getter is restored
+    delete (document as any).currentScript
 })
 const t = (arr?: Array<{ _key: string; value: string }>) =>
     arr?.find(l => l._key === locale.value)?.value ?? ''
