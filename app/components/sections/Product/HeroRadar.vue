@@ -29,7 +29,13 @@
 
                 <!-- HERO FORM -->
                 <div class="col-md-6 col-lg-5">
-                    <div id="hero-8-form" class="r-10" v-if="formData?.[0]">
+                    <!-- NUEVO: formulario embebido (Supabase lead-capture) -->
+                    <div v-if="USE_EMBED_FORM" id="hero-8-form" class="r-10">
+                        <div class="residelia-form" data-key="07cabda6774449f09b9a0512a7227c0e"></div>
+                    </div>
+
+                    <!-- ANTIGUO: formulario Vuelidate + webhook (intacto, se conserva como fallback) -->
+                    <div v-else-if="formData?.[0]" id="hero-8-form" class="r-10">
                         <v-form @submit.prevent="doSubmit" class="row request-form">
 
                             <!-- EMAIL -->
@@ -210,6 +216,10 @@ import { formBlockQuery } from '../../../../queries/helperQueries'
 // SHORTCUT: cambiar a false cuando la Supabase Edge Function esté disponible
 const SKIP_USER_CHECK = true
 
+// true  → formulario embebido (Supabase lead-capture)
+// false → formulario antiguo (Vuelidate + webhook)
+const USE_EMBED_FORM = true
+
 const runtimeConfig = useRuntimeConfig()
 const route = useRoute()
 const { locale } = useI18n()
@@ -222,6 +232,17 @@ const props = defineProps<{
     textColor: String
     stats: Object
 }>()
+
+// window.getRecaptchaToken lo provee globalmente el plugin recaptchaCallback.client.ts.
+// Aquí solo inyectamos el script del formulario embebido (lead-capture).
+if (USE_EMBED_FORM) {
+    onMounted(() => {
+        const s = document.createElement('script')
+        s.src = 'https://hobnwngwvxiwcjgfhixb.supabase.co/functions/v1/lead-capture/embed.js'
+        s.defer = true
+        document.head.appendChild(s)
+    })
+}
 
 // Cargar formBlock tipo 'radar' desde Sanity
 // Usamos useAsyncData (en lugar de await useSanityData directo) para que Nuxt maneje
