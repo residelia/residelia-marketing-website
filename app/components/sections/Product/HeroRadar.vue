@@ -31,7 +31,18 @@
                 <div class="col-md-6 col-lg-5">
                     <!-- NUEVO: formulario embebido (Supabase lead-capture) -->
                     <div v-if="USE_EMBED_FORM" id="hero-8-form" class="r-10">
-                        <div class="residelia-form" data-key="07cabda6774449f09b9a0512a7227c0e"></div>
+                        <div class="residelia-form"
+                            data-key="07cabda6774449f09b9a0512a7227c0e"
+                            data-height="430"
+                            style="min-height:430px">
+                            <!-- skeleton: embed.js lo elimina al cargar el formulario -->
+                            <div class="residelia-form-skeleton" aria-hidden="true">
+                                <span class="rfs-bar"></span>
+                                <span class="rfs-bar"></span>
+                                <span class="rfs-bar"></span>
+                                <span class="rfs-bar rfs-bar--btn"></span>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- ANTIGUO: formulario Vuelidate + webhook (intacto, se conserva como fallback) -->

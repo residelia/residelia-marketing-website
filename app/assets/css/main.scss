@@ -10952,3 +10952,41 @@ body.theme--dark {
 
 @import './hero-search';
 
+/* ── Skeleton del formulario embebido (lead-capture / embed.js) ──────────
+   Global (unscoped) a propósito: en las páginas de recursos el form se pinta
+   con v-html / embed.js, fuera del alcance de los <style scoped>. */
+@keyframes residelia-form-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+.residelia-form {
+    /* respaldo por si el instance no trae min-height inline; el inline (data-height) lo sobreescribe */
+    min-height: 430px;
+}
+
+.residelia-form-skeleton {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 2rem;
+    width: 100%;
+    height: 100%;
+    min-height: inherit;
+
+    .rfs-bar {
+        display: block;
+        width: 100%;
+        height: 48px;
+        border-radius: 8px;
+        background: #E5E9EE;
+        animation: residelia-form-pulse 1.4s ease-in-out infinite;
+    }
+
+    .rfs-bar--btn {
+        margin-top: auto;
+        height: 52px;
+        border-radius: 10px;
+    }
+}
+

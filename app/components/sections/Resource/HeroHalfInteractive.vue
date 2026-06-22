@@ -59,6 +59,7 @@ const htmlWithoutScripts = computed(() =>
 
 onMounted(() => {
     if (!resource.value.snippetCode) return
+    injectEmbedSkeleton(widgetRoot.value)
     const tmp = document.createElement('div')
     tmp.innerHTML = resource.value.snippetCode
     tmp.querySelectorAll('script').forEach(orig => {
