@@ -38,6 +38,7 @@
 
                 <!-- RIGHT: contenedor para el embed script de terceros -->
                 <div v-if="formType === 'snippet' && resource.snippetCode"
+                     ref="widgetRoot"
                      class="resource-hero__form-col resource-form-card"
                      v-html="snippetHtmlWithoutScripts" />
 
@@ -167,8 +168,12 @@ const snippetHtmlWithoutScripts = computed(() =>
     (resource.value.snippetCode ?? '').replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
 )
 
+const widgetRoot = ref<HTMLElement | null>(null)
+
 onMounted(() => {
     if (formType.value !== 'snippet' || !resource.value.snippetCode) return
+
+    injectEmbedSkeleton(widgetRoot.value)
 
     if ((window as any).ResideliaForms) {
         (window as any).ResideliaForms.mount()
