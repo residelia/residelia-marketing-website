@@ -54,19 +54,6 @@
 import { useMainStore } from '../../../../stores/mainStore';
 import { resourceQuery } from '../../../../queries/contentQueries'
 
-import Code from '~/components/elements/Code.vue';
-import Table from '~/components/elements/Table.vue'
-import Callout from '~/components/elements/Callout.vue'
-import BlockQuote from '~/components/elements/BlockQuote.vue'
-import Link from '~/components/elements/Link.vue'
-import InternalLink from '~/components/elements/InternalLink.vue'
-import SeoImage from '~/components/elements/SeoImage.vue'
-import VideoImage from '~/components/elements/VideoImage.vue'
-import List from '~/components/elements/List.vue'
-import NumberedList from '~/components/elements/NumberedList.vue'
-import ListItem from '~/components/elements/ListItem.vue'
-import { PortableText } from '@portabletext/vue';
-
 definePageMeta({
     bodyClass: 'navbar-dark scheme-residelia',
     key: (route) => route.path,
@@ -90,33 +77,7 @@ const data = await useSanityData({
     }
 })
 
-const serializers = {
-    types: {
-        code: Code,
-        callout: Callout,
-        seoImage: SeoImage,
-        video: VideoImage,
-        table: Table,
-    },
-    list: {
-        bullet: List,
-        number: NumberedList,
-    },
-    listItem: {
-        bullet: ListItem,
-        number: ListItem
-    },
-    block: {
-        'blockquote': (_, { slots }) => h('blockquote', { class: 'blockquote w-300' }, slots.default?.()),
-    },
-    marks: {
-        'externalLink': Link,
-        'internalLink': InternalLink,
-        'strike-through': (_, { slots }) => h('s', { }, slots.default?.()),
-        'keyboard': (_, { slots }) => h('kbd', { }, slots.default?.()),
-        'highlight': (_, { slots }) => h('mark', { }, slots.default?.()),
-    }
-}
+const serializers = useRichTextSerializers()
 
 // Determina el layout del hero con fallback para recursos sin layoutType
 const layoutType = computed(() => {
