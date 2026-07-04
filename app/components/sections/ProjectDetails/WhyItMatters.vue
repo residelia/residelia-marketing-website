@@ -45,8 +45,6 @@
 
 <script setup lang="ts">
 import { PortableText } from '@portabletext/vue'
-import Link from '~/components/elements/Link.vue'
-import InternalLink from '~/components/elements/InternalLink.vue'
 
 const { locale } = useI18n()
 
@@ -65,12 +63,5 @@ defineProps<{
 const t = (arr?: Array<{ _key: string; value: string }>) =>
     arr?.find(l => l._key === locale.value)?.value ?? ''
 
-const serializers = {
-    marks: {
-        externalLink: Link,
-        internalLink: InternalLink,
-        'strike-through': (_: any, { slots }: any) => h('s', {}, slots.default?.()),
-        highlight: (_: any, { slots }: any) => h('mark', {}, slots.default?.()),
-    },
-}
+const serializers = useRichTextSerializers()
 </script>
