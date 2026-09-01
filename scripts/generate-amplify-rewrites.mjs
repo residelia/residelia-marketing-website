@@ -84,7 +84,7 @@ const rules = [
     .filter(route => !routes.includes(route))
     .map(route => ({
       source: route,
-      target: '/200.html',
+      target: '/index.html',
       status: '200',
     })),
   // Regla explícita para la raíz (findIndexHtmlRoutes no la detecta al ser el dir raíz)
