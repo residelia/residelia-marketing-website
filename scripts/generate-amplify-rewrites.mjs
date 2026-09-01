@@ -50,6 +50,16 @@ function findIndexHtmlRoutes(dir, base = '') {
 const routes = findIndexHtmlRoutes(staticDir)
 console.log(`📄 ${routes.length} rutas encontradas en ${staticDir}`)
 
+// Fallback temporal para rutas que funcionan en navegación cliente pero cuyo
+// HTML no se haya generado. Si el prerender vuelve a producir la ruta, se usa
+// automáticamente su index.html y este fallback deja de generarse.
+const clientRenderedFallbackRoutes = [
+  '/estate-leads',
+  '/estate-leads/',
+  '/en/estate-leads',
+  '/en/estate-leads/',
+]
+
 // 301 redirects: blog -> blog.residelia.com (deben ir PRIMERO)
 const blogRedirects = [
   { source: '/blog',        target: 'https://blog.residelia.com/',       status: '301' },
@@ -70,6 +80,13 @@ const universityRedirects = [
 const rules = [
   ...blogRedirects,
   ...universityRedirects,
+  ...clientRenderedFallbackRoutes
+    .filter(route => !routes.includes(route))
+    .map(route => ({
+      source: route,
+      target: '/200.html',
+      status: '200',
+    })),
   // Regla explícita para la raíz (findIndexHtmlRoutes no la detecta al ser el dir raíz)
   { source: '/', target: '/index.html', status: '200' },
   ...routes.map(route => ({
