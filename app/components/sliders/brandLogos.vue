@@ -4,7 +4,6 @@
             <swiper
                 :modules="[Autoplay, Grid, Mousewheel, Scrollbar, Thumbs]"
                 :slides-per-view="2"
-                :loop="true"
                 :grid="{ rows: 2, fill: 'row' }"
                 :space-between="60"
                 :autoplay="{ delay: 3000, disableOnInteraction: false }"
