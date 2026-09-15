@@ -20,9 +20,18 @@ export default async function ({ query, params = {}, livePreview = false }: { qu
   // Stable cache key so useAsyncData can deduplicate and serialize into page payload
   const key = `sanity:${query}:${JSON.stringify(params)}`;
 
-  const { data, error } = await useAsyncData(key, () =>
+  const { data, error, status, execute } = await useAsyncData(key, () =>
     client.fetch(query, params)
   );
+
+  // On a client-side route change (e.g. the i18n locale redirect from `/`
+  // to `/en`), Nuxt can defer this fetch to the component's onBeforeMount
+  // hook instead of running it inline, so `await useAsyncData(...)` above
+  // resolves before the request has even started (status stays "idle").
+  // Force it here so callers never get back `undefined` mid-navigation.
+  if (status.value === 'idle') {
+    await execute();
+  }
 
   if (error.value) {
     throw new Error((error.value as Error)?.message || 'Sanity fetch error');

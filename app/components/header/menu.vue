@@ -29,9 +29,9 @@
                                     <HeaderComplexMenuItem v-for="item in mainStore.menu.products?.menu?.slice(Math.ceil(mainStore.menu.products.menu.length/2))" name="product" :slug="item.link?.slug" :icon="item.libIcon" icon-color="black" :title="item.title" :description="item.description" :binder="item._id" :soon="item?.soon" :next="item.next"/>
                                 </ul>
                                 </div>
-                                <hr v-if="!$vuetify.display.xs" class="divider" />
-                                <div v-if="!$vuetify.display.xs" class="row my-2">
-                                    <div v-if="!$vuetify.display.xs" class="d-flex flex-row justify-content-between align-items-center">
+                                <hr class="divider hide-below-xs" />
+                                <div class="row my-2 hide-below-xs">
+                                    <div class="d-flex flex-row justify-content-between align-items-center">
                                         <h6 class="s-16 w-600 align-self-center pt-3">{{ mainStore.menu.products?.action.link.linkText.find(l => l._key === locale).value }}</h6>
                                         <NuxtLink class="btn r-04 btn--theme hover--theme last-link" :to="$localePath((mainStore.menu.products?.action.link.slug.find(l => l._key === locale)?.value?.current ?? '') + (mainStore.menu.products?.action.link?.queryString ?? ''))" :target="mainStore.menu.products?.action.link?.newWindow ? '_blank' : '_self'" v-follow >{{ mainStore.menu.products?.action.link.actionText.find(l => l._key === locale).value }}</NuxtLink>
                                     </div>
@@ -254,3 +254,18 @@ watch(() => route.path, () => {
 });
 
 </script>
+
+<style scoped>
+/*
+  CSS-only equivalent of `$vuetify.display.xs` (< 600px) for this block.
+  Using v-if with a client-computed breakpoint removes/adds DOM nodes
+  differently between SSR (no real viewport) and client hydration,
+  causing hydration mismatches on every load. A pure media query keeps
+  server and client markup identical while still hiding on mobile.
+*/
+@media (max-width: 599.98px) {
+    .hide-below-xs {
+        display: none !important;
+    }
+}
+</style>
